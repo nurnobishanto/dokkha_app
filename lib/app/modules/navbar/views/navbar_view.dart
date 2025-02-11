@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../config/theme/light_theme_colors.dart';
 import '../controllers/navbar_controller.dart';
 
 class NavbarView extends GetView<NavbarController> {
@@ -19,7 +20,7 @@ class NavbarView extends GetView<NavbarController> {
             currentIndex: controller.currentIndex,
             onTap: (index) => controller.changeIndex(index), // Call method to update index
             items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home", backgroundColor: LightThemeColors.primaryColor),
               BottomNavigationBarItem(icon: Icon(Icons.food_bank_outlined), label: "Q Bank"),
               BottomNavigationBarItem(icon: Icon(Icons.access_time), label: "Contest"),
               BottomNavigationBarItem(icon: Icon(Icons.map), label: "Blog"),

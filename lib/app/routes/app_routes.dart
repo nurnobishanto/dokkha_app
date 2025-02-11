@@ -10,6 +10,11 @@ abstract class Routes {
   static const CONTEST = _Paths.CONTEST;
   static const BLOG = _Paths.BLOG;
   static const PROFILE = _Paths.PROFILE;
+  static var MOCK_TEST = _Paths.MOCK_TEST;
+  static const AJKER_PORIKKHA = _Paths.AJKER_PORIKKHA;
+  static const JOBS_UPDATE = _Paths.JOBS_UPDATE;
+  static const AJKER_BISSHO = _Paths.AJKER_BISSHO;
+  static const NOTICE_BOARD = _Paths.NOTICE_BOARD;
 }
 
 abstract class _Paths {
@@ -22,4 +27,9 @@ abstract class _Paths {
   static const CONTEST = '/contest';
   static const BLOG = '/blog';
   static const PROFILE = '/profile';
+  static const MOCK_TEST = '/mock-test';
+  static const AJKER_PORIKKHA = '/ajker-porikkha';
+  static const JOBS_UPDATE = '/jobs-update';
+  static const AJKER_BISSHO = '/ajker-bissho';
+  static const NOTICE_BOARD = '/notice-board';
 }

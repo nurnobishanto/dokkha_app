@@ -1,10 +1,10 @@
-import 'package:dokkha/app/modules/blog/views/blog_view.dart';
-import 'package:dokkha/app/modules/contest/views/contest_view.dart';
-import 'package:dokkha/app/modules/home/views/home_view.dart';
-import 'package:dokkha/app/modules/profile/views/profile_view.dart';
-import 'package:dokkha/app/modules/question_bank/views/question_bank_view.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import '../../nab_bar_views/blog/views/blog_view.dart';
+import '../../nab_bar_views/contest/views/contest_view.dart';
+import '../../nab_bar_views/home/views/home_view.dart';
+import '../../nab_bar_views/profile/views/profile_view.dart';
+import '../../nab_bar_views/question_bank/views/question_bank_view.dart';
 
 class NavbarController extends GetxController {
   int currentIndex = 0; // Not using Rx because GetBuilder is used

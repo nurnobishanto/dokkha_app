@@ -5,7 +5,8 @@ import 'package:flutter/cupertino.dart';
 class LightThemeColors
 {
   //dark swatch
-  static const Color primaryColor = Color(0xFF40A76A);
+  static const Color primary = Color(0xFF40A76A);
+  static const Color primaryColor = Color(0xFF62BB46);
   static const Color accentColor = Color(0xFFD9EDE1);
 
   //APPBAR

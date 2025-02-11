@@ -1,3 +1,4 @@
+import 'package:dokkha/config/constants/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/splash_controller.dart';
@@ -17,7 +18,7 @@ class SplashView extends StatelessWidget {
           builder: (_) => SizedBox(
             height: size.height / 5,
             width: size.width / 1.7,
-            child: Image.asset(Utils.getImagePath("app_icon")),
+            child: Image.asset(Utils.getImagePath('')),
           ),
         ),
       ),

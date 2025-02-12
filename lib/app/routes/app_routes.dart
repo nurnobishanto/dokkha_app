@@ -15,6 +15,7 @@ abstract class Routes {
   static const JOBS_UPDATE = _Paths.JOBS_UPDATE;
   static const AJKER_BISSHO = _Paths.AJKER_BISSHO;
   static const NOTICE_BOARD = _Paths.NOTICE_BOARD;
+  static const SIGNIN = _Paths.SIGNIN;
 }
 
 abstract class _Paths {
@@ -32,4 +33,5 @@ abstract class _Paths {
   static const JOBS_UPDATE = '/jobs-update';
   static const AJKER_BISSHO = '/ajker-bissho';
   static const NOTICE_BOARD = '/notice-board';
+  static const SIGNIN = '/signin';
 }

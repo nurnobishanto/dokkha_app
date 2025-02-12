@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/auth_views/signin/bindings/signin_binding.dart';
+import '../modules/auth_views/signin/views/signin_view.dart';
 import '../modules/grid_views/ajker_bissho/bindings/ajker_bissho_binding.dart';
 import '../modules/grid_views/ajker_bissho/views/ajker_bissho_view.dart';
 import '../modules/grid_views/ajker_porikkha/bindings/ajker_porikkha_binding.dart';
@@ -92,6 +94,11 @@ class AppPages {
       name: _Paths.NOTICE_BOARD,
       page: () => const NoticeBoardView(),
       binding: NoticeBoardBinding(),
+    ),
+    GetPage(
+      name: _Paths.SIGNIN,
+      page: () => const SignInView(),
+      binding: SigninBinding(),
     ),
   ];
 }

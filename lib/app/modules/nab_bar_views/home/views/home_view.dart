@@ -2,6 +2,7 @@ import 'package:dokkha/config/extensions/widget_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../../../config/constants/app_images.dart';
 import '../../../../../utils/utils.dart';
 import '../controllers/home_controller.dart';
 
@@ -12,7 +13,7 @@ class HomeView extends GetView<HomeController> {
     return Scaffold(
       drawer: const Drawer(),
       appBar: AppBar(
-        title: Image.asset(Utils.getImagePath('app_icon')),
+        title: Image.asset(AssetImagePaths.appIcon),
         actions: [
           IconButton(
             icon: const Icon(Icons.search),

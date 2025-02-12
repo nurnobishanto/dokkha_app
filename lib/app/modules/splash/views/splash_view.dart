@@ -16,10 +16,9 @@ class SplashView extends StatelessWidget {
         child: GetBuilder<SplashController>(
           init: SplashController(),
           builder: (_) => SizedBox(
-            height: size.height / 5,
-            width: size.width / 1.7,
-            child: Image.asset(Utils.getImagePath('')),
-          ),
+              height: size.height / 5,
+              width: size.width / 1.7,
+              child: Image.asset(AssetImagePaths.appIcon)),
         ),
       ),
     );

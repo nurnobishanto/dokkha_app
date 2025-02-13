@@ -2,6 +2,10 @@ import 'package:get/get.dart';
 
 import '../modules/auth_views/signin/bindings/signin_binding.dart';
 import '../modules/auth_views/signin/views/signin_view.dart';
+import '../modules/auth_views/terms_condition/bindings/terms_condition_binding.dart';
+import '../modules/auth_views/terms_condition/views/terms_condition_view.dart';
+import '../modules/auth_views/verify_otp/bindings/verify_otp_binding.dart';
+import '../modules/auth_views/verify_otp/views/verify_otp_view.dart';
 import '../modules/grid_views/ajker_bissho/bindings/ajker_bissho_binding.dart';
 import '../modules/grid_views/ajker_bissho/views/ajker_bissho_view.dart';
 import '../modules/grid_views/ajker_porikkha/bindings/ajker_porikkha_binding.dart';
@@ -26,6 +30,7 @@ import '../modules/navbar/bindings/navbar_binding.dart';
 import '../modules/navbar/views/navbar_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
+import '../views/views/onboarding_view.dart';
 
 part 'app_routes.dart';
 
@@ -98,7 +103,21 @@ class AppPages {
     GetPage(
       name: _Paths.SIGNIN,
       page: () => const SignInView(),
-      binding: SigninBinding(),
+      binding: SignInBinding(),
+    ),
+    GetPage(
+      name: _Paths.TERMS_CONDITION,
+      page: () => const TermsConditionView(),
+      binding: TermsConditionBinding(),
+    ),
+    GetPage(
+      name: _Paths.ONBOARDING,
+      page: () => const OnboardingView(),
+    ),
+    GetPage(
+      name: _Paths.VERIFY_OTP,
+      page: () =>  VerifyOtpView(),
+      binding: VerifyOtpBinding(),
     ),
   ];
 }

@@ -8,5 +8,6 @@ class AssetImagePaths {
 
   /// Specific image path constants
   static String get appIcon => getFullPath('app_icon');
-  static String get newImage => getFullPath('new_image');
+  static String get otpImg => getFullPath('otp');
+  static String get seamlessImg => getFullPath('seamless_pattern');
 }

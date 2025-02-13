@@ -16,6 +16,9 @@ abstract class Routes {
   static const AJKER_BISSHO = _Paths.AJKER_BISSHO;
   static const NOTICE_BOARD = _Paths.NOTICE_BOARD;
   static const SIGNIN = _Paths.SIGNIN;
+  static const TERMS_CONDITION = _Paths.TERMS_CONDITION;
+  static const ONBOARDING = _Paths.ONBOARDING;
+  static const VERIFY_OTP =_Paths.VERIFY_OTP;
 }
 
 abstract class _Paths {
@@ -23,7 +26,6 @@ abstract class _Paths {
   static const HOME = '/home';
   static const SPLASH = '/splash';
   static const NAVBAR = '/navbar';
-
   static const QUESTION_BANK = '/question-bank';
   static const CONTEST = '/contest';
   static const BLOG = '/blog';
@@ -34,4 +36,7 @@ abstract class _Paths {
   static const AJKER_BISSHO = '/ajker-bissho';
   static const NOTICE_BOARD = '/notice-board';
   static const SIGNIN = '/signin';
+  static const TERMS_CONDITION = '/terms-condition';
+  static const ONBOARDING = '/on-boarding';
+  static const VERIFY_OTP = '/verify-otp';
 }

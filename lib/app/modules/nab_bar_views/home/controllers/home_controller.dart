@@ -1,12 +1,5 @@
-import 'package:dokkha/app/modules/grid_views/ajker_bissho/views/ajker_bissho_view.dart';
-import 'package:dokkha/app/modules/grid_views/ajker_porikkha/views/ajker_porikkha_view.dart';
-import 'package:dokkha/app/modules/grid_views/jobs_update/views/jobs_update_view.dart';
-import 'package:dokkha/app/modules/grid_views/mock_test/views/mock_test_view.dart';
-import 'package:dokkha/app/modules/grid_views/notice_board/views/notice_board_view.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import '../../../../routes/app_pages.dart';
-import '../../question_bank/views/question_bank_view.dart';
 
 class HomeController extends GetxController {
   final List<String> gridViewTitle = [

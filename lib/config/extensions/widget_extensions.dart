@@ -400,7 +400,6 @@ Decoration boxDecorationRoundedWithShadow(
 
 
 /// OnTap Extension for Widgets
-
 extension OnTapExtension on Widget {
   Widget onTap(VoidCallback onTap, {BorderRadius? borderRadius}) {
     return GestureDetector(

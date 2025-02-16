@@ -1,4 +1,8 @@
+import 'package:dokkha/app/components/custom_action_button.dart';
 import 'package:dokkha/config/constants/app_images.dart';
+import 'package:dokkha/config/extensions/common_extension.dart';
+import 'package:dokkha/styles/text_style.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -6,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 
 import '../../../../../config/theme/light_theme_colors.dart';
+import '../../../../routes/app_pages.dart';
 import '../controllers/verify_otp_controller.dart';
 
 class VerifyOtpView extends GetView<VerifyOtpController> {
@@ -21,37 +26,66 @@ class VerifyOtpView extends GetView<VerifyOtpController> {
             fit: BoxFit.cover,
           ),
         ),
-        child: ColorFiltered(
-          colorFilter: ColorFilter.mode(
-            Colors.black.withOpacity(0.3), // Adjust opacity
-            BlendMode.darken, // Blend mode for effect
-          ),
-          child: Column(
-            children: [
-              Image.asset(AssetImagePaths.otpImg, scale: 1.5),
-              const Center(
-                child: Text(
-                  "AppConstant.checkYourPhoneNumber.tr",
+        child: Column(
+          children: [
+            120.h.height,
+            Image.asset(AssetImagePaths.otpImg, scale: 1.9),
+            Center(
+              child: Text(
+                "আপনার এই $phoneNumber ফোন নম্বর এ ৬ ডিজিটের OTP পাঠানো ভেরিফাই করুন",
+                textAlign: TextAlign.center,
+              ),
+            ),
+            10.h.height,
+            Pinput(
+              length: 6,
+              defaultPinTheme: _myOTPTheme,
+              focusedPinTheme: _selectOTPTheme,
+              pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
+              showCursor: true,
+              onCompleted: (pin) {
+                // signInController.otp.value = pin;
+                // signUPController.otp.value = pin;
+              },
+              onChanged: (pin) {
+                debugPrint('Pin Changed: $pin');
+              },
+              // autofillHints: const [AutofillHints.oneTimeCode],
+            ),
+            10.h.height,
+            Center(
+              child: RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  text: "OTP পাচ্ছো না? ",
+                  style: const TextStyle(
+                    color: Colors.black,
+                  ),
+                  children: [
+                    TextSpan(
+                      text: "Resend OTP",
+                      style: AppTextStyles.custom(
+                        color: LightThemeColors.primaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          print("Resend OTP tapped!");
+                        },
+                    ),
+                  ],
                 ),
               ),
-              Pinput(
-                length: 6,
-                defaultPinTheme: _myOTPTheme,
-                focusedPinTheme: _selectOTPTheme,
-                pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
-                showCursor: true,
-                onCompleted: (pin) {
-                  // signInController.otp.value = pin;
-                  // signUPController.otp.value = pin;
-                },
-                onChanged: (pin) {
-                  debugPrint('Pin Changed: $pin');
-                },
-                // autofillHints: const [AutofillHints.oneTimeCode],
-              ),
-            ],
-          ).paddingAll(8.00.r),
-        ),
+            ),
+            50.h.height,
+            CustomActionButton(
+              text: "Verify",
+              onPressed: () {
+                Get.toNamed(Routes.HOME);
+              },
+            ),
+          ],
+        ).paddingAll(8.00.r),
       ),
     );
   }

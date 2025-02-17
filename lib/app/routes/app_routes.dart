@@ -18,7 +18,8 @@ abstract class Routes {
   static const SIGNIN = _Paths.SIGNIN;
   static const TERMS_CONDITION = _Paths.TERMS_CONDITION;
   static const ONBOARDING = _Paths.ONBOARDING;
-  static const VERIFY_OTP =_Paths.VERIFY_OTP;
+  static const VERIFY_OTP = _Paths.VERIFY_OTP;
+  static const FORGET_PASSWORD = _Paths.FORGET_PASSWORD;
 }
 
 abstract class _Paths {
@@ -39,4 +40,5 @@ abstract class _Paths {
   static const TERMS_CONDITION = '/terms-condition';
   static const ONBOARDING = '/on-boarding';
   static const VERIFY_OTP = '/verify-otp';
+  static const FORGET_PASSWORD = '/forget-password';
 }

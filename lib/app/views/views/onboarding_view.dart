@@ -21,7 +21,7 @@ class OnboardingView extends GetView {
           children: [
             Image.asset(AssetImagePaths.appIcon, scale: 8.0),
             const Text(
-              "শূন্য হাওয়ার শূন্য ভরিতে বুকখানি করি শুনো",
+              "এক টাকা দিয়ে লক্ষ্যে পৌঁছান",
               style: AppTextStyles.heading,
             ),
             Text(

@@ -1,6 +1,9 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dokkha/app/components/custom_drawer.dart';
 import 'package:dokkha/config/extensions/widget_extensions.dart';
 import 'package:dokkha/config/theme/light_theme_colors.dart';
+import 'package:dokkha/utils/utils.dart';
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -32,11 +35,11 @@ class HomeView extends GetView<HomeController> {
             children: [
               /// Search Bar
               Container(
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   color: LightThemeColors.primaryColor,
                   borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(8.0),
-                    bottomRight: Radius.circular(8.0),
+                    bottomLeft: Radius.circular(10.0.r),
+                    bottomRight: Radius.circular(10.0.r),
                   ),
                 ),
                 child: TextFormField(
@@ -71,54 +74,145 @@ class HomeView extends GetView<HomeController> {
                 }),
               ),
 
+              /// Second Column with others Widget
               Column(
                 spacing: 10.0.h,
                 children: [
-                  ConstrainedBox(
-                    constraints: const BoxConstraints(maxHeight: 100),
-                    child: CarouselView(
-                      itemExtent: 330,
-                      shrinkExtent: 200,
-                      padding: const EdgeInsets.all(10.0),
-                      children: List.generate(
-                        controller.images.length,
-                        (index) => Image.asset(
-                          "assets/images/${controller.images[index]}",
-                          fit: BoxFit.cover,
-                        ).onTap(() {
-                          print("tapped");
-                        }),
-                      ),
+                  // ConstrainedBox(
+                  //   constraints: const BoxConstraints(maxHeight: 100),
+                  //   child: GestureDetector(
+                  //     onTap: () {
+                  //       print("Carousel tapped");
+                  //     },
+                  //     child: CarouselView(
+                  //       itemExtent: 330,
+                  //       shrinkExtent: 200,
+                  //       padding: const EdgeInsets.all(10.0),
+                  //       children: List.generate(
+                  //         controller.sliderImages.length,
+                  //         (index) => GestureDetector(
+                  //           onTap: () {
+                  //             print("Image $index tapped");
+                  //           },
+                  //           child: Image.asset(
+                  //             "assets/images/${controller.sliderImages[index]}",
+                  //             fit: BoxFit.cover,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+
+                  /// Carousel Slider
+                  CarouselSlider(
+                    options: CarouselOptions(
+                      aspectRatio: 14 / 4,
+                      enlargeCenterPage: true,
+                      enlargeStrategy: CenterPageEnlargeStrategy.height,
+                      autoPlay: true,
+                      viewportFraction: 1.0,
+                      onPageChanged: (currentIndex, carouselPageChangedReason) {
+                        controller.dotsCount = currentIndex;
+                      },
                     ),
-                  ),
-                  GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3, // 3 items per row
-                      crossAxisSpacing: 8.0, // Spacing between columns
-                      mainAxisSpacing: 8.0, // Spacing between rows
-                    ),
-                    itemCount: controller.gridViewRoutePage.length,
-                    itemBuilder: (c, i) {
-                      return Container(
-                        color:
-                            Colors.blue, // Different color for each container
-                        child: Center(
-                          child: Text(
-                            controller.gridViewTitle[i],
-                            style: const TextStyle(color: Colors.white),
+                    items: controller.sliderImages.map((sliderItem) {
+                      return ClipRRect(
+                        borderRadius: BorderRadius.circular(7.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(
+                                AssetImagePaths.appleImg,
+                              ),
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
-                      ).cornerRadiusWithClipRRect(10).onTap(() {
-                        print('Tapped!');
-                        Get.toNamed(controller.gridViewRoutePage[i]);
-                      });
+                      );
+                    }).toList(),
+                  ),
+
+                  /// Dots Indicator Area
+                  DotsIndicator(
+                    dotsCount: controller.sliderImages.length, // Total number of dots
+                    position: controller.currentPosition, // Current active dot position
+                    decorator: const DotsDecorator(
+                      color: LightThemeColors.accentColor,
+                      activeColor: LightThemeColors.primary,
+                      size: Size(8.0, 8.0), // Dot size
+                      activeSize: Size(10.0, 10.0), // Optional: active dot size (larger)
+                      spacing: EdgeInsets.symmetric(horizontal: 4.0), // Optional: spacing between dots
+                    ),
+                  ),
+
+
+                  /// GridView for GridView
+                  GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      crossAxisSpacing: .0,
+                      mainAxisSpacing: .0,
+                      childAspectRatio: 1.2,
+                    ),
+                    itemCount: controller.gridViewTitle.length,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (x, i) {
+                      final color = controller.gridColors[i];
+                      final image = controller.gridImages[i];
+                      final title = controller.gridViewTitle[i];
+                      final route = controller.gridViewRoutePage[i];
+                      return GestureDetector(
+                        onTap: () => Get.toNamed(route),
+                        child: Container(
+                          margin: const EdgeInsets.all(5.0),
+                          decoration: BoxDecoration(
+                            color: color,
+                            borderRadius: BorderRadius.circular(12.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.blue.withValues(alpha: 0.1),
+                                blurRadius: 2.0,
+                                offset: const Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: 40.0.h,
+                                width: 40.0.w,
+                                child: FittedBox(
+                                  child: Image.asset(
+                                    "assets/images/$image",
+                                    opacity: const AlwaysStoppedAnimation(0.9),
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                              )
+                                  .center()
+                                  .paddingSymmetric(horizontal: 3, vertical: 4),
+                              Text(
+                                title,
+                                style: TextStyle(
+                                  color: Colors.black.withValues(alpha: 0.8),
+                                  fontSize: 13.2,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                textAlign: TextAlign.center,
+                              ).paddingSymmetric(horizontal: 3, vertical: 4),
+                            ],
+                          ),
+                        ),
+                      );
                     },
                   ),
                 ],
-              ).paddingAll(8.00.r),
+              ).paddingSymmetric(horizontal: 8.00.r),
             ],
           );
         },

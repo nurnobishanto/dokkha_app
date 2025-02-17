@@ -71,6 +71,7 @@ class VerifyOtpView extends GetView<VerifyOtpController> {
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
                           print("Resend OTP tapped!");
+
                         },
                     ),
                   ],
@@ -81,7 +82,7 @@ class VerifyOtpView extends GetView<VerifyOtpController> {
             CustomActionButton(
               text: "Verify",
               onPressed: () {
-                Get.toNamed(Routes.HOME);
+                Get.toNamed(Routes.NAVBAR);
               },
             ),
           ],

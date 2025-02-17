@@ -25,7 +25,7 @@ class SignInView extends GetView<SignInController> {
                   children: [
                     40.height,
                     Image.asset(AssetImagePaths.appIcon, scale: 8.0),
-                    const Text("শূন্য হাওয়ার শূন্য ভরিতে বুকখানি করি শুনো",
+                    const Text("এক টাকা দিয়ে লক্ষ্যে পৌঁছান",
                         style: AppTextStyles.heading,
                         textAlign: TextAlign.center),
                     Text(
@@ -45,20 +45,34 @@ class SignInView extends GetView<SignInController> {
                     CustomTextFormField(
                       controller: controller.phoneController,
                       prefixIcon: const Icon(FontAwesomeIcons.phone),
-                      hintText: "Enter you 11 digit phone number",
+                      hintText: "আপনার ১১ সংখ্যার ফোন নম্বর লিখুন",
                     ),
                     1.0.h.height,
-                    controller.isRegister
+                    controller.isRegister == false
                         ? CustomTextFormField(
                             controller: controller.passwordController,
                             prefixIcon: const Icon(FontAwesomeIcons.lock),
-                            hintText: "Enter your password",
+                            hintText: "আপনার পাসওয়ার্ড লিখুন",
                             obscureText: true,
                           )
                         : const SizedBox.shrink(),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.toNamed(Routes.FORGET_PASSWORD);
+                        },
+                        child: Text(
+                          'পাসওয়ার্ড ভুলে গেছেন?',
+                          textAlign: TextAlign.right,
+                          style: AppTextStyles.custom(
+                              color: LightThemeColors.primaryColor),
+                        ),
+                      ),
+                    ),
                     1.0.h.height,
                     CustomActionButton(
-                      text: "Continue",
+                      text: "এগিয়ে যান",
                       onPressed: () {
                         debugPrint(controller.phoneController.text);
                         Get.toNamed(Routes.VERIFY_OTP,

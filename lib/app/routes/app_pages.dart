@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/auth_views/forget_password/bindings/forget_password_binding.dart';
+import '../modules/auth_views/forget_password/views/forget_password_view.dart';
 import '../modules/auth_views/signin/bindings/signin_binding.dart';
 import '../modules/auth_views/signin/views/signin_view.dart';
 import '../modules/auth_views/terms_condition/bindings/terms_condition_binding.dart';
@@ -116,8 +118,13 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.VERIFY_OTP,
-      page: () =>  VerifyOtpView(),
+      page: () => VerifyOtpView(),
       binding: VerifyOtpBinding(),
+    ),
+    GetPage(
+      name: _Paths.FORGET_PASSWORD,
+      page: () => const ForgetPasswordView(),
+      binding: ForgetPasswordBinding(),
     ),
   ];
 }

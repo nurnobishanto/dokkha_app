@@ -10,4 +10,5 @@ class AssetImagePaths {
   static String get appIcon => getFullPath('app_icon');
   static String get otpImg => getFullPath('otp');
   static String get seamlessImg => getFullPath('seamless_pattern');
+  static String get appleImg => getFullPath('apple',format: 'jpeg');
 }

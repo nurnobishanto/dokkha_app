@@ -11,7 +11,6 @@ import 'config/translations/localization_service.dart';
 Future<void> main() async {
   // wait for bindings
   WidgetsFlutterBinding.ensureInitialized();
-
   // init shared preference
   await MySharedPref.init();
 
@@ -27,6 +26,7 @@ Future<void> main() async {
         return GetMaterialApp(
           // todo add your app name
           title: AppStrings.appName,
+          //initialBinding: ,
           useInheritedMediaQuery: true,
           debugShowCheckedModeBanner: false,
           builder: (context, widget) {
@@ -42,11 +42,11 @@ Future<void> main() async {
             );
           },
           initialRoute:
-          AppPages.INITIAL, // first screen to show when app is running
-          getPages: AppPages.routes, // app screens
-          locale: MySharedPref.getCurrentLocal(), // app language
+          AppPages.INITIAL,
+          getPages: AppPages.routes,
+          locale: MySharedPref.getCurrentLocal(),
           translations: LocalizationService
-              .getInstance(), // localization services in app (controller app language)
+              .getInstance(),
         );
       },
     ),

@@ -1,13 +1,16 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dokkha/app/components/custom_drawer.dart';
+import 'package:dokkha/config/extensions/common_extension.dart';
 import 'package:dokkha/config/extensions/widget_extensions.dart';
 import 'package:dokkha/config/theme/light_theme_colors.dart';
-import 'package:dokkha/utils/utils.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../../config/constants/app_images.dart';
+import '../../../../../styles/text_style.dart';
+import '../components/home_components.dart';
+import '../components/random_question_selector.dart';
 import '../controllers/home_controller.dart';
 
 // showSearch(
@@ -16,6 +19,7 @@ class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
   @override
   Widget build(BuildContext context) {
+    print("Build Home view");
     return Scaffold(
       drawer: const CustomDrawer(),
       appBar: AppBar(
@@ -75,144 +79,229 @@ class HomeView extends GetView<HomeController> {
               ),
 
               /// Second Column with others Widget
-              Column(
-                spacing: 10.0.h,
-                children: [
-                  // ConstrainedBox(
-                  //   constraints: const BoxConstraints(maxHeight: 100),
-                  //   child: GestureDetector(
-                  //     onTap: () {
-                  //       print("Carousel tapped");
-                  //     },
-                  //     child: CarouselView(
-                  //       itemExtent: 330,
-                  //       shrinkExtent: 200,
-                  //       padding: const EdgeInsets.all(10.0),
-                  //       children: List.generate(
-                  //         controller.sliderImages.length,
-                  //         (index) => GestureDetector(
-                  //           onTap: () {
-                  //             print("Image $index tapped");
-                  //           },
-                  //           child: Image.asset(
-                  //             "assets/images/${controller.sliderImages[index]}",
-                  //             fit: BoxFit.cover,
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    spacing: 10.0.h,
+                    children: [
+                      .0.h.height,
 
-                  /// Carousel Slider
-                  CarouselSlider(
-                    options: CarouselOptions(
-                      aspectRatio: 14 / 4,
-                      enlargeCenterPage: true,
-                      enlargeStrategy: CenterPageEnlargeStrategy.height,
-                      autoPlay: true,
-                      viewportFraction: 1.0,
-                      onPageChanged: (currentIndex, carouselPageChangedReason) {
-                        controller.dotsCount = currentIndex;
-                      },
-                    ),
-                    items: controller.sliderImages.map((sliderItem) {
-                      return ClipRRect(
-                        borderRadius: BorderRadius.circular(7.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(
-                                AssetImagePaths.appleImg,
-                              ),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
+                      /// Carousel Slider
+                      CarouselSlider(
+                        options: CarouselOptions(
+                          aspectRatio: 14 / 4,
+                          enlargeCenterPage: true,
+                          enlargeStrategy: CenterPageEnlargeStrategy.height,
+                          autoPlay: true,
+                          viewportFraction: 1.0,
+                          onPageChanged:
+                              (currentIndex, carouselPageChangedReason) {
+                            controller.dotsCount = currentIndex;
+                          },
                         ),
-                      );
-                    }).toList(),
-                  ),
-
-                  /// Dots Indicator Area
-                  DotsIndicator(
-                    dotsCount: controller.sliderImages.length, // Total number of dots
-                    position: controller.currentPosition, // Current active dot position
-                    decorator: const DotsDecorator(
-                      color: LightThemeColors.accentColor,
-                      activeColor: LightThemeColors.primary,
-                      size: Size(8.0, 8.0), // Dot size
-                      activeSize: Size(10.0, 10.0), // Optional: active dot size (larger)
-                      spacing: EdgeInsets.symmetric(horizontal: 4.0), // Optional: spacing between dots
-                    ),
-                  ),
-
-
-                  /// GridView for GridView
-                  GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      crossAxisSpacing: .0,
-                      mainAxisSpacing: .0,
-                      childAspectRatio: 1.2,
-                    ),
-                    itemCount: controller.gridViewTitle.length,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (x, i) {
-                      final color = controller.gridColors[i];
-                      final image = controller.gridImages[i];
-                      final title = controller.gridViewTitle[i];
-                      final route = controller.gridViewRoutePage[i];
-                      return GestureDetector(
-                        onTap: () => Get.toNamed(route),
-                        child: Container(
-                          margin: const EdgeInsets.all(5.0),
-                          decoration: BoxDecoration(
-                            color: color,
-                            borderRadius: BorderRadius.circular(12.0),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.blue.withValues(alpha: 0.1),
-                                blurRadius: 2.0,
-                                offset: const Offset(0, 4),
+                        items: controller.sliderImages.map((sliderItem) {
+                          return ClipRRect(
+                            borderRadius: BorderRadius.circular(7.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                    AssetImagePaths.appleImg,
+                                  ),
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                            ],
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                height: 40.0.h,
-                                width: 40.0.w,
-                                child: FittedBox(
-                                  child: Image.asset(
-                                    "assets/images/$image",
-                                    opacity: const AlwaysStoppedAnimation(0.9),
-                                    fit: BoxFit.contain,
+                            ),
+                          );
+                        }).toList(),
+                      ),
+
+                      /// Dots Indicator Area
+                      DotsIndicator(
+                        dotsCount: controller
+                            .sliderImages.length, // Total number of dots
+                        position: controller
+                            .currentPosition, // Current active dot position
+                        decorator: const DotsDecorator(
+                          color: LightThemeColors.accentColor,
+                          activeColor: LightThemeColors.primary,
+                          size: Size(8.0, 8.0), // Dot size
+                          activeSize: Size(
+                              10.0, 10.0), // Optional: active dot size (larger)
+                          spacing: EdgeInsets.symmetric(
+                              horizontal:
+                                  4.0), // Optional: spacing between dots
+                        ),
+                      ),
+
+                      /// GridView for GridView
+                      GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          crossAxisSpacing: .0,
+                          mainAxisSpacing: .0,
+                          childAspectRatio: 1.2,
+                        ),
+                        itemCount: controller.gridViewTitle.length,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (x, i) {
+                          final color = controller.gridColors[i];
+                          final image = controller.gridImages[i];
+                          final title = controller.gridViewTitle[i];
+                          final route = controller.gridViewRoutePage[i];
+                          return GestureDetector(
+                            onTap: () => Get.toNamed(route),
+                            child: Container(
+                              margin: const EdgeInsets.all(5.0),
+                              decoration: BoxDecoration(
+                                color: color,
+                                borderRadius: BorderRadius.circular(12.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.blue.withValues(alpha: 0.1),
+                                    blurRadius: 2.0,
+                                    offset: const Offset(0, 4),
+                                  ),
+                                ],
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: 40.0.h,
+                                    width: 40.0.w,
+                                    child: FittedBox(
+                                      child: Image.asset(
+                                        "assets/images/$image",
+                                        opacity:
+                                            const AlwaysStoppedAnimation(0.9),
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
+                                  ).center().paddingSymmetric(
+                                      horizontal: 3, vertical: 4),
+                                  Text(
+                                    title,
+                                    style: TextStyle(
+                                      color:
+                                          Colors.black.withValues(alpha: 0.8),
+                                      fontSize: 13.2,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ).paddingSymmetric(
+                                      horizontal: 3, vertical: 4),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+
+                      /// Contest Area
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(7.0),
+                        child: Stack(
+                          children: [
+                            Image.asset(
+                              AssetImagePaths.appleImg,
+                              height: 110.0.h,
+                              width: double.infinity,
+                              fit: BoxFit.fitWidth,
+                            ),
+                            Positioned(
+                              top: 8.0,
+                              left: 8.0,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 8.0, vertical: 4.0),
+                                decoration: BoxDecoration(
+                                  color: Colors.black54,
+                                  borderRadius: BorderRadius.circular(5.0),
+                                ),
+                                child: Text(
+                                  "${controller.hours.toString().padLeft(2, '0')}:"
+                                  "${controller.minutes.toString().padLeft(2, '0')}:"
+                                  "${controller.seconds.toString().padLeft(2, '0')}",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16.0.sp,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                              )
-                                  .center()
-                                  .paddingSymmetric(horizontal: 3, vertical: 4),
-                              Text(
-                                title,
-                                style: TextStyle(
-                                  color: Colors.black.withValues(alpha: 0.8),
-                                  fontSize: 13.2,
-                                  fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      /// RandomQuestion area
+                      CustomOptionSelector(
+                        title: 'একটি নির্বাচন করুন: ',
+                        options: controller.randomQuestionOptions,
+                        selectedOptionIndex: controller.selectedOptionIndex,
+                        onOptionSelected: (i) {
+                          controller.selectedOptionIndex = i;
+                        },
+                      ),
+                      //5.0.h.height,
+
+                      /// Leader Board
+                      Text(
+                        "আজকের বিজয়ী",
+                        style: AppTextStyles.custom(
+                          fontSize: 17.00.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10.0.r),
+                        color: Colors.green.shade100,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: List.generate(
+                            controller.leaders.length >= 3
+                                ? 3
+                                : controller.leaders.length,
+                            (index) {
+                              int displayRank;
+                              if (index == 0) {
+                                displayRank = 2;
+                              } else if (index == 1) {
+                                displayRank = 1;
+                              } else {
+                                displayRank = controller.leaders[index];
+                              }
+
+                              double topPadding;
+                              if (index == 1) {
+                                topPadding = 10;
+                              } else {
+                                topPadding = 20;
+                              }
+
+                              return Expanded(
+                                child: Padding(
+                                  padding: EdgeInsets.only(top: topPadding),
+                                  child: buildTopRankedUser(
+                                    imagePath: 'assets/user${index + 1}.jpg',
+                                    name: 'Sadman',
+                                    rank: displayRank,
+                                    isFirst: displayRank == 1,
+                                  ),
                                 ),
-                                textAlign: TextAlign.center,
-                              ).paddingSymmetric(horizontal: 3, vertical: 4),
-                            ],
+                              );
+                            },
                           ),
                         ),
-                      );
-                    },
-                  ),
-                ],
-              ).paddingSymmetric(horizontal: 8.00.r),
+                      ),
+                    ],
+                  ).paddingOnly(left: 8.00.r, right: 8.00.r, bottom: 8.00.r),
+                ),
+              ),
             ],
           );
         },

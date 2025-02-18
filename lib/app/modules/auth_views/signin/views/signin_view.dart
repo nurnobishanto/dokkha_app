@@ -48,14 +48,13 @@ class SignInView extends GetView<SignInController> {
                       hintText: "আপনার ১১ সংখ্যার ফোন নম্বর লিখুন",
                     ),
                     1.0.h.height,
-                    controller.isRegister == false
-                        ? CustomTextFormField(
+                     CustomTextFormField(
                             controller: controller.passwordController,
                             prefixIcon: const Icon(FontAwesomeIcons.lock),
                             hintText: "আপনার পাসওয়ার্ড লিখুন",
                             obscureText: true,
-                          )
-                        : const SizedBox.shrink(),
+                          ),
+
                     Align(
                       alignment: Alignment.topRight,
                       child: GestureDetector(
@@ -75,8 +74,7 @@ class SignInView extends GetView<SignInController> {
                       text: "এগিয়ে যান",
                       onPressed: () {
                         debugPrint(controller.phoneController.text);
-                        Get.toNamed(Routes.VERIFY_OTP,
-                            arguments: controller.phoneController.text);
+                        Get.toNamed(Routes.NAVBAR);
                       },
                     ),
                   ],

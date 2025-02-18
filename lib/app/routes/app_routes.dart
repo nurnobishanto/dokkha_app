@@ -20,6 +20,8 @@ abstract class Routes {
   static const ONBOARDING = _Paths.ONBOARDING;
   static const VERIFY_OTP = _Paths.VERIFY_OTP;
   static const FORGET_PASSWORD = _Paths.FORGET_PASSWORD;
+  static const SIGN_UP = _Paths.SIGN_UP;
+  static const AUTH_GATEWAY = _Paths.AUTH_GATEWAY;
 }
 
 abstract class _Paths {
@@ -41,4 +43,6 @@ abstract class _Paths {
   static const ONBOARDING = '/on-boarding';
   static const VERIFY_OTP = '/verify-otp';
   static const FORGET_PASSWORD = '/forget-password';
+  static const SIGN_UP = '/sign-up';
+  static const AUTH_GATEWAY = '/auth-gateway';
 }

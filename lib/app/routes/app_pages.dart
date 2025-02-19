@@ -22,16 +22,20 @@ import '../modules/grid_views/mock_test/bindings/mock_test_binding.dart';
 import '../modules/grid_views/mock_test/views/mock_test_view.dart';
 import '../modules/grid_views/notice_board/bindings/notice_board_binding.dart';
 import '../modules/grid_views/notice_board/views/notice_board_view.dart';
-import '../modules/nab_bar_views/blog/bindings/blog_binding.dart';
-import '../modules/nab_bar_views/blog/views/blog_view.dart';
-import '../modules/nab_bar_views/contest/bindings/contest_binding.dart';
-import '../modules/nab_bar_views/contest/views/contest_view.dart';
-import '../modules/nab_bar_views/home/bindings/home_binding.dart';
-import '../modules/nab_bar_views/home/views/home_view.dart';
-import '../modules/nab_bar_views/profile/bindings/profile_binding.dart';
-import '../modules/nab_bar_views/profile/views/profile_view.dart';
-import '../modules/nab_bar_views/question_bank/bindings/question_bank_binding.dart';
-import '../modules/nab_bar_views/question_bank/views/question_bank_view.dart';
+import '../modules/nav_bar_views/blog/bindings/blog_binding.dart';
+import '../modules/nav_bar_views/blog/views/blog_view.dart';
+import '../modules/nav_bar_views/contest/bindings/contest_binding.dart';
+import '../modules/nav_bar_views/contest/views/contest_view.dart';
+import '../modules/nav_bar_views/home/bindings/home_binding.dart';
+import '../modules/nav_bar_views/home/views/home_view.dart';
+import '../modules/nav_bar_views/profile_module/profile/bindings/profile_binding.dart';
+import '../modules/nav_bar_views/profile_module/profile/views/profile_view.dart';
+import '../modules/nav_bar_views/profile_module/profile_history/bindings/profile_history_binding.dart';
+import '../modules/nav_bar_views/profile_module/profile_history/views/profile_history_view.dart';
+import '../modules/nav_bar_views/profile_module/profile_update/bindings/profile_update_binding.dart';
+import '../modules/nav_bar_views/profile_module/profile_update/views/profile_update_view.dart';
+import '../modules/nav_bar_views/question_bank/bindings/question_bank_binding.dart';
+import '../modules/nav_bar_views/question_bank/views/question_bank_view.dart';
 import '../modules/navbar/bindings/navbar_binding.dart';
 import '../modules/navbar/views/navbar_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
@@ -139,6 +143,16 @@ class AppPages {
       name: _Paths.AUTH_GATEWAY,
       page: () => const AuthGatewayView(),
       binding: AuthGatewayBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROFILE_UPDATE,
+      page: () => const ProfileUpdateView(),
+      binding: ProfileUpdateBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROFILE_HISTORY,
+      page: () => const ProfileHistoryView(),
+      binding: ProfileHistoryBinding(),
     ),
   ];
 }

@@ -16,7 +16,6 @@ class HomeController extends GetxController {
     'Option 4',
   ];
 
-
   final List<String> gridViewTitle = [
     'প্রশ্ন ব্যাংক',
     'মক পরীক্ষা',
@@ -93,24 +92,13 @@ class HomeController extends GetxController {
     });
   }
 
-
   final List<int> leaders = List.generate(30, (index) {
     return index + 1;
   });
-
-
-
-
-
-
 
   @override
   void onClose() {
     super.onClose();
     _timer?.cancel();
   }
-
-
-
-
 }

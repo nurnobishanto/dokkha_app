@@ -2,7 +2,6 @@ import 'package:dokkha/config/extensions/common_extension.dart';
 import 'package:dokkha/config/theme/light_theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 
 class CustomOptionSelector extends StatelessWidget {
   final String title;

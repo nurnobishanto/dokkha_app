@@ -58,11 +58,11 @@ class AuthGatewayView extends GetView<AuthGatewayController> {
             RichText(
               text: TextSpan(children: [
                 TextSpan(
-                  text: 'by logging in you agree to our',
+                  text: '"লগ ইন করে, আপনি আমাদের সাথে সম্মত হন।', // by logging in you agree to our
                   style: AppTextStyles.custom(fontSize: 11.0.sp),
                 ),
                 TextSpan(
-                  text: ' Terms & Conditions',
+                  text: ' শর্তাবলী ও নীতিমালা',
                   style: AppTextStyles.custom(
                       fontSize: 12.0.sp,
                       fontWeight: FontWeight.w700,

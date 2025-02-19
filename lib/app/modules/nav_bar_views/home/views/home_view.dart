@@ -9,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../../config/constants/app_images.dart';
 import '../../../../../styles/text_style.dart';
+import '../../../../routes/app_pages.dart';
 import '../components/home_components.dart';
 import '../components/random_question_selector.dart';
 import '../controllers/home_controller.dart';
@@ -26,8 +27,10 @@ class HomeView extends GetView<HomeController> {
         title: Image.asset(AssetImagePaths.appIcon),
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.notifications),
+            onPressed: () {
+              Get.toNamed(Routes.PROFILE);
+            },
+            icon: const Icon(Icons.person),
           ),
           SizedBox(width: 10.w),
         ],
@@ -287,7 +290,7 @@ class HomeView extends GetView<HomeController> {
                                 child: Padding(
                                   padding: EdgeInsets.only(top: topPadding),
                                   child: buildTopRankedUser(
-                                    imagePath: 'assets/user${index + 1}.jpg',
+                                    imagePath: AssetImagePaths.appleImg,
                                     name: 'Sadman',
                                     rank: displayRank,
                                     isFirst: displayRank == 1,

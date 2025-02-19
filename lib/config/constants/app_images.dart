@@ -11,4 +11,5 @@ class AssetImagePaths {
   static String get otpImg => getFullPath('otp');
   static String get seamlessImg => getFullPath('seamless_pattern');
   static String get appleImg => getFullPath('apple',format: 'jpeg');
+  static String get badgeImg => getFullPath('badge');
 }

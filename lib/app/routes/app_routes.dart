@@ -22,6 +22,8 @@ abstract class Routes {
   static const FORGET_PASSWORD = _Paths.FORGET_PASSWORD;
   static const SIGN_UP = _Paths.SIGN_UP;
   static const AUTH_GATEWAY = _Paths.AUTH_GATEWAY;
+  static const PROFILE_UPDATE = _Paths.PROFILE_UPDATE;
+  static const PROFILE_HISTORY = _Paths.PROFILE_HISTORY;
 }
 
 abstract class _Paths {
@@ -45,4 +47,6 @@ abstract class _Paths {
   static const FORGET_PASSWORD = '/forget-password';
   static const SIGN_UP = '/sign-up';
   static const AUTH_GATEWAY = '/auth-gateway';
+  static const PROFILE_UPDATE = '/profile-update';
+  static const PROFILE_HISTORY = '/profile-history';
 }

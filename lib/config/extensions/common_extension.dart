@@ -160,8 +160,6 @@ Widget lineIndicator(list, i, {bool isPersonal = false}) {
   );
 }
 
-
-
 extension SpacingExtension on num {
   /// Creates a vertical spacing with the given height
   SizedBox get height => SizedBox(height: toDouble());
@@ -169,4 +167,3 @@ extension SpacingExtension on num {
   /// Creates a horizontal spacing with the given width
   SizedBox get width => SizedBox(width: toDouble());
 }
-

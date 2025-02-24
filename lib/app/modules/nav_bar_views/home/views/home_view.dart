@@ -1,8 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:dokkha/app/components/custom_drawer.dart';
-import 'package:dokkha/config/extensions/common_extension.dart';
-import 'package:dokkha/config/extensions/widget_extensions.dart';
-import 'package:dokkha/config/theme/light_theme_colors.dart';
+import 'package:lokkha/app/components/custom_drawer.dart';
+import 'package:lokkha/config/extensions/common_extension.dart';
+import 'package:lokkha/config/extensions/widget_extensions.dart';
+import 'package:lokkha/config/theme/light_theme_colors.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,13 +14,11 @@ import '../components/home_components.dart';
 import '../components/random_question_selector.dart';
 import '../controllers/home_controller.dart';
 
-// showSearch(
-// context: context, delegate: CustomSearchDelegate());
 class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
   @override
   Widget build(BuildContext context) {
-    print("Build Home view");
+    debugPrint("Build Home view");
     return Scaffold(
       drawer: const CustomDrawer(),
       appBar: AppBar(

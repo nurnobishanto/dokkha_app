@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:dokkha/app/components/custom_decision_button.dart';
-import 'package:dokkha/config/constants/app_images.dart';
-import 'package:dokkha/config/extensions/common_extension.dart';
-import 'package:dokkha/config/theme/light_theme_colors.dart';
-import 'package:dokkha/styles/text_style.dart';
+import 'package:lokkha/app/components/custom_decision_button.dart';
+import 'package:lokkha/config/constants/app_images.dart';
+import 'package:lokkha/config/extensions/common_extension.dart';
+import 'package:lokkha/config/theme/light_theme_colors.dart';
+import 'package:lokkha/styles/text_style.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -21,6 +21,7 @@ class AuthGatewayView extends GetView<AuthGatewayController> {
         child: Column(
           spacing: 10.0.h,
           children: [
+            70.h.height,
             Image.asset(AssetImagePaths.appIcon, scale: 8.0),
             const Text(
               "এক টাকা দিয়ে লক্ষ্যে পৌঁছান",
@@ -45,7 +46,7 @@ class AuthGatewayView extends GetView<AuthGatewayController> {
               text: "Sign in with Phone",
               leadingWidget: const FaIcon(FontAwesomeIcons.phone, size: 20),
               onPressed: () {
-                if (!controller.isRegister) {
+                if (controller.isRegister) {
                   print("isRegister");
                   Get.toNamed(Routes.SIGNIN);
                 } else {
@@ -58,7 +59,7 @@ class AuthGatewayView extends GetView<AuthGatewayController> {
             RichText(
               text: TextSpan(children: [
                 TextSpan(
-                  text: '"লগ ইন করে, আপনি আমাদের সাথে সম্মত হন।', // by logging in you agree to our
+                  text: 'লগ ইন করে, আপনি আমাদের সাথে সম্মত হন।', // by logging in you agree to our
                   style: AppTextStyles.custom(fontSize: 11.0.sp),
                 ),
                 TextSpan(

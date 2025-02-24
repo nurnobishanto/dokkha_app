@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../../../routes/app_pages.dart';
 
 class HomeController extends GetxController {
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   int dotsCount = 0;
   double currentPosition = 0;
 

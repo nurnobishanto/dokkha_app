@@ -1,4 +1,4 @@
-import 'package:dokkha/config/constants/app_strings.dart';
+import 'package:lokkha/config/constants/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -6,7 +6,6 @@ import 'app/data/local/my_shared_pref.dart';
 import 'app/routes/app_pages.dart';
 import 'config/theme/my_theme.dart';
 import 'config/translations/localization_service.dart';
-
 
 Future<void> main() async {
   // wait for bindings
@@ -36,17 +35,16 @@ Future<void> main() async {
               child: MediaQuery(
                 // prevent font from scaling (some people use big/small device fonts)
                 // but we want our app font to still the same and don't get affected
-                data: MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(1.0)),
+                data: MediaQuery.of(context)
+                    .copyWith(textScaler: const TextScaler.linear(1.0)),
                 child: widget!,
               ),
             );
           },
-          initialRoute:
-          AppPages.INITIAL,
+          initialRoute: AppPages.INITIAL,
           getPages: AppPages.routes,
           locale: MySharedPref.getCurrentLocal(),
-          translations: LocalizationService
-              .getInstance(),
+          translations: LocalizationService.getInstance(),
         );
       },
     ),

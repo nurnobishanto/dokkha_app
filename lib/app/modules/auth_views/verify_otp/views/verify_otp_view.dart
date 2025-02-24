@@ -1,7 +1,7 @@
-import 'package:dokkha/app/components/custom_action_button.dart';
-import 'package:dokkha/config/constants/app_images.dart';
-import 'package:dokkha/config/extensions/common_extension.dart';
-import 'package:dokkha/styles/text_style.dart';
+import 'package:lokkha/app/components/custom_action_button.dart';
+import 'package:lokkha/config/constants/app_images.dart';
+import 'package:lokkha/config/extensions/common_extension.dart';
+import 'package:lokkha/styles/text_style.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,9 +15,18 @@ import '../controllers/verify_otp_controller.dart';
 
 class VerifyOtpView extends GetView<VerifyOtpController> {
   final String phoneNumber;
-  VerifyOtpView({super.key}) : phoneNumber = Get.arguments;
+  final String type;
+
+  // Constructor accepting both type and phoneNumber as arguments
+  VerifyOtpView({super.key})
+      : phoneNumber =
+            Get.arguments['phoneNumber'], // Get the phone number from arguments
+        type = Get.arguments['type']; // Get the type from arguments
+
   @override
   Widget build(BuildContext context) {
+    controller.sendOtp(phoneNumber, type);
+    //Get.find<VerifyOtpController>().sendOtp(phoneNumber, type);
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -70,8 +79,8 @@ class VerifyOtpView extends GetView<VerifyOtpController> {
                       ),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          print("Resend OTP tapped!");
-
+                          controller.sendOtp(phoneNumber, type);
+                          debugPrint("Resend OTP tapped!");
                         },
                     ),
                   ],

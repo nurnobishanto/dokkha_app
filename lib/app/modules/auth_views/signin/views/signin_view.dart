@@ -1,9 +1,9 @@
-import 'package:dokkha/app/components/custom_action_button.dart';
-import 'package:dokkha/app/components/custom_text_form_field.dart';
-import 'package:dokkha/config/constants/app_images.dart';
-import 'package:dokkha/config/extensions/common_extension.dart';
-import 'package:dokkha/config/theme/light_theme_colors.dart';
-import 'package:dokkha/styles/text_style.dart';
+import 'package:lokkha/app/components/custom_action_button.dart';
+import 'package:lokkha/app/components/custom_text_form_field.dart';
+import 'package:lokkha/config/constants/app_images.dart';
+import 'package:lokkha/config/extensions/common_extension.dart';
+import 'package:lokkha/config/theme/light_theme_colors.dart';
+import 'package:lokkha/styles/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

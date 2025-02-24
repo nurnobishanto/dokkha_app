@@ -87,7 +87,7 @@ class BaseClient {
       }
       // 3) return response (api done successfully)
       await onSuccess(response);
-    } on DioError catch (error) {
+    } on DioException catch (error) {
       // dio error (api reach the server but not performed successfully
       _handleDioError(error: error, url: url, onError: onError);
     } on SocketException {
@@ -113,7 +113,7 @@ class BaseClient {
       await _dio.download(
         url,
         savePath,
-        options: Options(receiveTimeout: Duration(milliseconds: 9999), sendTimeout: Duration(milliseconds: 9999)),
+        options: Options(receiveTimeout: const Duration(milliseconds: 9999), sendTimeout: const Duration(milliseconds: 9999)),
         onReceiveProgress: onReceiveProgress,
       );
       onSuccess();
@@ -166,7 +166,7 @@ class BaseClient {
 
   /// handle Dio error
   static _handleDioError(
-      {required DioError error,
+      {required DioException error,
       Function(ApiException)? onError,
       required String url}) {
     // 404 error

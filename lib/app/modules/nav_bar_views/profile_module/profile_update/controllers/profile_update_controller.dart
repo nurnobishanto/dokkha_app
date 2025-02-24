@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
 class ProfileUpdateController extends GetxController {
-    String batchDropDownValue = 'A';
+    String genderDropDownValue = 'Male';
     var groupValue = "a";
 }

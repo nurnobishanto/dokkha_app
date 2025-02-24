@@ -7,20 +7,22 @@ class CustomActionButton extends StatelessWidget {
   final Color? btnBackgroundColor;
   final Color? borderColor;
   final double? height;
+  final bool isLoading;
 
   const CustomActionButton({
     super.key,
     required this.text,
     required this.onPressed,
     this.btnBackgroundColor = LightThemeColors.primaryColor,
-    this.borderColor =  LightThemeColors.primaryColor,
+    this.borderColor = LightThemeColors.primaryColor,
     this.height = 40.0,
+    this.isLoading = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onPressed,
+      onTap: isLoading ? null : onPressed,
       child: Container(
         height: height,
         width: double.infinity,
@@ -29,18 +31,27 @@ class CustomActionButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(7.0),
           border: Border.all(
             color: borderColor!,
-            width: 0, // Border width
+            width: 0,
           ),
         ),
         child: Center(
-          child: Text(
-            text,
-            style: const TextStyle(
-              fontSize: 14.0,
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
-            ),
-          ),
+          child: isLoading
+              ? const SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                    strokeWidth: 2.5,
+                  ),
+                )
+              : Text(
+                  text,
+                  style: const TextStyle(
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                ),
         ),
       ),
     );

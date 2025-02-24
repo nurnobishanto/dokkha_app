@@ -1,4 +1,4 @@
-import 'package:dokkha/config/extensions/common_extension.dart';
+import 'package:lokkha/config/extensions/common_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -95,7 +95,7 @@ class CustomProfileButton extends StatelessWidget {
               color: Colors.grey.withValues(alpha: 0.3),
               spreadRadius: 1,
               blurRadius: 2,
-              offset: const Offset(0, 1), // changes position of shadow
+              offset: const Offset(0, 1),
             ),
           ],
         ),

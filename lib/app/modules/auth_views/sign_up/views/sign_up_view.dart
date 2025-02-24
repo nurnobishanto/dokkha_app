@@ -1,4 +1,4 @@
-import 'package:dokkha/config/extensions/common_extension.dart';
+import 'package:lokkha/config/extensions/common_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,6 +9,7 @@ import '../../../../../config/constants/app_images.dart';
 import '../../../../../config/theme/light_theme_colors.dart';
 import '../../../../../styles/text_style.dart';
 import '../../../../components/custom_action_button.dart';
+import '../../../../components/custom_snackbar.dart';
 import '../../../../components/custom_text_form_field.dart';
 import '../../../../routes/app_pages.dart';
 import '../controllers/sign_up_controller.dart';
@@ -52,10 +53,18 @@ class SignUpView extends GetView<SignUpController> {
                   1.0.h.height,
                   CustomActionButton(
                     text: "এগিয়ে যান",
+                    isLoading: controller.isLoading,
                     onPressed: () {
                       debugPrint(controller.phoneController.text);
-                      Get.toNamed(Routes.VERIFY_OTP,
-                          arguments: controller.phoneController.text);
+                      if (controller.phoneController.text == '' ||
+                          controller.phoneController.text.isEmpty) {
+                        CustomSnackBar.showCustomErrorSnackBar(
+                          title: 'Invalid credentials.',
+                          message: "Please provide your phone number",
+                        );
+                      } else {
+                        controller.checkPhoneNumber();
+                      }
                     },
                   ),
                 ],

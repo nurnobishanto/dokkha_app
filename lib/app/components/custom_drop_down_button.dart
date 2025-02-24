@@ -16,15 +16,16 @@ class CustomDropdownButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: Get.height / 17.0,
+      height: Get.height / 20.0,
       decoration: BoxDecoration(
         border: Border.all(
-          color: Colors.black.withValues(alpha: .3),
+          color: Colors.black.withOpacity(0.3),
         ),
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: Padding(
-        padding: const EdgeInsets.only(left: 8.0),
+        padding: const EdgeInsets.only(
+            left: 8.0, right: 8.0), // Reduce horizontal padding if needed
         child: DropdownButton<String>(
           isExpanded: true,
           value: dropdownValue,

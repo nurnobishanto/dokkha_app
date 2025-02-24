@@ -1,6 +1,6 @@
-import 'package:dokkha/config/extensions/common_extension.dart';
-import 'package:dokkha/config/extensions/widget_extensions.dart';
-import 'package:dokkha/config/theme/light_theme_colors.dart';
+import 'package:lokkha/config/extensions/common_extension.dart';
+import 'package:lokkha/config/extensions/widget_extensions.dart';
+import 'package:lokkha/config/theme/light_theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,14 +9,16 @@ import '../../config/constants/app_images.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
+
   @override
   Widget build(BuildContext context) {
+    debugPrint("Build Drawer///");
     return Drawer(
       backgroundColor: Colors.white,
-      child: ListView(
+      child: Column(
         children: <Widget>[
           /// Reduced height for Drawer Header
-          20.h.height,
+          70.h.height,
           Image.asset(
             AssetImagePaths.appIcon,
             height: 100,
@@ -132,3 +134,31 @@ class CustomDrawer extends StatelessWidget {
     );
   }
 }
+
+// Reusable DrawerItem widget
+// class _DrawerItem extends StatelessWidget {
+//   final IconData icon;
+//   final String title;
+//   final VoidCallback onTap;
+//
+//   const _DrawerItem({
+//     required this.icon,
+//     required this.title,
+//     required this.onTap,
+//   });
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       children: [
+//         ListTile(
+//           visualDensity: VisualDensity.standard,
+//           leading: Icon(icon, size: 20, color: LightThemeColors.primaryColor),
+//           title: Text(title, style: const TextStyle(fontSize: 14)),
+//           onTap: onTap,
+//         ),
+//         const Divider(height: 0.5, color: LightThemeColors.primaryColor),
+//       ],
+//     );
+//   }
+// }

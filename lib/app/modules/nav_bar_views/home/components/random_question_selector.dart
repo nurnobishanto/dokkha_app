@@ -1,5 +1,5 @@
-import 'package:dokkha/config/extensions/common_extension.dart';
-import 'package:dokkha/config/theme/light_theme_colors.dart';
+import 'package:lokkha/config/extensions/common_extension.dart';
+import 'package:lokkha/config/theme/light_theme_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

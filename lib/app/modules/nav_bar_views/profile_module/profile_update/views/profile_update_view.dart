@@ -1,9 +1,9 @@
-import 'package:dokkha/app/components/custom_action_button.dart';
-import 'package:dokkha/app/components/custom_drop_down_button.dart';
-import 'package:dokkha/app/components/custom_text_form_field.dart';
-import 'package:dokkha/config/extensions/common_extension.dart';
-import 'package:dokkha/config/theme/light_theme_colors.dart';
-import 'package:dokkha/styles/text_style.dart';
+import 'package:lokkha/app/components/custom_action_button.dart';
+import 'package:lokkha/app/components/custom_drop_down_button.dart';
+import 'package:lokkha/app/components/custom_text_form_field.dart';
+import 'package:lokkha/config/extensions/common_extension.dart';
+import 'package:lokkha/config/theme/light_theme_colors.dart';
+import 'package:lokkha/styles/text_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,7 +20,7 @@ class ProfileUpdateView extends GetView<ProfileUpdateController> {
         iconTheme: const IconThemeData(color: Colors.white),
         automaticallyImplyLeading: true,
         title: Text(
-          'AppConstant.updateProfileInfo.tr',
+          'প্রোফাইল আপডেট করুন',
           style: kHeadingTextStyle.copyWith(
               color: Colors.white, fontWeight: FontWeight.w500),
         ),
@@ -40,7 +40,7 @@ class ProfileUpdateView extends GetView<ProfileUpdateController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              20.h.height,
+              20.h.height, // Space at the top
               Center(
                 child: CircleAvatar(
                   radius: 50.0.r,
@@ -52,131 +52,95 @@ class ProfileUpdateView extends GetView<ProfileUpdateController> {
                   ),
                 ),
               ),
-              //  *********************** Show the user Name **************************
-              const SizedBox(height: 40.0),
-              // Text full name Filed
+              20.h.height, // Space below the avatar
+
+              // Show the user Name
               const Text(
                 'Name',
                 style: AppTextStyles.body,
               ),
-              const SizedBox(height: 5.0),
+              2.h.height,
               const CustomTextFormField(
                 controller: null,
                 hintText: 'No update Name',
               ),
+              10.h.height,
 
-              const SizedBox(height: 10.0),
+              // Email
               const Text(
-                'School/Collage',
+                'Email',
                 style: AppTextStyles.body,
               ),
-              const SizedBox(height: 5.0),
+              2.h.height,
               const CustomTextFormField(
                 controller: null,
-                hintText: 'No update school/collage',
+                hintText: 'No update email',
               ),
-
-              const SizedBox(height: 10.0),
-              const Text(
-                'Batch',
-                style: AppTextStyles.body,
-              ),
-              const SizedBox(height: 5.0),
-              CustomDropdownButton(
-                items: ["A", 'B', 'C'],
-                dropdownValue: controller.batchDropDownValue,
-                onChanged: (v) {
-                  controller.batchDropDownValue = v!;
-                },
-              ),
-
-              const SizedBox(height: 10.0),
-              const Text(
-                'Type',
-                style: AppTextStyles.body,
-              ),
-              5.h.height,
-              CustomDropdownButton(
-                items: const ["A", 'B', 'C'],
-                dropdownValue: controller.batchDropDownValue,
-                onChanged: (v) {
-                  controller.batchDropDownValue = v!;
-                },
-              ),
-              5.h.height,
-              const Text(
-                'Target',
-                style: AppTextStyles.body,
-              ),
-              5.h.height,
-              CustomDropdownButton(
-                items: const ["A", 'B', 'C'],
-                dropdownValue: controller.batchDropDownValue,
-                onChanged: (v) {
-                  controller.batchDropDownValue = v!;
-                },
-              ),
-              5.h.height,
-              const Text(
-                'Difficult Questions',
-                style: AppTextStyles.body,
-              ),
-              CupertinoRadio<String>(
-                value: "b",
-
-                groupValue: controller.groupValue,
-                onChanged: (value) {
-                  controller.groupValue = value!;
-                },
-              ),
-              5.h.height,
-              const SizedBox(height: 5.0),
               10.h.height,
+
+              // Gender
+              const Text(
+                'Gender',
+                style: AppTextStyles.body,
+              ),
+              2.h.height,
+              CustomDropdownButton(
+                items: const ["Male", 'Female'],
+                dropdownValue: controller.genderDropDownValue,
+                onChanged: (v) {
+                  controller.genderDropDownValue = v!;
+                },
+              ),
+              10.h.height,
+
+              // Phone
               const Text(
                 'Phone',
                 style: AppTextStyles.body,
               ),
+              2.h.height,
               const CustomTextFormField(
                 controller: null,
                 readOnly: true,
                 hintText: '017********',
-                //obscureText: true,
               ),
-              5.h.height,
+              20.h.height, // Space below the phone input field
 
-              /// Password Area
+              // Password Area
               const Text(
                 'পাসওয়ার্ড',
                 style: AppTextStyles.heading,
               ),
-              10.h.height,
+              10.h.height, // Space below the password heading
               const Text(
                 'পরিবর্তন করতে না চাইলে খালি রাখো',
                 style: AppTextStyles.body,
               ),
-              5.h.height,
+              5.h.height, // Space before the password input field
               const Text(
                 'New Password',
                 style: AppTextStyles.body,
               ),
-              3.h.height,
+              3.h.height, // Space between the text and the input field
               const CustomTextFormField(
                 controller: null,
                 hintText: 'No update Mail',
                 obscureText: true,
               ),
-              5.h.height,
+              5.h.height, // Space below the new password input field
+
               const Text(
                 'Confirm Password',
                 style: AppTextStyles.body,
               ),
-              3.h.height,
+              3.h.height, // Space between the text and the input field
               const CustomTextFormField(
                 controller: null,
                 hintText: 'No update Mail',
                 obscureText: true,
               ),
-              20.h.height,
+              20.h.height, // Space below the confirm password input field
+
               CustomActionButton(text: "Update", onPressed: () {}),
             ],
           ),

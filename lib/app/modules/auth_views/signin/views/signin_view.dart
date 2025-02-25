@@ -9,12 +9,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import '../../../../routes/app_pages.dart';
+import '../../sign_up/controllers/sign_up_controller.dart';
 import '../controllers/signin_controller.dart';
 
 class SignInView extends GetView<SignInController> {
-  const SignInView({super.key});
+  final String phoneNumber;
+  final String type;
+
+  SignInView({super.key})
+      : phoneNumber = Get.arguments['phoneNumber'],
+        type = Get.arguments['type'];
+
   @override
   Widget build(BuildContext context) {
+    debugPrint('MY PHONE $phoneNumber');
     return Scaffold(
         body: GetBuilder(
             init: SignInController(),
@@ -43,18 +51,19 @@ class SignInView extends GetView<SignInController> {
                     ),
                     2.0.h.height,
                     CustomTextFormField(
-                      controller: controller.phoneController,
+                      //controller: controller.phoneController.text,
+                      readOnly: true,
                       prefixIcon: const Icon(FontAwesomeIcons.phone),
-                      hintText: "আপনার ১১ সংখ্যার ফোন নম্বর লিখুন",
+                      hintText: phoneNumber,
+                      //hintText: "আপনার ১১ সংখ্যার ফোন নম্বর লিখুন",
                     ),
                     1.0.h.height,
-                     CustomTextFormField(
-                            controller: controller.passwordController,
-                            prefixIcon: const Icon(FontAwesomeIcons.lock),
-                            hintText: "আপনার পাসওয়ার্ড লিখুন",
-                            obscureText: true,
-                          ),
-
+                    CustomTextFormField(
+                      controller: controller.passwordController,
+                      prefixIcon: const Icon(FontAwesomeIcons.lock),
+                      hintText: "আপনার পাসওয়ার্ড লিখুন",
+                      obscureText: true,
+                    ),
                     Align(
                       alignment: Alignment.topRight,
                       child: GestureDetector(
@@ -72,9 +81,13 @@ class SignInView extends GetView<SignInController> {
                     1.0.h.height,
                     CustomActionButton(
                       text: "এগিয়ে যান",
+                      isLoading: controller.isLoading,
                       onPressed: () {
-                        debugPrint(controller.phoneController.text);
-                        Get.toNamed(Routes.NAVBAR);
+                        controller.login(
+                          phoneNumber,
+                          type,
+                          controller.passwordController.text,
+                        );
                       },
                     ),
                   ],

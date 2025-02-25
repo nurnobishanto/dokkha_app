@@ -25,8 +25,8 @@ class VerifyOtpView extends GetView<VerifyOtpController> {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint('MY PHONE $phoneNumber>> ${phoneNumber.runtimeType}');
     controller.sendOtp(phoneNumber, type);
-    //Get.find<VerifyOtpController>().sendOtp(phoneNumber, type);
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(

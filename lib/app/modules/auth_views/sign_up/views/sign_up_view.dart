@@ -56,8 +56,7 @@ class SignUpView extends GetView<SignUpController> {
                     isLoading: controller.isLoading,
                     onPressed: () {
                       debugPrint(controller.phoneController.text);
-                      if (controller.phoneController.text == '' ||
-                          controller.phoneController.text.isEmpty) {
+                      if (controller.phoneController.text.trim().isEmpty) {
                         CustomSnackBar.showCustomErrorSnackBar(
                           title: 'Invalid credentials.',
                           message: "Please provide your phone number",

@@ -51,18 +51,21 @@ class CustomTextFormField extends StatelessWidget {
           decoration: InputDecoration(
             isDense: true,
             hintText: hintText,
-            hintStyle: AppTextStyles.custom(fontSize: 12.0.sp, color: Colors.black38),
+            hintStyle: AppTextStyles.custom(
+              fontSize: readOnly ? 15.0.sp : 12.0.sp,
+              color: readOnly ? Colors.black : Colors.black38,
+            ),
             prefixIcon: prefixIcon,
             suffixIcon: obscureText
                 ? IconButton(
-              icon: Icon(
-                value ? Icons.visibility_off : Icons.visibility,
-                color: Colors.grey.shade600,
-              ),
-              onPressed: () {
-                isObscured.value = !isObscured.value;
-              },
-            )
+                    icon: Icon(
+                      value ? Icons.visibility_off : Icons.visibility,
+                      color: Colors.grey.shade600,
+                    ),
+                    onPressed: () {
+                      isObscured.value = !isObscured.value;
+                    },
+                  )
                 : null,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),

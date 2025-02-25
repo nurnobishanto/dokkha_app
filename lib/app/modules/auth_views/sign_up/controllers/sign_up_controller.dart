@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:lokkha/app/modules/auth_views/signin/views/signin_view.dart';
 import 'package:lokkha/app/services/base_client.dart';
 import 'package:lokkha/utils/constants.dart';
 
@@ -61,7 +62,13 @@ class SignUpController extends GetxController {
         'type': response.data["type"],
       });
     } else if (page == "password") {
-      Get.toNamed(Routes.SIGNIN, arguments: phoneController.text);
+      Get.toNamed(
+        Routes.SIGNIN,
+        arguments: {
+          'phoneNumber': response.data['phone'],
+          'type': response.data['method'],
+        },
+      );
     }
   }
 

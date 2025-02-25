@@ -37,4 +37,6 @@ class VerifyOtpController extends GetxController {
       },
     );
   }
+
+
 }

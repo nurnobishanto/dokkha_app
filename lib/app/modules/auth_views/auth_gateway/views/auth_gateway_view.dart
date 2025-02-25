@@ -47,10 +47,10 @@ class AuthGatewayView extends GetView<AuthGatewayController> {
               leadingWidget: const FaIcon(FontAwesomeIcons.phone, size: 20),
               onPressed: () {
                 if (controller.isRegister) {
-                  print("isRegister");
+                  debugPrint("isRegister");
                   Get.toNamed(Routes.SIGNIN);
                 } else {
-                  print("Not Register");
+                  debugPrint("Not Register");
                   Get.toNamed(Routes.SIGN_UP);
                 }
               },
@@ -59,7 +59,8 @@ class AuthGatewayView extends GetView<AuthGatewayController> {
             RichText(
               text: TextSpan(children: [
                 TextSpan(
-                  text: 'লগ ইন করে, আপনি আমাদের সাথে সম্মত হন।', // by logging in you agree to our
+                  text:
+                      'লগ ইন করে, আপনি আমাদের সাথে সম্মত হন।', // by logging in you agree to our
                   style: AppTextStyles.custom(fontSize: 11.0.sp),
                 ),
                 TextSpan(
@@ -70,7 +71,6 @@ class AuthGatewayView extends GetView<AuthGatewayController> {
                       color: Colors.black),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
-                      print('tapped');
                       Get.toNamed(Routes.TERMS_CONDITION);
                     },
                 ),

@@ -28,10 +28,18 @@ class SignInController extends GetxController {
         _setLoadingState(false);
         apiCallStatus = ApiCallStatus.success;
         update();
-        CustomSnackBar.showCustomToast(
-          message: response.data["message"],
-        );
-        Get.toNamed(Routes.NAVBAR);
+
+        if (response.data['status']) {
+          CustomSnackBar.showCustomToast(
+            message: response.data["message"],
+          );
+          Get.toNamed(Routes.NAVBAR);
+        } else {
+          CustomSnackBar.showCustomErrorSnackBar(
+            title: 'Invalid Credential',
+            message: response.data["message"],
+          );
+        }
         debugPrint("Login successfully: ${response.data}");
       },
       onError: (error) {
@@ -54,9 +62,4 @@ class SignInController extends GetxController {
     update();
   }
 
-  void _onLoading() {
-    apiCallStatus = ApiCallStatus.loading;
-    update();
-    debugPrint("Checking Credential...");
-  }
 }

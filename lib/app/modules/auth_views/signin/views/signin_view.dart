@@ -68,10 +68,14 @@ class SignInView extends GetView<SignInController> {
                       alignment: Alignment.topRight,
                       child: GestureDetector(
                         onTap: () {
-                          Get.toNamed(Routes.FORGET_PASSWORD);
+                          //Get.toNamed(Routes.FORGET_PASSWORD);
+                          Get.toNamed(Routes.VERIFY_OTP, arguments: {
+                            'phoneNumber': phoneNumber,
+                            'type': type,
+                          });
                         },
                         child: Text(
-                          'পাসওয়ার্ড ভুলে গেছেন?',
+                          'OTP দিয়ে লগইন করুন!',
                           textAlign: TextAlign.right,
                           style: AppTextStyles.custom(
                               color: LightThemeColors.primaryColor),

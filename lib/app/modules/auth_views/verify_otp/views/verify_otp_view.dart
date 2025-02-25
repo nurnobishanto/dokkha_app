@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:lokkha/app/components/custom_action_button.dart';
 import 'package:lokkha/config/constants/app_images.dart';
 import 'package:lokkha/config/extensions/common_extension.dart';
@@ -53,6 +55,8 @@ class VerifyOtpView extends GetView<VerifyOtpController> {
               pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
               showCursor: true,
               onCompleted: (pin) {
+                debugPrint("Otp pin $pin");
+                controller.otp = pin;
                 // signInController.otp.value = pin;
                 // signUPController.otp.value = pin;
               },
@@ -91,7 +95,8 @@ class VerifyOtpView extends GetView<VerifyOtpController> {
             CustomActionButton(
               text: "Verify",
               onPressed: () {
-                Get.toNamed(Routes.NAVBAR);
+                controller.register(phoneNumber);
+                // Get.toNamed(Routes.NAVBAR);
               },
             ),
           ],

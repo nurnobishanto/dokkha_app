@@ -7,9 +7,22 @@ import '../../../../services/api_call_status.dart';
 import '../../../../services/base_client.dart';
 
 class VerifyOtpController extends GetxController {
-  late final String otp;
+  String? otp;
   ApiCallStatus apiCallStatus = ApiCallStatus.holding;
   bool isLoading = false;
+
+  @override
+  void onInit() {
+    super.onInit();
+    final phoneNumber = Get.arguments['phoneNumber'];
+    final type = Get.arguments['type'];
+    sendOtp(phoneNumber, type);
+  }
+
+  void setOtp(String value) {
+    otp = value;
+    update();
+  }
 
   /// register method
   Future<void> register(String phone) async {
@@ -24,19 +37,19 @@ class VerifyOtpController extends GetxController {
       onSuccess: (response) {
         _setLoadingState(false);
         apiCallStatus = ApiCallStatus.success;
-        update();
 
         if (response.data['status']) {
           CustomSnackBar.showCustomToast(
-            message: response.data["message"],
+            message: response.data["message"]['otp'][0].toString(),
           );
-          Get.toNamed(Routes.NAVBAR);
+          Get.offAllNamed(Routes.NAVBAR);
         } else {
           CustomSnackBar.showCustomErrorSnackBar(
             title: 'Invalid Credential',
-            message: response.data["message"],
+            message: response.data["message"]['otp'][0],
           );
         }
+        update();
         debugPrint("Login successfully: ${response.data}");
       },
       onError: (error) {
@@ -70,10 +83,11 @@ class VerifyOtpController extends GetxController {
       },
       onSuccess: (response) {
         apiCallStatus = ApiCallStatus.success;
-        update();
+
         CustomSnackBar.showCustomToast(
           message: response.data["message"],
         );
+        update();
         debugPrint("OTP sent successfully: ${response.data}");
       },
       onError: (error) {

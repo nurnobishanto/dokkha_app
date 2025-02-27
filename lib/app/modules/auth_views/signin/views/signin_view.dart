@@ -71,13 +71,14 @@ class SignInView extends GetView<SignInController> {
                           //Get.toNamed(Routes.FORGET_PASSWORD);
                           Get.toNamed(Routes.VERIFY_OTP, arguments: {
                             'phoneNumber': phoneNumber,
-                            'type': type,
+                            'type': 'Login',
                           });
                         },
                         child: Text(
-                          'OTP দিয়ে লগইন করুন!',
+                          'পাসওয়ার্ড মনে নেই? OTP দিয়ে লগইন করুন!',
                           textAlign: TextAlign.right,
                           style: AppTextStyles.custom(
+                            fontSize: 11.5.sp,
                               color: LightThemeColors.primaryColor),
                         ),
                       ),

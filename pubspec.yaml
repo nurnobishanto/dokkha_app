@@ -30,7 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  get: ^4.6.6 # for state management and context less stuff
+  get: ^4.7.2 # for state management and context less stuff
 
   logger: # log events in clear way instead of (print)
 
@@ -51,8 +51,6 @@ dependencies:
 
   rename_app: # rename app
 
-
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
@@ -61,6 +59,10 @@ dependencies:
   pinput: ^5.0.1
   carousel_slider: ^5.0.0
   dots_indicator: ^4.0.0
+  webview_flutter: ^4.10.0
+  url_launcher: ^6.3.1
+
+
 
 dev_dependencies:
   flutter_test:

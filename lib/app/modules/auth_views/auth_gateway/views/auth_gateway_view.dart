@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lokkha/app/components/custom_decision_button.dart';
+import 'package:lokkha/app/modules/auth_views/auth_gateway/views/social_login.dart';
 import 'package:lokkha/config/constants/app_images.dart';
 import 'package:lokkha/config/extensions/common_extension.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
@@ -21,8 +22,8 @@ class AuthGatewayView extends GetView<AuthGatewayController> {
         child: Column(
           spacing: 10.0.h,
           children: [
-            70.h.height,
-            Image.asset(AssetImagePaths.appIcon, scale: 8.0),
+            55.h.height,
+            Image.asset(AssetImagePaths.appIcon, scale: 4.0),
             const Text(
               "এক টাকা দিয়ে লক্ষ্যে পৌঁছান",
               style: AppTextStyles.heading,
@@ -35,7 +36,11 @@ class AuthGatewayView extends GetView<AuthGatewayController> {
             DecisionButton(
               text: "Sign in with google",
               leadingWidget: const FaIcon(FontAwesomeIcons.google, size: 20),
-              onPressed: () {},
+              onPressed: () {
+                Get.to(const SocialLoginWebView(
+                  url: 'https://lokkha.com/api/auth/facebook/redirect',
+                ));
+              },
             ),
             DecisionButton(
               text: "Sign in with Facebook",

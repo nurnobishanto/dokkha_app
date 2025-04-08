@@ -37,16 +37,16 @@ class VerifyOtpController extends GetxController {
       onSuccess: (response) {
         _setLoadingState(false);
         apiCallStatus = ApiCallStatus.success;
-
         if (response.data['status']) {
           CustomSnackBar.showCustomToast(
-            message: response.data["message"]['otp'][0].toString(),
+            message: response.data["message"].toString(),
           );
-          Get.offAllNamed(Routes.NAVBAR);
+          // Get.offAllNamed(Routes.NAVBAR);
+          Get.offAllNamed(Routes.PROFILE_UPDATE_REQUIRED);
         } else {
           CustomSnackBar.showCustomErrorSnackBar(
             title: 'Invalid Credential',
-            message: response.data["message"]['otp'][0],
+            message: response.data["message"],
           );
         }
         update();

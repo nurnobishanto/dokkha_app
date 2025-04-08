@@ -38,6 +38,8 @@ import '../modules/nav_bar_views/question_bank/bindings/question_bank_binding.da
 import '../modules/nav_bar_views/question_bank/views/question_bank_view.dart';
 import '../modules/navbar/bindings/navbar_binding.dart';
 import '../modules/navbar/views/navbar_view.dart';
+import '../modules/profile_update_required/bindings/profile_update_required_binding.dart';
+import '../modules/profile_update_required/views/profile_update_required_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 import '../views/views/onboarding_view.dart';
@@ -153,6 +155,11 @@ class AppPages {
       name: _Paths.PROFILE_HISTORY,
       page: () => const ProfileHistoryView(),
       binding: ProfileHistoryBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROFILE_UPDATE_REQUIRED,
+      page: () => const ProfileUpdateRequiredView(),
+      binding: ProfileUpdateRequiredBinding(),
     ),
   ];
 }

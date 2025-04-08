@@ -24,6 +24,7 @@ abstract class Routes {
   static const AUTH_GATEWAY = _Paths.AUTH_GATEWAY;
   static const PROFILE_UPDATE = _Paths.PROFILE_UPDATE;
   static const PROFILE_HISTORY = _Paths.PROFILE_HISTORY;
+  static const PROFILE_UPDATE_REQUIRED = _Paths.PROFILE_UPDATE_REQUIRED;
 }
 
 abstract class _Paths {
@@ -49,4 +50,5 @@ abstract class _Paths {
   static const AUTH_GATEWAY = '/auth-gateway';
   static const PROFILE_UPDATE = '/profile-update';
   static const PROFILE_HISTORY = '/profile-history';
+  static const PROFILE_UPDATE_REQUIRED = '/profile-update-required';
 }

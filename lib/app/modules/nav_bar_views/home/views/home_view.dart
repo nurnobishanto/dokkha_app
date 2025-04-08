@@ -22,7 +22,7 @@ class HomeView extends GetView<HomeController> {
     return Scaffold(
       drawer: const CustomDrawer(),
       appBar: AppBar(
-        title: Image.asset(AssetImagePaths.appIcon),
+        title: Image.asset(AssetImagePaths.appIconHorizontal,scale: 3.8),
         actions: [
           IconButton(
             onPressed: () {
@@ -38,6 +38,7 @@ class HomeView extends GetView<HomeController> {
         builder: (_) {
           return Column(
             children: [
+
               /// Search Bar
               Container(
                 decoration: BoxDecoration(
@@ -47,29 +48,34 @@ class HomeView extends GetView<HomeController> {
                     bottomRight: Radius.circular(10.0.r),
                   ),
                 ),
-                child: TextFormField(
-                  enabled: false, // This makes the field non-editable
-                  controller: null,
-                  decoration: const InputDecoration(
-                    hintText: "অনুসন্ধান করুন",
-                    prefixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                child: Column(
+                  children: [
+                    10.h.height,
+                    TextFormField(
+                      enabled: false, // This makes the field non-editable
+                      controller: null,
+                      decoration: const InputDecoration(
+                        hintText: "অনুসন্ধান করুন",
+                        prefixIcon: Icon(Icons.search),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                          borderSide: BorderSide(color: Colors.blue),
+                        ),
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0),
+                        filled: true,
+                        fillColor: Colors.white,
+                      ),
+                      // onChanged: controller.onSearchChanged,
                     ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                      borderSide: BorderSide(color: Colors.grey),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                      borderSide: BorderSide(color: Colors.blue),
-                    ),
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0),
-                    filled: true,
-                    fillColor: Colors.white,
-                  ),
-                  // onChanged: controller.onSearchChanged,
+                  ],
                 )
                     .paddingOnly(bottom: 10.00.h, left: 15.00.w, right: 15.00.w)
                     .onTap(() {
@@ -248,6 +254,7 @@ class HomeView extends GetView<HomeController> {
                           controller.selectedOptionIndex = i;
                         },
                       ),
+
                       //5.0.h.height,
 
                       /// Leader Board

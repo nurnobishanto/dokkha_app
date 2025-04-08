@@ -26,8 +26,8 @@ class SignUpView extends GetView<SignUpController> {
               child: Column(
                 spacing: 5.00.h,
                 children: [
-                  100.height,
-                  Image.asset(AssetImagePaths.appIcon, scale: 8.0),
+                  70.height,
+                  Image.asset(AssetImagePaths.appIcon, scale: 4.0),
                   const Text("এক টাকা দিয়ে লক্ষ্যে পৌঁছান",
                       style: AppTextStyles.heading,
                       textAlign: TextAlign.center),

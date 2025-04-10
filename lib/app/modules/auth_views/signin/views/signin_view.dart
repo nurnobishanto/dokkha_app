@@ -51,11 +51,10 @@ class SignInView extends GetView<SignInController> {
                     ),
                     2.0.h.height,
                     CustomTextFormField(
-                      //controller: controller.phoneController.text,
                       readOnly: true,
                       prefixIcon: const Icon(FontAwesomeIcons.phone),
                       hintText: phoneNumber,
-                      //hintText: "আপনার ১১ সংখ্যার ফোন নম্বর লিখুন",
+                      hintStyle: AppTextStyles.title,
                     ),
                     1.0.h.height,
                     CustomTextFormField(
@@ -63,6 +62,9 @@ class SignInView extends GetView<SignInController> {
                       prefixIcon: const Icon(FontAwesomeIcons.lock),
                       hintText: "আপনার পাসওয়ার্ড লিখুন",
                       obscureText: true,
+                      hintStyle: AppTextStyles.custom(
+                          fontSize: 12.00.sp,
+                          color: LightThemeColors.hintTextColor),
                     ),
                     Align(
                       alignment: Alignment.topRight,
@@ -78,7 +80,7 @@ class SignInView extends GetView<SignInController> {
                           'পাসওয়ার্ড মনে নেই? OTP দিয়ে লগইন করুন!',
                           textAlign: TextAlign.right,
                           style: AppTextStyles.custom(
-                            fontSize: 11.5.sp,
+                              fontSize: 11.5.sp,
                               color: LightThemeColors.primaryColor),
                         ),
                       ),

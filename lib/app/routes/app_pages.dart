@@ -158,7 +158,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.PROFILE_UPDATE_REQUIRED,
-      page: () => const ProfileUpdateRequiredView(),
+      page: () =>  ProfileUpdateRequiredView(),
       binding: ProfileUpdateRequiredBinding(),
     ),
   ];

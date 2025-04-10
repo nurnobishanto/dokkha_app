@@ -15,6 +15,9 @@ class MySharedPref {
   static const String _currentLocalKey = 'current_local';
   static const String _lightThemeKey = 'is_theme_light';
 
+  // Keys for user login token
+  static const String _userTokenKey = 'user_token';
+
   /// init get storage services
   static Future<void> init() async {
     _sharedPreferences = await SharedPreferences.getInstance();
@@ -23,6 +26,23 @@ class MySharedPref {
   static setStorage(SharedPreferences sharedPreferences) {
     _sharedPreferences = sharedPreferences;
   }
+
+
+  // Setter method to save user login token
+   static Future<void> setUserToken(String token)async{
+      await _sharedPreferences.setString(_userTokenKey, token);
+   }
+
+   // Getter method to retrieve user login token
+  static String getUserToken(){
+    return _sharedPreferences.getString(_userTokenKey)??"";
+  }
+
+  // Method to remove user token
+  static Future<void> removeUserToken() async {
+    await _sharedPreferences.remove(_userTokenKey);
+  }
+
 
   /// set theme current type as light theme
   static Future<void> setThemeIsLight(bool lightTheme) =>

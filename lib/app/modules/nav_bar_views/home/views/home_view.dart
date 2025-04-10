@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:lokkha/app/components/custom_drawer.dart';
+import 'package:lokkha/app/data/local/my_shared_pref.dart';
 import 'package:lokkha/config/extensions/common_extension.dart';
 import 'package:lokkha/config/extensions/widget_extensions.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
@@ -19,10 +20,11 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     debugPrint("Build Home view");
+    debugPrint("Get token ${MySharedPref.getUserToken()}");
     return Scaffold(
       drawer: const CustomDrawer(),
       appBar: AppBar(
-        title: Image.asset(AssetImagePaths.appIconHorizontal,scale: 3.8),
+        title: Image.asset(AssetImagePaths.appIconHorizontal, scale: 3.8),
         actions: [
           IconButton(
             onPressed: () {
@@ -38,7 +40,6 @@ class HomeView extends GetView<HomeController> {
         builder: (_) {
           return Column(
             children: [
-
               /// Search Bar
               Container(
                 decoration: BoxDecoration(
@@ -68,8 +69,8 @@ class HomeView extends GetView<HomeController> {
                           borderRadius: BorderRadius.all(Radius.circular(12.0)),
                           borderSide: BorderSide(color: Colors.blue),
                         ),
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0),
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 12.0),
                         filled: true,
                         fillColor: Colors.white,
                       ),

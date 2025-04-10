@@ -22,8 +22,14 @@ class AppTextStyles {
     color: Colors.grey,
   );
 
+  static const TextStyle title = TextStyle(
+    fontSize: 16.00,
+    fontWeight: FontWeight.w600,
+    color: Colors.black,
+  );
+
   static const TextStyle body = TextStyle(
-    fontSize: 16.0,
+    fontSize: 13.00,
     fontWeight: FontWeight.normal,
     color: Colors.black87,
   );

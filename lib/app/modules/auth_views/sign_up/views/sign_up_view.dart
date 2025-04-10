@@ -49,6 +49,7 @@ class SignUpView extends GetView<SignUpController> {
                     controller: controller.phoneController,
                     prefixIcon: const Icon(FontAwesomeIcons.phone),
                     hintText: "আপনার ১১ সংখ্যার ফোন নম্বর লিখুন",
+                    hintStyle: AppTextStyles.custom(fontSize: 12.00.sp, color: LightThemeColors.hintTextColor),
                   ),
                   1.0.h.height,
                   CustomActionButton(

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:lokkha/app/data/local/my_shared_pref.dart';
 
 import '../../../../../utils/constants.dart';
 import '../../../../components/custom_snackbar.dart';
@@ -27,8 +28,9 @@ class SignInController extends GetxController {
       onSuccess: (response) {
         _setLoadingState(false);
         apiCallStatus = ApiCallStatus.success;
-
         if (response.data['status']) {
+          MySharedPref.setUserToken(response.data["token"]);
+          debugPrint("Save token");
           CustomSnackBar.showCustomToast(
             message: response.data["message"],
           );

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:lokkha/app/data/local/my_shared_pref.dart';
 import '../../../../../utils/constants.dart';
 import '../../../../components/custom_snackbar.dart';
 import '../../../../routes/app_pages.dart';
@@ -38,11 +39,13 @@ class VerifyOtpController extends GetxController {
         _setLoadingState(false);
         apiCallStatus = ApiCallStatus.success;
         if (response.data['status']) {
+          MySharedPref.setUserToken(response.data["token"]);
           CustomSnackBar.showCustomToast(
             message: response.data["message"].toString(),
           );
           // Get.offAllNamed(Routes.NAVBAR);
-          Get.offAllNamed(Routes.PROFILE_UPDATE_REQUIRED);
+          Get.offAllNamed(Routes.PROFILE_UPDATE_REQUIRED,
+              arguments: {'phoneNumber': phone.toString()});
         } else {
           CustomSnackBar.showCustomErrorSnackBar(
             title: 'Invalid Credential',

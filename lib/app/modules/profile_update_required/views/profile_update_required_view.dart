@@ -18,7 +18,6 @@ class ProfileUpdateRequiredView
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("Get Token ${MySharedPref.getUserToken()}");
     debugPrint("Phone Number: $phoneNumber");
     return Scaffold(
       appBar: AppBar(title: const Text('চলুন শুরু করি!')),
@@ -49,7 +48,9 @@ class ProfileUpdateRequiredView
                     hintStyle: AppTextStyles.custom(
                         fontSize: 12.5, color: LightThemeColors.hintTextColor),
                     controller: controller.dobController,
-                    onTap: () => controller.selectDate(context),
+                    onTap: ()  {
+                       controller.selectDate(context);
+                    },
                   ),
                   10.0.h.height,
                   const Text("লিঙ্গ", style: AppTextStyles.title),

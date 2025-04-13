@@ -43,7 +43,7 @@ class VerifyOtpController extends GetxController {
           CustomSnackBar.showCustomToast(
             message: response.data["message"].toString(),
           );
-          // Get.offAllNamed(Routes.NAVBAR);
+
           Get.offAllNamed(Routes.PROFILE_UPDATE_REQUIRED,
               arguments: {'phoneNumber': phone.toString()});
         } else {
@@ -53,13 +53,13 @@ class VerifyOtpController extends GetxController {
           );
         }
         update();
-        debugPrint("Login successfully: ${response.data}");
+        debugPrint("Registration successfully: ${response.data}");
       },
       onError: (error) {
         _setLoadingState(false);
         apiCallStatus = ApiCallStatus.error;
         update();
-        debugPrint("Error login: ${error.message}");
+        debugPrint("Error Register: ${error.message}");
       },
       onLoading: () {
         apiCallStatus = ApiCallStatus.loading;

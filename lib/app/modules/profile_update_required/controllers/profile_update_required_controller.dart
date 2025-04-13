@@ -4,6 +4,7 @@ import 'package:lokkha/app/data/local/my_shared_pref.dart';
 import 'package:lokkha/app/services/base_client.dart';
 import 'package:lokkha/utils/constants.dart';
 
+import '../../../../config/constants/global.dart';
 import '../../../components/custom_snackbar.dart';
 import '../../../routes/app_pages.dart';
 import '../../../services/api_call_status.dart';
@@ -38,7 +39,7 @@ class ProfileUpdateRequiredController extends GetxController {
       lastDate: DateTime.now(),
     );
     if (picked != null) {
-      dobController.text = picked.toIso8601String().split('T').first;
+      dobController.text = picked.toIso8601String().split("T").first;
     }
   }
 
@@ -73,6 +74,7 @@ class ProfileUpdateRequiredController extends GetxController {
       "name": nameController.text.trim(),
       "date_of_birth": dobController.text.trim(),
       "gender": gender.trim(),
+      "phone": phoneController.text.trim().toString(),
       "occupation": occupation.trim(),
       "password": pwdController.text.trim(),
       "password_confirmation": confirmPwdController.text.trim(),
@@ -92,6 +94,7 @@ class ProfileUpdateRequiredController extends GetxController {
           CustomSnackBar.showCustomToast(
             message: response.data["message"],
           );
+          isLoggedIn.value = true;
           Get.offAllNamed(Routes.NAVBAR);
         }
         update();

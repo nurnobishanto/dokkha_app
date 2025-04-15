@@ -32,7 +32,7 @@ class SignInView extends GetView<SignInController> {
                   spacing: 5.00.h,
                   children: [
                     40.height,
-                    Image.asset(AssetImagePaths.appIcon, scale: 8.0),
+                    Image.asset(AssetImagePaths.appIcon, scale: 5.0),
                     const Text("এক টাকা দিয়ে লক্ষ্যে পৌঁছান",
                         style: AppTextStyles.heading,
                         textAlign: TextAlign.center),

@@ -19,7 +19,7 @@ class ProfileHistoryView extends GetView<ProfileHistoryController> {
         actions: [
           IconButton(
             onPressed: () {
-              Get.toNamed(Routes.PROFILE_UPDATE);
+              //Get.toNamed(Routes.PROFILE_UPDATE);
             },
             icon: const Icon(Icons.edit),
           ),

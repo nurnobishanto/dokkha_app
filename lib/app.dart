@@ -1,23 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import 'app/bindings/initial_bindings.dart';
 import 'app/data/local/my_shared_pref.dart';
 import 'app/routes/app_pages.dart';
 import 'app/services/auth_service.dart';
 import 'config/constants/app_strings.dart';
-import 'config/constants/global.dart';
+import 'app/helper/global.dart';
 import 'config/theme/my_theme.dart';
 import 'config/translations/localization_service.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+  final AuthService authService = AuthService();
+  static bool _isAuthChecked = false;
 
   @override
   Widget build(BuildContext context) {
-    final AuthService _authService = AuthService();
-    _authService.authCheck();
+    if (!_isAuthChecked) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        authService.authCheck();
+      });
+      _isAuthChecked = true;
+    }
+
     return ScreenUtilInit(
       // Todo: Figma art board size
       designSize: const Size(375, 812),

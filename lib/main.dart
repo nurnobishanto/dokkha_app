@@ -7,5 +7,5 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // init shared preference
   await MySharedPref.init();
-  runApp(const MyApp());
+  runApp(MyApp());
 }

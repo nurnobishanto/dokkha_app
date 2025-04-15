@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../../../config/constants/app_images.dart';
+import '../../../../../helper/api_helper.dart';
+import '../../../../navbar/controllers/navbar_controller.dart';
 import '../controllers/profile_update_controller.dart';
 
 class ProfileUpdateView extends GetView<ProfileUpdateController> {
@@ -33,14 +35,13 @@ class ProfileUpdateView extends GetView<ProfileUpdateController> {
           ),
         ],
       ),
-      // drawer: const TemCustomDrawer(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              20.h.height, // Space at the top
+              10.h.height,
               Center(
                 child: CircleAvatar(
                   radius: 50.0.r,
@@ -52,96 +53,116 @@ class ProfileUpdateView extends GetView<ProfileUpdateController> {
                   ),
                 ),
               ),
-              20.h.height, // Space below the avatar
-
-              // Show the user Name
+              15.h.height,
               const Text(
-                'Name',
+                'নাম',
                 style: AppTextStyles.body,
               ),
               2.h.height,
-              const CustomTextFormField(
-                controller: null,
-                hintText: 'No update Name',
+              CustomTextFormField(
+                controller: controller.nameController,
+                hintText: 'আপনার নাম লিখুন',
               ),
               10.h.height,
-
-              // Email
               const Text(
-                'Email',
+                'ইমেইল',
                 style: AppTextStyles.body,
               ),
               2.h.height,
-              const CustomTextFormField(
-                controller: null,
-                hintText: 'No update email',
+              CustomTextFormField(
+                controller: controller.emailController,
+                hintText: 'আপনার ইমেইল ঠিকানা লিখুন',
               ),
               10.h.height,
+              const Text("জন্ম তারিখ", style: AppTextStyles.body),
+              2.h.height,
+              CustomTextFormField(
+                hintText: controller.dob.value.trim().isEmpty
+                    ? profileDataModel
+                    .value
+                    .data!
+                    .dateOfBirth
+                    .toString()
+                    .split(' ')
+                    .first
+                    : controller.dob.value,
+                readOnly: true,
+                onTap: () => controller.selectDate(context),
+              ),
 
-              // Gender
+              10.h.height,
               const Text(
-                'Gender',
+                'লিঙ্গ',
                 style: AppTextStyles.body,
               ),
               2.h.height,
               CustomDropdownButton(
-                items: const ["Male", 'Female'],
-                dropdownValue: controller.genderDropDownValue,
+                items: const ["পুরুষ", 'মহিলা', 'অন্যান্য'],
+                dropdownValue: controller.gender.value,
                 onChanged: (v) {
-                  controller.genderDropDownValue = v!;
+                  controller.gender.value = v!;
                 },
               ),
               10.h.height,
-
-              // Phone
               const Text(
-                'Phone',
+                'পেশা',
                 style: AppTextStyles.body,
               ),
               2.h.height,
-              const CustomTextFormField(
-                controller: null,
-                readOnly: true,
-                hintText: '017********',
+              CustomTextFormField(
+                controller: controller.occupationController,
+                hintText: 'পেশা প্রদর্শিত হবে',
               ),
-              20.h.height, // Space below the phone input field
-
-              // Password Area
+              10.h.height,
               const Text(
-                'পাসওয়ার্ড',
+                'প্রতিষ্ঠান',
+                style: AppTextStyles.body,
+              ),
+              2.h.height,
+              CustomTextFormField(
+                controller: controller.organizationController,
+                hintText: 'প্রতিষ্ঠানের নাম প্রদর্শিত হবে',
+              ),
+              20.h.height,
+              const Text(
+                'পাসওয়ার্ড',
                 style: AppTextStyles.heading,
               ),
-              10.h.height, // Space below the password heading
+              10.h.height,
               const Text(
-                'পরিবর্তন করতে না চাইলে খালি রাখো',
+                'পরিবর্তন করতে না চাইলে এই অংশ ফাঁকা রাখুন',
                 style: AppTextStyles.body,
               ),
-              5.h.height, // Space before the password input field
+              5.h.height,
               const Text(
-                'New Password',
+                'নতুন পাসওয়ার্ড',
                 style: AppTextStyles.body,
               ),
-              3.h.height, // Space between the text and the input field
-              const CustomTextFormField(
-                controller: null,
-                hintText: 'No update Mail',
+              3.h.height,
+              CustomTextFormField(
+                controller: controller.pwdController,
+                hintText: 'নতুন পাসওয়ার্ড লিখুন',
                 obscureText: true,
               ),
-              5.h.height, // Space below the new password input field
-
+              5.h.height,
               const Text(
-                'Confirm Password',
+                'পাসওয়ার্ড নিশ্চিত করুন',
                 style: AppTextStyles.body,
               ),
-              3.h.height, // Space between the text and the input field
-              const CustomTextFormField(
-                controller: null,
-                hintText: 'No update Mail',
+              3.h.height,
+              CustomTextFormField(
+                controller: controller.confirmPwdController,
+                hintText: 'পুনরায় পাসওয়ার্ড লিখুন',
                 obscureText: true,
               ),
-              20.h.height, // Space below the confirm password input field
-
-              CustomActionButton(text: "Update", onPressed: () {}),
+              20.h.height,
+              CustomActionButton(
+                text: "আপডেট করুন",
+                onPressed: () {
+                  controller.updateProfileInfo(context);
+                },
+              ),
+              30.h.height,
             ],
           ),
         ),

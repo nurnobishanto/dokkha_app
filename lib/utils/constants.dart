@@ -9,6 +9,7 @@ class AppConstants {
   static const String register = "$baseUrl/register";
   static const String updateProfileRequired =
       "$baseUrl/update-profile-required";
+  static const String updateProfileInfo = "$baseUrl/update-profile-info";
   static const String me = "$baseUrl/me";
   static const String authCheck = "$baseUrl/auth-check";
   static const String logout = "$baseUrl/logout";

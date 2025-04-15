@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/data/local/my_shared_pref.dart';
 
-import '../../config/constants/global.dart';
+import '../helper/global.dart';
 import '../../utils/constants.dart';
 import '../routes/app_pages.dart';
 import 'api_call_status.dart';

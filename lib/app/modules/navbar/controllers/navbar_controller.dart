@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:lokkha/app/services/base_client.dart';
 import 'package:lokkha/utils/constants.dart';
+import '../../../helper/api_helper.dart';
 import '../../nav_bar_views/blog/views/blog_view.dart';
 import '../../nav_bar_views/contest/views/contest_view.dart';
 import '../../nav_bar_views/home/views/home_view.dart';
@@ -26,23 +27,6 @@ class NavbarController extends GetxController {
     update(); // Notify UI to refresh
   }
 
-  RxObjectMixin<ProfileDataModel> profileDataModel = ProfileDataModel().obs;
-  Future<void> getMeProfileInfo() async {
-    String? token = MySharedPref.getUserToken();
-    String url = AppConstants.me;
-    await BaseClient.safeApiCall(url, RequestType.post, headers: {
-      'Authorization': 'Bearer $token',
-    }, onSuccess: (response) {
-      if (response.data['status']) {
-        ProfileDataModel dataModel = ProfileDataModel.fromJson(response.data);
-        profileDataModel.value = dataModel;
-        debugPrint("Profile Data fetch Name:${profileDataModel.value.data!.name}");
-        debugPrint("Profile Data fetch Success");
-      }
-    }, onError: (error) {
-      debugPrint("Error:$error");
-    });
-  }
 
   @override
   void onReady() {

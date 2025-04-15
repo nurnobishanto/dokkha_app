@@ -31,14 +31,14 @@ class ForgetPasswordView extends GetView<ForgetPasswordController> {
                     .copyWith(color: LightThemeColors.primaryColor),
               ),
             ),
-            Text(
+            const Text(
               "আপনার ফোন নম্বর এ ৬ ডিজিটের OTP পাঠানো ভেরিফাই করুন",
               textAlign: TextAlign.center,
             ),
 
-            CustomTextFormField(
+            const CustomTextFormField(
               controller: null,
-              prefixIcon: const Icon(FontAwesomeIcons.phone),
+              prefixIcon: Icon(FontAwesomeIcons.phone),
               hintText: "আপনার ১১ সংখ্যার ফোন নম্বর লিখুন",
             ),
 

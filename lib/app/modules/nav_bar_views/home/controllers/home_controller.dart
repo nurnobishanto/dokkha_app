@@ -61,7 +61,7 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    startTimer(hours: 4);
+    //startTimer(hours: 4);
   }
 
   /// start Timer
@@ -89,7 +89,7 @@ class HomeController extends GetxController {
         timer.cancel();
       }
       update();
-      print("Called Timer.....");
+      print("Called Timer.....${timer.tick} xx");
     });
   }
 

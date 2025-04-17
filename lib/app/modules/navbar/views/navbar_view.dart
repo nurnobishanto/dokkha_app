@@ -32,3 +32,21 @@ class NavbarView extends GetView<NavbarController> {
     );
   }
 }
+
+
+// Future<void> handleInitialUri() async {
+//   try {
+//     final initialLink = await getInitialLink();
+//     if (initialLink != null) {
+//       final uri = Uri.parse(initialLink);
+//       final token = uri.queryParameters['token'];
+//       if (token != null) {
+//         print("🔑 Token received from link: $token");
+//         // You can now use this token to hit your backend and log in/register
+//         // Example: Navigate to Login or Home page
+//       }
+//     }
+//   } catch (e) {
+//     print("Error reading deep link: $e");
+//   }
+// }

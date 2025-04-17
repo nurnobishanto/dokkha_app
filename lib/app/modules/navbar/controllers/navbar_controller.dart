@@ -10,6 +10,7 @@ import '../../nav_bar_views/contest/views/contest_view.dart';
 import '../../nav_bar_views/home/views/home_view.dart';
 import '../../nav_bar_views/question_bank/views/question_bank_view.dart';
 import '../model/profile_data_model.dart';
+import '../views/navbar_view.dart';
 
 class NavbarController extends GetxController {
   int currentIndex = 0; // Not using Rx because GetBuilder is used
@@ -27,10 +28,15 @@ class NavbarController extends GetxController {
     update(); // Notify UI to refresh
   }
 
-
   @override
   void onReady() {
     getMeProfileInfo();
     super.onReady();
+  }
+
+  @override
+  void onInit() {
+    // handleInitialUri();
+    super.onInit();
   }
 }

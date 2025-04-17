@@ -145,7 +145,7 @@ class HomeView extends GetView<HomeController> {
                       /// GridView for GridView
                       GridView.builder(
                         gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,
                           crossAxisSpacing: .0,
                           mainAxisSpacing: .0,
@@ -185,7 +185,7 @@ class HomeView extends GetView<HomeController> {
                                       child: Image.asset(
                                         "assets/images/$image",
                                         opacity:
-                                            const AlwaysStoppedAnimation(0.9),
+                                        const AlwaysStoppedAnimation(0.9),
                                         fit: BoxFit.contain,
                                       ),
                                     ),
@@ -195,7 +195,7 @@ class HomeView extends GetView<HomeController> {
                                     title,
                                     style: TextStyle(
                                       color:
-                                          Colors.black.withValues(alpha: 0.8),
+                                      Colors.black.withValues(alpha: 0.8),
                                       fontSize: 13.2,
                                       fontWeight: FontWeight.w500,
                                     ),

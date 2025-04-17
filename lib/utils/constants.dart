@@ -13,4 +13,7 @@ class AppConstants {
   static const String me = "$baseUrl/me";
   static const String authCheck = "$baseUrl/auth-check";
   static const String logout = "$baseUrl/logout";
+
+  // Subjects
+  static const String subjects = "$baseUrl/subjects";
 }

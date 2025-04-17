@@ -60,6 +60,7 @@ class ProfileUpdateController extends GetxController {
   /// Date value using obs
   RxString dob = ''.obs;
 
+
   /// Date Picker Function
   Future<void> selectDate(BuildContext context) async {
     final picked = await showDatePicker(

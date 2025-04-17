@@ -33,6 +33,11 @@ class AppTextStyles {
     fontWeight: FontWeight.normal,
     color: Colors.black87,
   );
+  static const TextStyle paragraph = TextStyle(
+    fontSize: 14.00,
+    fontWeight: FontWeight.normal,
+    color: Colors.black,
+  );
 
   static const TextStyle button = TextStyle(
     fontSize: 18.0,

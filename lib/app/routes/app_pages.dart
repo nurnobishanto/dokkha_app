@@ -12,6 +12,8 @@ import '../modules/auth_views/terms_condition/bindings/terms_condition_binding.d
 import '../modules/auth_views/terms_condition/views/terms_condition_view.dart';
 import '../modules/auth_views/verify_otp/bindings/verify_otp_binding.dart';
 import '../modules/auth_views/verify_otp/views/verify_otp_view.dart';
+import '../modules/fast_practice/bindings/fast_practice_binding.dart';
+import '../modules/fast_practice/views/fast_practice_view.dart';
 import '../modules/grid_views/ajker_bissho/bindings/ajker_bissho_binding.dart';
 import '../modules/grid_views/ajker_bissho/views/ajker_bissho_view.dart';
 import '../modules/grid_views/ajker_porikkha/bindings/ajker_porikkha_binding.dart';
@@ -19,9 +21,14 @@ import '../modules/grid_views/ajker_porikkha/views/ajker_porikkha_view.dart';
 import '../modules/grid_views/jobs_update/bindings/jobs_update_binding.dart';
 import '../modules/grid_views/jobs_update/views/jobs_update_view.dart';
 import '../modules/grid_views/mock_test/bindings/mock_test_binding.dart';
+import '../modules/grid_views/mock_test/controllers/mock_test_controller.dart';
 import '../modules/grid_views/mock_test/views/mock_test_view.dart';
+import '../modules/grid_views/mock_test/views/topic_selection_view.dart';
 import '../modules/grid_views/notice_board/bindings/notice_board_binding.dart';
 import '../modules/grid_views/notice_board/views/notice_board_view.dart';
+import '../modules/mock_test_tab/bindings/mock_test_tab_binding.dart';
+import '../modules/mock_test_tab/controllers/mock_test_tab_controller.dart';
+import '../modules/mock_test_tab/views/mock_test_tab_view.dart';
 import '../modules/nav_bar_views/blog/bindings/blog_binding.dart';
 import '../modules/nav_bar_views/blog/views/blog_view.dart';
 import '../modules/nav_bar_views/contest/bindings/contest_binding.dart';
@@ -158,8 +165,26 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.PROFILE_UPDATE_REQUIRED,
-      page: () =>  ProfileUpdateRequiredView(),
+      page: () => ProfileUpdateRequiredView(),
       binding: ProfileUpdateRequiredBinding(),
     ),
+    GetPage(
+      name: _Paths.MOCK_TEST_TAB,
+      page: () => const MockTestTabView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => MockTestTabController());
+        Get.lazyPut(() => MockTestController());
+      }),
+    ),
+    GetPage(
+      name: _Paths.FAST_PRACTICE,
+      page: () => const FastPracticeView(),
+      binding: FastPracticeBinding(),
+    ),
+    // GetPage(
+    //   name: _Paths.TOPIC_SELECTION,
+    //   page: () => const TopicSelectionView(),
+    //   //binding: FastPracticeBinding(),
+    // ),
   ];
 }

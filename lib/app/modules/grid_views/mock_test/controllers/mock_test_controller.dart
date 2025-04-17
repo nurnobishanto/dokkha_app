@@ -1,23 +1,38 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:lokkha/app/modules/grid_views/mock_test/models/subject_model.dart';
+import 'package:lokkha/app/services/api_call_status.dart';
+import 'package:lokkha/app/services/base_client.dart';
+import 'package:lokkha/utils/constants.dart';
 
 class MockTestController extends GetxController {
-  //TODO: Implement MockTestController
+  final Rx<ApiCallStatus> apiCallStatus = ApiCallStatus.holding.obs;
+  final Rx<SubjectModel> model = SubjectModel().obs;
 
-  final count = 0.obs;
+  Future<void> getSubjects() async {
+    apiCallStatus.value = ApiCallStatus.loading;
+    debugPrint("Fetching subjects...");
+    await BaseClient.safeApiCall(
+      AppConstants.subjects,
+      RequestType.get,
+      onSuccess: (response) {
+        model.value = SubjectModel.fromJson(response.data);
+        apiCallStatus.value = ApiCallStatus.success;
+      },
+      onError: (error) {
+        apiCallStatus.value = ApiCallStatus.error;
+        debugPrint("Error fetching subjects: ${error.message}");
+      },
+    );
+  }
   @override
   void onInit() {
     super.onInit();
+    print("✅ MockTestController initialized!");
   }
-
   @override
   void onReady() {
+    getSubjects();
     super.onReady();
   }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

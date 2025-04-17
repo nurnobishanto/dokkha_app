@@ -8,12 +8,15 @@ class LightThemeColors
   static const Color primary = Color(0xFF40A76A);
   static const Color primaryColor = Color(0xFF62BB46);
   static const Color accentColor = Color(0xFFD9EDE1);
+  // minor color
+  static const Color white = Colors.white;
+  static const Color black = Colors.black;
 
   //APPBAR
   static const Color appBarColor = primaryColor;
 
   //SCAFFOLD
-  static const Color scaffoldBackgroundColor = Colors.white;
+  static const Color scaffoldBackgroundColor = Color(0xffFAFAFA);
   static const Color backgroundColor = Colors.white;
   static const Color dividerColor = Color(0xff686868);
   static const Color cardColor = Color(0xfffafafa);

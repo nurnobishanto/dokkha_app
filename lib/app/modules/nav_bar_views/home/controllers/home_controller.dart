@@ -28,7 +28,7 @@ class HomeController extends GetxController {
 
   final List<String> gridViewRoutePage = [
     Routes.QUESTION_BANK,
-    Routes.MOCK_TEST,
+    Routes.MOCK_TEST_TAB,
     Routes.AJKER_PORIKKHA,
     Routes.JOBS_UPDATE,
     Routes.AJKER_BISSHO,

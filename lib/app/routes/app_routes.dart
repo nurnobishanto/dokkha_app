@@ -25,6 +25,9 @@ abstract class Routes {
   static const PROFILE_UPDATE = _Paths.PROFILE_UPDATE;
   static const PROFILE_HISTORY = _Paths.PROFILE_HISTORY;
   static const PROFILE_UPDATE_REQUIRED = _Paths.PROFILE_UPDATE_REQUIRED;
+  static const MOCK_TEST_TAB = _Paths.MOCK_TEST_TAB;
+  static const FAST_PRACTICE = _Paths.FAST_PRACTICE;
+  static const TOPIC_SELECTION = _Paths.TOPIC_SELECTION;
 }
 
 abstract class _Paths {
@@ -51,4 +54,7 @@ abstract class _Paths {
   static const PROFILE_UPDATE = '/profile-update';
   static const PROFILE_HISTORY = '/profile-history';
   static const PROFILE_UPDATE_REQUIRED = '/profile-update-required';
+  static const MOCK_TEST_TAB = '/mock-test-tab';
+  static const FAST_PRACTICE = '/fast-practice';
+  static const TOPIC_SELECTION = '/topic-selection';
 }

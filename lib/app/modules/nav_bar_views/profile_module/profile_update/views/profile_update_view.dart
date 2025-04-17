@@ -78,18 +78,11 @@ class ProfileUpdateView extends GetView<ProfileUpdateController> {
               2.h.height,
               CustomTextFormField(
                 hintText: controller.dob.value.trim().isEmpty
-                    ? profileDataModel
-                    .value
-                    .data!
-                    .dateOfBirth
-                    .toString()
-                    .split(' ')
-                    .first
+                    ? profileDataModel.value.data!.dateOfBirth.toString().split(" ").first
                     : controller.dob.value,
                 readOnly: true,
                 onTap: () => controller.selectDate(context),
               ),
-
               10.h.height,
               const Text(
                 'লিঙ্গ',
@@ -98,7 +91,9 @@ class ProfileUpdateView extends GetView<ProfileUpdateController> {
               2.h.height,
               CustomDropdownButton(
                 items: const ["পুরুষ", 'মহিলা', 'অন্যান্য'],
-                dropdownValue: controller.gender.value,
+                dropdownValue: controller.gender.value.isEmpty
+                    ? profileDataModel.value.data!.gender.toString()
+                    : controller.gender.value,
                 onChanged: (v) {
                   controller.gender.value = v!;
                 },

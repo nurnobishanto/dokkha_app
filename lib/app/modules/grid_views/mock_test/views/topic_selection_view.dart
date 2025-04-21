@@ -1,10 +1,20 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/components/custom_action_button.dart';
+import 'package:lokkha/app/components/custom_snackbar.dart';
+import 'package:lokkha/app/data/local/my_shared_pref.dart';
+import 'package:lokkha/app/modules/grid_views/mock_test/controllers/add_more_topic_controller.dart';
 import 'package:lokkha/app/modules/grid_views/mock_test/models/subject_model.dart';
+import 'package:lokkha/app/modules/grid_views/mock_test/views/add_more_topic.dart';
+import 'package:lokkha/app/modules/grid_views/mock_test/views/set_time_view.dart';
+import 'package:lokkha/config/extensions/common_extension.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
 import '../../../../../styles/text_style.dart';
 import '../../../../components/custom_text_field.dart';
+import '../../../../routes/app_pages.dart';
+import '../models/mock_subject_select_model.dart';
 
 class TopicSelectionView extends StatelessWidget {
   final Subject subject;
@@ -12,17 +22,18 @@ class TopicSelectionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final setNumberController = TextEditingController(text: "10");
+    final controller = AddMoreTopicController();
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
-        title: const Text(
-          "selectedTopics",
-          // style: kHeadingTextStyle.copyWith(color: LightThemeColors.white),
-          style: AppTextStyles.body,
+        title:  Text(
+          "নির্বাচিত বিষয়গুলি",
+          style: AppTextStyles.title.copyWith(color: Colors.white),
         ),
         iconTheme: const IconThemeData(color: LightThemeColors.white),
         centerTitle: true,
-        backgroundColor: LightThemeColors.primary,
+        backgroundColor: LightThemeColors.primaryColor,
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -35,7 +46,9 @@ class TopicSelectionView extends StatelessWidget {
                   children: [
                     CustomExpandSubject(
                       subject: subject,
+                      topic: subject,
                       padding: 0,
+                      initialExpand: true,
                     ),
                   ],
                 ),
@@ -45,20 +58,20 @@ class TopicSelectionView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "AppConstant.setNumberOfQuestions.tr",
+                  "প্রশ্ন সংখ্যা সেট করুন",
                 ),
                 CustomTextField(
-                  // controller: controller.setNumberCon,
-                  hintText: "numberOFQuestions",
+                  controller: setNumberController,
+                  hintText: "প্রশ্ন সংখ্যা",
                   validator: (val) {
                     if (val == null || val.isEmpty) {
-                      return "thisFieldIsRequired";
+                      return "This field is required";
                     }
                     final parsedValue = int.tryParse(val);
                     if (parsedValue == null) {
-                      return "pleaseEnterAValidNumber";
-                    } else if (parsedValue < 10) {
-                      return "thisValueMustBeEqualToOrGreaterThan10";
+                      return "please enter valid number";
+                    } else if (parsedValue < 5) {
+                      return "Must be at least 10";
                     }
                     return null;
                   },
@@ -68,48 +81,54 @@ class TopicSelectionView extends StatelessWidget {
                   children: [
                     Expanded(
                       child: CustomActionButton(
-                        text: "addMoreTopic",
+                        text: "আরও বিষয় যোগ করুন",
                         onPressed: () async {
-                          // if (controller.subjects.last.id != null) {
-                          //   MockSubjectSelect newSubject = MockSubjectSelect(
-                          //     id: controller.subjects.last.id,
-                          //     name: controller.subjects.last.name,
-                          //     quantity: min(
-                          //         int.tryParse(controller.setNumberCon.text)!
-                          //             .toInt(),
-                          //         controller.subjects.last.max!.toInt()),
-                          //   );
-                          //
-                          //   await MySharedPref.addOrUpdateMockSubjectSelect(
-                          //       newSubject);
-                          //
-                          //   controller.getSubjects();
-                          // }
+                          if (setNumberController.text.isNotEmpty) {
+                            MockSubjectSelect newSubject = MockSubjectSelect(
+                              id: subject.id,
+                              name: subject.name,
+                              quantity: min(
+                                  int.tryParse(setNumberController.text)!
+                                      .toInt(),
+                                  subject.questionCount!.toInt()),
+                            );
+                            await MySharedPref.addOrUpdateMockSubjectSelect(
+                                newSubject);
 
-                          //Get.toNamed(Routes.ADD_MORE_TOPIC);
+                            controller.getSubjects();
+
+                            Get.to(const AddMoreTopic());
+                          } else {
+                            CustomSnackBar.showCustomErrorToast(
+                                message: "please enter number of question!");
+                          }
                         },
                       ),
                     ),
                     const SizedBox(width: 8.00),
                     Expanded(
                       child: CustomActionButton(
-                        text: "startExam",
+                        text: "পরীক্ষা শুরু করুন",
                         onPressed: () async {
-                          // if (controller.subjects.last.id != null) {
-                          //   MockSubjectSelect newSubject = MockSubjectSelect(
-                          //     id: controller.subjects.last.id,
-                          //     name: controller.subjects.last.name,
-                          //     quantity: min(
-                          //         int.tryParse(controller.setNumberCon.text)!
-                          //             .toInt(),
-                          //         controller.subjects.last.max!.toInt()),
-                          //   );
-                          //
-                          //   await MySharedPref.addOrUpdateMockSubjectSelect(
-                          //       newSubject);
-                          //   controller.getSubjects();
-                          // }
-                          // Get.off(const ExamSetTimeScreen());
+                          if (setNumberController.text.isNotEmpty) {
+                            MockSubjectSelect newSubject = MockSubjectSelect(
+                              id: subject.id,
+                              name: subject.name,
+                              quantity: min(
+                                  int.tryParse(setNumberController.text)!
+                                      .toInt(),
+                                  subject.questionCount!.toInt()),
+                            );
+                            await MySharedPref.addOrUpdateMockSubjectSelect(
+                                newSubject);
+
+                            controller.getSubjects();
+
+                            Get.to(const SetTimeView());
+                          } else {
+                            CustomSnackBar.showCustomErrorToast(
+                                message: "please enter number of question!");
+                          }
                         },
                       ),
                     ),
@@ -126,29 +145,116 @@ class TopicSelectionView extends StatelessWidget {
 
 class CustomExpandSubject extends StatelessWidget {
   final Subject subject;
+  final Subject topic;
   final double padding;
+  final bool initialExpand;
+
   const CustomExpandSubject(
-      {super.key, required this.subject, required this.padding});
+      {super.key,
+      required this.subject,
+      required this.topic,
+      required this.padding,
+      required this.initialExpand});
 
   @override
   Widget build(BuildContext context) {
-    RxBool? isChecked = false.obs;
-    return Obx(() {
-      return Padding(
-        padding: EdgeInsets.only(left: padding),
-        child: ExpansionTile(
-          title: Text(subject.name.toString()),
-          leading: Checkbox(
-              value: isChecked.value,
-              onChanged: (value) {
-                isChecked.value = value!;
-              }),
-          children: subject.children!
-              .map((child) =>
-                  CustomExpandSubject(subject: child, padding: (padding + 10)))
-              .toList(),
-        ),
-      );
-    });
+    final isExpanded = false.obs;
+    return FutureBuilder<bool>(
+      future: MySharedPref.isMockSubjectExist(topic.id!.toInt()),
+      builder: (context, snapshot) {
+        final isChecked = (snapshot.data ?? false).obs;
+        return Obx(() {
+          return Container(
+            margin: EdgeInsets.only(left: padding),
+            decoration: const BoxDecoration(
+              border: Border(
+                left: BorderSide(
+                  color: Colors.grey,
+                  width: 0.2,
+                ),
+              ),
+            ),
+            child: Theme(
+              data:
+                  Theme.of(context).copyWith(dividerColor: Colors.transparent),
+              child: ExpansionTile(
+                // backgroundColor: Colors.blue,
+                minTileHeight: 0.00,
+                showTrailingIcon: false,
+                visualDensity: const VisualDensity(horizontal: 0, vertical: 0),
+                initiallyExpanded: initialExpand,
+                tilePadding: EdgeInsets.zero,
+                childrenPadding: EdgeInsets.zero,
+                onExpansionChanged: (expanded) => isExpanded.value = expanded,
+                title: Container(
+                  decoration: BoxDecoration(
+                    color: LightThemeColors.white,
+                    borderRadius: BorderRadius.circular(7.r),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 10,
+                        spreadRadius: 1,
+                        offset: Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  // padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 8.h),
+                  child: Row(
+                    children: [
+                      Checkbox(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4.r),
+                        ),
+                        value: isChecked.value,
+                        onChanged: (value) {
+                          debugPrint("Checked Box: $value");
+                          isChecked.value = value!;
+                          MockSubjectSelect newSubject = MockSubjectSelect(
+                              id: topic.id,
+                              name: topic.name,
+                              parentId: subject.id,
+                              max: topic.questionCount!.toInt());
+                          if (value) {
+                            MySharedPref.addOrUpdateMockSubjectSelect(
+                                newSubject);
+                          } else {
+                            MySharedPref.removeMockSubjectSelect(newSubject);
+                          }
+                        },
+                        visualDensity: VisualDensity.compact,
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      ),
+                      2.0.w.width,
+                      Expanded(
+                        child: Text(
+                          topic.name.toString(),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                          style: TextStyle(fontSize: 14.sp),
+                        ),
+                      ),
+                      Obx(() => AnimatedRotation(
+                            turns: isExpanded.value ? 0.5 : 0.0,
+                            duration: const Duration(milliseconds: 200),
+                            child: const Icon(Icons.keyboard_arrow_down),
+                          )),
+                    ],
+                  ),
+                ),
+                children: topic.children!
+                    .map((child) => CustomExpandSubject(
+                          subject: subject,
+                          topic: child,
+                          padding: 10,
+                          initialExpand: false,
+                        ))
+                    .toList(),
+              ),
+            ),
+          );
+        });
+      },
+    );
   }
 }

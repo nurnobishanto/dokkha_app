@@ -24,7 +24,7 @@ class HomeView extends GetView<HomeController> {
     return Scaffold(
       drawer: const CustomDrawer(),
       appBar: AppBar(
-        title: Image.asset(AssetImagePaths.appIconHorizontal, scale: 3.8),
+        title: Image.asset(AssetImagePaths.appIconHorizontal, scale: 5.8),
         actions: [
           IconButton(
             onPressed: () {
@@ -114,7 +114,7 @@ class HomeView extends GetView<HomeController> {
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   image: AssetImage(
-                                    AssetImagePaths.appleImg,
+                                    AssetImagePaths.sliderImg,
                                   ),
                                   fit: BoxFit.cover,
                                 ),
@@ -132,7 +132,7 @@ class HomeView extends GetView<HomeController> {
                             .currentPosition, // Current active dot position
                         decorator: const DotsDecorator(
                           color: LightThemeColors.accentColor,
-                          activeColor: LightThemeColors.primary,
+                          activeColor: LightThemeColors.primaryColor,
                           size: Size(8.0, 8.0), // Dot size
                           activeSize: Size(
                               10.0, 10.0), // Optional: active dot size (larger)
@@ -145,7 +145,7 @@ class HomeView extends GetView<HomeController> {
                       /// GridView for GridView
                       GridView.builder(
                         gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,
                           crossAxisSpacing: .0,
                           mainAxisSpacing: .0,
@@ -185,7 +185,7 @@ class HomeView extends GetView<HomeController> {
                                       child: Image.asset(
                                         "assets/images/$image",
                                         opacity:
-                                        const AlwaysStoppedAnimation(0.9),
+                                            const AlwaysStoppedAnimation(0.9),
                                         fit: BoxFit.contain,
                                       ),
                                     ),
@@ -195,7 +195,7 @@ class HomeView extends GetView<HomeController> {
                                     title,
                                     style: TextStyle(
                                       color:
-                                      Colors.black.withValues(alpha: 0.8),
+                                          Colors.black.withValues(alpha: 0.8),
                                       fontSize: 13.2,
                                       fontWeight: FontWeight.w500,
                                     ),
@@ -328,7 +328,7 @@ class CustomSearchDelegate extends SearchDelegate {
       IconButton(
         icon: const Icon(Icons.clear),
         onPressed: () {
-          query = ''; // সার্চ কোয়েরি ক্লিয়ার করা
+          query = '';
         },
       ),
     ];

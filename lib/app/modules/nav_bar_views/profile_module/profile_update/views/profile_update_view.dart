@@ -27,7 +27,7 @@ class ProfileUpdateView extends GetView<ProfileUpdateController> {
               color: Colors.white, fontWeight: FontWeight.w500),
         ),
         centerTitle: true,
-        backgroundColor: LightThemeColors.primary,
+        backgroundColor: LightThemeColors.primaryColor,
         actions: [
           IconButton(
             onPressed: () {},
@@ -45,7 +45,7 @@ class ProfileUpdateView extends GetView<ProfileUpdateController> {
               Center(
                 child: CircleAvatar(
                   radius: 50.0.r,
-                  backgroundColor: LightThemeColors.primary,
+                  backgroundColor: LightThemeColors.primaryColor,
                   child: CircleAvatar(
                     radius: 48.0.r,
                     backgroundColor: Colors.white,
@@ -78,7 +78,10 @@ class ProfileUpdateView extends GetView<ProfileUpdateController> {
               2.h.height,
               CustomTextFormField(
                 hintText: controller.dob.value.trim().isEmpty
-                    ? profileDataModel.value.data!.dateOfBirth.toString().split(" ").first
+                    ? profileDataModel.value.data!.dateOfBirth
+                        .toString()
+                        .split(" ")
+                        .first
                     : controller.dob.value,
                 readOnly: true,
                 onTap: () => controller.selectDate(context),

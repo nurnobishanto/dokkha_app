@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:lokkha/app/services/base_client.dart';
 import 'package:lokkha/utils/constants.dart';
+import '../../../../comming_soon_view.dart';
 import '../../../helper/api_helper.dart';
+import '../../grid_views/mock_test/views/mock_test_view.dart';
 import '../../nav_bar_views/blog/views/blog_view.dart';
 import '../../nav_bar_views/contest/views/contest_view.dart';
 import '../../nav_bar_views/home/views/home_view.dart';
@@ -17,10 +19,13 @@ class NavbarController extends GetxController {
   bool isLoading = true;
   final List<Widget> nabBarBody = [
     const HomeView(),
-    const QuestionBankView(),
-    const ContestView(),
-    const BlogView(),
-    const ProfileHistoryView(),
+    // const QuestionBankView(),
+    // const MockTestView(),
+    // const BlogView(),
+    // const ProfileHistoryView(),
+    const ComingSoonPage(),
+    const ComingSoonPage(),
+    const ComingSoonPage(),
   ];
 
   void changeIndex(int index) {

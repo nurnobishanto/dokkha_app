@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import '../../../../config/theme/light_theme_colors.dart';
 import '../controllers/navbar_controller.dart';
@@ -20,11 +21,10 @@ class NavbarView extends GetView<NavbarController> {
             currentIndex: controller.currentIndex,
             onTap: (index) => controller.changeIndex(index), // Call method to update index
             items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home", backgroundColor: LightThemeColors.primaryColor),
-              BottomNavigationBarItem(icon: Icon(Icons.food_bank_outlined), label: "Q Bank"),
-              BottomNavigationBarItem(icon: Icon(Icons.access_time), label: "Contest"),
-              BottomNavigationBarItem(icon: Icon(Icons.map), label: "Blog"),
-              BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+              BottomNavigationBarItem(icon:FaIcon(FontAwesomeIcons.house,size: 18.00), label: "হোম", backgroundColor: LightThemeColors.primaryColor),
+              BottomNavigationBarItem(icon: FaIcon(FontAwesomeIcons.pen,size: 18.00), label: "মক পরীক্ষা",backgroundColor: LightThemeColors.primaryColor),
+              BottomNavigationBarItem(icon: FaIcon(FontAwesomeIcons.blog,size: 18.00), label: "ব্লগ",backgroundColor: LightThemeColors.primaryColor),
+              BottomNavigationBarItem(icon: FaIcon(FontAwesomeIcons.user,size: 18.00), label: "প্রোফাইল",backgroundColor: LightThemeColors.primaryColor),
             ],
           );
         },

@@ -124,7 +124,7 @@ final PinTheme _myOTPTheme = PinTheme(
   width: 50.0,
   textStyle: const TextStyle(
     fontSize: 20.0,
-    color: LightThemeColors.primary,
+    color: LightThemeColors.primaryColor,
     fontWeight: FontWeight.w500,
   ),
   decoration: BoxDecoration(
@@ -143,6 +143,6 @@ final PinTheme _selectOTPTheme = PinTheme(
   ),
   decoration: BoxDecoration(
     borderRadius: BorderRadius.circular(10),
-    border: Border.all(color: LightThemeColors.primary),
+    border: Border.all(color: LightThemeColors.primaryColor),
   ),
 );

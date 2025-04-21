@@ -1,12 +1,16 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:lokkha/app/data/local/my_shared_pref.dart';
 import 'package:lokkha/app/modules/grid_views/mock_test/views/topic_selection_view.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
 import 'package:lokkha/styles/text_style.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../services/api_call_status.dart';
 import '../controllers/mock_test_controller.dart';
+import '../models/mock_subject_select_model.dart';
 
 class MockTestView extends GetView<MockTestController> {
   const MockTestView({super.key});
@@ -19,7 +23,8 @@ class MockTestView extends GetView<MockTestController> {
           case ApiCallStatus.loading:
             return const Center(child: CircularProgressIndicator());
           case ApiCallStatus.success:
-            return SingleChildScrollView(
+            return
+              SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Wrap(
@@ -31,7 +36,14 @@ class MockTestView extends GetView<MockTestController> {
                     final subject = controller.model.value.subjects![index];
                     return InkWell(
                       onTap: () async {
-                        //Get.toNamed(Routes.TOPIC_SELECTION);
+                        MySharedPref.clearMockSubjects();
+                        MockSubjectSelect newSubject = MockSubjectSelect(
+                            id: subject.id,
+                            name: subject.name,
+                            quantity: min(15, subject.questionCount!.toInt()),
+                            max: subject.questionCount!.toInt());
+                        await MySharedPref.addOrUpdateMockSubjectSelect(
+                            newSubject);
                         Get.to(TopicSelectionView(subject: subject));
                       },
                       child: Container(

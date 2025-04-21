@@ -40,9 +40,9 @@ class CustomOptionSelector extends StatelessWidget {
                     vertical: 12.0, horizontal: 16.0),
                 decoration: BoxDecoration(
                   border: Border.all(
-                      color: LightThemeColors.primary.withOpacity(.5)),
+                      color: LightThemeColors.primaryColor.withOpacity(.5)),
                   color: selectedOptionIndex == index
-                      ? LightThemeColors.primary
+                      ? LightThemeColors.primaryColor
                       : LightThemeColors.primaryColor.withOpacity(.1),
                   borderRadius: BorderRadius.circular(6.0),
                 ),

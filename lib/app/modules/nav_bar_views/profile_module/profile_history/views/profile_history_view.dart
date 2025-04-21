@@ -35,7 +35,7 @@ class ProfileHistoryView extends GetView<ProfileHistoryController> {
                 Center(
                   child: CircleAvatar(
                     radius: 50.0.r,
-                    backgroundColor: LightThemeColors.primary,
+                    backgroundColor: LightThemeColors.primaryColor,
                     child: CircleAvatar(
                       radius: 48.0.r,
                       backgroundColor: Colors.white,

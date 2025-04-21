@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../config/translations/localization_service.dart';
+import '../../modules/grid_views/mock_test/models/mock_subject_select_model.dart';
 
 class MySharedPref {
   // prevent making instance
@@ -76,5 +79,98 @@ class MySharedPref {
 
   /// clear all data from shared pref
   static Future<void> clear() async => await _sharedPreferences.clear();
+
+
+
+  /// For add or update
+  static Future<void> addOrUpdateMockSubjectSelect(MockSubjectSelect subject) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    // Get the current list of subject JSON strings (if any)
+    List<String> subjectsList = prefs.getStringList('mockSubjects') ?? [];
+
+    // Convert the existing JSON strings into objects
+    List<MockSubjectSelect> subjects = subjectsList
+        .map((subjectJson) => MockSubjectSelect.fromJson(subjectJson))
+        .toList();
+
+    // Check if the subject with the same ID already exists
+    int existingIndex = subjects.indexWhere((s) => s.id == subject.id);
+
+    if (existingIndex != -1) {
+      // If exists, update the object
+      subjects[existingIndex] = subject;
+    } else {
+      // If not, add the new object
+      subjects.add(subject);
+    }
+
+    // Convert updated list back to JSON strings
+    List<String> updatedSubjectsList = subjects.map((s) => s.toJson()).toList();
+
+    // Store the updated list in SharedPreferences
+    await prefs.setStringList('mockSubjects', updatedSubjectsList);
+  }
+
+/// For Remove
+  static Future<void> removeMockSubjectSelect(MockSubjectSelect subject) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    // Get the current list of subject JSON strings (if any)
+    List<String> subjectsList = prefs.getStringList('mockSubjects') ?? [];
+
+    // Convert the existing JSON strings into objects
+    List<MockSubjectSelect> subjects = subjectsList
+        .map((subjectJson) => MockSubjectSelect.fromJson(subjectJson))
+        .toList();
+
+    // Remove subject by matching ID
+    subjects.removeWhere((s) => s.id == subject.id);
+
+    // Convert updated list back to JSON strings
+    List<String> updatedSubjectsList = subjects.map((s) => s.toJson()).toList();
+
+    // Store the updated list in SharedPreferences
+    await prefs.setStringList('mockSubjects', updatedSubjectsList);
+  }
+
+  static Future<bool> isMockSubjectExist(int id) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    // Get current list
+    List<String> subjectsList = prefs.getStringList('mockSubjects') ?? [];
+
+    // Convert to object list
+    List<MockSubjectSelect> subjects = subjectsList
+        .map((subjectJson) => MockSubjectSelect.fromJson(subjectJson))
+        .toList();
+
+    // Check if any subject has this id
+    return subjects.any((s) => s.id == id);
+  }
+
+
+
+
+
+
+  static Future<List<MockSubjectSelect>> getMockSubjects() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    // Retrieve the list of subject JSON strings from SharedPreferences
+    List<String> subjectsList = prefs.getStringList('mockSubjects') ?? [];
+
+    // Convert the list of JSON strings back into MockSubjectSelect objects
+    List<MockSubjectSelect> subjects = subjectsList
+        .map((subjectJson) => MockSubjectSelect.fromJson(subjectJson))
+        .toList();
+
+    return subjects;
+  }
+  static Future<void> clearMockSubjects() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('mockSubjects'); // Removes the entire list
+  }
+
 
 }

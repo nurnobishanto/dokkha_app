@@ -1,0 +1,213 @@
+import 'dart:async';
+import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:lokkha/app/modules/grid_views/mock_test/models/mock_start_exam_model.dart';
+
+import '../../../../data/local/my_shared_pref.dart';
+
+
+class MockExamQuestionController extends GetxController {
+  MockStartExamModel? exam; // Exam data
+  RxInt? duration;
+  RxBool timerWork = false.obs;
+  Timer? timer;
+  RxBool isExamSubmitted = false.obs;
+
+  var selectedAnswers = <int, dynamic>{}.obs;
+  RxBool isLoading = true.obs;
+
+  // Future<void> mockExamSubmit() async {
+  //   isLoading.value = true;
+  //   String? token = MySharedPref.getUserToken();
+  //   Map<String, String> headers = {
+  //     'Authorization': 'Bearer $token',
+  //     'Content-Type': 'application/json'
+  //   };
+  //   NetworkApiServices networkApiServices = NetworkApiServices();
+  //   String url = AppUrl.mockExamSubmit;
+  //   // Convert userAnswers map to a list of JSON objects
+  //   List<Map<String, dynamic>> userAnswersArray =
+  //   userAnswers.values.map((userAnswer) => userAnswer.toJson()).toList();
+  //   Map<String, dynamic> data = {
+  //     'user_answers': userAnswersArray,
+  //     'is_set_time': exam!.isSetTime,
+  //     'start_time': exam!.startTime.toString(),
+  //     'duration': exam!.duration,
+  //     'negative_mark': exam!.negativeMark,
+  //   };
+  //   log("log${data.toString()}");
+  //
+  //   var response =
+  //   await networkApiServices.postApi(data, url, headers: headers);
+  //   if (response["status"] == true) {
+  //     await MySharedPref.clearMockSubjects();
+  //     MockExamResultModel modelData = MockExamResultModel.fromJson(response);
+  //     Get.snackbar("Exam", "Exam submitted successfully.");
+  //     log("My Data: ${response.toString()}");
+  //     isLoading.value = false;
+  //     Get.off(MockExamResultScreen(model: modelData));
+  //   } else {
+  //     Utils.toastMessage(response["message"].toString());
+  //     isLoading.value = false;
+  //   }
+  // }
+
+  // Store user answers in a Map where key = question index, value = user's input
+  var userAnswers = <int, UserAnswer>{}.obs;
+
+  //MockExamQuestionController(this.exam) : duration = (exam!.duration != null ? exam.duration! * 60 : 0).obs;
+  MockExamQuestionController(this.exam)
+      : duration = (exam!.duration != null ? exam.duration! * 60 : 0).obs,
+        timerWork = (exam.isSetTime ?? false).obs;
+
+  // For handling answers
+  // void selectAnswer(int questionId, dynamic answer) {
+  //   selectedAnswers[questionId] = answer;
+  //   _initializeUserAnswers();
+  // }
+
+  void selectAnswer(int questionId, dynamic answer) {
+    // If the question doesn't have an answer already, allow the selection
+    if (selectedAnswers[questionId] == null) {
+      selectedAnswers[questionId] = answer;
+    }
+    _initializeUserAnswers();
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    if(timerWork.value){
+      startTimer();
+    }
+    _initializeUserAnswers();
+  }
+
+  void _initializeUserAnswers() {
+    for (int i = 0; i < exam!.questions!.length; i++) {
+      // Get the selected answer for the current question
+      var selectedAnswer = selectedAnswers[exam!.questions![i].id];
+
+      // Ensure the answer is always a list (if it's not null)
+      var answerAsList = (selectedAnswer != null)
+          ? (selectedAnswer is List ? selectedAnswer : [selectedAnswer])
+          : null;
+
+      // Initialize userAnswers for the current question with questionId and answer as a list
+      userAnswers[i] = UserAnswer(
+        questionId: exam!.questions![i].id!.toInt(),
+        answers: answerAsList, // Store as list or null if no answer
+      );
+    }
+  }
+
+  void startTimer() {
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (duration!.value > 0) {
+        duration!.value--;
+      } else {
+        submitExam();
+        timer.cancel();
+      }
+    });
+  }
+
+  void submitExam() {
+    //mockExamSubmit();
+    if (!isExamSubmitted.value) {
+      isExamSubmitted.value = true;
+    }
+  }
+
+  @override
+  void onClose() {
+    timer?.cancel();
+    super.onClose();
+  }
+  //
+  // void showExitConfirmationDialog() {
+  //   Get.dialog(
+  //     AlertDialog(
+  //       title: Text(EnConstant.exitExam.tr),
+  //       content: Text(EnConstant.examLeaveWarning.tr),
+  //       actions: [
+  //         TextButton(
+  //           onPressed: () => Get.back(), // Close dialog
+  //           child: Text(AppConstant.no.tr),
+  //         ),
+  //         TextButton(
+  //           onPressed: () {
+  //             Get.back(); // Close dialog
+  //             Get.back(); // Exit the exam page
+  //           },
+  //           child: Text(EnConstant.yesExit.tr),
+  //         ),
+  //       ],
+  //     ),
+  //     barrierDismissible: false, // Prevent closing by tapping outside
+  //   );
+  // }
+  //
+  // void showSubmitConfirmationDialog() {
+  //   Get.dialog(
+  //     AlertDialog(
+  //       title: Text(EnConstant.submitExam.tr),
+  //       content: Text(EnConstant.submitWarning.tr),
+  //       actions: [
+  //         TextButton(
+  //           onPressed: () => Get.back(), // Close dialog
+  //           child: Text(AppConstant.no.tr),
+  //         ),
+  //         TextButton(
+  //           onPressed: () {
+  //             Get.back(); // Close dialog
+  //             submitExam(); // Execute submit function
+  //           },
+  //           child: Text(EnConstant.yesSubmit.tr),
+  //         ),
+  //       ],
+  //     ),
+  //     barrierDismissible: false, // Prevent closing by tapping outside
+  //   );
+  // }
+  //
+  //
+  // bool checkQuestionExistInSaved(int id) {
+  //   return favoriteQuestions.value.favoriteQuestions?.any((q) => q.id == id) ??
+  //       false;
+  // }
+}
+
+class UserAnswer {
+  final int questionId; // ID of the question
+  dynamic answers; // List of answers for the question
+
+  UserAnswer({
+    required this.questionId,
+    this.answers,
+  });
+
+  // Method to convert UserAnswer instance to JSON
+  Map<String, dynamic> toJson() {
+    return {
+      'question_id': questionId,
+      'answer': answers,
+    };
+  }
+
+  // Factory method to create a UserAnswer instance from JSON
+  factory UserAnswer.fromJson(Map<String, dynamic> json) {
+    return UserAnswer(
+      questionId: json['question_id'],
+      answers: json['answer'],
+    );
+  }
+
+  // Override toString to print UserAnswer details
+  @override
+  String toString() {
+    return '{question_id: $questionId, answer: $answers}';
+  }
+}
+

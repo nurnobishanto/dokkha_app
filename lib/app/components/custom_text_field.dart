@@ -52,7 +52,7 @@ class CustomTextField extends StatelessWidget {
         // hintStyle: kSubtitleStyle.copyWith(
         //   color: LightThemeColors.black.withValues(alpha: 0.4),
         // ),
-        hintStyle: AppTextStyles.body,
+        hintStyle: AppTextStyles.body1,
         prefixIcon: prefixIcon,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),

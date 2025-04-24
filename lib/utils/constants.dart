@@ -16,4 +16,7 @@ class AppConstants {
 
   // Subjects
   static const String subjects = "$baseUrl/subjects";
+  static const String testExamStart = "$baseUrl/test-exam/start";
+  // Home Screen api
+  static const String sliders = "$baseUrl/sliders";
 }

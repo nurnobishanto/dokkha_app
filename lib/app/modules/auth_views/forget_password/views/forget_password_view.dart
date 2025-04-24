@@ -27,7 +27,7 @@ class ForgetPasswordView extends GetView<ForgetPasswordController> {
             Center(
               child: Text(
                 'পাসওয়ার্ড ভুলে গেছেন?',
-                style: AppTextStyles.heading
+                style: AppTextStyles.heading1
                     .copyWith(color: LightThemeColors.primaryColor),
               ),
             ),

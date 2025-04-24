@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/modules/auth_views/signin/views/signin_view.dart';
@@ -6,6 +7,7 @@ import '../../../../../styles/text_style.dart';
 import '../../../../components/custom_action_button.dart';
 import '../../../../components/custom_text_field.dart';
 import '../../../../helper/global.dart';
+import '../../../../routes/app_pages.dart';
 import '../controllers/mock_test_set_time_controller.dart';
 
 class SetTimeView extends StatelessWidget {
@@ -20,7 +22,7 @@ class SetTimeView extends StatelessWidget {
         automaticallyImplyLeading: true,
         title: Text(
           'সময় নির্ধারণ',
-          style: kHeadingTextStyle.copyWith(color: Colors.white),
+          style: AppTextStyles.body1,
         ),
         iconTheme: const IconThemeData(color: Colors.white),
         centerTitle: true,
@@ -47,9 +49,9 @@ class SetTimeView extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          const Text(
+                          Text(
                             'সময় নির্ধারণ করুন',
-                            style: AppTextStyles.body,
+                            style: AppTextStyles.body1,
                           ),
                           const SizedBox(width: 5.00),
                           Container(
@@ -109,7 +111,7 @@ class SetTimeView extends StatelessWidget {
                       // Negative Mark
                       Row(
                         children: [
-                          Text(
+                          const Text(
                             "নেগেটিভ মার্কিং",
                           ),
                           const SizedBox(width: 3.00),
@@ -143,7 +145,7 @@ class SetTimeView extends StatelessWidget {
                               borderRadius: BorderRadius.circular(15),
                             ),
                             padding: const EdgeInsets.all(4),
-                            child: Text(
+                            child: const Text(
                               "প্রতিটি ভুলের জন্য ০.২৫ নম্বর কাটা যাবে",
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -152,7 +154,7 @@ class SetTimeView extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 15.00),
-                      Text(
+                      const Text(
                         "প্রশ্নের ধরন নির্বাচন করুন",
                       ),
                       const SizedBox(height: 3.00),
@@ -191,56 +193,16 @@ class SetTimeView extends StatelessWidget {
                         }).toList(),
                       ),
 
-                      //
-                      // Container(
-                      //   width: double.infinity,
-                      //   decoration: BoxDecoration(
-                      //     border: Border.all(
-                      //         color: Colors.black.withValues(alpha: 0.3)),
-                      //     borderRadius: BorderRadius.circular(8),
-                      //   ),
-                      //   child: Padding(
-                      //     padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                      //     child: DropdownButton<String>(
-                      //       items: dropdownItems,
-                      //       value: controller.selectedKey.value.isEmpty
-                      //           ? null
-                      //           : controller.selectedKey.value,
-                      //       onChanged: (String? newValue) {
-                      //         if (newValue != null) {
-                      //           controller.selectedKey.value = newValue;
-                      //         }
-                      //       },
-                      //       hint: Text(""selectQuestionType"),
-                      //       isExpanded: true,
-                      //       icon: const Icon(Icons.arrow_drop_down),
-                      //       elevation: 16,
-                      //       style: const TextStyle(color: Colors.black),
-                      //       underline: const SizedBox.shrink(),
-                      //     ),
-                      //   ),
-                      // ),
-
-                      // SizedBox(
-                      //   height: 35,
-                      //   child: CustomDropdownButton(
-                      //     items: dropdownItems,
-                      //     dropdownValue: controller.dropdownValue,
-                      //     onChanged: (value) {
-                      //       controller.dropdownValue.value = value!;
-                      //     },
-                      //   ),
-                      // ),
                       const SizedBox(height: 50.00),
-                      Row(
+                      const Row(
                         children: [
-                          const Expanded(
+                          Expanded(
                             child: Divider(),
                           ),
-                          const SizedBox(width: 10.00),
+                          SizedBox(width: 10.00),
                           Text("নির্বাচিত বিষয়"),
-                          const SizedBox(width: 10.00),
-                          const Expanded(
+                          SizedBox(width: 10.00),
+                          Expanded(
                             child: Divider(),
                           ),
                         ],
@@ -269,7 +231,7 @@ class SetTimeView extends StatelessWidget {
                                 ],
                               ),
                               child: Text(
-                                "${subject.name.toString()} (${subject.quantity.toString()})",
+                                "${subject.name}${subject.quantity != null ? ' (${subject.quantity})' : ''}",
                               ),
                             );
                           }).toList(),
@@ -281,31 +243,27 @@ class SetTimeView extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: (isLoggedIn.value == false)
-                    ? CustomActionButton(
-                        text: "প্রিমিয়াম প্যাকেজ কিনুন",
-                        onPressed: () {
-                          Get.to(SignInView());
-                        })
-                    : CustomActionButton(
-                        text: "পরীক্ষা শুরু করুন",
-                        onPressed: () {
-                          // Map<String, dynamic> data = {
-                          //   'duration': controller.setTimeCon.text,
-                          //   'type': controller.dropdownValue.value,
-                          //   'negative_mark':
-                          //       controller.isNegativeMarkChecked.value,
-                          //   'subjects': controller.selectedSubjects
-                          //       .map((subject) => subject.toMap())
-                          //       .toList(), // Convert each subject to map
-                          // };
-                          // if (kDebugMode) {
-                          //   print("Question paper Data: $data}");
-                          // }
-
-                          //controller.postMockExamStart();
-                        },
-                      ),
+                child: CustomActionButton(
+                  text: "পরীক্ষা শুরু করুন",
+                  onPressed: () {
+                    // Map<String, dynamic> data = {
+                    //   'duration': controller.setTimeCon.text,
+                    //   'type': controller.dropdownValue.value,
+                    //   'negative_mark': controller.isNegativeMarkChecked.value,
+                    //   'subjects': controller.selectedSubjects
+                    //       .map((subject) => subject.toMap())
+                    //       .toList(), // Convert each subject to map
+                    // };
+                    // if (kDebugMode) {
+                    //   print("Question paper Data: $data}");
+                    // }
+                    if(isLoggedIn.value){
+                      controller.testExamStart();
+                    } else{
+                      Get.toNamed(Routes.AUTH_GATEWAY);
+                    }
+                  },
+                ),
               ),
             ],
           ),

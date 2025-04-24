@@ -30,7 +30,7 @@ class ProfileUpdateRequiredView
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   5.0.h.height,
-                  const Text("নাম", style: AppTextStyles.title),
+                  Text("নাম", style: AppTextStyles.heading5),
                   2.0.h.height,
                   CustomTextFormField(
                     controller: controller.nameController,
@@ -40,7 +40,7 @@ class ProfileUpdateRequiredView
                   ),
                   _conditionalPhoneInput(phoneNumber, controller),
                   10.0.h.height,
-                  const Text("জন্ম তারিখ", style: AppTextStyles.title),
+                  Text("জন্ম তারিখ", style: AppTextStyles.heading5),
                   2.0.h.height,
                   CustomTextFormField(
                     hintText: 'আপনার জন্ম তারিখ',
@@ -48,12 +48,12 @@ class ProfileUpdateRequiredView
                     hintStyle: AppTextStyles.custom(
                         fontSize: 12.5, color: LightThemeColors.hintTextColor),
                     controller: controller.dobController,
-                    onTap: ()  {
-                       controller.selectDate(context);
+                    onTap: () {
+                      controller.selectDate(context);
                     },
                   ),
                   10.0.h.height,
-                  const Text("লিঙ্গ", style: AppTextStyles.title),
+                  Text("লিঙ্গ", style: AppTextStyles.heading6),
                   Wrap(
                     spacing: 20,
                     children: ["male", "female", "other"].map((gender) {
@@ -85,13 +85,13 @@ class ProfileUpdateRequiredView
                     }).toList(),
                   ),
                   10.0.h.height,
-                  const Text("পেশা", style: AppTextStyles.title),
+                  Text("পেশা", style: AppTextStyles.heading5),
                   _occupationRadioTile("স্টুডেন্ট", "Student", controller),
                   _occupationRadioTile("চাকরিজীবী", "Job Holder", controller),
                   _occupationRadioTile(
                       "চাকরি খুঁজছেন", "Job Seeker", controller),
                   10.0.h.height,
-                  const Text("পাসওয়ার্ড", style: AppTextStyles.title),
+                  Text("পাসওয়ার্ড", style: AppTextStyles.heading5),
                   2.0.h.height,
                   SizedBox(
                     height: 45,
@@ -106,8 +106,8 @@ class ProfileUpdateRequiredView
                     ),
                   ),
                   10.0.h.height,
-                  const Text("পাসওয়ার্ড নিশ্চিত করুন",
-                      style: AppTextStyles.title),
+                  Text("পাসওয়ার্ড নিশ্চিত করুন",
+                      style: AppTextStyles.heading5),
                   2.0.h.height,
                   SizedBox(
                     height: 45,
@@ -161,7 +161,7 @@ Widget _conditionalPhoneInput(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       10.0.h.height,
-      const Text("ফোন নম্বর", style: AppTextStyles.title),
+      Text("ফোন নম্বর", style: AppTextStyles.heading5),
       2.0.h.height,
       CustomTextFormField(
         controller: controller.phoneController,

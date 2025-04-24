@@ -1,4 +1,4 @@
-package com.example.lokkha_app
+package com.example.lokkha
 
 import io.flutter.embedding.android.FlutterActivity
 

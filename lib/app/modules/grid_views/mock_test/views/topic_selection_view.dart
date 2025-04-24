@@ -29,7 +29,7 @@ class TopicSelectionView extends StatelessWidget {
         automaticallyImplyLeading: true,
         title:  Text(
           "নির্বাচিত বিষয়গুলি",
-          style: AppTextStyles.title.copyWith(color: Colors.white),
+          style: AppTextStyles.heading6.copyWith(color: Colors.white),
         ),
         iconTheme: const IconThemeData(color: LightThemeColors.white),
         centerTitle: true,

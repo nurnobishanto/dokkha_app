@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import '../helper/global.dart';
 import '../modules/auth_views/auth_gateway/bindings/auth_gateway_binding.dart';
 import '../modules/auth_views/auth_gateway/views/auth_gateway_view.dart';
 import '../modules/auth_views/forget_password/bindings/forget_password_binding.dart';

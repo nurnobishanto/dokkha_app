@@ -33,13 +33,16 @@ class SignInView extends GetView<SignInController> {
                   children: [
                     40.height,
                     Image.asset(AssetImagePaths.appIcon, scale: 5.0),
-                    const Text("এক টাকা দিয়ে লক্ষ্যে পৌঁছান",
-                        style: AppTextStyles.heading,
-                        textAlign: TextAlign.center),
+                    Text(
+                      "এক টাকা দিয়ে লক্ষ্যে পৌঁছান",
+                      style: AppTextStyles.heading4.copyWith(color: Get.theme.indicatorColor),
+                      textAlign: TextAlign.center,
+                    ),
                     Text(
                       "কোনো রেজিস্ট্রেশন এর প্রয়োজন নেই সরাসরি লগইন করুন",
                       style: AppTextStyles.custom(
-                          color: LightThemeColors.primaryColor),
+                        color: LightThemeColors.primaryColor,
+                      ),
                     ),
                     100.h.height,
                     Text(
@@ -54,7 +57,7 @@ class SignInView extends GetView<SignInController> {
                       readOnly: true,
                       prefixIcon: const Icon(FontAwesomeIcons.phone),
                       hintText: phoneNumber,
-                      hintStyle: AppTextStyles.title,
+                      hintStyle: AppTextStyles.heading6,
                     ),
                     1.0.h.height,
                     CustomTextFormField(

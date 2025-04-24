@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'config/theme/light_theme_colors.dart';
 
 class ComingSoonPage extends StatelessWidget {

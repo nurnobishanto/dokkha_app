@@ -1,45 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
-Widget buildTopRankedUser(
-    {required String imagePath,
-      required String name,
-      required int rank,
-      bool isFirst = false}) {
+Widget buildTopRankedUser({
+  required String imagePath,
+  required int id,
+  required int rank,
+  bool isFirst = false,
+}) {
+  final double outerRadius = isFirst ? 43.r : 28.r;
+  final double innerRadius = isFirst ? 40.r : 25.r;
+
   return Column(
     children: [
-      CircleAvatar(
-        radius: isFirst ? 53 : 38,
-        backgroundColor: Colors.blue,
-        child: CircleAvatar(
-          radius: isFirst ? 50 : 35,
-          backgroundImage: AssetImage(imagePath),
-        ),
-      ),
-      const SizedBox(height: 5.00),
-      CircleAvatar(
-        radius: 12,
-        backgroundColor: Colors.blue,
-        child: Text(
-          rank.toString(),
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 13,
-            fontWeight: FontWeight.bold,
+      Stack(
+        clipBehavior: Clip.none,
+        children: [
+          CircleAvatar(
+            radius: outerRadius,
+            backgroundColor: Colors.blue,
+            child: CircleAvatar(
+              radius: innerRadius,
+              backgroundImage: AssetImage(imagePath),
+            ),
           ),
-        ),
+          Positioned(
+            top: -4.r,
+            right: -6.r,
+            child: CircleAvatar(
+              radius: 11.r,
+              backgroundColor: Colors.green,
+              child: Text(
+                '$rank',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
-      const SizedBox(height: 8),
       Text(
-        name,
-        style: const TextStyle(
+        "ID: $id",
+        style: TextStyle(
           color: Colors.black,
           fontWeight: FontWeight.bold,
+          fontSize: 14.sp,
         ),
       ),
-      const Text(
-        "score",
-        style: TextStyle(color: Colors.black),
-      ),
     ],
-  );
+  ).paddingAll(5.r);
 }

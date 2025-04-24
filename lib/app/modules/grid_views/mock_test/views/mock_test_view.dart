@@ -64,7 +64,7 @@ class MockTestView extends GetView<MockTestController> {
                         child: Text(
                           subject.name.toString(),
                           textAlign: TextAlign.center,
-                          style: AppTextStyles.paragraph,
+                          style: AppTextStyles.body2,
                         ),
                       ),
                     );

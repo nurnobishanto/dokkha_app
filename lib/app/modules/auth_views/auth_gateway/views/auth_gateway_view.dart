@@ -20,17 +20,17 @@ class AuthGatewayView extends GetView<AuthGatewayController> {
     return Scaffold(
       body: SafeArea(
         child: Column(
-          spacing: 10.0.h,
+          spacing: 8.0.h,
           children: [
             55.h.height,
             Image.asset(AssetImagePaths.appIcon, scale: 4.0),
-            const Text(
-              "এক টাকা দিয়ে লক্ষ্যে পৌঁছান",
-              style: AppTextStyles.heading,
+            Text(
+              "সঠিক পথ, স্বল্প খরচ",
+              style: AppTextStyles.heading4,
             ),
             Text(
               "কোনো রেজিস্ট্রেশন এর প্রয়োজন নেই সরাসরি লগইন করুন",
-              style: AppTextStyles.custom(color: LightThemeColors.primaryColor),
+              style: AppTextStyles.body1,
             ),
             50.h.height,
             DecisionButton(
@@ -38,7 +38,7 @@ class AuthGatewayView extends GetView<AuthGatewayController> {
               leadingWidget: const FaIcon(FontAwesomeIcons.google, size: 20),
               onPressed: () {
                 Get.to(const SocialLoginWebView(
-                  url: 'https://lokkha.com/api/auth/facebook/redirect',
+                  url: 'https://lokkha.com/api/auth/google/redirect',
                 ));
               },
             ),
@@ -51,13 +51,14 @@ class AuthGatewayView extends GetView<AuthGatewayController> {
               text: "Sign in with Phone",
               leadingWidget: const FaIcon(FontAwesomeIcons.phone, size: 20),
               onPressed: () {
-                if (controller.isRegister) {
-                  debugPrint("isRegister");
-                  Get.toNamed(Routes.SIGNIN);
-                } else {
-                  debugPrint("Not Register");
-                  Get.toNamed(Routes.SIGN_UP);
-                }
+                Get.toNamed(Routes.SIGN_UP);
+                // if (controller.isRegister) {
+                //   debugPrint("isRegister");
+                //   Get.toNamed(Routes.SIGNIN);
+                // } else {
+                //   debugPrint("Not Register");
+                //   Get.toNamed(Routes.SIGN_UP);
+                // }
               },
             ),
             const Spacer(),

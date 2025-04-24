@@ -21,7 +21,7 @@ class AuthService {
     String? token = MySharedPref.getUserToken();
     if (token == '' || token.isEmpty) {
       isLoggedIn.value = false;
-      Get.offAllNamed(Routes.AUTH_GATEWAY);
+      //Get.offAllNamed(Routes.AUTH_GATEWAY);
       return;
     }
     await BaseClient.safeApiCall(
@@ -39,12 +39,14 @@ class AuthService {
               "phoneNumber": response.data["data"]["phone"] ?? "",
             });
           } else {
-            Get.offAllNamed(Routes.NAVBAR);
+            // Get.offAllNamed(Routes.NAVBAR);
+             //Get.offAllNamed(Routes.SPLASH);
           }
         } else {
           isLoggedIn.value = false;
           MySharedPref.removeUserToken();
-          Get.offAllNamed(Routes.AUTH_GATEWAY);
+          //Get.offAllNamed(Routes.AUTH_GATEWAY);
+          //Get.offAllNamed(Routes.SPLASH);
         }
         debugPrint("Auth Check successfully: ${response.data["message"]}");
       },

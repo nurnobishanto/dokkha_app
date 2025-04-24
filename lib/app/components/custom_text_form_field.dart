@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
 import 'package:lokkha/styles/text_style.dart';
 import 'package:flutter/material.dart';
@@ -68,16 +69,17 @@ class CustomTextFormField extends StatelessWidget {
                 : null,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
-              borderSide: const BorderSide(),
+              borderSide: BorderSide(color: Get.theme.dividerColor), // default border
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
-              borderSide: BorderSide(color: Colors.grey.shade400),
+              borderSide: BorderSide(color: Get.theme.hintColor), // light/dark এ auto change
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
-              borderSide: const BorderSide(color: Colors.black),
+              borderSide: BorderSide(color: Get.theme.primaryColor), // e.g., app theme color
             ),
+
           ),
         );
       },

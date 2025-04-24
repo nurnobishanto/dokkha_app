@@ -8,14 +8,14 @@ class SplashController extends GetxController {
   void onInit() {
     super.onInit();
     print("Splash called initial");
-    //Future.delayed(const Duration(seconds: 10), () {
-    //  print("Splash called After 10 Second");
-    //     //Get.offAllNamed(Routes.AUTH_GATEWAY);
-    //     // if (MySharedPref.getUserToken().isNotEmpty && MySharedPref.getUserToken() != ''&& isLoggedIn.value) {
-    //     //   Get.offAllNamed(Routes.NAVBAR);
-    //     // } else {
-    //     //   Get.offAllNamed(Routes.AUTH_GATEWAY);
-    //     // }
-    //});
+    Future.delayed(const Duration(seconds: 1), () {
+      print("Splash called After 10 Second");
+      Get.offAllNamed(Routes.NAVBAR);
+      // if (MySharedPref.getUserToken().isNotEmpty && MySharedPref.getUserToken() != ''&& isLoggedIn.value) {
+      //   Get.offAllNamed(Routes.NAVBAR);
+      // } else {
+      //   Get.offAllNamed(Routes.AUTH_GATEWAY);
+      // }
+    });
   }
 }

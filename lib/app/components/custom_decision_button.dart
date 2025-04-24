@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lokkha/styles/text_style.dart';
 import '../../config/theme/light_theme_colors.dart';
 
 class DecisionButton extends StatelessWidget {
@@ -40,11 +41,7 @@ class DecisionButton extends StatelessWidget {
             ],
             Text(
               text,
-              style: const TextStyle(
-                fontSize: 14.0,
-                fontWeight: FontWeight.w600,
-                color: Colors.black,
-              ),
+              style: AppTextStyles.body1,
             ),
           ],
         ),

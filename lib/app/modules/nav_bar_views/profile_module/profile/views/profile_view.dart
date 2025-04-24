@@ -1,108 +1,206 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:lokkha/app/modules/navbar/controllers/navbar_controller.dart';
+import 'package:lokkha/app/helper/api_helper.dart';
+import 'package:lokkha/app/modules/auth_views/auth_gateway/views/auth_gateway_view.dart';
 import 'package:lokkha/app/routes/app_pages.dart';
+import 'package:lokkha/config/constants/app_images.dart';
 import 'package:lokkha/config/extensions/common_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/utils/constants.dart';
-import '../../../../../../config/constants/app_images.dart';
 import '../../../../../../config/theme/light_theme_colors.dart';
 import '../../../../../../styles/text_style.dart';
-import '../../../../../helper/api_helper.dart';
+import '../../../../../helper/global.dart';
 import '../controllers/profile_controller.dart';
 
 class ProfileView extends GetView<ProfileController> {
   const ProfileView({super.key});
+
   @override
   Widget build(BuildContext context) {
-    final navBarController = Get.put(NavbarController());
-    // if(navBarController.profileDataModel.value.data != null){
-    //   print("Valueeee");
-    // }else{
-    //   print("Nullllll is");
-    // }
-    var profileData = profileDataModel.value.data!;
+    return Obx(() {
+      if (!isLoggedIn.value) {
+        return const AuthGatewayView();
+      }
+      final profileData = profileDataModel.value.data;
+      if (profileData == null) {
+        debugPrint("🚫 data is null");
+      } else {
+        debugPrint("✅ data is present");
+        debugPrint("🧑‍💼 Name: ${profileData.name}");
+        debugPrint("📸 Image: ${profileData.image}");
+        debugPrint("📧 Email: ${profileData.email}");
+      }
 
-    return Scaffold(
-      appBar: AppBar(),
-      body: Obx(() {
-        return Column(
-          spacing: 5.h,
-          children: [
-            10.h.height,
-            Center(
-              child: CircleAvatar(
-                radius: 50.0.r,
-                backgroundColor: LightThemeColors.primaryColor,
-                child: CircleAvatar(
-                  radius: 48.0.r,
-                  backgroundColor: Colors.white,
-                  child: CircleAvatar(
-                    radius: 48.0.r,
-                    backgroundColor: Colors.white,
-                    backgroundImage: (profileData.image != null &&
-                            profileData.image.isNotEmpty)
-                        ? CachedNetworkImageProvider(
-                            "${AppConstants.storageUrl}${profileData.image}",
-                          )
-                        : const CachedNetworkImageProvider(
-                            "https://www.smeal.psu.edu/alumni/images/photo-not-available-176.jpg/image_view_fullscreen",
-                          ),
-                  ),
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text("Profile View"),
+        ),
+        body: profileData == null
+            ? const Center(child: CircularProgressIndicator())
+            : SingleChildScrollView(
+                padding: EdgeInsets.all(8.0.r),
+                child: Column(
+                  spacing: 5.00.h,
+                  children: [
+                    10.h.height,
+                    CachedNetworkImage(
+                      imageUrl:
+                          "${AppConstants.storageUrl}${profileData.image}",
+                      imageBuilder: (context, imageProvider) => CircleAvatar(
+                        radius: 48.0.r,
+                        backgroundImage: imageProvider,
+                      ),
+                      placeholder: (context, url) =>
+                          const CircularProgressIndicator(),
+                      errorWidget: (context, url, error) => CircleAvatar(
+                        radius: 48.0.r,
+                        backgroundImage: const NetworkImage(
+                            "https://media.istockphoto.com/id/827247322/vector/danger-sign-vector-icon-attention-caution-illustration-business-concept-simple-flat-pictogram.jpg?s=612x612&w=0&k=20&c=BvyScQEVAM94DrdKVybDKc_s0FBxgYbu-Iv6u7yddbs="),
+                      ),
+                    ),
+                    10.h.height,
+                    Text(
+                      profileData.name ?? "no name",
+                      style: AppTextStyles.body1,
+                    ),
+                    10.h.height,
+                    ...[
+                      CustomProfileButton(
+                        onTap: () {},
+                        text: 'একাউন্ট',
+                        icon: Icons.edit_note_rounded,
+                      ),
+                      CustomProfileButton(
+                        onTap: () => Get.toNamed(Routes.PROFILE_UPDATE),
+                        text: 'প্রোফাইল আপডেট করুন',
+                        icon: Icons.edit_note_rounded,
+                      ),
+                      CustomProfileButton(
+                        onTap: () {},
+                        text: 'সাবস্ক্রিপশন',
+                        icon: Icons.edit_note_rounded,
+                      ),
+                      CustomProfileButton(
+                        onTap: () {},
+                        text: 'আপগ্রেড',
+                        icon: Icons.edit_note_rounded,
+                      ),
+                      CustomProfileButton(
+                        onTap: () {},
+                        text: 'সাপোর্ট',
+                        icon: Icons.edit_note_rounded,
+                      ),
+                      CustomProfileButton(
+                        onTap: () {},
+                        text: 'রিভিউ',
+                        icon: Icons.edit_note_rounded,
+                      ),
+                      CustomProfileButton(
+                        onTap: controller.logout,
+                        text: 'লগ আউট',
+                        icon: Icons.edit_note_rounded,
+                      ),
+                    ]
+                  ],
                 ),
               ),
-            ),
-            Text(
-              profileDataModel.value.data!.name ?? "no name",
-              style: AppTextStyles.body,
-            ),
-            10.h.height,
-            CustomProfileButton(
-              onTap: () {},
-              text: 'একাউন্ট',
-              icon: Icons.edit_note_rounded,
-            ),
-            CustomProfileButton(
-              onTap: () {
-                Get.toNamed(Routes.PROFILE_UPDATE);
-              },
-              text: 'প্রোফাইল আপডেট করুন',
-              icon: Icons.edit_note_rounded,
-            ),
-            CustomProfileButton(
-              onTap: () {},
-              text: 'সাবস্ক্রিপশন',
-              icon: Icons.edit_note_rounded,
-            ),
-            CustomProfileButton(
-              onTap: () {},
-              text: 'আপগ্রেড',
-              icon: Icons.edit_note_rounded,
-            ),
-            CustomProfileButton(
-              onTap: () {},
-              text: 'সাপোর্ট',
-              icon: Icons.edit_note_rounded,
-            ),
-            CustomProfileButton(
-              onTap: () {},
-              text: 'রিভিউ',
-              icon: Icons.edit_note_rounded,
-            ),
-            CustomProfileButton(
-              onTap: () {
-                controller.logout();
-              },
-              text: 'লগ আউট',
-              icon: Icons.edit_note_rounded,
-            ),
-          ],
-        ).paddingAll(8.0.r);
-      }),
-    );
+      );
+    });
   }
 }
+
+// class ProfileView extends GetView<ProfileController> {
+//   const ProfileView({super.key});
+//   @override
+//   Widget build(BuildContext context) {
+//     if (isLoggedIn.value) {
+//       getMeProfileInfo();
+//       debugPrint('TEST VIEW');
+//     }
+//     var profileData = profileDataModel.value.data;
+//     return !isLoggedIn.value
+//         ? const AuthGatewayView()
+//         : Scaffold(
+//             appBar: AppBar(),
+//             body: Obx(() {
+//               return Column(
+//                 spacing: 5.h,
+//                 children: [
+//                   10.h.height,
+//                   Center(
+//                     child: CircleAvatar(
+//                       radius: 50.0.r,
+//                       backgroundColor: LightThemeColors.primaryColor,
+//                       child: CircleAvatar(
+//                         radius: 48.0.r,
+//                         backgroundColor: Colors.white,
+//                         child: CircleAvatar(
+//                           radius: 48.0.r,
+//                           backgroundColor: Colors.white,
+//                           backgroundImage: (profileData!.image != null &&
+//                                   profileData.image.isNotEmpty)
+//                               ? CachedNetworkImageProvider(
+//                                   "${AppConstants.storageUrl}${profileData.image}",
+//                                 )
+//                               : const CachedNetworkImageProvider(
+//                                   "https://www.smeal.psu.edu/alumni/images/photo-not-available-176.jpg/image_view_fullscreen",
+//                                 ),
+//                         ),
+//                       ),
+//                     ),
+//                   ),
+//                   Text(
+//                     profileDataModel.value.data!.name ?? "no name",
+//                     style: AppTextStyles.body1,
+//                   ),
+//                   10.h.height,
+//                   CustomProfileButton(
+//                     onTap: () {},
+//                     text: 'একাউন্ট',
+//                     icon: Icons.edit_note_rounded,
+//                   ),
+//                   CustomProfileButton(
+//                     onTap: () {
+//                       Get.toNamed(Routes.PROFILE_UPDATE);
+//                     },
+//                     text: 'প্রোফাইল আপডেট করুন',
+//                     icon: Icons.edit_note_rounded,
+//                   ),
+//                   CustomProfileButton(
+//                     onTap: () {},
+//                     text: 'সাবস্ক্রিপশন',
+//                     icon: Icons.edit_note_rounded,
+//                   ),
+//                   CustomProfileButton(
+//                     onTap: () {},
+//                     text: 'আপগ্রেড',
+//                     icon: Icons.edit_note_rounded,
+//                   ),
+//                   CustomProfileButton(
+//                     onTap: () {},
+//                     text: 'সাপোর্ট',
+//                     icon: Icons.edit_note_rounded,
+//                   ),
+//                   CustomProfileButton(
+//                     onTap: () {},
+//                     text: 'রিভিউ',
+//                     icon: Icons.edit_note_rounded,
+//                   ),
+//                   CustomProfileButton(
+//                     onTap: () {
+//                       controller.logout();
+//                     },
+//                     text: 'লগ আউট',
+//                     icon: Icons.edit_note_rounded,
+//                   ),
+//                 ],
+//               ).paddingAll(8.0.r);
+//             }),
+//           );
+//   }
+// }
 
 class CustomProfileButton extends StatelessWidget {
   final VoidCallback onTap;

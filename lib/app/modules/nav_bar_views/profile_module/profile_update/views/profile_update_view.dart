@@ -23,8 +23,7 @@ class ProfileUpdateView extends GetView<ProfileUpdateController> {
         automaticallyImplyLeading: true,
         title: Text(
           'প্রোফাইল আপডেট করুন',
-          style: kHeadingTextStyle.copyWith(
-              color: Colors.white, fontWeight: FontWeight.w500),
+          style:AppTextStyles.heading6
         ),
         centerTitle: true,
         backgroundColor: LightThemeColors.primaryColor,
@@ -54,9 +53,9 @@ class ProfileUpdateView extends GetView<ProfileUpdateController> {
                 ),
               ),
               15.h.height,
-              const Text(
+              Text(
                 'নাম',
-                style: AppTextStyles.body,
+                style: AppTextStyles.body1,
               ),
               2.h.height,
               CustomTextFormField(
@@ -64,9 +63,9 @@ class ProfileUpdateView extends GetView<ProfileUpdateController> {
                 hintText: 'আপনার নাম লিখুন',
               ),
               10.h.height,
-              const Text(
+              Text(
                 'ইমেইল',
-                style: AppTextStyles.body,
+                style: AppTextStyles.body1,
               ),
               2.h.height,
               CustomTextFormField(
@@ -74,7 +73,7 @@ class ProfileUpdateView extends GetView<ProfileUpdateController> {
                 hintText: 'আপনার ইমেইল ঠিকানা লিখুন',
               ),
               10.h.height,
-              const Text("জন্ম তারিখ", style: AppTextStyles.body),
+              Text("জন্ম তারিখ", style: AppTextStyles.body1),
               2.h.height,
               CustomTextFormField(
                 hintText: controller.dob.value.trim().isEmpty
@@ -87,9 +86,9 @@ class ProfileUpdateView extends GetView<ProfileUpdateController> {
                 onTap: () => controller.selectDate(context),
               ),
               10.h.height,
-              const Text(
+              Text(
                 'লিঙ্গ',
-                style: AppTextStyles.body,
+                style: AppTextStyles.body1,
               ),
               2.h.height,
               CustomDropdownButton(
@@ -102,9 +101,9 @@ class ProfileUpdateView extends GetView<ProfileUpdateController> {
                 },
               ),
               10.h.height,
-              const Text(
+              Text(
                 'পেশা',
-                style: AppTextStyles.body,
+                style: AppTextStyles.body1,
               ),
               2.h.height,
               CustomTextFormField(
@@ -112,9 +111,9 @@ class ProfileUpdateView extends GetView<ProfileUpdateController> {
                 hintText: 'পেশা প্রদর্শিত হবে',
               ),
               10.h.height,
-              const Text(
+              Text(
                 'প্রতিষ্ঠান',
-                style: AppTextStyles.body,
+                style: AppTextStyles.body1,
               ),
               2.h.height,
               CustomTextFormField(
@@ -122,19 +121,19 @@ class ProfileUpdateView extends GetView<ProfileUpdateController> {
                 hintText: 'প্রতিষ্ঠানের নাম প্রদর্শিত হবে',
               ),
               20.h.height,
-              const Text(
+              Text(
                 'পাসওয়ার্ড',
-                style: AppTextStyles.heading,
+                style: AppTextStyles.heading6,
               ),
               10.h.height,
-              const Text(
+              Text(
                 'পরিবর্তন করতে না চাইলে এই অংশ ফাঁকা রাখুন',
-                style: AppTextStyles.body,
+                style: AppTextStyles.body1,
               ),
               5.h.height,
-              const Text(
+              Text(
                 'নতুন পাসওয়ার্ড',
-                style: AppTextStyles.body,
+                style: AppTextStyles.body1,
               ),
               3.h.height,
               CustomTextFormField(
@@ -143,9 +142,9 @@ class ProfileUpdateView extends GetView<ProfileUpdateController> {
                 obscureText: true,
               ),
               5.h.height,
-              const Text(
+              Text(
                 'পাসওয়ার্ড নিশ্চিত করুন',
-                style: AppTextStyles.body,
+                style: AppTextStyles.body1,
               ),
               3.h.height,
               CustomTextFormField(

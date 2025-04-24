@@ -26,17 +26,18 @@ class SignUpView extends GetView<SignUpController> {
               child: Column(
                 spacing: 5.00.h,
                 children: [
-                  70.height,
+                  60.height,
                   Image.asset(AssetImagePaths.appIcon, scale: 4.0),
-                  const Text("এক টাকা দিয়ে লক্ষ্যে পৌঁছান",
-                      style: AppTextStyles.heading,
-                      textAlign: TextAlign.center),
+                  Text(
+                    "এক টাকা দিয়ে লক্ষ্যে পৌঁছান",
+                    style: AppTextStyles.heading4,
+                    textAlign: TextAlign.center,
+                  ),
                   Text(
                     "কোনো রেজিস্ট্রেশন এর প্রয়োজন নেই সরাসরি লগইন করুন",
-                    style: AppTextStyles.custom(
-                        color: LightThemeColors.primaryColor),
+                    style: AppTextStyles.body1,
                   ),
-                  100.h.height,
+                  90.h.height,
                   Text(
                     "আপনার ফোন নম্বর দিয়ে লগইন করুন",
                     style: AppTextStyles.custom(
@@ -49,7 +50,7 @@ class SignUpView extends GetView<SignUpController> {
                     controller: controller.phoneController,
                     prefixIcon: const Icon(FontAwesomeIcons.phone),
                     hintText: "আপনার ১১ সংখ্যার ফোন নম্বর লিখুন",
-                    hintStyle: AppTextStyles.custom(fontSize: 12.00.sp, color: LightThemeColors.hintTextColor),
+                    hintStyle: AppTextStyles.body2,
                   ),
                   1.0.h.height,
                   CustomActionButton(

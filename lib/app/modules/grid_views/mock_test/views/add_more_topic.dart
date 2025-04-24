@@ -23,7 +23,7 @@ class AddMoreTopic extends StatelessWidget {
           automaticallyImplyLeading: true,
           title: Text(
             "আরও বিষয়",
-            style: AppTextStyles.body,
+            style: AppTextStyles.body1,
           ),
           iconTheme: const IconThemeData(color: LightThemeColors.white),
           centerTitle: true,
@@ -74,7 +74,7 @@ class AddMoreTopic extends StatelessWidget {
                     child: Text(
                       subject.name.toString(),
                       textAlign: TextAlign.center,
-                      style: AppTextStyles.paragraph,
+                      style: AppTextStyles.heading6,
                     ),
                   ),
                 );

@@ -4,14 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/modules/grid_views/mock_test/models/mock_start_exam_model.dart';
 import 'package:lokkha/utils/constants.dart';
-
-import '../../../../components/custom_snackbar.dart';
 import '../../../../data/local/my_shared_pref.dart';
 import '../../../../helper/api_helper.dart';
 import '../../../../services/api_call_status.dart';
 import '../../../../services/base_client.dart';
 import '../models/exam_result_model.dart';
 import '../views/mock_result_screen.dart';
+
 
 class MockExamQuestionController extends GetxController {
   MockStartExamModel? exam; // Exam data
@@ -31,7 +30,6 @@ class MockExamQuestionController extends GetxController {
       'Authorization': 'Bearer $token',
       'Content-Type': 'application/json'
     };
-    // NetworkApiServices networkApiServices = NetworkApiServices();
     const url = AppConstants.testExamSubmit;
     // Convert userAnswers map to a list of JSON objects
     List<Map<String, dynamic>> userAnswersArray =
@@ -53,37 +51,28 @@ class MockExamQuestionController extends GetxController {
       onSuccess: (response) async {
         apiCallStatus = ApiCallStatus.success;
         if (response.data['status']) {
-          CustomSnackBar.showCustomToast(
-              message: response.data['message'].toString());
+          log("Success Submit");
+          // CustomSnackBar.showCustomToast(
+          //     message: response.data['message'].toString());
           await MySharedPref.clearMockSubjects();
-            MockExamResultModel modelData = MockExamResultModel.fromJson(response.data);
-            Get.snackbar("Exam", "Exam submitted successfully.");
-            log("My Data: ${response.toString()}");
-            isLoading.value = false;
-            Get.off(MockExamResultScreen(model: modelData));
-          } else {
-          CustomSnackBar.showCustomToast(message: response.data["message"].toString());
-            //Utils.toastMessage(response["message"].toString());
-            isLoading.value = false;
-          }
+          //
+          MockExamResultModel modelData =
+              MockExamResultModel.fromJson(response.data);
 
-
+         // log("My Data: ${modelData.toString()}");
+          Get.snackbar("Exam", "Exam submitted successfully.");
+          log("My Data: ${response.toString()}");
+          isLoading.value = false;
+          Get.off(MockExamResultScreen(model: modelData));
+        } else {
+          log("Errrrrrrrr");
+          // CustomSnackBar.showCustomToast(
+          //     message: response.data["message"].toString());
+          //Utils.toastMessage(response["message"].toString());
+          isLoading.value = false;
+        }
       },
     );
-
-    // var response =
-    // await networkApiServices.postApi(data, url, headers: headers);
-    // if (response["status"] == true) {
-    //   await MySharedPref.clearMockSubjects();
-    //   MockExamResultModel modelData = MockExamResultModel.fromJson(response);
-    //   Get.snackbar("Exam", "Exam submitted successfully.");
-    //   log("My Data: ${response.toString()}");
-    //   isLoading.value = false;
-    //   Get.off(MockExamResultScreen(model: modelData));
-    // } else {
-    //   Utils.toastMessage(response["message"].toString());
-    //   isLoading.value = false;
-    // }
   }
 
   // Store user answers in a Map where key = question index, value = user's input
@@ -201,8 +190,8 @@ class MockExamQuestionController extends GetxController {
           ),
           TextButton(
             onPressed: () {
-              Get.back(); // Close dialog
               submitExam(); // Execute submit function
+             Get.back(); // Close dialog
             },
             child: const Text('হ্যাঁ, জমা দিবো'),
           ),

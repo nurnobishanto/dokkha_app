@@ -251,17 +251,17 @@ class SetTimeView extends StatelessWidget {
                 child: CustomActionButton(
                   text: "পরীক্ষা শুরু করুন",
                   onPressed: () {
-                    // Map<String, dynamic> data = {
-                    //   'duration': controller.setTimeCon.text,
-                    //   'type': controller.selectedKey.value,
-                    //   'negative_mark': controller.isNegativeMarkChecked.value,
-                    //   'subjects': controller.selectedSubjects
-                    //       .map((subject) => subject.toMap())
-                    //       .toList(), // Convert each subject to map
-                    // };
-                    // if (kDebugMode) {
-                    //   print("Question paper Data: $data}");
-                    // }
+                    Map<String, dynamic> data = {
+                      'duration': controller.setTimeCon.text,
+                      'type': controller.selectedKey.value,
+                      'negative_mark': controller.isNegativeMarkChecked.value,
+                      'subjects': controller.selectedSubjects
+                          .map((subject) => subject.toMap())
+                          .toList(), // Convert each subject to map
+                    };
+                    if (kDebugMode) {
+                      print("Question paper Data: $data}");
+                    }
                     if (isLoggedIn.value) {
                       controller.testExamStart();
                     } else {

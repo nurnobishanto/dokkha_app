@@ -33,52 +33,51 @@ class MockExamResultScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.00),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // Title for the result summary
-            Text(
-              "ফলাফল সারাংশ",
-              style: AppTextStyles.heading3.copyWith(color: LightThemeColors.primaryColor),
-            ),
-            const SizedBox(height: 8),
-            FittedBox(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _buildSummaryItem(
-                      "মোট প্রশ্ন", model.summary!.total),
-                  _buildSummaryItem(
-                      "চেষ্টা", model.summary!.attempt),
-                  _buildSummaryItem("নম্বর", model.summary!.mark),
-                ],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Title for the result summary
+              Text(
+                "ফলাফল সারাংশ",
+                style: AppTextStyles.heading3
+                    .copyWith(color: LightThemeColors.primaryColor),
               ),
-            ),
-            const SizedBox(height: 5.00),
-            FittedBox(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _buildSummaryItem(
-                      "ভুল উত্তর", model.summary!.incorrect),
-                  _buildSummaryItem(
-                      "সঠিক উত্তরসমূহ", model.summary!.correct),
-                ],
+              const SizedBox(height: 8),
+              FittedBox(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _buildSummaryItem("মোট প্রশ্ন", model.summary!.total),
+                    _buildSummaryItem("চেষ্টা", model.summary!.attempt),
+                    _buildSummaryItem("নম্বর", model.summary!.mark),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 10),
-            const Divider(),
-            const SizedBox(height: 10),
-            Expanded(
-              child: ListView.builder(
+              const SizedBox(height: 5.00),
+              FittedBox(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _buildSummaryItem("ভুল উত্তর", model.summary!.incorrect),
+                    _buildSummaryItem("সঠিক উত্তরসমূহ", model.summary!.correct),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 10),
+              const Divider(),
+              const SizedBox(height: 10),
+              ListView.builder(
+                shrinkWrap: true,
                 itemCount: questionList!.length,
+                physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   final question = questionList[index];
                   return Card(
                     child: Container(
                       decoration: BoxDecoration(
-                        border:
-                            Border.all(color: LightThemeColors.primaryColor, width: 1.5),
+                        border: Border.all(
+                            color: LightThemeColors.primaryColor, width: 1.5),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Padding(
@@ -90,7 +89,7 @@ class MockExamResultScreen extends StatelessWidget {
                               Image.network(
                                 "${AppConstants.storageUrl}${question.question!.questionImage}",
                                 errorBuilder: (context, error, stackTrace) =>
-                                    const Icon(Icons.error, color: Colors.red),
+                                const Icon(Icons.error, color: Colors.red),
                               ),
                             question.question!.questionImage != null
                                 ? const SizedBox(height: 10.00)
@@ -115,7 +114,7 @@ class MockExamResultScreen extends StatelessWidget {
                               ),
                               child: Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Expanded(
@@ -124,8 +123,8 @@ class MockExamResultScreen extends StatelessWidget {
                                       padding: const EdgeInsets.all(8.0),
                                       child: HtmlWidget(
                                         "${index + 1}. ${question.question!.title}",
-                                        textStyle: AppTextStyles.body1.copyWith(
-                                            color: Colors.white),
+                                        textStyle: AppTextStyles.body1
+                                            .copyWith(color: Colors.white),
                                       ),
                                     ),
                                   ),
@@ -135,8 +134,8 @@ class MockExamResultScreen extends StatelessWidget {
                                     child: Obx(() {
                                       // Ensure that the controller has an observable value for the favorite status
                                       bool isFavorite =
-                                          controller.checkQuestionExistInSaved(
-                                              question.question!.id!.toInt());
+                                      controller.checkQuestionExistInSaved(
+                                          question.question!.id!.toInt());
 
                                       return IconButton(
                                         onPressed: () {
@@ -172,8 +171,8 @@ class MockExamResultScreen extends StatelessWidget {
                   );
                 },
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -206,12 +205,12 @@ class MockExamResultScreen extends StatelessWidget {
               dense: true,
               contentPadding: EdgeInsets.zero,
               visualDensity: VisualDensity.compact,
-              value: option.value!.trim(),
+              value: option.key.toString(),
               groupValue: selectedAnswer!.trim(),
               onChanged: null,
-              title: Text(
+              title: HtmlWidget(
                 option.value ?? '',
-                style: AppTextStyles.body1.copyWith(
+                textStyle: AppTextStyles.body1.copyWith(
                   color: isSelected
                       ? (option.isCorrect == true ? Colors.green : Colors.red)
                       : Colors.black,
@@ -226,14 +225,15 @@ class MockExamResultScreen extends StatelessWidget {
           spacing: 10.0,
           children: [
             Expanded(
-                child: ExamCustomButton(
-                    text: "উত্তর ও সমাধান",
-                    onPressed: () {
-                      Get.defaultDialog(
-                          title: "উত্তর ও সমাধান",
-                          content:
-                              AnswerAndSolutionWidgets(question: question));
-                    })),
+              child: ExamCustomButton(
+                text: "উত্তর ও সমাধান",
+                onPressed: () {
+                  Get.defaultDialog(
+                      title: "উত্তর ও সমাধান",
+                      content: AnswerAndSolutionWidgets(question: question));
+                },
+              ),
+            ),
           ],
         )
       ],
@@ -331,10 +331,9 @@ class AnswerAndSolutionWidgets extends StatelessWidget {
               return option.value != null && option.isCorrect == true
                   ? Padding(
                       padding: const EdgeInsets.only(bottom: 4.0),
-                      child: Text(
+                      child: HtmlWidget(
                         option.value!,
-                        style: AppTextStyles.body1,
-                        textAlign: TextAlign.start,
+                        textStyle: AppTextStyles.body1,
                       ),
                     )
                   : const SizedBox.shrink();
@@ -366,8 +365,8 @@ class AnswerAndSolutionWidgets extends StatelessWidget {
   }
 
   Widget _buildExplanationImage() {
-    String fileUrl =
-        AppConstants.storageUrl + question.question!.explanationImage.toString();
+    String fileUrl = AppConstants.storageUrl +
+        question.question!.explanationImage.toString();
     bool isPdf = fileUrl.toLowerCase().endsWith('.pdf');
     return SizedBox(
       width: Get.width,
@@ -375,7 +374,7 @@ class AnswerAndSolutionWidgets extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-           "ছবির ব্যাখ্যা",
+            "ছবির ব্যাখ্যা",
             style: AppTextStyles.heading5,
           ),
           const SizedBox(height: 8),
@@ -400,8 +399,9 @@ class AnswerAndSolutionWidgets extends StatelessWidget {
                             color: Colors.red, size: 24),
                         const SizedBox(width: 8),
                         Text(
-                         "ব্যাখ্যা",
-                          style: AppTextStyles.heading5.copyWith(color: Colors.blue),
+                          "ব্যাখ্যা",
+                          style: AppTextStyles.heading5
+                              .copyWith(color: Colors.blue),
                         ),
                       ],
                     ),

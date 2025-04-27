@@ -7,7 +7,9 @@ import 'package:lokkha/app/modules/grid_views/mock_test/models/mock_start_exam_m
 import 'package:lokkha/config/theme/light_theme_colors.dart';
 import 'package:lokkha/utils/constants.dart';
 
+import '../../../../../styles/text_style.dart';
 import '../../../../components/custom_action_button.dart';
+import '../../../../helper/api_helper.dart';
 import '../controllers/mock_test_start_exam_controller.dart';
 
 class MockExamQuestionScreen extends StatefulWidget {
@@ -34,15 +36,16 @@ class _MockExamQuestionScreenState extends State<MockExamQuestionScreen> {
       return Scaffold(
         appBar: AppBar(
           title: Text(
-            "AppConstant.questions.tr",
-            //style: kHeadingTextStyle.copyWith(color: LightThemeColors.white),
+            "পরীক্ষা",
+            style:
+                AppTextStyles.heading4.copyWith(color: LightThemeColors.white),
           ),
           centerTitle: true,
           backgroundColor: LightThemeColors.primaryColor,
         ),
         body: Center(
           child: Text(
-            'No question paper available.',
+            'কোন প্রশ্ন নেই!',
           ),
         ),
       );
@@ -60,38 +63,10 @@ class _MockExamQuestionScreenState extends State<MockExamQuestionScreen> {
           icon: const Icon(Icons.arrow_back_ios),
         ),
         iconTheme: const IconThemeData(color: LightThemeColors.white),
-        title: const Text(
-          "questions",
-          // style:
-          //     kTitleTextStyle.copyWith(color: LightThemeColors.white, fontSize: 20.0),
+        title: Text(
+          "পরীক্ষা",
+          style: AppTextStyles.heading4.copyWith(color: LightThemeColors.white),
         ),
-        // actions: [
-        //   Container(
-        //     // height: isiPadSSizeHeight.value ? 30 : 24.0,
-        //     // width: isiPadSSizeWidth.value ? Get.width / 7.00 : Get.width / 4.5,
-        //     decoration: BoxDecoration(
-        //       border: Border.all(
-        //         color: LightThemeColors.white,
-        //       ),
-        //       borderRadius: BorderRadius.circular(8),
-        //     ),
-        //     child: ToggleSwitch(
-        //       initialLabelIndex:
-        //           MySharedPref.getCurrentLanguage() == 'bn' ? 0 : 1,
-        //       activeBgColor: const [Colors.red],
-        //       activeFgColor: Colors.white,
-        //       inactiveBgColor: Colors.grey,
-        //       inactiveFgColor: Colors.grey[900],
-        //       totalSwitches: 2,
-        //       labels: const ['BN', 'EN'],
-        //       onToggle: (index) {
-        //         String newLang = index == 0 ? "bn" : "en";
-        //         Get.find<HomeController>().changeLanguage(newLang);
-        //       },
-        //     ),
-        //   ),
-        //   const SizedBox(width: 10.00),
-        // ],
       ),
       body: Obx(() {
         return Column(
@@ -114,9 +89,9 @@ class _MockExamQuestionScreenState extends State<MockExamQuestionScreen> {
                               size: 18.0, color: Colors.white),
                           const SizedBox(width: 8.0),
                           Text(
-                            " timeLeft: ${_formatDuration(controller.duration!.value)}",
-                            // style: kTitleTextStyle.copyWith(
-                            //     color: LightThemeColors.white),
+                            "সময় বাকি : ${_formatDuration(controller.duration!.value)} মিনিট",
+                            style: AppTextStyles.heading4
+                                .copyWith(color: LightThemeColors.white),
                           ),
                         ],
                       ),
@@ -156,7 +131,9 @@ class _MockExamQuestionScreenState extends State<MockExamQuestionScreen> {
                             question.description != null
                                 ? HtmlWidget(question.description.toString())
                                 : const SizedBox(),
-                            const SizedBox(height: 10.00),
+                            if (question.description != null)
+                              const SizedBox(height: 10.00),
+
                             Container(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 7),
@@ -177,44 +154,46 @@ class _MockExamQuestionScreenState extends State<MockExamQuestionScreen> {
                                     flex: 10,
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
-                                      child: Text(
+                                      child: HtmlWidget(
                                         "${index + 1}. ${question.title}",
-                                        style: TextStyle(color: Colors.white),
-                                        // style: kTitleTextStyle.copyWith(
-                                        //     color: Colors.white),
+                                        textStyle: AppTextStyles.body1
+                                            .copyWith(color: Colors.white),
                                       ),
                                     ),
                                   ),
 
                                   /// popup menu items area
-                                  // Expanded(
-                                  //   child: Obx(() {
-                                  //     // Ensure that the controller has an observable value for the favorite status
-                                  //     // bool isFavorite =
-                                  //     //     controller.checkQuestionExistInSaved(
-                                  //     //         question.id!.toInt());
-                                  //
-                                  //     return IconButton(
-                                  //       onPressed: () {
-                                  //         if (isFavorite) {
-                                  //           removeFavoriteQuestion(
-                                  //               question.id!.toInt());
-                                  //         } else {
-                                  //           questionFavAdd(
-                                  //               question.id!.toInt());
-                                  //         }
-                                  //         // This will trigger the UI update when the state changes
-                                  //         controller.update();
-                                  //       },
-                                  //       icon: Icon(
-                                  //         isFavorite
-                                  //             ? Icons.favorite
-                                  //             : Icons.favorite_border,
-                                  //         color: LightThemeColors.white,
-                                  //       ),
-                                  //     );
-                                  //   }),
-                                  // ),
+                                  Expanded(
+                                    child: Obx(() {
+                                      // Ensure that the controller has an observable value for the favorite status
+                                      bool isFavorite =
+                                          controller.checkQuestionExistInSaved(
+                                              question.id!.toInt());
+
+                                      return IconButton(
+                                        onPressed: () {
+                                          if (isFavorite) {
+                                            removeFavoriteQuestion(
+                                                question.id!.toInt());
+                                            isFavorite = false;
+                                          } else {
+                                            questionFavAdd(
+                                                question.id!.toInt());
+                                            isFavorite = true;
+                                          }
+
+                                          // This will trigger the UI update when the state changes
+                                          controller.update();
+                                        },
+                                        icon: Icon(
+                                          isFavorite
+                                              ? Icons.favorite
+                                              : Icons.favorite_border,
+                                          color: LightThemeColors.white,
+                                        ),
+                                      );
+                                    }),
+                                  ),
                                 ],
                               ),
                             ),
@@ -229,9 +208,9 @@ class _MockExamQuestionScreenState extends State<MockExamQuestionScreen> {
             ),
 
             CustomActionButton(
-              text: "submit Exam",
+              text: "সাবমিট এক্সাম",
               onPressed: () {
-                //controller.showSubmitConfirmationDialog();
+                controller.showSubmitConfirmationDialog();
               },
             ),
           ],
@@ -280,7 +259,7 @@ class _MockExamQuestionScreenState extends State<MockExamQuestionScreen> {
             dense: true,
             contentPadding: EdgeInsets.zero,
             visualDensity: VisualDensity.compact,
-            value: option.value.toString(),
+            value: option.key.toString(),
             groupValue: controller.selectedAnswers[question.id] ??
                 '', // The selected value of the group
             onChanged: (value) {
@@ -290,12 +269,8 @@ class _MockExamQuestionScreenState extends State<MockExamQuestionScreen> {
                 controller.selectAnswer(question.id!.toInt(), value!);
               }
             },
-            title: Text(
-              "${option.value}",
+            title: HtmlWidget(option.value.toString()),
 
-              // style: kSubtitleStyle.copyWith(
-              //     color: isSelected ? LightThemeColors.primary : Colors.black),
-            ),
             activeColor: LightThemeColors.primaryColor,
             controlAffinity: ListTileControlAffinity.leading,
             shape: RoundedRectangleBorder(

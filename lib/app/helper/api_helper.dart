@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lokkha/app/components/custom_snackbar.dart';
+import 'package:lokkha/app/services/api_call_status.dart';
 import '../../utils/constants.dart';
+import '../../utils/utils.dart';
+import '../data/local/my_get_storage.dart';
 import '../data/local/my_shared_pref.dart';
+import '../models/fav_question_model.dart';
 import '../modules/navbar/model/profile_data_model.dart';
 import '../services/base_client.dart';
 import '../helper/global.dart';
@@ -38,4 +43,95 @@ void clearProfileState() {
   isLoggedIn.value = false;
   profileDataModel.value = ProfileDataModel();
   MySharedPref.removeUserToken(); // optional: clear token on failure
+}
+
+ApiCallStatus apiCallStatus = ApiCallStatus.holding;
+Future<void> questionFavAdd(int id) async {
+  String? token = MySharedPref.getUserToken();
+  const url = AppConstants.questionFavAdd;
+  Map<String, String> headers = {
+    'Authorization': 'Bearer $token',
+    'Content-Type': 'application/json'
+  };
+  Map<String, dynamic> data = {
+    'id': id,
+  };
+
+  BaseClient.safeApiCall(url, RequestType.post, headers: headers, data: data,
+      onSuccess: (response) {
+    apiCallStatus = ApiCallStatus.success;
+    if (response.data['status']) {
+      CustomSnackBar.showCustomToast(
+          message: response.data['message'].toString());
+    }
+  });
+  getFavList(refresh: true);
+}
+
+Future<void> removeFavoriteQuestion(int id) async {
+  String? token = MySharedPref.getUserToken();
+  const url = AppConstants.questionFavRemove;
+  Map<String, String> headers = {
+    'Authorization': 'Bearer $token',
+    'Content-Type': 'application/json'
+  };
+  Map<String, dynamic> data = {
+    'id': id,
+  };
+  BaseClient.safeApiCall(url, RequestType.post, headers: headers, data: data,
+      onSuccess: (response) {
+        apiCallStatus = ApiCallStatus.success;
+    if (response.data['status']) {
+      CustomSnackBar.showCustomToast(
+          message: response.data['message'].toString());
+    }
+  });
+  getFavList(refresh: true);
+}
+
+RxObjectMixin<FavQuestionListModel> favoriteQuestions =
+    FavQuestionListModel().obs;
+
+Future<bool> checkQuestionExistInSaved(int id) async {
+  await getFavList(refresh: true);
+  return favoriteQuestions.value.favoriteQuestions?.any((q) => q.id == id) ??
+      false;
+}
+
+
+
+Future<void> getFavList({bool refresh = false}) async {
+  if (refresh) {
+    MyGetStorage.removeCache(MyGetStorage.favQuestionsKey);
+  }
+  if (!refresh &&
+      MyGetStorage.getStorage.hasData(MyGetStorage.favQuestionsKey)) {
+    var cacheData = MyGetStorage.readCache(MyGetStorage.favQuestionsKey);
+    if (cacheData != null) {
+      favoriteQuestions.value = FavQuestionListModel.fromJson(cacheData);
+      return;
+    }
+  }
+
+  String? token = MySharedPref.getUserToken();
+  const url = AppConstants.questionFavList;
+  Map<String, String> headers = {
+    'Authorization': 'Bearer $token',
+    'Content-Type': 'application/json'
+  };
+  BaseClient.safeApiCall(url, RequestType.get, headers: headers,
+      onSuccess: (response) {
+        apiCallStatus = ApiCallStatus.success;
+    if (response.data['status']) {
+      FavQuestionListModel modelData =
+          FavQuestionListModel.fromJson(response.data);
+      favoriteQuestions.value = modelData;
+      MyGetStorage.writeCacheData(MyGetStorage.favQuestionsKey, response);
+
+      // CustomSnackBar.showCustomToast(
+      //     message: response.data['message'].toString());
+    }
+  }, onError: (err) {
+    CustomSnackBar.showCustomErrorToast(message: err.message);
+  });
 }

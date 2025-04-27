@@ -8,8 +8,8 @@ Widget buildTopRankedUser({
   required int rank,
   bool isFirst = false,
 }) {
-  final double outerRadius = isFirst ? 43.r : 28.r;
-  final double innerRadius = isFirst ? 40.r : 25.r;
+  final double outerRadius = isFirst ? 30.r : 22.r;
+  final double innerRadius = isFirst ? 28.r : 20.r;
 
   return Column(
     children: [

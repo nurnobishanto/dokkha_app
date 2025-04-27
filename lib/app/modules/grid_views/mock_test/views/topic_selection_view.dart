@@ -29,7 +29,7 @@ class TopicSelectionView extends StatelessWidget {
         automaticallyImplyLeading: true,
         title:  Text(
           "নির্বাচিত বিষয়গুলি",
-          style: AppTextStyles.heading6.copyWith(color: Colors.white),
+          style: AppTextStyles.heading4.copyWith(color: Colors.white),
         ),
         iconTheme: const IconThemeData(color: LightThemeColors.white),
         centerTitle: true,
@@ -231,7 +231,7 @@ class CustomExpandSubject extends StatelessWidget {
                           topic.name.toString(),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
-                          style: TextStyle(fontSize: 14.sp),
+                       style: AppTextStyles.body2,
                         ),
                       ),
                       Obx(() => AnimatedRotation(

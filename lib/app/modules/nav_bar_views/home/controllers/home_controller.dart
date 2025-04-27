@@ -23,7 +23,7 @@ class HomeController extends GetxController {
   final List<String> gridViewTitle = [
     'সর্বশেষ সাবজেক্ট অনুযায়ী তথ্যাদি',
     'সাবজেক্ট অনুযায়ী পরীক্ষা',
-    'সাবজেক্ট অনুযায়ী চাকরির নিয়োগ',
+    'সর্বশেষ চাকরির নিয়োগ',
   ];
   final List<String> gridViewTitle2 = [
     'বিসিএস',

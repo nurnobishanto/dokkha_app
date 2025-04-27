@@ -17,6 +17,12 @@ class AppConstants {
   // Subjects
   static const String subjects = "$baseUrl/subjects";
   static const String testExamStart = "$baseUrl/test-exam/start";
+  static const String testExamSubmit = "$baseUrl/test-exam/submit";
+  ///  Favorite
+  static const String questionFavAdd = "$baseUrl/question/favorite/add";
+  static const String questionFavRemove = "$baseUrl/question/favorite/remove";
+  static const String questionFavList = "$baseUrl/question/favorite/list";
+
   // Home Screen api
   static const String sliders = "$baseUrl/sliders";
 }

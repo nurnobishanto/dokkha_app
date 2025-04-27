@@ -10,40 +10,44 @@ class MockTestTabView extends GetView<MockTestTabController> {
   const MockTestTabView({super.key});
   @override
   Widget build(BuildContext context) {
-    return const DefaultTabController(
+    return DefaultTabController(
       length: 2,
       child: Scaffold(
+        backgroundColor: LightThemeColors.primaryColor,
         body: SafeArea(
           maintainBottomViewPadding: true,
           child: Column(
             children: [
-              SizedBox(height: 20.0),
-              TabBar(
-                indicatorColor: LightThemeColors.primaryColor,
-                labelColor: LightThemeColors.primaryColor,
-                unselectedLabelColor: Colors.grey,
-                tabs: [
-                  Tab(
-                    child: Text(
-                      "মক পরীক্ষা",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
+              Container(
+                color: LightThemeColors.primaryColor,
+                child: const TabBar(
+                  indicatorColor: LightThemeColors.white,
+                  labelColor: LightThemeColors.white,
+                  unselectedLabelColor: Colors.white70,
+
+                  tabs: [
+                    Tab(
+                      child: Text(
+                        "মক পরীক্ষা",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
-                  ),
-                  Tab(
-                    child: Text(
-                      "Coming",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                    Tab(
+                      child: Text(
+                        "Coming",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-              Expanded(
+              const Expanded(
                 child: TabBarView(
                   children: [
                     MockTestView(),

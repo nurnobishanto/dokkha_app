@@ -3,9 +3,15 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/modules/grid_views/mock_test/models/mock_start_exam_model.dart';
+import 'package:lokkha/utils/constants.dart';
 
+import '../../../../components/custom_snackbar.dart';
 import '../../../../data/local/my_shared_pref.dart';
-
+import '../../../../helper/api_helper.dart';
+import '../../../../services/api_call_status.dart';
+import '../../../../services/base_client.dart';
+import '../models/exam_result_model.dart';
+import '../views/mock_result_screen.dart';
 
 class MockExamQuestionController extends GetxController {
   MockStartExamModel? exam; // Exam data
@@ -16,42 +22,69 @@ class MockExamQuestionController extends GetxController {
 
   var selectedAnswers = <int, dynamic>{}.obs;
   RxBool isLoading = true.obs;
+  ApiCallStatus apiCallStatus = ApiCallStatus.holding;
 
-  // Future<void> mockExamSubmit() async {
-  //   isLoading.value = true;
-  //   String? token = MySharedPref.getUserToken();
-  //   Map<String, String> headers = {
-  //     'Authorization': 'Bearer $token',
-  //     'Content-Type': 'application/json'
-  //   };
-  //   NetworkApiServices networkApiServices = NetworkApiServices();
-  //   String url = AppUrl.mockExamSubmit;
-  //   // Convert userAnswers map to a list of JSON objects
-  //   List<Map<String, dynamic>> userAnswersArray =
-  //   userAnswers.values.map((userAnswer) => userAnswer.toJson()).toList();
-  //   Map<String, dynamic> data = {
-  //     'user_answers': userAnswersArray,
-  //     'is_set_time': exam!.isSetTime,
-  //     'start_time': exam!.startTime.toString(),
-  //     'duration': exam!.duration,
-  //     'negative_mark': exam!.negativeMark,
-  //   };
-  //   log("log${data.toString()}");
-  //
-  //   var response =
-  //   await networkApiServices.postApi(data, url, headers: headers);
-  //   if (response["status"] == true) {
-  //     await MySharedPref.clearMockSubjects();
-  //     MockExamResultModel modelData = MockExamResultModel.fromJson(response);
-  //     Get.snackbar("Exam", "Exam submitted successfully.");
-  //     log("My Data: ${response.toString()}");
-  //     isLoading.value = false;
-  //     Get.off(MockExamResultScreen(model: modelData));
-  //   } else {
-  //     Utils.toastMessage(response["message"].toString());
-  //     isLoading.value = false;
-  //   }
-  // }
+  Future<void> finalSubmitExam() async {
+    isLoading.value = true;
+    String? token = MySharedPref.getUserToken();
+    Map<String, String> headers = {
+      'Authorization': 'Bearer $token',
+      'Content-Type': 'application/json'
+    };
+    // NetworkApiServices networkApiServices = NetworkApiServices();
+    const url = AppConstants.testExamSubmit;
+    // Convert userAnswers map to a list of JSON objects
+    List<Map<String, dynamic>> userAnswersArray =
+        userAnswers.values.map((userAnswer) => userAnswer.toJson()).toList();
+    Map<String, dynamic> data = {
+      'user_answers': userAnswersArray,
+      'is_set_time': exam!.isSetTime,
+      'start_time': exam!.startTime.toString(),
+      'duration': exam!.duration,
+      'negative_mark': exam!.negativeMark,
+    };
+    log("log${data.toString()}");
+
+    BaseClient.safeApiCall(
+      url,
+      RequestType.post,
+      headers: headers,
+      data: data,
+      onSuccess: (response) async {
+        apiCallStatus = ApiCallStatus.success;
+        if (response.data['status']) {
+          CustomSnackBar.showCustomToast(
+              message: response.data['message'].toString());
+          await MySharedPref.clearMockSubjects();
+            MockExamResultModel modelData = MockExamResultModel.fromJson(response.data);
+            Get.snackbar("Exam", "Exam submitted successfully.");
+            log("My Data: ${response.toString()}");
+            isLoading.value = false;
+            Get.off(MockExamResultScreen(model: modelData));
+          } else {
+          CustomSnackBar.showCustomToast(message: response.data["message"].toString());
+            //Utils.toastMessage(response["message"].toString());
+            isLoading.value = false;
+          }
+
+
+      },
+    );
+
+    // var response =
+    // await networkApiServices.postApi(data, url, headers: headers);
+    // if (response["status"] == true) {
+    //   await MySharedPref.clearMockSubjects();
+    //   MockExamResultModel modelData = MockExamResultModel.fromJson(response);
+    //   Get.snackbar("Exam", "Exam submitted successfully.");
+    //   log("My Data: ${response.toString()}");
+    //   isLoading.value = false;
+    //   Get.off(MockExamResultScreen(model: modelData));
+    // } else {
+    //   Utils.toastMessage(response["message"].toString());
+    //   isLoading.value = false;
+    // }
+  }
 
   // Store user answers in a Map where key = question index, value = user's input
   var userAnswers = <int, UserAnswer>{}.obs;
@@ -75,10 +108,15 @@ class MockExamQuestionController extends GetxController {
     _initializeUserAnswers();
   }
 
+  bool checkQuestionExistInSaved(int id) {
+    return favoriteQuestions.value.favoriteQuestions?.any((q) => q.id == id) ??
+        false;
+  }
+
   @override
   void onInit() {
     super.onInit();
-    if(timerWork.value){
+    if (timerWork.value) {
       startTimer();
     }
     _initializeUserAnswers();
@@ -114,7 +152,7 @@ class MockExamQuestionController extends GetxController {
   }
 
   void submitExam() {
-    //mockExamSubmit();
+    finalSubmitExam();
     if (!isExamSubmitted.value) {
       isExamSubmitted.value = true;
     }
@@ -125,58 +163,54 @@ class MockExamQuestionController extends GetxController {
     timer?.cancel();
     super.onClose();
   }
-  //
-  // void showExitConfirmationDialog() {
-  //   Get.dialog(
-  //     AlertDialog(
-  //       title: Text(EnConstant.exitExam.tr),
-  //       content: Text(EnConstant.examLeaveWarning.tr),
-  //       actions: [
-  //         TextButton(
-  //           onPressed: () => Get.back(), // Close dialog
-  //           child: Text(AppConstant.no.tr),
-  //         ),
-  //         TextButton(
-  //           onPressed: () {
-  //             Get.back(); // Close dialog
-  //             Get.back(); // Exit the exam page
-  //           },
-  //           child: Text(EnConstant.yesExit.tr),
-  //         ),
-  //       ],
-  //     ),
-  //     barrierDismissible: false, // Prevent closing by tapping outside
-  //   );
-  // }
-  //
-  // void showSubmitConfirmationDialog() {
-  //   Get.dialog(
-  //     AlertDialog(
-  //       title: Text(EnConstant.submitExam.tr),
-  //       content: Text(EnConstant.submitWarning.tr),
-  //       actions: [
-  //         TextButton(
-  //           onPressed: () => Get.back(), // Close dialog
-  //           child: Text(AppConstant.no.tr),
-  //         ),
-  //         TextButton(
-  //           onPressed: () {
-  //             Get.back(); // Close dialog
-  //             submitExam(); // Execute submit function
-  //           },
-  //           child: Text(EnConstant.yesSubmit.tr),
-  //         ),
-  //       ],
-  //     ),
-  //     barrierDismissible: false, // Prevent closing by tapping outside
-  //   );
-  // }
-  //
-  //
-  // bool checkQuestionExistInSaved(int id) {
-  //   return favoriteQuestions.value.favoriteQuestions?.any((q) => q.id == id) ??
-  //       false;
-  // }
+
+  void showExitConfirmationDialog() {
+    Get.dialog(
+      AlertDialog(
+        title: const Text('পরীক্ষা বাতিল?'),
+        content: const Text(
+            'আপনি যদি এখন পরীক্ষা বাতিল করেন,আপনার উত্তর সংরক্ষিত হবে না।'),
+        actions: [
+          TextButton(
+            onPressed: () => Get.back(), // Close dialog
+            child: const Text("না"),
+          ),
+          TextButton(
+            onPressed: () {
+              Get.back(); // Close dialog
+              Get.back(); // Exit the exam page
+            },
+            child: const Text('হ্যাঁ, বাতিল'),
+          ),
+        ],
+      ),
+      barrierDismissible: false, // Prevent closing by tapping outside
+    );
+  }
+
+  void showSubmitConfirmationDialog() {
+    Get.dialog(
+      AlertDialog(
+        title: const Text('পরীক্ষা জমা দিবেন?'),
+        content: const Text(
+            'একবার জমা দিলে আপনি আর পরিবর্তন করতে পারবেন না। নিশ্চিত?'),
+        actions: [
+          TextButton(
+            onPressed: () => Get.back(), // Close dialog
+            child: const Text("না"),
+          ),
+          TextButton(
+            onPressed: () {
+              Get.back(); // Close dialog
+              submitExam(); // Execute submit function
+            },
+            child: const Text('হ্যাঁ, জমা দিবো'),
+          ),
+        ],
+      ),
+      barrierDismissible: false, // Prevent closing by tapping outside
+    );
+  }
 }
 
 class UserAnswer {
@@ -210,4 +244,3 @@ class UserAnswer {
     return '{question_id: $questionId, answer: $answers}';
   }
 }
-

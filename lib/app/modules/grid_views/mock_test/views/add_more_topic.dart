@@ -23,7 +23,7 @@ class AddMoreTopic extends StatelessWidget {
           automaticallyImplyLeading: true,
           title: Text(
             "আরও বিষয়",
-            style: AppTextStyles.body1,
+            style: AppTextStyles.heading4.copyWith(color: Colors.white),
           ),
           iconTheme: const IconThemeData(color: LightThemeColors.white),
           centerTitle: true,
@@ -74,7 +74,7 @@ class AddMoreTopic extends StatelessWidget {
                     child: Text(
                       subject.name.toString(),
                       textAlign: TextAlign.center,
-                      style: AppTextStyles.heading6,
+                      style: AppTextStyles.body2,
                     ),
                   ),
                 );
@@ -82,111 +82,6 @@ class AddMoreTopic extends StatelessWidget {
             ),
           ),
         )
-        // Padding(
-        //   padding: const EdgeInsets.all(8.0),
-        //   child: Obx(
-        //     () => Column(
-        //       crossAxisAlignment: CrossAxisAlignment.center,
-        //       children: [
-        //         const SizedBox(height: 8),
-        //         Wrap(
-        //           spacing: 12,
-        //           runSpacing: 12,
-        //           alignment: WrapAlignment.center,
-        //           children: mockController.model.value.subjects!.map((topic) {
-        //             if (controller.selectedSubjects
-        //                 .any((subject) => subject.id == topic.id)) {
-        //               return const SizedBox.shrink();
-        //             } else {
-        //               return InkWell(
-        //                 onTap: () async {
-        //                   MockSubjectSelect newSubject = MockSubjectSelect(
-        //                       id: topic.id,
-        //                       name: topic.name,
-        //                       quantity: min(15, topic.questionCount!.toInt()),
-        //                       max: topic.questionCount!.toInt());
-        //                   await MySharedPref.addOrUpdateMockSubjectSelect(
-        //                       newSubject);
-        //                   //Get.off(const ExamOverviewScreen());
-        //                 },
-        //                 child: Container(
-        //                   padding: const EdgeInsets.symmetric(
-        //                       horizontal: 16, vertical: 10),
-        //                   decoration: BoxDecoration(
-        //                     color: Colors.white,
-        //                     borderRadius: BorderRadius.circular(8),
-        //                     boxShadow: [
-        //                       BoxShadow(
-        //                         color: Colors.black.withValues(alpha: 0.05),
-        //                         spreadRadius: 1,
-        //                         blurRadius: 5,
-        //                         offset: const Offset(0, 2),
-        //                       )
-        //                     ],
-        //                   ),
-        //                   child: Text(
-        //                     topic.name.toString(),
-        //                     style: AppTextStyles.body,
-        //                   ),
-        //                 ),
-        //               );
-        //             }
-        //           }).toList(),
-        //         ),
-        //         const SizedBox(height: 16),
-        //         const Row(
-        //           children: [
-        //             Expanded(
-        //               child: Divider(),
-        //             ),
-        //             SizedBox(width: 10.00),
-        //             Text("selectedTopic"),
-        //             SizedBox(width: 10.00),
-        //             Expanded(
-        //               child: Divider(),
-        //             ),
-        //           ],
-        //         ),
-        //         const SizedBox(height: 16),
-        //         Wrap(
-        //           spacing: 12,
-        //           runSpacing: 12,
-        //           alignment: WrapAlignment.center,
-        //           children: controller.selectedSubjects.map((subject) {
-        //             return Container(
-        //               padding: const EdgeInsets.symmetric(
-        //                   horizontal: 16, vertical: 10),
-        //               decoration: BoxDecoration(
-        //                 color: LightThemeColors.primary,
-        //                 borderRadius: BorderRadius.circular(8),
-        //                 boxShadow: [
-        //                   BoxShadow(
-        //                     color: Colors.black.withValues(alpha: 0.05),
-        //                     spreadRadius: 1,
-        //                     blurRadius: 5,
-        //                     offset: const Offset(0, 2),
-        //                   )
-        //                 ],
-        //               ),
-        //               child: Text(
-        //                 subject.name.toString(),
-        //                 style: AppTextStyles.body,
-        //               ),
-        //             );
-        //           }).toList(),
-        //         ),
-        //         const Spacer(),
-        //         CustomActionButton(
-        //           text: "Start Exam",
-        //           onPressed: () {
-        //             // Get.off(const ExamSetTimeScreen());
-        //           },
-        //         ),
-        //         const SizedBox(height: 10.00),
-        //       ],
-        //     ),
-        //   ),
-        // ),
         );
   }
 }

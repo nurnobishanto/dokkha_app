@@ -151,18 +151,27 @@ class HomeView extends GetView<HomeController> {
                         ),
                         items: controller.sliderModel.value.sliders!
                             .map((sliderItem) {
+                          debugPrint(
+                              "URLL IMAGE : ${AppConstants.storageUrl + sliderItem.image.toString()}");
                           return ClipRRect(
-                            borderRadius: BorderRadius.circular(7.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: NetworkImage(AppConstants.storageUrl +
-                                      sliderItem.image.toString()),
-                                  fit: BoxFit.cover,
+                              borderRadius: BorderRadius.circular(7.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.shade200,
                                 ),
-                              ),
-                            ),
-                          );
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  child: Image.network(
+                                    AppConstants.storageUrl +
+                                        sliderItem.image.toString(),
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Image.network(
+                                          "https://media.istockphoto.com/id/827247322/vector/danger-sign-vector-icon-attention-caution-illustration-business-concept-simple-flat-pictogram.jpg?s=612x612&w=0&k=20&c=BvyScQEVAM94DrdKVybDKc_s0FBxgYbu-Iv6u7yddbs=");
+                                    },
+                                  ),
+                                ),
+                              ));
                         }).toList(),
                       ),
 
@@ -183,71 +192,40 @@ class HomeView extends GetView<HomeController> {
                       //             4.0), // Optional: spacing between dots
                       //   ),
                       // ),
+                      2.0.h.height,
 
                       /// GridView for GridView
                       GridView.builder(
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,
-                          crossAxisSpacing: .0,
-                          mainAxisSpacing: .0,
-                          childAspectRatio: 1.1,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10.0,
+                          childAspectRatio: 2,
                         ),
                         itemCount: controller.gridViewTitle.length,
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (x, i) {
-                          final color = controller.gridColors[i];
-                          final image = controller.gridImages[i];
+                          //final color = controller.gridColors[i];
+                          //final image = controller.gridImages[i];
                           final title = controller.gridViewTitle[i];
                           final route = controller.gridViewRoutePage[i];
                           return GestureDetector(
                             onTap: () => Get.toNamed(route),
-                            child: Center(
-                              child: Container(
-                                margin: const EdgeInsets.all(10.0),
-                                decoration: BoxDecoration(
-                                  color: color,
-                                  borderRadius: BorderRadius.circular(12.0),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.blue.withValues(alpha: 0.1),
-                                      blurRadius: 2.0,
-                                      offset: const Offset(0, 4),
-                                    ),
-                                  ],
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      height: 34.0.h,
-                                      width: 34.0.w,
-                                      child: FittedBox(
-                                        child: Image.asset(
-                                          "assets/images/$image",
-                                          opacity:
-                                              const AlwaysStoppedAnimation(0.9),
-                                          fit: BoxFit.contain,
-                                        ),
-                                      ),
-                                    ).center().paddingSymmetric(
-                                        horizontal: 1, vertical: 1),
-                                    Text(
-                                      title,
-                                      style: TextStyle(
-                                        height: 1.4,
-                                        color:
-                                            Colors.black.withValues(alpha: 0.8),
-                                        fontSize: 13.2,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ).paddingSymmetric(
-                                        horizontal: 3, vertical: 4),
-                                  ],
-                                ),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 8.00, horizontal: 4.00),
+                              decoration: BoxDecoration(
+                                color: LightThemeColors.white,
+                                borderRadius: BorderRadius.circular(7.0),
+                                border:
+                                    Border.all(color: Colors.grey, width: .5),
+                              ),
+                              child: Text(
+                                title,
+                                style: AppTextStyles.heading5,
+                                textAlign: TextAlign.center,
                               ),
                             ),
                           );
@@ -354,8 +332,8 @@ class HomeView extends GetView<HomeController> {
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
-                          crossAxisSpacing: .0,
-                          mainAxisSpacing: .0,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
                           childAspectRatio: 4,
                         ),
                         itemCount: controller.gridViewTitle2.length,
@@ -368,17 +346,18 @@ class HomeView extends GetView<HomeController> {
                           return GestureDetector(
                             onTap: () {},
                             child: Container(
-                              margin: const EdgeInsets.all(3.0),
+
                               decoration: BoxDecoration(
-                                color: Colors.grey.shade300,
-                                borderRadius: BorderRadius.circular(12.0),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.blue.withValues(alpha: 0.1),
-                                    blurRadius: 2.0,
-                                    offset: const Offset(0, 4),
-                                  ),
-                                ],
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(7.0),
+                                border: Border.all(color: Colors.grey,width: .5.w)
+                                // boxShadow: [
+                                //   BoxShadow(
+                                //     color: Colors.blue.withValues(alpha: 0.1),
+                                //     blurRadius: 2.0,
+                                //     offset: const Offset(0, 4),
+                                //   ),
+                                // ],
                               ),
                               child: Row(
                                 children: [

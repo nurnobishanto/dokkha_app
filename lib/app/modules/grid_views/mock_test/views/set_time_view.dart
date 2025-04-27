@@ -22,7 +22,7 @@ class SetTimeView extends StatelessWidget {
         automaticallyImplyLeading: true,
         title: Text(
           'সময় নির্ধারণ',
-          style: AppTextStyles.body1,
+          style: AppTextStyles.heading4.copyWith(color: LightThemeColors.white),
         ),
         iconTheme: const IconThemeData(color: Colors.white),
         centerTitle: true,
@@ -111,8 +111,9 @@ class SetTimeView extends StatelessWidget {
                       // Negative Mark
                       Row(
                         children: [
-                          const Text(
+                          Text(
                             "নেগেটিভ মার্কিং",
+                            style: AppTextStyles.body1,
                           ),
                           const SizedBox(width: 3.00),
                           Container(
@@ -154,8 +155,9 @@ class SetTimeView extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 15.00),
-                      const Text(
+                      Text(
                         "প্রশ্নের ধরন নির্বাচন করুন",
+                        style: AppTextStyles.body1,
                       ),
                       const SizedBox(height: 3.00),
 
@@ -194,15 +196,18 @@ class SetTimeView extends StatelessWidget {
                       ),
 
                       const SizedBox(height: 50.00),
-                      const Row(
+                      Row(
                         children: [
-                          Expanded(
+                          const Expanded(
                             child: Divider(),
                           ),
-                          SizedBox(width: 10.00),
-                          Text("নির্বাচিত বিষয়"),
-                          SizedBox(width: 10.00),
-                          Expanded(
+                          const SizedBox(width: 10.00),
+                          Text(
+                            "নির্বাচিত বিষয়",
+                            style: AppTextStyles.body1,
+                          ),
+                          const SizedBox(width: 10.00),
+                          const Expanded(
                             child: Divider(),
                           ),
                         ],
@@ -248,7 +253,7 @@ class SetTimeView extends StatelessWidget {
                   onPressed: () {
                     // Map<String, dynamic> data = {
                     //   'duration': controller.setTimeCon.text,
-                    //   'type': controller.dropdownValue.value,
+                    //   'type': controller.selectedKey.value,
                     //   'negative_mark': controller.isNegativeMarkChecked.value,
                     //   'subjects': controller.selectedSubjects
                     //       .map((subject) => subject.toMap())
@@ -257,9 +262,9 @@ class SetTimeView extends StatelessWidget {
                     // if (kDebugMode) {
                     //   print("Question paper Data: $data}");
                     // }
-                    if(isLoggedIn.value){
+                    if (isLoggedIn.value) {
                       controller.testExamStart();
-                    } else{
+                    } else {
                       Get.toNamed(Routes.AUTH_GATEWAY);
                     }
                   },

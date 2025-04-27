@@ -11,7 +11,7 @@ import '../../../../components/custom_action_button.dart';
 import '../controllers/mock_test_start_exam_controller.dart';
 
 class MockExamQuestionScreen extends StatefulWidget {
-   final MockStartExamModel mockExamStartModel;
+  final MockStartExamModel mockExamStartModel;
 
   const MockExamQuestionScreen({super.key, required this.mockExamStartModel});
 
@@ -28,7 +28,7 @@ class _MockExamQuestionScreenState extends State<MockExamQuestionScreen> {
       print("Build Mock Exam Screen");
     }
 
-   final questionList = widget.mockExamStartModel.questions;
+    final questionList = widget.mockExamStartModel.questions;
 
     if (questionList!.isEmpty) {
       return Scaffold(
@@ -43,7 +43,6 @@ class _MockExamQuestionScreenState extends State<MockExamQuestionScreen> {
         body: Center(
           child: Text(
             'No question paper available.',
-
           ),
         ),
       );
@@ -61,8 +60,8 @@ class _MockExamQuestionScreenState extends State<MockExamQuestionScreen> {
           icon: const Icon(Icons.arrow_back_ios),
         ),
         iconTheme: const IconThemeData(color: LightThemeColors.white),
-        title: Text(
-         "questions",
+        title: const Text(
+          "questions",
           // style:
           //     kTitleTextStyle.copyWith(color: LightThemeColors.white, fontSize: 20.0),
         ),
@@ -135,8 +134,8 @@ class _MockExamQuestionScreenState extends State<MockExamQuestionScreen> {
                     margin: const EdgeInsets.all(8.0),
                     child: Container(
                       decoration: BoxDecoration(
-                        border:
-                            Border.all(color: LightThemeColors.primaryColor, width: 1.5),
+                        border: Border.all(
+                            color: LightThemeColors.primaryColor, width: 1.5),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Padding(
@@ -154,8 +153,9 @@ class _MockExamQuestionScreenState extends State<MockExamQuestionScreen> {
                               const SizedBox(height: 10.00),
 
                             /// Description
-                            question.description != null ?
-                            HtmlWidget(question.description.toString()):const SizedBox(),
+                            question.description != null
+                                ? HtmlWidget(question.description.toString())
+                                : const SizedBox(),
                             const SizedBox(height: 10.00),
                             Container(
                               padding:
@@ -380,159 +380,159 @@ class _MockExamQuestionScreenState extends State<MockExamQuestionScreen> {
   //       }),
   //     ],
   //   );
-  }
+}
 
-  /// PDF
-  // Future<void> generateAndSharePdf() async {
-  //   print("Called PDF");
-  //   final pdf = pw.Document();
-  //
-  //   pdf.addPage(
-  //     pw.Page(
-  //       pageFormat: PdfPageFormat.a4,
-  //       build: (pw.Context context) {
-  //         final question = widget.mockExamStartModel.questions![0];
-  //         return pw.Center(
-  //           child: pw.Column(
-  //             mainAxisAlignment: pw.MainAxisAlignment.center,
-  //             children: [
-  //               pw.Text(
-  //                 "${(Get.locale.toString() == 'en') ? question.titleEn : question.title}",
-  //                 style:pw.TextStyle(
-  //                   fontWeight:pw.FontWeight.bold,
-  //                   fontSize: 15.5,
-  //                   color:PdfColors.white,
-  //                 ),
-  //               ),
-  //               pw.SizedBox(height: 20),
-  //               pw.Text('This is a simple PDF document.'),
-  //             ],
-  //           ),
-  //         );
-  //       },
-  //     ),
-  //   );
-  //
-  //   // **ডিভাইসের লোকাল স্টোরেজে ফাইল সংরক্ষণ করা**
-  //   final output = await getExternalStorageDirectory();
-  //   final file = File("${output!.path}/example.pdf");
-  //   await file.writeAsBytes(await pdf.save());
-  //
-  //   print("PDF Generated: ${file.path}");
-  //
-  //   //
-  //   await Share.shareXFiles([XFile(file.path)], text: "Here is your PDF file!");
-  //
-  //   // **PDF PDf (if Needed)**
-  //   // OpenFile.open(file.path);
-  // }
+/// PDF
+// Future<void> generateAndSharePdf() async {
+//   print("Called PDF");
+//   final pdf = pw.Document();
+//
+//   pdf.addPage(
+//     pw.Page(
+//       pageFormat: PdfPageFormat.a4,
+//       build: (pw.Context context) {
+//         final question = widget.mockExamStartModel.questions![0];
+//         return pw.Center(
+//           child: pw.Column(
+//             mainAxisAlignment: pw.MainAxisAlignment.center,
+//             children: [
+//               pw.Text(
+//                 "${(Get.locale.toString() == 'en') ? question.titleEn : question.title}",
+//                 style:pw.TextStyle(
+//                   fontWeight:pw.FontWeight.bold,
+//                   fontSize: 15.5,
+//                   color:PdfColors.white,
+//                 ),
+//               ),
+//               pw.SizedBox(height: 20),
+//               pw.Text('This is a simple PDF document.'),
+//             ],
+//           ),
+//         );
+//       },
+//     ),
+//   );
+//
+//   // **ডিভাইসের লোকাল স্টোরেজে ফাইল সংরক্ষণ করা**
+//   final output = await getExternalStorageDirectory();
+//   final file = File("${output!.path}/example.pdf");
+//   await file.writeAsBytes(await pdf.save());
+//
+//   print("PDF Generated: ${file.path}");
+//
+//   //
+//   await Share.shareXFiles([XFile(file.path)], text: "Here is your PDF file!");
+//
+//   // **PDF PDf (if Needed)**
+//   // OpenFile.open(file.path);
+// }
 
-  // Widget _buildSingleChoice(
-  //     MockExamQuestionController controller, Question question) {
-  //   return Column(
-  //     children: question.options!.map((option) {
-  //       // Check if the option is already selected
-  //       bool isSelected =
-  //           controller.selectedAnswers[question.id] == option.option;
-  //
-  //       return GestureDetector(
-  //         onTap: () {
-  //           // Only select if no answer has been chosen already
-  //           if (controller.selectedAnswers[question.id] == null) {
-  //             controller.selectAnswer(question.id!.toInt(), option.option!);
-  //           }
-  //         },
-  //         child: Container(
-  //           margin: const EdgeInsets.symmetric(vertical: 4.0),
-  //           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
-  //           decoration: BoxDecoration(
-  //             color: isSelected
-  //                 ? LightThemeColors.primary
-  //                 : LightThemeColors.primary01.withOpacity(.1),
-  //             borderRadius: BorderRadius.circular(6.0),
-  //             boxShadow: [
-  //               BoxShadow(
-  //                 color: LightThemeColors.primary.withOpacity(0.1),
-  //                 blurRadius: 0.0,
-  //                 offset: const Offset(0, 0),
-  //               ),
-  //             ],
-  //           ),
-  //           child: Row(
-  //             mainAxisAlignment: MainAxisAlignment.start,
-  //             children: [
-  //               Expanded(
-  //                 child: Text(
-  //                   option.option ?? '',
-  //                   style: TextStyle(
-  //                     fontSize: 15.0,
-  //                     color: isSelected ? Colors.white : Colors.black,
-  //                     fontWeight: FontWeight.normal,
-  //                   ),
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //       );
-  //     }).toList(),
-  //   );
-  // }
-  //
-  // Widget _buildMultipleChoice(
-  //     MockExamQuestionController controller, Question question) {
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: question.options!.map((option) {
-  //       bool isSelected =
-  //           controller.selectedAnswers[question.id]?.contains(option.option) ??
-  //               false;
-  //       return Container(
-  //         margin: const EdgeInsets.symmetric(vertical: 2.0),
-  //         decoration: BoxDecoration(
-  //           //color: isSelected ? LightThemeColors.primary : Colors.white,
-  //           borderRadius: BorderRadius.circular(6.0),
-  //           border: Border.all(
-  //             color: isSelected ? LightThemeColors.primaryColor : Colors.grey.shade300,
-  //             width: 1.2,
-  //           ),
-  //         ),
-  //         child: Theme(
-  //           data: ThemeData(
-  //             checkboxTheme: CheckboxThemeData(
-  //               shape: RoundedRectangleBorder(
-  //                 borderRadius: BorderRadius.circular(4.0),
-  //               ),
-  //               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-  //               visualDensity: VisualDensity.compact,
-  //             ),
-  //           ),
-  //           child: CheckboxListTile(
-  //             dense: true,
-  //             controlAffinity: ListTileControlAffinity.leading,
-  //             contentPadding: const EdgeInsets.symmetric(horizontal: 2.0),
-  //             title: Text(
-  //               option.option!,
-  //               overflow: TextOverflow.ellipsis,
-  //               style: const TextStyle(
-  //                 height: 1,
-  //                 fontSize: 14.0,
-  //                 fontWeight: FontWeight.w500,
-  //                 color: Colors.black,
-  //               ),
-  //             ),
-  //             value: isSelected,
-  //             onChanged: (value) {
-  //               debugPrint("Multiple $value");
-  //               controller.selectAnswer(
-  //                   question.id!.toInt(), option.option.toString());
-  //             },
-  //           ),
-  //         ),
-  //       );
-  //     }).toList(),
-  //   );
-  // }
+// Widget _buildSingleChoice(
+//     MockExamQuestionController controller, Question question) {
+//   return Column(
+//     children: question.options!.map((option) {
+//       // Check if the option is already selected
+//       bool isSelected =
+//           controller.selectedAnswers[question.id] == option.option;
+//
+//       return GestureDetector(
+//         onTap: () {
+//           // Only select if no answer has been chosen already
+//           if (controller.selectedAnswers[question.id] == null) {
+//             controller.selectAnswer(question.id!.toInt(), option.option!);
+//           }
+//         },
+//         child: Container(
+//           margin: const EdgeInsets.symmetric(vertical: 4.0),
+//           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+//           decoration: BoxDecoration(
+//             color: isSelected
+//                 ? LightThemeColors.primary
+//                 : LightThemeColors.primary01.withOpacity(.1),
+//             borderRadius: BorderRadius.circular(6.0),
+//             boxShadow: [
+//               BoxShadow(
+//                 color: LightThemeColors.primary.withOpacity(0.1),
+//                 blurRadius: 0.0,
+//                 offset: const Offset(0, 0),
+//               ),
+//             ],
+//           ),
+//           child: Row(
+//             mainAxisAlignment: MainAxisAlignment.start,
+//             children: [
+//               Expanded(
+//                 child: Text(
+//                   option.option ?? '',
+//                   style: TextStyle(
+//                     fontSize: 15.0,
+//                     color: isSelected ? Colors.white : Colors.black,
+//                     fontWeight: FontWeight.normal,
+//                   ),
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       );
+//     }).toList(),
+//   );
+// }
+//
+// Widget _buildMultipleChoice(
+//     MockExamQuestionController controller, Question question) {
+//   return Column(
+//     crossAxisAlignment: CrossAxisAlignment.start,
+//     children: question.options!.map((option) {
+//       bool isSelected =
+//           controller.selectedAnswers[question.id]?.contains(option.option) ??
+//               false;
+//       return Container(
+//         margin: const EdgeInsets.symmetric(vertical: 2.0),
+//         decoration: BoxDecoration(
+//           //color: isSelected ? LightThemeColors.primary : Colors.white,
+//           borderRadius: BorderRadius.circular(6.0),
+//           border: Border.all(
+//             color: isSelected ? LightThemeColors.primaryColor : Colors.grey.shade300,
+//             width: 1.2,
+//           ),
+//         ),
+//         child: Theme(
+//           data: ThemeData(
+//             checkboxTheme: CheckboxThemeData(
+//               shape: RoundedRectangleBorder(
+//                 borderRadius: BorderRadius.circular(4.0),
+//               ),
+//               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+//               visualDensity: VisualDensity.compact,
+//             ),
+//           ),
+//           child: CheckboxListTile(
+//             dense: true,
+//             controlAffinity: ListTileControlAffinity.leading,
+//             contentPadding: const EdgeInsets.symmetric(horizontal: 2.0),
+//             title: Text(
+//               option.option!,
+//               overflow: TextOverflow.ellipsis,
+//               style: const TextStyle(
+//                 height: 1,
+//                 fontSize: 14.0,
+//                 fontWeight: FontWeight.w500,
+//                 color: Colors.black,
+//               ),
+//             ),
+//             value: isSelected,
+//             onChanged: (value) {
+//               debugPrint("Multiple $value");
+//               controller.selectAnswer(
+//                   question.id!.toInt(), option.option.toString());
+//             },
+//           ),
+//         ),
+//       );
+//     }).toList(),
+//   );
+// }
 
 // Widget _buildMultipleChoice(
 //     MockExamQuestionController controller, Question question) {

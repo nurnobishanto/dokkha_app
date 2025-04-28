@@ -22,7 +22,14 @@ class AppConstants {
   static const String questionFavAdd = "$baseUrl/question/favorite/add";
   static const String questionFavRemove = "$baseUrl/question/favorite/remove";
   static const String questionFavList = "$baseUrl/question/favorite/list";
-
+  /// jobs
+  static const String jobsList = "$baseUrl/jobs";
+  static const String job = "$baseUrl/job";
+  /// Random Question
+  static const String randomQuestion = "$baseUrl/random-question";
+  /// Current Affairs
+  static const String internationalCA = "$baseUrl/current-affairs/international";
+  static const String nationalCA = "$baseUrl/current-affairs/national";
   // Home Screen api
   static const String sliders = "$baseUrl/sliders";
 }

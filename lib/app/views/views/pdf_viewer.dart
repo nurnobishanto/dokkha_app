@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
 import 'package:lokkha/styles/text_style.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+
+import '../../helper/global.dart';
 
 class PdfViewerScreen extends StatelessWidget {
   const PdfViewerScreen({super.key, required this.title, required this.file});
@@ -39,17 +42,10 @@ class PdfViewerScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Expanded(
-            //   child: SfPdfViewer.network(file.toString()),
-            // ),
-            // const SizedBox(height: 10.0),
-            // if (isLoggedIn.value)
-            //   buildDownloadButton(
-            //     fileUrl: "${AppUrl.storageUrl}${file.toString()}",
-            //   )
-            // else
-            //   buildSignInSignUpText(),
-            // const SizedBox(height: 10.0),
+            Expanded(
+              child: SfPdfViewer.network(file.toString()),
+            ),
+
           ],
         ),
       ),

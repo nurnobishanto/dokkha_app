@@ -28,6 +28,8 @@ abstract class Routes {
   static const MOCK_TEST_TAB = _Paths.MOCK_TEST_TAB;
   static const FAST_PRACTICE = _Paths.FAST_PRACTICE;
   static const TOPIC_SELECTION = _Paths.TOPIC_SELECTION;
+  static const JOBS = _Paths.JOBS;
+  static const CURRENT_AFFAIRS = _Paths.CURRENT_AFFAIRS;
 }
 
 abstract class _Paths {
@@ -57,4 +59,6 @@ abstract class _Paths {
   static const MOCK_TEST_TAB = '/mock-test-tab';
   static const FAST_PRACTICE = '/fast-practice';
   static const TOPIC_SELECTION = '/topic-selection';
+  static const JOBS = '/jobs';
+  static const CURRENT_AFFAIRS = '/current-affairs';
 }

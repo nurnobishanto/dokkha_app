@@ -2,6 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:lokkha/app/components/custom_action_button.dart';
 import 'package:lokkha/app/components/custom_drawer.dart';
 import 'package:lokkha/app/data/local/my_shared_pref.dart';
+import 'package:lokkha/app/modules/random_question/views/random_question_view.dart';
+import 'package:lokkha/comming_soon_view.dart';
 import 'package:lokkha/config/extensions/common_extension.dart';
 import 'package:lokkha/config/extensions/widget_extensions.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
@@ -14,6 +16,7 @@ import '../../../../../config/constants/app_images.dart';
 import '../../../../../config/theme/my_theme.dart';
 import '../../../../../styles/text_style.dart';
 import '../../../../routes/app_pages.dart';
+import '../../../current_affairs/views/current_affairs_view.dart';
 import '../components/home_components.dart';
 import '../components/random_question_selector.dart';
 import '../controllers/home_controller.dart';
@@ -212,7 +215,7 @@ class HomeView extends GetView<HomeController> {
                           final title = controller.gridViewTitle[i];
                           final route = controller.gridViewRoutePage[i];
                           return GestureDetector(
-                            onTap: () => Get.toNamed(route),
+                            onTap: () => Get.to(route),
                             child: Container(
                               padding: const EdgeInsets.symmetric(
                                   vertical: 8.00, horizontal: 4.00),
@@ -230,6 +233,27 @@ class HomeView extends GetView<HomeController> {
                             ),
                           );
                         },
+                      ),
+                      5.h.height,
+
+                      InkWell(
+                        onTap: () => Get.to(const CurrentAffairsView()),
+                        child: Container(
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(7.00),
+                            border: Border.all(
+                                color: LightThemeColors.primaryColor),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "কারেন্ট অ্যাফেয়ার্স",
+                              style: AppTextStyles.heading5.copyWith(
+                                  color: LightThemeColors.primaryColor),
+                            ),
+                          ),
+                        ),
                       ),
                       5.h.height,
 
@@ -312,14 +336,7 @@ class HomeView extends GetView<HomeController> {
                       5.h.height,
 
                       /// RandomQuestion area
-                      CustomOptionSelector(
-                        title: 'এখনি উত্তর দিন',
-                        options: controller.randomQuestionOptions,
-                        selectedOptionIndex: controller.selectedOptionIndex,
-                        onOptionSelected: (i) {
-                          controller.selectedOptionIndex = i;
-                        },
-                      ),
+                      RandomQuestionSelector(),
 
                       Text(
                         "জনপ্রিয় সেকশন",
@@ -328,6 +345,7 @@ class HomeView extends GetView<HomeController> {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
+
                       GridView.builder(
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
@@ -346,42 +364,23 @@ class HomeView extends GetView<HomeController> {
                           return GestureDetector(
                             onTap: () {},
                             child: Container(
-
                               decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(7.0),
-                                border: Border.all(color: Colors.grey,width: .5.w)
-                                // boxShadow: [
-                                //   BoxShadow(
-                                //     color: Colors.blue.withValues(alpha: 0.1),
-                                //     blurRadius: 2.0,
-                                //     offset: const Offset(0, 4),
-                                //   ),
-                                // ],
-                              ),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Image.asset(
-                                      "assets/images/$image",
-                                      opacity:
-                                          const AlwaysStoppedAnimation(0.9),
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ).paddingSymmetric(vertical: 2),
-                                  Expanded(
-                                    child: Text(
-                                      title,
-                                      style: AppTextStyles.body2.copyWith(
-                                        height: 1.1.h,
-                                        fontSize: 12.sp,
-                                      ),
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                    ).paddingSymmetric(
-                                        horizontal: 2.00.w, vertical: 5.00.h),
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(7.0),
+                                  border: Border.all(
+                                      color: Colors.grey, width: .5.w)),
+                              child: Center(
+                                child: Text(
+                                  title,
+                                  style: AppTextStyles.body2.copyWith(
+                                    height: 1.1.h,
+                                    fontSize: 12.sp,
                                   ),
-                                ],
+                                  maxLines: 2,
+                                  textAlign: TextAlign.center,
+                                  overflow: TextOverflow.ellipsis,
+                                ).paddingSymmetric(
+                                    horizontal: 2.00.w, vertical: 5.00.h),
                               ),
                             ),
                           );

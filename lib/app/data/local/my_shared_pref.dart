@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../config/translations/localization_service.dart';
-import '../../modules/grid_views/mock_test/models/mock_subject_select_model.dart';
+import '../../models/mock_subject_select_model.dart';
 
 class MySharedPref {
   // prevent making instance
@@ -171,6 +171,30 @@ class MySharedPref {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('mockSubjects'); // Removes the entire list
   }
+
+
+
+  static Future<void> incrementRandomQuestionCheck() async {
+    final prefs = await SharedPreferences.getInstance();
+    // Get the current value of randomQuestionCheck, defaulting to 0 if not set
+    int randomQuestionCheck = prefs.getInt('randomQuestionCheck') ?? 0;
+    // Increment the counter
+    randomQuestionCheck++;
+    // Save the new value back to shared preferences
+    await prefs.setInt('randomQuestionCheck', randomQuestionCheck);
+
+  }
+
+  static Future<int> getRandomQuestionCheck() async {
+    final prefs = await SharedPreferences.getInstance();
+    // Get the current value of randomQuestionCheck, defaulting to 0 if not set
+    int randomQuestionCheck = prefs.getInt('randomQuestionCheck') ?? 0;
+    return randomQuestionCheck;
+  }
+
+
+
+
 
 
 }

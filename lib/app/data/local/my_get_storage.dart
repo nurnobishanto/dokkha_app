@@ -6,6 +6,9 @@ class MyGetStorage {
   // Cache key
   static const String randomQuestionKey = 'randomQuestionKey';
   static const String favQuestionsKey = 'favQuestionsKey';
+  static const String jobKey = 'jobKey';
+  static const String internationalAffairs = 'internationalAffairs';
+  static const String bdAffairs = 'bdAffairs';
 
   // Remove cache
   static Future<void> removeCache(String key) async {

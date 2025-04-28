@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 
-import '../helper/global.dart';
 import '../modules/auth_views/auth_gateway/bindings/auth_gateway_binding.dart';
 import '../modules/auth_views/auth_gateway/views/auth_gateway_view.dart';
 import '../modules/auth_views/forget_password/bindings/forget_password_binding.dart';
@@ -13,23 +12,17 @@ import '../modules/auth_views/terms_condition/bindings/terms_condition_binding.d
 import '../modules/auth_views/terms_condition/views/terms_condition_view.dart';
 import '../modules/auth_views/verify_otp/bindings/verify_otp_binding.dart';
 import '../modules/auth_views/verify_otp/views/verify_otp_view.dart';
+import '../modules/current_affairs/bindings/current_affairs_binding.dart';
+import '../modules/current_affairs/views/current_affairs_view.dart';
 import '../modules/fast_practice/bindings/fast_practice_binding.dart';
 import '../modules/fast_practice/views/fast_practice_view.dart';
-import '../modules/grid_views/ajker_bissho/bindings/ajker_bissho_binding.dart';
-import '../modules/grid_views/ajker_bissho/views/ajker_bissho_view.dart';
-import '../modules/grid_views/ajker_porikkha/bindings/ajker_porikkha_binding.dart';
-import '../modules/grid_views/ajker_porikkha/views/ajker_porikkha_view.dart';
-import '../modules/grid_views/jobs_update/bindings/jobs_update_binding.dart';
-import '../modules/grid_views/jobs_update/views/jobs_update_view.dart';
-import '../modules/grid_views/mock_test/bindings/mock_test_binding.dart';
-import '../modules/grid_views/mock_test/controllers/mock_test_controller.dart';
-import '../modules/grid_views/mock_test/views/mock_test_view.dart';
-import '../modules/grid_views/mock_test/views/topic_selection_view.dart';
-import '../modules/grid_views/notice_board/bindings/notice_board_binding.dart';
-import '../modules/grid_views/notice_board/views/notice_board_view.dart';
-import '../modules/mock_test_tab/bindings/mock_test_tab_binding.dart';
-import '../modules/mock_test_tab/controllers/mock_test_tab_controller.dart';
-import '../modules/mock_test_tab/views/mock_test_tab_view.dart';
+import '../modules/grid_views/jobs/bindings/jobs_binding.dart';
+import '../modules/grid_views/jobs/views/jobs_view.dart';
+import '../modules/grid_views/mock_test_tab/controllers/mock_test_tab_controller.dart';
+import '../modules/grid_views/mock_test_tab/mock_test/bindings/mock_test_binding.dart';
+import '../modules/grid_views/mock_test_tab/mock_test/controllers/mock_test_controller.dart';
+import '../modules/grid_views/mock_test_tab/mock_test/views/mock_test_view.dart';
+import '../modules/grid_views/mock_test_tab/views/mock_test_tab_view.dart';
 import '../modules/nav_bar_views/blog/bindings/blog_binding.dart';
 import '../modules/nav_bar_views/blog/views/blog_view.dart';
 import '../modules/nav_bar_views/contest/bindings/contest_binding.dart';
@@ -100,26 +93,7 @@ class AppPages {
       page: () => const MockTestView(),
       binding: MockTestBinding(),
     ),
-    GetPage(
-      name: _Paths.AJKER_PORIKKHA,
-      page: () => const AjkerPorikkhaView(),
-      binding: AjkerPorikkhaBinding(),
-    ),
-    GetPage(
-      name: _Paths.JOBS_UPDATE,
-      page: () => const JobsUpdateView(),
-      binding: JobsUpdateBinding(),
-    ),
-    GetPage(
-      name: _Paths.AJKER_BISSHO,
-      page: () => const AjkerBisshoView(),
-      binding: AjkerBisshoBinding(),
-    ),
-    GetPage(
-      name: _Paths.NOTICE_BOARD,
-      page: () => const NoticeBoardView(),
-      binding: NoticeBoardBinding(),
-    ),
+
     GetPage(
       name: _Paths.SIGNIN,
       page: () => SignInView(),
@@ -187,5 +161,15 @@ class AppPages {
     //   page: () => const TopicSelectionView(),
     //   //binding: FastPracticeBinding(),
     // ),
+    GetPage(
+      name: _Paths.JOBS,
+      page: () => const JobsView(),
+      binding: JobsBinding(),
+    ),
+    GetPage(
+      name: _Paths.CURRENT_AFFAIRS,
+      page: () => const CurrentAffairsView(),
+      binding: CurrentAffairsBinding(),
+    ),
   ];
 }

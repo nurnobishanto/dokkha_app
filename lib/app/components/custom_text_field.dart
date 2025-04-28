@@ -33,7 +33,6 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-
       onChanged: onChanged,
       controller: controller,
       keyboardType: keyboardType,
@@ -52,6 +51,7 @@ class CustomTextField extends StatelessWidget {
         // hintStyle: kSubtitleStyle.copyWith(
         //   color: LightThemeColors.black.withValues(alpha: 0.4),
         // ),
+
         hintStyle: AppTextStyles.body1,
         prefixIcon: prefixIcon,
         border: OutlineInputBorder(

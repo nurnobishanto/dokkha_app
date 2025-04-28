@@ -2,14 +2,16 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lokkha/app/modules/grid_views/jobs/views/jobs_view.dart';
+import 'package:lokkha/app/modules/grid_views/latest_test/views/latest_subject_test_view.dart';
 import 'package:lokkha/app/modules/nav_bar_views/home/services/home_api_service.dart';
+import 'package:lokkha/comming_soon_view.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../services/api_call_status.dart';
+import '../../../grid_views/mock_test_tab/views/mock_test_tab_view.dart';
 import '../models/slider_model.dart';
 
 class HomeController extends GetxController {
-
-
   int dotsCount = 0;
   double currentPosition = 0;
   int selectedOptionIndex = -1;
@@ -34,15 +36,19 @@ class HomeController extends GetxController {
     'অন্যান্য',
   ];
 
-  final List<String> gridViewRoutePage = [
-    Routes.QUESTION_BANK,
-    Routes.MOCK_TEST_TAB,
-    Routes.AJKER_PORIKKHA,
-    // Routes.JOBS_UPDATE,
-    // Routes.AJKER_BISSHO,
-    // Routes.NOTICE_BOARD,
+  // final List<String> gridViewRoutePage = [
+  //   Routes.QUESTION_BANK,
+  //   Routes.MOCK_TEST_TAB,
+  //   Routes.AJKER_PORIKKHA,
+  //   // Routes.JOBS_UPDATE,
+  //   // Routes.AJKER_BISSHO,
+  //   // Routes.NOTICE_BOARD,
+  // ];
+  final List gridViewRoutePage = [
+    const LatestSubjectTestView(),
+    const MockTestTabView(),
+    const JobsView(),
   ];
-
 
   List<String> gridImages = [
     //"question_bank.png",
@@ -112,20 +118,13 @@ class HomeController extends GetxController {
     _timer?.cancel();
   }
 
-
   final HomeApiService _homeApiService = HomeApiService();
   Rx<ApiCallStatus> get apiCallStatus => _homeApiService.apiCallStatus;
   Rx<SliderModel> get sliderModel => _homeApiService.sliderModel;
-
 
   @override
   void onInit() {
     super.onInit();
     _homeApiService.fetchSliders();
   }
-
-
-
-
 }
-

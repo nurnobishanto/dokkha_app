@@ -6,7 +6,7 @@ import 'package:lokkha/app/services/base_client.dart';
 import 'package:lokkha/utils/constants.dart';
 import '../../../../comming_soon_view.dart';
 import '../../../helper/api_helper.dart';
-import '../../grid_views/mock_test/views/mock_test_view.dart';
+import '../../grid_views/mock_test_tab/mock_test/views/mock_test_view.dart';
 import '../../nav_bar_views/blog/views/blog_view.dart';
 import '../../nav_bar_views/contest/views/contest_view.dart';
 import '../../nav_bar_views/home/views/home_view.dart';

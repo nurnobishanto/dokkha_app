@@ -59,13 +59,14 @@ dependencies:
   pinput: ^5.0.1
   carousel_slider: ^5.0.0
   dots_indicator: ^4.0.0
-  webview_flutter: ^4.10.0
   url_launcher: ^6.3.1
   intl: ^0.20.2
   flutter_widget_from_html_core: ^0.16.0
   get_storage: ^2.1.1
   syncfusion_flutter_pdfviewer: ^29.1.39
   device_info_plus: ^11.4.0
+  webview_flutter: ^4.11.0
+  flutter_social_button: ^1.1.6+1
 
 
 
@@ -106,39 +107,20 @@ flutter:
         - asset: assets/fonts/Poppins-SemiBold.ttf
           weight: 600
 
-    - family: Cairo
+    - family: HindSiliguri
       fonts:
-        - asset: assets/fonts/Cairo-Regular.ttf
+        - asset: assets/fonts/HindSiliguri-Light.ttf
+          weight: 300
+        - asset: assets/fonts/HindSiliguri-Regular.ttf
           weight: 400
-        - asset: assets/fonts/Cairo-Medium.ttf
+        - asset: assets/fonts/HindSiliguri-Medium.ttf
           weight: 500
-        - asset: assets/fonts/Cairo-SemiBold.ttf
-          weight: 600
+          style: italic
+        - asset: assets/fonts/HindSiliguri-Bold.ttf
+          weight: 700
 
-    - family: LiAdorNoirrit
-      fonts:
-        - asset: assets/fonts/Li Ador Noirrit ExtraLight.ttf
-          weight: 200
-        - asset: assets/fonts/Li Ador Noirrit ExtraLight Italic.ttf
-          weight: 200
-          style: italic
-        - asset: assets/fonts/Li Ador Noirrit Light.ttf
-          weight: 300
-        - asset: assets/fonts/Li Ador Noirrit Light Italic.ttf
-          weight: 300
-          style: italic
-        - asset: assets/fonts/Li Ador Noirrit Regular.ttf
-          weight: 400
-        - asset: assets/fonts/Li Ador Noirrit SemiBold.ttf
-          weight: 600
-        - asset: assets/fonts/Li Ador Noirrit SemiBold Italic.ttf
-          weight: 600
-          style: italic
-        - asset: assets/fonts/Li Ador Noirrit Bold.ttf
-          weight: 700
-        - asset: assets/fonts/Li Ador Noirrit Bold Italic.ttf
-          weight: 700
-          style: italic
+
+
 
 
 

@@ -18,6 +18,7 @@ class ProfileView extends GetView<ProfileController> {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(ProfileController());
     return Obx(() {
       if (!isLoggedIn.value) {
         return const AuthGatewayView();
@@ -77,26 +78,26 @@ class ProfileView extends GetView<ProfileController> {
                         text: 'প্রোফাইল আপডেট করুন',
                         icon: Icons.edit_note_rounded,
                       ),
-                      CustomProfileButton(
-                        onTap: () {},
-                        text: 'সাবস্ক্রিপশন',
-                        icon: Icons.edit_note_rounded,
-                      ),
-                      CustomProfileButton(
-                        onTap: () {},
-                        text: 'আপগ্রেড',
-                        icon: Icons.edit_note_rounded,
-                      ),
-                      CustomProfileButton(
-                        onTap: () {},
-                        text: 'সাপোর্ট',
-                        icon: Icons.edit_note_rounded,
-                      ),
-                      CustomProfileButton(
-                        onTap: () {},
-                        text: 'রিভিউ',
-                        icon: Icons.edit_note_rounded,
-                      ),
+                      // CustomProfileButton(
+                      //   onTap: () {},
+                      //   text: 'সাবস্ক্রিপশন',
+                      //   icon: Icons.edit_note_rounded,
+                      // ),
+                      // CustomProfileButton(
+                      //   onTap: () {},
+                      //   text: 'আপগ্রেড',
+                      //   icon: Icons.edit_note_rounded,
+                      // ),
+                      // CustomProfileButton(
+                      //   onTap: () {},
+                      //   text: 'সাপোর্ট',
+                      //   icon: Icons.edit_note_rounded,
+                      // ),
+                      // CustomProfileButton(
+                      //   onTap: () {},
+                      //   text: 'রিভিউ',
+                      //   icon: Icons.edit_note_rounded,
+                      // ),
                       CustomProfileButton(
                         onTap: controller.logout,
                         text: 'লগ আউট',

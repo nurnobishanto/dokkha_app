@@ -4,9 +4,9 @@ import 'app/data/local/my_shared_pref.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  print("Initializing SharedPreferences...");
+  debugPrint("Initializing SharedPreferences...");
   await MySharedPref.init();
-  print("Init complete. Starting app...");
+  debugPrint("Init complete. Starting app...");
   runApp(MyApp());
 }
 

@@ -16,7 +16,7 @@ class CurrentAffairsController extends GetxController {
   RxObjectMixin<CurrentAffairsModel> model = CurrentAffairsModel().obs;
 
   Future<void> fetchCurrentAffairs(String search,
-      {int page = 1, bool refresh = false}) async {
+      {int page = 1, bool refresh = false, String? date}) async {
 
     //
     // if (refresh) {
@@ -36,7 +36,7 @@ class CurrentAffairsController extends GetxController {
 
     isLoading.value = true;
     String
-      url = "${AppConstants.nationalCA}?search=$search&page=$page";
+      url = "${AppConstants.nationalCA}?search=$search&page=$page&date=$date";
 
 
     BaseClient.safeApiCall(
@@ -47,17 +47,17 @@ class CurrentAffairsController extends GetxController {
           CurrentAffairsModel modelData =
               CurrentAffairsModel.fromJson(response.data);
 
-            MyGetStorage.writeCacheData(MyGetStorage.bdAffairs, response);
+            // MyGetStorage.writeCacheData(MyGetStorage.bdAffairs, response);
 
           if (page > 1 && model.value.currentAffairs != null) {
             // Merge new data with existing data
             model.value.currentAffairs!.data!
                 .addAll(modelData.currentAffairs!.data!);
           } else {
-            model.value = modelData;
+             model.value = modelData;
           }
           currentPage.value = page;
-          isLoading.value = false;
+           isLoading.value = false;
         } else {
           isLoading.value = false;
           if (kDebugMode) {

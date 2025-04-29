@@ -33,74 +33,70 @@ class CurrentAffairsModel {
 }
 
 class CurrentAffairs {
+  final List<Datum>? data;
   final int? currentPage;
-  final List<Data>? data;
-  final String? firstPageUrl;
-  final int? from;
-  final int? lastPage;
-  final String? lastPageUrl;
-  final List<Link>? links;
-  final String? nextPageUrl;
-  final String? path;
   final int? perPage;
-  final String? prevPageUrl;
-  final int? to;
   final int? total;
+  final int? lastPage;
+  final int? from;
+  final int? to;
 
   CurrentAffairs({
-    this.currentPage,
     this.data,
-    this.firstPageUrl,
-    this.from,
-    this.lastPage,
-    this.lastPageUrl,
-    this.links,
-    this.nextPageUrl,
-    this.path,
+    this.currentPage,
     this.perPage,
-    this.prevPageUrl,
-    this.to,
     this.total,
+    this.lastPage,
+    this.from,
+    this.to,
   });
 
   factory CurrentAffairs.fromJson(Map<String, dynamic> json) => CurrentAffairs(
+    data: json["data"] == null ? [] : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
     currentPage: json["current_page"],
-    data: json["data"] == null ? [] : List<Data>.from(json["data"]!.map((x) => Data.fromJson(x))),
-    firstPageUrl: json["first_page_url"],
-    from: json["from"],
-    lastPage: json["last_page"],
-    lastPageUrl: json["last_page_url"],
-    links: json["links"] == null ? [] : List<Link>.from(json["links"]!.map((x) => Link.fromJson(x))),
-    nextPageUrl: json["next_page_url"],
-    path: json["path"],
     perPage: json["per_page"],
-    prevPageUrl: json["prev_page_url"],
-    to: json["to"],
     total: json["total"],
+    lastPage: json["last_page"],
+    from: json["from"],
+    to: json["to"],
   );
 
   Map<String, dynamic> toJson() => {
-    "current_page": currentPage,
     "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x.toJson())),
-    "first_page_url": firstPageUrl,
-    "from": from,
-    "last_page": lastPage,
-    "last_page_url": lastPageUrl,
-    "links": links == null ? [] : List<dynamic>.from(links!.map((x) => x.toJson())),
-    "next_page_url": nextPageUrl,
-    "path": path,
+    "current_page": currentPage,
     "per_page": perPage,
-    "prev_page_url": prevPageUrl,
-    "to": to,
     "total": total,
+    "last_page": lastPage,
+    "from": from,
+    "to": to,
   };
 }
 
-class Data {
+class Datum {
+  final String? date;
+  final List<Question>? questions;
+
+  Datum({
+    this.date,
+    this.questions,
+  });
+
+  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+    date: json["date"] ,
+    questions: json["questions"] == null ? [] : List<Question>.from(json["questions"]!.map((x) => Question.fromJson(x))),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "date": date,
+    "questions": questions == null ? [] : List<dynamic>.from(questions!.map((x) => x.toJson())),
+  };
+}
+
+class Question {
   final int? id;
   final String? questionType;
   final String? title;
-  final String? description;
+  final dynamic description;
   final List<Option>? options;
   final String? explanation;
   final dynamic questionImage;
@@ -116,18 +112,18 @@ class Data {
   final dynamic deletedAt;
   final int? createdBy;
   final int? updatedBy;
-  final dynamic confirmedBy;
-  final dynamic confirmedAt;
-  final dynamic approvedBy;
-  final dynamic approvedAt;
+  final int? confirmedBy;
+  final DateTime? confirmedAt;
+  final int? approvedBy;
+  final DateTime? approvedAt;
   final dynamic rejectedBy;
   final dynamic rejectedAt;
-  final dynamic finalBy;
-  final dynamic finalAt;
-  final List<Tag>? tags;
+  final int? finalBy;
+  final DateTime? finalAt;
   final List<Subject>? subjects;
+  final List<dynamic>? tags;
 
-  Data({
+  Question({
     this.id,
     this.questionType,
     this.title,
@@ -155,15 +151,15 @@ class Data {
     this.rejectedAt,
     this.finalBy,
     this.finalAt,
-    this.tags,
     this.subjects,
+    this.tags,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory Question.fromJson(Map<String, dynamic> json) => Question(
     id: json["id"],
-    questionType: json["question_type"]!,
-    title: json["title"],
-    description: json["description"],
+     questionType: json["question_type"],
+     title: json["title"],
+     description: json["description"],
     options: json["options"] == null ? [] : List<Option>.from(json["options"]!.map((x) => Option.fromJson(x))),
     explanation: json["explanation"],
     questionImage: json["question_image"],
@@ -171,7 +167,7 @@ class Data {
     note: json["note"],
     reference: json["reference"],
     date: json["date"] == null ? null : DateTime.parse(json["date"]),
-    status: json["status"]!,
+    status: json["status"],
     customId: json["custom_id"],
     comment: json["comment"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
@@ -180,15 +176,15 @@ class Data {
     createdBy: json["created_by"],
     updatedBy: json["updated_by"],
     confirmedBy: json["confirmed_by"],
-    confirmedAt: json["confirmed_at"],
+    confirmedAt: json["confirmed_at"] == null ? null : DateTime.parse(json["confirmed_at"]),
     approvedBy: json["approved_by"],
-    approvedAt: json["approved_at"],
+    approvedAt: json["approved_at"] == null ? null : DateTime.parse(json["approved_at"]),
     rejectedBy: json["rejected_by"],
     rejectedAt: json["rejected_at"],
     finalBy: json["final_by"],
-    finalAt: json["final_at"],
-    tags: json["tags"] == null ? [] : List<Tag>.from(json["tags"]!.map((x) => Tag.fromJson(x))),
+    finalAt: json["final_at"] == null ? null : DateTime.parse(json["final_at"]),
     subjects: json["subjects"] == null ? [] : List<Subject>.from(json["subjects"]!.map((x) => Subject.fromJson(x))),
+    tags: json["tags"] == null ? [] : List<dynamic>.from(json["tags"]!.map((x) => x)),
   );
 
   Map<String, dynamic> toJson() => {
@@ -203,7 +199,7 @@ class Data {
     "note": note,
     "reference": reference,
     "date": "${date!.year.toString().padLeft(4, '0')}-${date!.month.toString().padLeft(2, '0')}-${date!.day.toString().padLeft(2, '0')}",
-    "status": status,
+    "status":status,
     "custom_id": customId,
     "comment": comment,
     "created_at": createdAt?.toIso8601String(),
@@ -212,15 +208,15 @@ class Data {
     "created_by": createdBy,
     "updated_by": updatedBy,
     "confirmed_by": confirmedBy,
-    "confirmed_at": confirmedAt,
+    "confirmed_at": confirmedAt?.toIso8601String(),
     "approved_by": approvedBy,
-    "approved_at": approvedAt,
+    "approved_at": approvedAt?.toIso8601String(),
     "rejected_by": rejectedBy,
     "rejected_at": rejectedAt,
     "final_by": finalBy,
-    "final_at": finalAt,
-    "tags": tags == null ? [] : List<dynamic>.from(tags!.map((x) => x.toJson())),
+    "final_at": finalAt?.toIso8601String(),
     "subjects": subjects == null ? [] : List<dynamic>.from(subjects!.map((x) => x.toJson())),
+    "tags": tags == null ? [] : List<dynamic>.from(tags!.map((x) => x)),
   };
 }
 
@@ -270,7 +266,7 @@ class Subject {
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final dynamic deletedAt;
-  final SubjectPivot? pivot;
+  final Pivot? pivot;
 
   Subject({
     this.id,
@@ -315,7 +311,7 @@ class Subject {
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
     deletedAt: json["deleted_at"],
-    pivot: json["pivot"] == null ? null : SubjectPivot.fromJson(json["pivot"]),
+    pivot: json["pivot"] == null ? null : Pivot.fromJson(json["pivot"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -342,16 +338,16 @@ class Subject {
   };
 }
 
-class SubjectPivot {
+class Pivot {
   final int? questionId;
   final int? subjectId;
 
-  SubjectPivot({
+  Pivot({
     this.questionId,
     this.subjectId,
   });
 
-  factory SubjectPivot.fromJson(Map<String, dynamic> json) => SubjectPivot(
+  factory Pivot.fromJson(Map<String, dynamic> json) => Pivot(
     questionId: json["question_id"],
     subjectId: json["subject_id"],
   );
@@ -359,134 +355,6 @@ class SubjectPivot {
   Map<String, dynamic> toJson() => {
     "question_id": questionId,
     "subject_id": subjectId,
-  };
-}
-
-class Tag {
-  final int? id;
-  final String? name;
-  final String? slug;
-  final dynamic description;
-  final bool? status;
-  final String? metaTitle;
-  final dynamic metaDescription;
-  final dynamic metaKeywords;
-  final dynamic metaImage;
-  final dynamic metaAuthor;
-  final dynamic metaUrl;
-  final dynamic metaData;
-  final dynamic headerCode;
-  final dynamic footerCode;
-  final DateTime? createdAt;
-  final DateTime? updatedAt;
-  final dynamic deletedAt;
-  final TagPivot? pivot;
-
-  Tag({
-    this.id,
-    this.name,
-    this.slug,
-    this.description,
-    this.status,
-    this.metaTitle,
-    this.metaDescription,
-    this.metaKeywords,
-    this.metaImage,
-    this.metaAuthor,
-    this.metaUrl,
-    this.metaData,
-    this.headerCode,
-    this.footerCode,
-    this.createdAt,
-    this.updatedAt,
-    this.deletedAt,
-    this.pivot,
-  });
-
-  factory Tag.fromJson(Map<String, dynamic> json) => Tag(
-    id: json["id"],
-    name: json["name"],
-    slug: json["slug"],
-    description: json["description"],
-    status: json["status"],
-    metaTitle: json["meta_title"],
-    metaDescription: json["meta_description"],
-    metaKeywords: json["meta_keywords"],
-    metaImage: json["meta_image"],
-    metaAuthor: json["meta_author"],
-    metaUrl: json["meta_url"],
-    metaData: json["meta_data"],
-    headerCode: json["header_code"],
-    footerCode: json["footer_code"],
-    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-    deletedAt: json["deleted_at"],
-    pivot: json["pivot"] == null ? null : TagPivot.fromJson(json["pivot"]),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "slug": slug,
-    "description": description,
-    "status": status,
-    "meta_title": metaTitle,
-    "meta_description": metaDescription,
-    "meta_keywords": metaKeywords,
-    "meta_image": metaImage,
-    "meta_author": metaAuthor,
-    "meta_url": metaUrl,
-    "meta_data": metaData,
-    "header_code": headerCode,
-    "footer_code": footerCode,
-    "created_at": createdAt?.toIso8601String(),
-    "updated_at": updatedAt?.toIso8601String(),
-    "deleted_at": deletedAt,
-    "pivot": pivot?.toJson(),
-  };
-}
-
-class TagPivot {
-  final int? questionId;
-  final int? tagId;
-
-  TagPivot({
-    this.questionId,
-    this.tagId,
-  });
-
-  factory TagPivot.fromJson(Map<String, dynamic> json) => TagPivot(
-    questionId: json["question_id"],
-    tagId: json["tag_id"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "question_id": questionId,
-    "tag_id": tagId,
-  };
-}
-
-class Link {
-  final String? url;
-  final String? label;
-  final bool? active;
-
-  Link({
-    this.url,
-    this.label,
-    this.active,
-  });
-
-  factory Link.fromJson(Map<String, dynamic> json) => Link(
-    url: json["url"],
-    label: json["label"],
-    active: json["active"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "url": url,
-    "label": label,
-    "active": active,
   };
 }
 

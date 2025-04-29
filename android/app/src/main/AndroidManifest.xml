@@ -8,6 +8,8 @@
 
 
     <application
+        android:enableOnBackInvokedCallback="true"
+        android:hardwareAccelerated="true"
         android:label="lokkha"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

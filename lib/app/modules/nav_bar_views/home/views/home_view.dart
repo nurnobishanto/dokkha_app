@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:lokkha/app/components/custom_action_button.dart';
 import 'package:lokkha/app/components/custom_drawer.dart';
 import 'package:lokkha/app/data/local/my_shared_pref.dart';
@@ -12,9 +13,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/utils/constants.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../../config/constants/app_images.dart';
 import '../../../../../config/theme/my_theme.dart';
 import '../../../../../styles/text_style.dart';
+import '../../../../core/widgets/base_webview.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../current_affairs/views/current_affairs_view.dart';
 import '../components/home_components.dart';
@@ -104,10 +107,10 @@ class HomeView extends GetView<HomeController> {
                       ),
                       10.w.width,
                       Expanded(
-                        flex: 3,
+                        flex: 4,
                         child: CustomActionButton(
                           text: "সম্পূর্ণ অ্যাক্সেস পেতে ক্লিক করুন",
-                          onPressed: () {},
+                          onPressed: () {Get.toNamed(Routes.PREMIUM_PACKAGES);},
                           btnBackgroundColor: Colors.transparent,
                         ),
                       ),
@@ -130,6 +133,11 @@ class HomeView extends GetView<HomeController> {
               //   },
               // ),
               // 10.0.h.height,
+              // CustomActionButton(
+              //     text: "text",
+              //     onPressed: () {
+              //       Get.toNamed(Routes.PREMIUM_PACKAGES);
+              //     }),
 
               /// Second Column with others Widget
               Expanded(
@@ -155,7 +163,7 @@ class HomeView extends GetView<HomeController> {
                         items: controller.sliderModel.value.sliders!
                             .map((sliderItem) {
                           debugPrint(
-                              "URLL IMAGE : ${AppConstants.storageUrl + sliderItem.image.toString()}");
+                              "URL IMAGE : ${AppConstants.storageUrl + sliderItem.image.toString()}");
                           return ClipRRect(
                               borderRadius: BorderRadius.circular(7.0),
                               child: Container(
@@ -262,8 +270,8 @@ class HomeView extends GetView<HomeController> {
                         borderRadius: BorderRadius.circular(7.0),
                         child: Stack(
                           children: [
-                            Image.asset(
-                              AssetImagePaths.appleImg,
+                            Image.network(
+                              'https://marketplace.canva.com/EAFwv0Kq5ck/4/0/1600w/canva-geometric-quiz-education-presentation-in-yellow-and-blue-simple-modern-style-qNxRNdpclxg.jpg',
                               height: 110.0.h,
                               width: double.infinity,
                               fit: BoxFit.fitWidth,
@@ -323,7 +331,7 @@ class HomeView extends GetView<HomeController> {
                               return Padding(
                                 padding: EdgeInsets.only(top: topPadding),
                                 child: buildTopRankedUser(
-                                  imagePath: AssetImagePaths.appleImg,
+                                  imagePath: 'https://lokkha.com/uploads/files/shares/sadman/avatar.png',
                                   id: 23,
                                   rank: displayRank,
                                   isFirst: displayRank == 1,
@@ -339,13 +347,12 @@ class HomeView extends GetView<HomeController> {
                       RandomQuestionSelector(),
 
                       Text(
-                        "জনপ্রিয় সেকশন",
+                        "প্রশ্নব্যাংক",
                         style: AppTextStyles.custom(
                           fontSize: 17.00.sp,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-
                       GridView.builder(
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
@@ -386,6 +393,62 @@ class HomeView extends GetView<HomeController> {
                           );
                         },
                       ),
+
+                      //////// ৯ম-১০ গ্রেড
+
+                      // Text(
+                      //   "৯ম-১০ গ্রেড",
+                      //   style: AppTextStyles.custom(
+                      //     fontSize: 17.00.sp,
+                      //     fontWeight: FontWeight.w600,
+                      //   ),
+                      // ),
+                      GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                          childAspectRatio: 4,
+                        ),
+                        itemCount: controller.gridViewTitle3.length,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (x, i) {
+                          final title = controller.gridViewTitle3[i];
+                          final route = controller.gridViewRoutePage3[i];
+                          return GestureDetector(
+                            onTap: () {},
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: LightThemeColors.primaryColor,
+                                borderRadius: BorderRadius.circular(7.0),
+                                border: Border.all(
+                                  color: Colors.grey,
+                                  width: .5.w,
+                                ),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  title,
+                                  style: AppTextStyles.body2.copyWith(
+                                    height: 1.1.h,
+                                    fontSize: 12.sp,
+                                    color: Colors.white,
+                                  ),
+                                  maxLines: 2,
+                                  textAlign: TextAlign.center,
+                                  overflow: TextOverflow.ellipsis,
+                                ).paddingSymmetric(
+                                    horizontal: 2.00.w, vertical: 5.00.h),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+
+                      const Divider(color: LightThemeColors.primaryColor),
+                      SocialLinksScreen(),
                     ],
                   ).paddingOnly(left: 8.00.r, right: 8.00.r, bottom: 8.00.r),
                 ),
@@ -394,6 +457,108 @@ class HomeView extends GetView<HomeController> {
           );
         },
       ),
+    );
+  }
+}
+
+class SocialLinksScreen extends StatelessWidget {
+  SocialLinksScreen({Key? key}) : super(key: key);
+
+  void _launchURL(String url) async {
+    Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  final List<Map<String, dynamic>> socialLinks = [
+    {
+      'icon': FontAwesomeIcons.facebook,
+      'color': const Color(0xFF1877F2),
+      'url': 'https://www.facebook.com/lokkhabd',
+      'title': 'Facebook Page',
+    },
+    {
+      'icon': FontAwesomeIcons.facebook,
+      'color': const Color(0xFF1877F2),
+      'url': 'https://www.facebook.com/groups/lokkha',
+      'title': 'Facebook Group',
+    },
+    {
+      'icon': FontAwesomeIcons.youtube,
+      'color': Colors.red,
+      'url': 'https://www.youtube.com/channel/lokkhabd',
+      'title': 'YouTube Channel',
+    },
+    {
+      'icon': FontAwesomeIcons.whatsapp,
+      'color': const Color(0xFF25D366),
+      'url': 'https://wa.me/8801334260543',
+      'title': 'WhatsApp',
+    },
+    {
+      'icon': FontAwesomeIcons.x,
+      'color': Colors.black,
+      'url': 'https://twitter.com/lokkhabd',
+      'title': 'X (Twitter)',
+    },
+    {
+      'icon': FontAwesomeIcons.linkedin,
+      'color': const Color(0xFF0A66C2),
+      'url': 'https://www.linkedin.com/in/lokkhabd',
+      'title': 'LinkedIn',
+    },
+    {
+      'icon': FontAwesomeIcons.instagram,
+      'color': const Color(0xFFE1306C),
+      'url': 'https://www.instagram.com/lokkhabd',
+      'title': 'Instagram',
+    },
+    {
+      'icon': FontAwesomeIcons.envelope,
+      'color': Colors.grey,
+      'url': 'mailto:info.lokkha@gmail.com',
+      'title': 'Email',
+    },
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 8.0,
+        mainAxisSpacing: 8.0,
+        childAspectRatio: 5,
+      ),
+      itemCount: socialLinks.length,
+      itemBuilder: (context, index) {
+        final link = socialLinks[index];
+        return ElevatedButton.icon(
+          onPressed: () => _launchURL(link['url']),
+          icon: Icon(
+            link['icon'],
+            size: 15,
+            color: Colors.white,
+          ),
+          label: Text(
+            link['title'],
+            style: AppTextStyles.body1.copyWith(color: Colors.white),
+          ),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: link['color'],
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            alignment: Alignment.centerLeft,
+          ),
+        );
+      },
     );
   }
 }

@@ -22,8 +22,8 @@ class NavbarView extends GetView<NavbarController> {
             onTap: (index) => controller.changeIndex(index), // Call method to update index
             items: const [
               BottomNavigationBarItem(icon:FaIcon(FontAwesomeIcons.house,size: 18.00), label: "হোম", backgroundColor: LightThemeColors.primaryColor),
-              BottomNavigationBarItem(icon: FaIcon(FontAwesomeIcons.pen,size: 18.00), label: "মক পরীক্ষা",backgroundColor: LightThemeColors.primaryColor),
-              BottomNavigationBarItem(icon: FaIcon(FontAwesomeIcons.blog,size: 18.00), label: "ব্লগ",backgroundColor: LightThemeColors.primaryColor),
+              BottomNavigationBarItem(icon: FaIcon(FontAwesomeIcons.newspaper,size: 18.00), label: "ব্লগ",backgroundColor: LightThemeColors.primaryColor),
+              BottomNavigationBarItem(icon: FaIcon(FontAwesomeIcons.boxOpen,size: 18.00), label: "প্রিমিয়াম",backgroundColor: LightThemeColors.primaryColor),
               BottomNavigationBarItem(icon: FaIcon(FontAwesomeIcons.user,size: 18.00), label: "প্রোফাইল",backgroundColor: LightThemeColors.primaryColor),
             ],
           );

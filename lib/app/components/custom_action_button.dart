@@ -44,14 +44,16 @@ class CustomActionButton extends StatelessWidget {
                     strokeWidth: 2.5,
                   ),
                 )
-              : Text(
-                  text,
-                  style: const TextStyle(
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
+              : FittedBox(
+                child: Text(
+                    text,
+                    style: const TextStyle(
+                      fontSize: 13.0,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
                   ),
-                ),
+              ),
         ),
       ),
     );

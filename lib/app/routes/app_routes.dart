@@ -30,6 +30,8 @@ abstract class Routes {
   static const TOPIC_SELECTION = _Paths.TOPIC_SELECTION;
   static const JOBS = _Paths.JOBS;
   static const CURRENT_AFFAIRS = _Paths.CURRENT_AFFAIRS;
+  static const PACKAGES = _Paths.PACKAGES;
+  static const PREMIUM_PACKAGES = _Paths.PREMIUM_PACKAGES;
 }
 
 abstract class _Paths {
@@ -61,4 +63,6 @@ abstract class _Paths {
   static const TOPIC_SELECTION = '/topic-selection';
   static const JOBS = '/jobs';
   static const CURRENT_AFFAIRS = '/current-affairs';
+  static const PACKAGES = '/packages';
+  static const PREMIUM_PACKAGES = '/premium-packages';
 }

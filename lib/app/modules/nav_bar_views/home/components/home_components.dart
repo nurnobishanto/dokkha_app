@@ -21,7 +21,7 @@ Widget buildTopRankedUser({
             backgroundColor: Colors.blue,
             child: CircleAvatar(
               radius: innerRadius,
-              backgroundImage: AssetImage(imagePath),
+              backgroundImage: NetworkImage(imagePath),
             ),
           ),
           Positioned(

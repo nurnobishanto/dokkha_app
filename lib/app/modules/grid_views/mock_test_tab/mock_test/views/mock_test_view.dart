@@ -17,6 +17,7 @@ class MockTestView extends GetView<MockTestController> {
   Widget build(BuildContext context) {
     final controller = Get.put(MockTestController());
     return Scaffold(
+
       body: Obx(() {
         switch (controller.apiCallStatus.value) {
           case ApiCallStatus.loading:

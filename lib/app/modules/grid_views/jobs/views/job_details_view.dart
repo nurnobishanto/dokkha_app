@@ -44,9 +44,7 @@ class JobDetailsScreen extends StatelessWidget {
           final isDeadlineOver = jobData.deadline != null &&
               DateTime.now().isAfter(jobData.deadline!);
 
-          return isLoggedIn.value == false
-              ? const AuthGatewayView()
-              : Column(
+          return  Column(
                   children: [
                     Expanded(
                       child: SingleChildScrollView(

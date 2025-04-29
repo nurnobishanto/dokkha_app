@@ -6,7 +6,8 @@ class LightThemeColors
 {
   //dark swatch
   //static const Color primary = Color(0xFF40A76A);
-  static const Color primaryColor = Color(0xFF2B3990);
+  //static const Color primaryColorOld = Color(0xFF2B3990);
+  static const Color primaryColor = Color(0xFF006A4E);
   static const Color accentColor = Color(0xFFD9EDE1);
   // minor color
   static const Color white = Colors.white;

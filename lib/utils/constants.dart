@@ -32,4 +32,12 @@ class AppConstants {
   static const String nationalCA = "$baseUrl/current-affairs/national";
   // Home Screen api
   static const String sliders = "$baseUrl/sliders";
+  /// Drawer pages
+  static const String privacyPolicy = "$baseUrl/page/privacy-policy";
+  static const String termsPolicy = "$baseUrl/page/terms-and-conditions";
+  static const String refundPolicy = "$baseUrl/page/refund-policy";
+  static const String contestPolicy = "$baseUrl/page/contest-policy";
+  /// Premium Package
+  static const String premiumPackage = "$baseUrl/packages";
+
 }

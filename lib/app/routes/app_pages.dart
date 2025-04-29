@@ -39,6 +39,8 @@ import '../modules/nav_bar_views/question_bank/bindings/question_bank_binding.da
 import '../modules/nav_bar_views/question_bank/views/question_bank_view.dart';
 import '../modules/navbar/bindings/navbar_binding.dart';
 import '../modules/navbar/views/navbar_view.dart';
+import '../modules/premium_packages/bindings/premium_packages_binding.dart';
+import '../modules/premium_packages/views/premium_packages_view.dart';
 import '../modules/profile_update_required/bindings/profile_update_required_binding.dart';
 import '../modules/profile_update_required/views/profile_update_required_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
@@ -170,6 +172,11 @@ class AppPages {
       name: _Paths.CURRENT_AFFAIRS,
       page: () => const CurrentAffairsView(),
       binding: CurrentAffairsBinding(),
+    ),
+    GetPage(
+      name: _Paths.PREMIUM_PACKAGES,
+      page: () => const PremiumPackagesView(),
+      binding: PremiumPackagesBinding(),
     ),
   ];
 }

@@ -30,10 +30,18 @@ class HomeController extends GetxController {
   final List<String> gridViewTitle2 = [
     'বিসিএস',
     'ব্যাংক নিয়োগ পরীক্ষা',
-    'দপ্তর অনুযায়ী প্রশ্ন সমূহ',
-    '৯ম -১০ম গ্রেডের প্রস্তুতি',
-    'বিশ্ববিদ্যালয় ভর্তি পরীক্ষার তথ্যাদি',
+    'শিক্ষক নিয়োগ ও নিবন্ধন',
+    'বিশ্ববিদ্যালয় ভর্তি পরীক্ষা',
+    'ববার কাউন্সিল ও বিজেএস',
     'অন্যান্য',
+  ];
+  final List<String> gridViewTitle3 = [
+    '৯ম-১০ গ্রেড',
+    '১১-২০ গ্রেড',
+  ];
+  final List gridViewRoutePage3 = [
+    const ComingSoonPage(),
+    const ComingSoonPage(),
   ];
 
   // final List<String> gridViewRoutePage = [
@@ -44,6 +52,8 @@ class HomeController extends GetxController {
   //   // Routes.AJKER_BISSHO,
   //   // Routes.NOTICE_BOARD,
   // ];
+
+
   final List gridViewRoutePage = [
     const LatestSubjectTestView(),
     const MockTestTabView(),
@@ -125,6 +135,7 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    //startTimer(hours: 1);
     _homeApiService.fetchSliders();
   }
 }

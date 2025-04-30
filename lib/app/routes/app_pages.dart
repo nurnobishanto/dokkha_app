@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../../my_app/bindings/my_app_binding.dart';
+import '../../my_app/views/my_app_view.dart';
 import '../modules/auth_views/auth_gateway/bindings/auth_gateway_binding.dart';
 import '../modules/auth_views/auth_gateway/views/auth_gateway_view.dart';
 import '../modules/auth_views/forget_password/bindings/forget_password_binding.dart';
@@ -23,6 +25,7 @@ import '../modules/grid_views/mock_test_tab/mock_test/bindings/mock_test_binding
 import '../modules/grid_views/mock_test_tab/mock_test/controllers/mock_test_controller.dart';
 import '../modules/grid_views/mock_test_tab/mock_test/views/mock_test_view.dart';
 import '../modules/grid_views/mock_test_tab/views/mock_test_tab_view.dart';
+import '../../my_app/views/my_app_view.dart';
 import '../modules/nav_bar_views/blog/bindings/blog_binding.dart';
 import '../modules/nav_bar_views/blog/views/blog_view.dart';
 import '../modules/nav_bar_views/contest/bindings/contest_binding.dart';
@@ -177,6 +180,11 @@ class AppPages {
       name: _Paths.PREMIUM_PACKAGES,
       page: () => const PremiumPackagesView(),
       binding: PremiumPackagesBinding(),
+    ),
+    GetPage(
+      name: _Paths.MY_APP,
+      page: () => const MyApp(),
+      binding: MyAppBinding(),
     ),
   ];
 }

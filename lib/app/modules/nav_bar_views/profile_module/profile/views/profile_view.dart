@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:lokkha/app/data/local/my_shared_pref.dart';
 import 'package:lokkha/app/helper/api_helper.dart';
 import 'package:lokkha/app/modules/auth_views/auth_gateway/views/auth_gateway_view.dart';
 import 'package:lokkha/app/routes/app_pages.dart';
@@ -20,9 +21,12 @@ class ProfileView extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     Get.put(ProfileController());
     return Obx(() {
-      if (!isLoggedIn.value) {
+      final token= MySharedPref.getUserToken();
+      if (!isLoggedIn.value || token !='' || token.isNotEmpty) {
+        debugPrint("Error: ${isLoggedIn.value}");
         return const AuthGatewayView();
       }
+
       final profileData = profileDataModel.value.data;
       if (profileData == null) {
         debugPrint("🚫 data is null");

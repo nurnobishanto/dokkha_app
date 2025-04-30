@@ -13,6 +13,7 @@ import '../models/slider_model.dart';
 
 class HomeController extends GetxController {
   int dotsCount = 0;
+
   double currentPosition = 0;
   int selectedOptionIndex = -1;
   final List<String> randomQuestionOptions = [
@@ -23,9 +24,9 @@ class HomeController extends GetxController {
   ];
 
   final List<String> gridViewTitle = [
-    'সর্বশেষ সাবজেক্ট অনুযায়ী তথ্যাদি',
-    'সাবজেক্ট অনুযায়ী পরীক্ষা',
-    'সর্বশেষ চাকরির নিয়োগ',
+    // 'সর্বশেষ সাবজেক্ট অনুযায়ী তথ্যাদি',
+    'বিষয়ভিত্তিক পরীক্ষা',
+    'সর্বশেষ নিয়োগ বিজ্ঞপ্তি',
   ];
   final List<String> gridViewTitle2 = [
     'বিসিএস',
@@ -35,11 +36,11 @@ class HomeController extends GetxController {
     'ববার কাউন্সিল ও বিজেএস',
     'অন্যান্য',
   ];
-  final List<String> gridViewTitle3 = [
-    '৯ম-১০ গ্রেড',
-    '১১-২০ গ্রেড',
-  ];
-  final List gridViewRoutePage3 = [
+  final List<Widget?> gridViewRoutePages2s = [
+    const ComingSoonPage(),
+    const ComingSoonPage(),
+    const ComingSoonPage(),
+    const ComingSoonPage(),
     const ComingSoonPage(),
     const ComingSoonPage(),
   ];
@@ -53,9 +54,8 @@ class HomeController extends GetxController {
   //   // Routes.NOTICE_BOARD,
   // ];
 
-
   final List gridViewRoutePage = [
-    const LatestSubjectTestView(),
+    // const LatestSubjectTestView(),
     const MockTestTabView(),
     const JobsView(),
   ];
@@ -88,45 +88,6 @@ class HomeController extends GetxController {
     // const Color(0xFFCBF0F4),
     // const Color(0x6B9A9EF4),
   ];
-
-  /// start Timer
-  Timer? _timer;
-  int hours = 0;
-  int minutes = 0;
-  int seconds = 0;
-
-  void startTimer({required int hours}) {
-    this.hours = hours;
-    minutes = 0;
-    seconds = 0;
-
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (seconds > 0) {
-        seconds--;
-      } else if (minutes > 0) {
-        minutes--;
-        seconds = 59;
-      } else if (this.hours > 0) {
-        this.hours--;
-        minutes = 59;
-        seconds = 59;
-      } else {
-        timer.cancel();
-      }
-      update();
-      print("Called Timer.....${timer.tick} xx");
-    });
-  }
-
-  final List<int> leaders = List.generate(30, (index) {
-    return index + 1;
-  });
-
-  @override
-  void onClose() {
-    super.onClose();
-    _timer?.cancel();
-  }
 
   final HomeApiService _homeApiService = HomeApiService();
   Rx<ApiCallStatus> get apiCallStatus => _homeApiService.apiCallStatus;

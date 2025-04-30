@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 Widget buildTopRankedUser({
   required String imagePath,
-  required int id,
+  required String id,
   required int rank,
   bool isFirst = false,
 }) {

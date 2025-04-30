@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
@@ -6,12 +7,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/config/constants/app_strings.dart';
 import 'package:lokkha/utils/constants.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 /// 🌍 GLOBAL CONFIG: shared across the entire app.
 
 /// ✅ App Info
 String appName = AppStrings.appName;
-String appVersion = "1.0.0";
+RxString appVersion = ''.obs;
+String appPackage = '';
 String appAuthor = "Techyfo";
 
 /// ✅ Environment
@@ -111,13 +114,13 @@ void updateKeyboardStatus(bool isOpen) {
 /// ✅ Logging Utility
 void logInfo(String message) {
   if (enableLogging && isDebugMode) {
-    print("ℹ️ $message");
+    debugPrint("ℹ️ $message");
   }
 }
 
 void logError(String error) {
   if (enableLogging) {
-    print("❌ $error");
+    debugPrint("❌ $error");
   }
 }
 
@@ -131,6 +134,10 @@ bool isImageFile(String fileName) {
   return supportedImageTypes.contains(ext);
 }
 
+Future<void> fetchAppVersion() async {
+  final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+  appVersion.value = packageInfo.version;
+}
 
 
 Future<String?> getDeviceId() async {

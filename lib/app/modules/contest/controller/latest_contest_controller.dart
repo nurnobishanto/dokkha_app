@@ -1,0 +1,224 @@
+import 'dart:async';
+import 'dart:developer';
+
+import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:lokkha/app/modules/auth_views/auth_gateway/views/auth_gateway_view.dart';
+import 'package:lokkha/app/modules/contest/models/contest_result_model.dart';
+import 'package:lokkha/app/modules/contest/models/contest_start_model.dart';
+import 'package:lokkha/app/modules/contest/models/latest_contest_model.dart';
+import 'package:lokkha/app/modules/contest/views/contest_exam_view.dart';
+import 'package:lokkha/app/services/base_client.dart';
+import 'package:lokkha/utils/constants.dart';
+
+import '../../../components/custom_snackbar.dart';
+import '../../../data/local/my_shared_pref.dart';
+import '../../../helper/api_helper.dart';
+import '../../../services/api_call_status.dart';
+
+class LatestContestController extends GetxController {
+  /// start Timer
+  Timer? _timer;
+  RxInt hours = 0.obs;
+  RxInt minutes = 0.obs;
+  RxInt seconds = 0.obs;
+  RxString status = 'timer'.obs;
+  RxString imageUrl =
+      "https://media.4-paws.org/f/8/0/5/f8055215b5cdc5dee5494c255ca891d7b7d33cd1/Molly_006-2829x1886-2726x1886.jpg"
+          .obs;
+  RxList rankUsers = [].obs;
+
+  void startTimer({required int hours}) {
+    this.hours.value = hours;
+    minutes.value = 0;
+    seconds.value = 0;
+
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (seconds.value > 0) {
+        seconds.value--;
+      } else if (minutes.value > 0) {
+        minutes.value--;
+        seconds.value = 59;
+      } else if (this.hours.value > 0) {
+        this.hours.value--;
+        minutes.value = 59;
+        seconds.value = 59;
+      } else {
+        timer.cancel();
+      }
+      update();
+      debugPrint("Called Timer.....${timer.tick} xx");
+    });
+  }
+
+  void checkAndStartTimer(
+      {required DateTime startDatetime, required DateTime endDatetime}) {
+    final now = DateTime.now();
+
+    if (startDatetime.isAfter(now)) {
+      // 🟢 Future: Start countdown until the event starts
+      int totalSeconds = startDatetime.difference(now).inSeconds;
+
+      _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+        if (totalSeconds > 0) {
+          totalSeconds--;
+
+          hours.value = totalSeconds ~/ 3600;
+          minutes.value = (totalSeconds % 3600) ~/ 60;
+          seconds.value = totalSeconds % 60;
+        } else {
+          status.value = 'ongoing';
+          timer.cancel();
+          print("✅ Event Started. You can now show Ongoing or do something.");
+          // এখানে চাইলে নতুন আরেকটা Timer চালিয়ে ongoing এর সময় ট্র্যাক করতে পারো
+        }
+        update();
+      });
+
+      print("⏳ Event is upcoming. Countdown started.");
+    } else if (now.isBefore(endDatetime)) {
+      // 🟡 Event ongoing
+      status.value = 'ongoing';
+      print("🟡 Event is ongoing.");
+    } else {
+      status.value = 'ended';
+      // 🔴 Event ended
+      print("🔴 Event has ended.");
+    }
+  }
+
+  final List<int> leaders = List.generate(30, (index) {
+    return index + 1;
+  });
+  RxObjectMixin<LatestContestModel> contestModel = LatestContestModel().obs;
+  final isLoading = true.obs;
+  Future<void> fetchContest() async {
+    isLoading.value = false;
+    const url = AppConstants.latestContest;
+    BaseClient.safeApiCall(
+      url,
+      RequestType.get,
+      onSuccess: (response) {
+        if (response.data['status']) {
+          contestModel.value = LatestContestModel.fromJson(response.data);
+          imageUrl.value = AppConstants.storageUrl +
+              contestModel.value.contest!.image.toString();
+          checkAndStartTimer(
+              startDatetime: DateTime.parse(
+                  contestModel.value.contest!.startDatetime.toString()),
+              endDatetime: DateTime.parse(
+                  contestModel.value.contest!.endDatetime.toString()));
+        } else {
+          debugPrint('err');
+        }
+        isLoading.value = false;
+      },
+    );
+  }
+
+  RxObjectMixin<ContestResultModel> lastContestResultModel =
+      ContestResultModel().obs;
+  final isResultLoading = true.obs;
+  Future<void> fetchContestResult() async {
+    isLoading.value = false;
+    const url = AppConstants.latestContestResult;
+    BaseClient.safeApiCall(
+      url,
+      RequestType.get,
+      onSuccess: (response) {
+        if (response.data['status']) {
+          lastContestResultModel.value =
+              ContestResultModel.fromJson(response.data);
+
+
+          for (int i = 0; i < lastContestResultModel.value.contestResults!.length; i++) {
+            var result = lastContestResultModel.value.contestResults![i];
+            int sl = i == 0
+                ? 1
+                : i == 1
+                ? 0
+                : i;
+            rankUsers.add(
+              RankCardUser(
+                  userId: result.user!.userId.toString(),
+                  rank: i+1,
+                  image:   (result.user!.image != null && result.user!.image != '')
+                      ? AppConstants.storageUrl + result.user!.image
+                      : (result.user!.avatar != null && result.user!.avatar != '')
+                      ? result.user!.avatar
+                      : 'https://lokkha.com/uploads/files/shares/sadman/avatar.png',
+                  sl: sl,
+                  resultId: result.id!.toInt()),
+            );
+          }
+
+
+          isResultLoading.value = false;
+          rankUsers.sort((a, b) => a.sl.compareTo(b.sl));
+        } else {
+          debugPrint('err');
+          isResultLoading.value = false;
+        }
+        isLoading.value = false;
+      },
+    );
+  }
+Rx<ContestStartModel> contestStartModel = ContestStartModel().obs;
+  Future<void> startContest() async {
+    String? token = MySharedPref.getUserToken();
+    print("Tokenn:$token");
+    if (token == '' || token.isEmpty) return Get.to(const AuthGatewayView());
+    await BaseClient.safeApiCall(
+      '${AppConstants.startContest}${contestModel.value.contest!.id}/start',
+      RequestType.post,
+      headers: {
+        "Authorization": 'Bearer $token',
+      },
+      onSuccess: (response) {
+        apiCallStatus = ApiCallStatus.success;
+        if (response.data['status']) {
+          log("Called Success MOCK EXAM");
+          isLoading.value = false;
+          ContestStartModel data = ContestStartModel.fromJson(response.data);
+          contestStartModel.value = data;
+          Get.to(()=> ContestExamView(
+            examStartModel: contestStartModel.value,
+          ));
+
+        } else if (response.data["status"] == false ) {
+          CustomSnackBar.showCustomErrorToast(message: response.data["message"].toString());
+          }
+      },
+
+    );
+  }
+
+  @override
+  void onReady() {
+    fetchContest();
+    fetchContestResult();
+    super.onReady();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    _timer?.cancel();
+  }
+}
+
+class RankCardUser {
+  final int sl;
+  final int rank;
+  final String userId;
+  final int resultId;
+  final String? image;
+
+  RankCardUser({
+    required this.sl,
+    required this.rank,
+    required this.userId,
+    required this.resultId,
+    this.image,
+  });
+}

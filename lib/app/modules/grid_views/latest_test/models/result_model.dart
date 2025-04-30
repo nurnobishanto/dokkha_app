@@ -1,8 +1,7 @@
-// To parse this JSON data, do
-//
-//     final resultModel = resultModelFromJson(jsonString);
 
 import 'dart:convert';
+
+
 
 ResultModel resultModelFromJson(String str) =>
     ResultModel.fromJson(json.decode(str));
@@ -200,14 +199,19 @@ class Option {
       };
 }
 
-enum QuestionType { SINGLE_CHOICE }
+enum QuestionType {
+  SINGLE_CHOICE,
+  MULTIPLE_CHOICE,
+  FILL_IN_THE_BLANK,
+}
 
-final questionTypeValues =
-    EnumValues({"single_choice": QuestionType.SINGLE_CHOICE});
+final questionTypeValues = EnumValues({
+  "single_choice": QuestionType.SINGLE_CHOICE,
+  "multiple_choice": QuestionType.MULTIPLE_CHOICE,
+  "fill_in_the_blank": QuestionType.FILL_IN_THE_BLANK,
+});
 
-enum Status { FINAL }
 
-final statusValues = EnumValues({"final": Status.FINAL});
 
 class Summary {
   final int? total;

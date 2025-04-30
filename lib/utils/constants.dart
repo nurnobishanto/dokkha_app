@@ -37,7 +37,13 @@ class AppConstants {
   static const String termsPolicy = "$baseUrl/page/terms-and-conditions";
   static const String refundPolicy = "$baseUrl/page/refund-policy";
   static const String contestPolicy = "$baseUrl/page/contest-policy";
+  static const String about = "$baseUrl/page/about";
   /// Premium Package
   static const String premiumPackage = "$baseUrl/packages";
+
+  /// Contest related
+  static const String latestContest = "$baseUrl/latest-contest";
+  static const String startContest = "$baseUrl/contest/";
+  static const String latestContestResult = "$baseUrl/latest-contest-result";
 
 }

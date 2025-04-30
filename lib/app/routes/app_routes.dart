@@ -32,6 +32,7 @@ abstract class Routes {
   static const CURRENT_AFFAIRS = _Paths.CURRENT_AFFAIRS;
   static const PACKAGES = _Paths.PACKAGES;
   static const PREMIUM_PACKAGES = _Paths.PREMIUM_PACKAGES;
+  static const MY_APP = _Paths.MY_APP;
 }
 
 abstract class _Paths {
@@ -65,4 +66,5 @@ abstract class _Paths {
   static const CURRENT_AFFAIRS = '/current-affairs';
   static const PACKAGES = '/packages';
   static const PREMIUM_PACKAGES = '/premium-packages';
+  static const MY_APP = '/my-app';
 }

@@ -9,7 +9,9 @@ import 'package:lokkha/app/services/base_client.dart';
 import 'package:lokkha/utils/constants.dart';
 import '../../../../comming_soon_view.dart';
 import '../../../helper/api_helper.dart';
+import '../../../helper/global.dart';
 import '../../../routes/app_pages.dart';
+import '../../auth_views/auth_gateway/views/auth_gateway_view.dart';
 import '../../grid_views/mock_test_tab/mock_test/views/mock_test_view.dart';
 import '../../grid_views/mock_test_tab/views/mock_test_tab_view.dart';
 import '../../nav_bar_views/blog/views/blog_view.dart';
@@ -22,12 +24,11 @@ import '../views/navbar_view.dart';
 class NavbarController extends GetxController {
   int currentIndex = 0; // Not using Rx because GetBuilder is used
   bool isLoading = true;
-  final List<Widget> nabBarBody = [
-    const HomeView(),
-    const ComingSoonPage(),
-    const PremiumPackagesView(),
-    const ProfileView(),
-  ];
+
+   bool showProfile = !(MySharedPref.getUserToken().isEmpty && !isLoggedIn.value);
+  late List<Widget> nabBarBody = [];
+
+
 
   // final List nabBarBody = [
   //    Routes.HOME,
@@ -49,7 +50,23 @@ class NavbarController extends GetxController {
 
   @override
   void onInit() {
-    // handleInitialUri();
+    bool showProfile = !(MySharedPref.getUserToken().isEmpty && !isLoggedIn.value);
+
+    if (showProfile) {
+      nabBarBody = [
+        const HomeView(),
+        const ComingSoonPage(),
+        const PremiumPackagesView(),
+        const ProfileView(),
+      ];
+    } else {
+      nabBarBody = [
+        const HomeView(),
+        const ComingSoonPage(),
+        const PremiumPackagesView(),
+        const AuthGatewayView(),
+      ];
+    }
     super.onInit();
   }
 }

@@ -227,7 +227,7 @@ class RandomQuestionSelector extends StatelessWidget {
                             color: selectedOptionIndex.value == index
                                 ? (option.isCorrect == true
                                     ? Colors.greenAccent.shade100
-                                    : Colors.red.shade100)
+                                    : Colors.red)
                                 : Colors.white,
                             boxShadow: [
                               BoxShadow(
@@ -244,7 +244,11 @@ class RandomQuestionSelector extends StatelessWidget {
                               Expanded(
                                 child: HtmlWidget(
                                   option.value ?? '',
-                                  textStyle: AppTextStyles.body1,
+                                  textStyle: AppTextStyles.body1.copyWith( color: selectedOptionIndex.value == index
+                                      ? (option.isCorrect == true
+                                      ? Colors.black
+                                      : Colors.white)
+                                      : Colors.black,),
                                 ),
                               ),
                             ],

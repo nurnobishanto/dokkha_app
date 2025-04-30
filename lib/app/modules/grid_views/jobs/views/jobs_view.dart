@@ -14,7 +14,7 @@ class JobsView extends GetView<JobsController> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "চাকরির বিজ্ঞপ্তি",
+          "সর্বশেষ নিয়োগ বিজ্ঞপ্তি",
           style: AppTextStyles.heading4.copyWith(color: Colors.white),
         ),
       ),

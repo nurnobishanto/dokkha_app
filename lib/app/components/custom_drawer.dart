@@ -1,5 +1,9 @@
+import 'dart:io';
+
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/core/widgets/base_webview.dart';
+import 'package:lokkha/app/modules/drawer_pages/views/customer_support_view.dart';
 import 'package:lokkha/config/extensions/common_extension.dart';
 import 'package:lokkha/config/extensions/widget_extensions.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
@@ -7,7 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lokkha/utils/constants.dart';
+import 'package:share_plus/share_plus.dart';
 import '../../config/constants/app_images.dart';
+import '../helper/global.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
@@ -29,34 +35,38 @@ class CustomDrawer extends StatelessWidget {
 
           /// Drawer Items (standard)
           ListTile(
-              visualDensity: VisualDensity.standard,
-              leading: const FaIcon(FontAwesomeIcons.infoCircle,
-                  color: LightThemeColors.primaryColor, size: 20),
-              title:
-                  const Text('আমাদের সম্পর্কে', style: TextStyle(fontSize: 14)),
-              onTap: () {}),
-          const Divider(
-            height: 0.5,
-            color: LightThemeColors.primaryColor,
-          ),
-
-          ListTile(
             visualDensity: VisualDensity.standard,
-            leading: const FaIcon(FontAwesomeIcons.facebook,
-                color: LightThemeColors.primaryColor, size: 20),
-            title: const Text('ফেইসবুক গ্রুপ', style: TextStyle(fontSize: 14)),
-            onTap: () {},
-          ),
-          const Divider(height: 0.5, color: LightThemeColors.primaryColor),
-
-          ListTile(
-            visualDensity: VisualDensity.standard,
-            leading: const FaIcon(FontAwesomeIcons.facebookMessenger,
+            leading: const FaIcon(FontAwesomeIcons.infoCircle,
                 color: LightThemeColors.primaryColor, size: 20),
             title:
-                const Text('মেসেঞ্জার চ্যাট', style: TextStyle(fontSize: 14)),
-            onTap: () {},
+                const Text('আমাদের সম্পর্কে', style: TextStyle(fontSize: 14)),
+            onTap: () {
+              Get.to(
+                 const BaseWebView(title: "আমাদের সম্পর্কে", url: AppConstants.about),
+              );
+            },
           ),
+          // const Divider(
+          //   height: 0.5,
+          //   color: LightThemeColors.primaryColor,
+          // ),
+          // ListTile(
+          //   visualDensity: VisualDensity.standard,
+          //   leading: const FaIcon(FontAwesomeIcons.facebook,
+          //       color: LightThemeColors.primaryColor, size: 20),
+          //   title: const Text('ফেইসবুক গ্রুপ', style: TextStyle(fontSize: 14)),
+          //   onTap: () {},
+          // ),
+          // const Divider(height: 0.5, color: LightThemeColors.primaryColor),
+          //
+          // ListTile(
+          //   visualDensity: VisualDensity.standard,
+          //   leading: const FaIcon(FontAwesomeIcons.facebookMessenger,
+          //       color: LightThemeColors.primaryColor, size: 20),
+          //   title:
+          //       const Text('মেসেঞ্জার চ্যাট', style: TextStyle(fontSize: 14)),
+          //   onTap: () {},
+          // ),
           const Divider(height: 0.5, color: LightThemeColors.primaryColor),
 
           ListTile(
@@ -64,7 +74,21 @@ class CustomDrawer extends StatelessWidget {
             leading: const FaIcon(FontAwesomeIcons.share,
                 color: LightThemeColors.primaryColor, size: 20),
             title: const Text('শেয়ার', style: TextStyle(fontSize: 14)),
-            onTap: () {},
+            onTap: () {
+              if (Platform.isAndroid) {
+                SharePlus.instance.share(
+                  ShareParams(
+                      text:
+                          "https://play.google.com/store/apps/details?id=$appPackage"),
+                );
+              } else if (Platform.isIOS) {
+                SharePlus.instance.share(
+                  ShareParams(
+                      text:
+                          "https://apps.apple.com/us/app/app name/id6670564455"),
+                );
+              }
+            },
           ),
           const Divider(height: 0.5, color: LightThemeColors.primaryColor),
 
@@ -74,7 +98,10 @@ class CustomDrawer extends StatelessWidget {
                 color: LightThemeColors.primaryColor, size: 20),
             title:
                 const Text('কাস্টমার সাপোর্ট', style: TextStyle(fontSize: 14)),
-            onTap: () {},
+            onTap: () {
+
+              Get.to(CustomerSupportView());
+            },
           ),
           const Divider(height: 0.5, color: LightThemeColors.primaryColor),
 
@@ -128,12 +155,12 @@ class CustomDrawer extends StatelessWidget {
           15.h.height,
 
           /// App Version (standard)
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
             child: Center(
               child: Text(
-                'অ্যাপ ভার্শন: 1.0.0',
-                style: TextStyle(fontSize: 12, color: Colors.grey),
+                'অ্যাপ ভার্শন: $appVersion',
+                style: const TextStyle(fontSize: 12, color: Colors.grey),
               ),
             ),
           ),

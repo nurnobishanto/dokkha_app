@@ -26,8 +26,12 @@ class NavbarController extends GetxController {
   bool isLoading = true;
 
    bool showProfile = !(MySharedPref.getUserToken().isEmpty && !isLoggedIn.value);
-  late List<Widget> nabBarBody = [];
-
+  late List<Widget> nabBarBody = [
+  const HomeView(),
+  const ComingSoonPage(),
+  const PremiumPackagesView(),
+  const ProfileView(),
+  ];
 
 
   // final List nabBarBody = [
@@ -48,25 +52,4 @@ class NavbarController extends GetxController {
     super.onReady();
   }
 
-  @override
-  void onInit() {
-    bool showProfile = !(MySharedPref.getUserToken().isEmpty && !isLoggedIn.value);
-
-    if (showProfile) {
-      nabBarBody = [
-        const HomeView(),
-        const ComingSoonPage(),
-        const PremiumPackagesView(),
-        const ProfileView(),
-      ];
-    } else {
-      nabBarBody = [
-        const HomeView(),
-        const ComingSoonPage(),
-        const PremiumPackagesView(),
-        const AuthGatewayView(),
-      ];
-    }
-    super.onInit();
-  }
 }

@@ -1,28 +1,29 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:lokkha/app/modules/auth_views/signin/views/signin_view.dart';
-import 'package:lokkha/config/theme/light_theme_colors.dart';
-import '../../../../../../styles/text_style.dart';
-import '../../../../../components/custom_action_button.dart';
-import '../../../../../components/custom_text_field.dart';
-import '../../../../../helper/global.dart';
-import '../../../../../routes/app_pages.dart';
-import '../controllers/mock_test_set_time_controller.dart';
 
-class SetTimeView extends StatelessWidget {
-  const SetTimeView({super.key});
+import 'package:get/get.dart';
+import 'package:lokkha/app/modules/subject_sections/controllers/sub_sec_set_time_controller.dart';
+import 'package:lokkha/app/modules/subject_sections/models/sub_sec_select_model.dart';
+import 'package:lokkha/app/modules/subject_sections/views/read_question.dart';
+
+import '../../../../config/theme/light_theme_colors.dart';
+import '../../../../styles/text_style.dart';
+import '../../../components/custom_action_button.dart';
+import '../../../components/custom_text_field.dart';
+import '../../../helper/global.dart';
+import '../../../routes/app_pages.dart';
+
+class SubSectionsSetTimeView extends GetView {
+  const SubSectionsSetTimeView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final MockTestSetTimeController controller =
-        Get.put(MockTestSetTimeController());
+    final controller = Get.put(SubSecSetTimeController());
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
         title: Text(
-          'সময় নির্ধারণ',
+          'নির্ধারণ',
           style: AppTextStyles.heading4.copyWith(color: LightThemeColors.white),
         ),
         iconTheme: const IconThemeData(color: Colors.white),
@@ -142,87 +143,61 @@ class SetTimeView extends StatelessWidget {
                           const Spacer(),
                           Container(
                             decoration: BoxDecoration(
-                              color: Colors.red.withValues(
-                                  alpha: 0.4), // Corrected opacity usage
-                              borderRadius: BorderRadius.circular(15),
+                              color: Colors.red.withValues(alpha: 0.4),
+                              borderRadius: BorderRadius.circular(13),
                             ),
                             padding: const EdgeInsets.all(4),
-                            child: const Text(
+                            child: Text(
                               "প্রতিটি ভুলের জন্য ০.২৫ নম্বর কাটা যাবে",
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
+                              style: AppTextStyles.body1,
                             ),
                           ),
                         ],
                       ),
                       const SizedBox(height: 15.00),
-
                       Text(
                         "প্রশ্নের ধরন নির্বাচন করুন",
                         style: AppTextStyles.body1,
                       ),
                       const SizedBox(height: 3.00),
-                      GridView.builder(
-                        shrinkWrap: true, // To make sure it takes only the required space
-                        physics: const NeverScrollableScrollPhysics(), // To prevent scrolling inside the grid
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2, // Number of columns
-                          crossAxisSpacing: 2, // Horizontal space between items
-                          mainAxisSpacing: 2, // Vertical space between items
-                          childAspectRatio: 6.5,
-                        ),
-                        itemCount: dropdownItems.length,
-                        itemBuilder: (context, index) {
-                          final item = dropdownItems[index];
-                          return Obx(() => InkWell(
-                            onTap: () {
-                              controller.selectedKey.value = item['key'] ?? '';
-                            },
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Radio<String>(
-                                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                  visualDensity: VisualDensity.compact,
-                                  value: item['key'] ?? '',
-                                  groupValue: controller.selectedKey.value,
-                                  onChanged: (String? newValue) {
-                                    if (newValue != null) {
-                                      controller.selectedKey.value = newValue;
-                                    }
-                                  },
-                                ),
-                                Text(
-                                  item['value'] ?? '',
-                                ),
-                              ],
-                            ),
-                          ));
-                        },
-                      )
-,
 
-                      const SizedBox(height: 00),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const Text("শেষ"),
-                          SizedBox(width: 5.00.w),
-                          SizedBox(
-                            width: 80.0,
-                            child: CustomTextField(
-                              controller: controller.dayController,
-                              hintText: 'দিন',
-                              keyboardType: TextInputType.number,
-                            ),
-                          ),
-                          const SizedBox(width: 5.00),
-                          const Text("দিনের প্রশ্ন"),
-                        ],
+                      Wrap(
+                        spacing: 5,
+                        runSpacing: 5,
+                        children: dropdownItems.map((Map<String, String> item) {
+                          return Obx(() => InkWell(
+                                onTap: () {
+                                  controller.selectedKey.value =
+                                      item['key'] ?? '';
+                                },
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Radio<String>(
+                                      materialTapTargetSize:
+                                          MaterialTapTargetSize.shrinkWrap,
+                                      visualDensity: VisualDensity.compact,
+                                      value: item['key'] ?? '',
+                                      groupValue: controller.selectedKey.value,
+                                      onChanged: (String? newValue) {
+                                        if (newValue != null) {
+                                          controller.selectedKey.value =
+                                              newValue;
+                                        }
+                                      },
+                                    ),
+                                    Text(
+                                      item['value'] ?? '',
+                                    ),
+                                  ],
+                                ),
+                              ));
+                        }).toList(),
                       ),
 
-                      const SizedBox(height: 20.00),
+                      const SizedBox(height: 50.00),
                       Row(
                         children: [
                           const Expanded(
@@ -273,35 +248,91 @@ class SetTimeView extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: CustomActionButton(
-                  text: "পরীক্ষা শুরু করুন",
-                  onPressed: () {
-                    Map<String, dynamic> data = {
-                      'duration': controller.setTimeCon.text,
-                      'type': controller.selectedKey.value,
-                      'negative_mark': controller.isNegativeMarkChecked.value,
-                      'previous_day_count':
-                          (controller.dayController.text == '' ||
-                                  controller.dayController.text.isEmpty)
-                              ? 0
-                              : controller.dayController.text,
-                      'subjects': controller.selectedSubjects
-                          .map((subject) => subject.toMap())
-                          .toList(), // Convert each subject to map
-                    };
-                    if (kDebugMode) {
-                      print("Question paper Data: $data}");
-                    }
-                    if (isLoggedIn.value) {
-                      controller.testExamStart();
-                    } else {
-                      Get.toNamed(Routes.AUTH_GATEWAY);
-                    }
-                  },
-                ),
+
+              Row(
+                children: [
+                  Expanded(
+                    child: CustomActionButton(
+                      text: "প্রশ্ন পড়ুন",
+                      onPressed: () async {
+                        //if (setNumberController.text.isNotEmpty) {
+                        // SubjectSectionSelect newSubject = SubjectSectionSelect(
+                        //   id: subject?.id,
+                        //   name: subject.name,
+                        //   // quantity: min(
+                        //   //   int.tryParse(setNumberController.text)!.toInt(),
+                        //   //   subject.questionCount!.toInt(),
+                        //   // ),
+                        // );
+                        // await MySharedPref.addOrUpdateMockSubjectSelect(
+                        //     newSubject);
+
+                        // controller.getSubjects();
+
+                        // Get.to(() => ReadQuestionView(
+                        //   questionModel: controller.model.subject,
+                        //   questionIndex: 0,
+                        // ));
+
+                        // } else {
+                        //   CustomSnackBar.showCustomErrorToast(
+                        //       message: "please enter number of question!");
+                        // }
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 8.00),
+                  Expanded(
+                    child: CustomActionButton(
+                      text: "পরীক্ষা শুরু করুন",
+                      onPressed: () async {
+                        Map<String, dynamic> data = {
+                          'duration': controller.setTimeCon.text,
+                          'type': controller.selectedKey.value,
+                          'negative_mark':
+                              controller.isNegativeMarkChecked.value,
+                          'subjects': controller.selectedSubjects
+                              .map((subject) => subject.toMap())
+                              .toList(), // Convert each subject to map
+                        };
+                        if (kDebugMode) {
+                          print("Question paper Data: $data}");
+                        }
+                        if (isLoggedIn.value) {
+                            controller.testExamStart();
+                        } else {
+                          Get.toNamed(Routes.AUTH_GATEWAY);
+                        }
+                      },
+                    ),
+                  ),
+                ],
               ),
+
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: CustomActionButton(
+              //     text: "পরীক্ষা শুরু করুন",
+              //     onPressed: () {
+              //       Map<String, dynamic> data = {
+              //         'duration': controller.setTimeCon.text,
+              //         'type': controller.selectedKey.value,
+              //         'negative_mark': controller.isNegativeMarkChecked.value,
+              //         'subjects': controller.selectedSubjects
+              //             .map((subject) => subject.toMap())
+              //             .toList(), // Convert each subject to map
+              //       };
+              //       if (kDebugMode) {
+              //         print("Question paper Data: $data}");
+              //       }
+              //       if (isLoggedIn.value) {
+              //         controller.testExamStart();
+              //       } else {
+              //         Get.toNamed(Routes.AUTH_GATEWAY);
+              //       }
+              //     },
+              //   ),
+              // ),
             ],
           ),
         );

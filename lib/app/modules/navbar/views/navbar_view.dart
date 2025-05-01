@@ -23,21 +23,16 @@ class NavbarView extends GetView<NavbarController> {
           return BottomNavigationBar(
             currentIndex: controller.currentIndex,
             onTap: (index) => controller.changeIndex(index), // Call method to update index
-            items:  [
-              const  BottomNavigationBarItem(icon:FaIcon(FontAwesomeIcons.house,size: 18.00), label: "হোম", backgroundColor: LightThemeColors.primaryColor),
-              const  BottomNavigationBarItem(icon: FaIcon(FontAwesomeIcons.newspaper,size: 18.00), label: "ব্লগ",backgroundColor: LightThemeColors.primaryColor),
-              const  BottomNavigationBarItem(icon: FaIcon(FontAwesomeIcons.boxOpen,size: 18.00), label: "প্রিমিয়াম",backgroundColor: LightThemeColors.primaryColor),
-              controller.showProfile?
-                const BottomNavigationBarItem(
+            items:  const [
+              BottomNavigationBarItem(icon:FaIcon(FontAwesomeIcons.house,size: 18.00), label: "হোম", backgroundColor: LightThemeColors.primaryColor),
+              BottomNavigationBarItem(icon: FaIcon(FontAwesomeIcons.newspaper,size: 18.00), label: "ব্লগ",backgroundColor: LightThemeColors.primaryColor),
+              BottomNavigationBarItem(icon: FaIcon(FontAwesomeIcons.boxOpen,size: 18.00), label: "প্রিমিয়াম",backgroundColor: LightThemeColors.primaryColor),
+
+                BottomNavigationBarItem(
                   icon: FaIcon(FontAwesomeIcons.user, size: 18.0),
                   label: "প্রোফাইল",
                   backgroundColor: LightThemeColors.primaryColor,
-                ):
-              const BottomNavigationBarItem(
-                icon: FaIcon(FontAwesomeIcons.user, size: 18.0),
-                label: "লগইন",
-                backgroundColor: LightThemeColors.primaryColor,
-              )
+                )
             ],
           );
         },

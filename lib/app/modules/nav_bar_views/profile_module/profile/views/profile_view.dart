@@ -2,14 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:lokkha/app/data/local/my_shared_pref.dart';
 import 'package:lokkha/app/helper/api_helper.dart';
 import 'package:lokkha/app/modules/auth_views/auth_gateway/views/auth_gateway_view.dart';
+import 'package:lokkha/app/modules/nav_bar_views/profile_module/favorite_question/views/fav_question.dart';
 import 'package:lokkha/app/routes/app_pages.dart';
-import 'package:lokkha/config/constants/app_images.dart';
 import 'package:lokkha/config/extensions/common_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/utils/constants.dart';
-import '../../../../../../config/theme/light_theme_colors.dart';
 import '../../../../../../styles/text_style.dart';
 import '../../../../../helper/global.dart';
 import '../controllers/profile_controller.dart';
@@ -21,11 +20,13 @@ class ProfileView extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     Get.put(ProfileController());
     return Obx(() {
-      final token= MySharedPref.getUserToken();
-      if (!isLoggedIn.value || token !='' || token.isNotEmpty) {
-        debugPrint("Error: ${isLoggedIn.value}");
+      final token = MySharedPref.getUserToken();
+      final isTokenValid = token.isNotEmpty;
+      if (!isLoggedIn.value || !isTokenValid) {
+        debugPrint("Error: Not logged in or token missing. isLoggedIn: ${isLoggedIn.value}");
         return const AuthGatewayView();
       }
+
 
       final profileData = profileDataModel.value.data;
       if (profileData == null) {
@@ -72,11 +73,11 @@ class ProfileView extends GetView<ProfileController> {
                     ),
                     10.h.height,
                     ...[
-                      CustomProfileButton(
-                        onTap: () {},
-                        text: 'একাউন্ট',
-                        icon: Icons.edit_note_rounded,
-                      ),
+                      // CustomProfileButton(
+                      //   onTap: () {},
+                      //   text: 'একাউন্ট',
+                      //   icon: Icons.edit_note_rounded,
+                      // ),
                       CustomProfileButton(
                         onTap: () => Get.toNamed(Routes.PROFILE_UPDATE),
                         text: 'প্রোফাইল আপডেট করুন',
@@ -84,17 +85,21 @@ class ProfileView extends GetView<ProfileController> {
                       ),
                       // CustomProfileButton(
                       //   onTap: () {},
-                      //   text: 'সাবস্ক্রিপশন',
+                      //   text: 'সকল প্যাকেজ',
                       //   icon: Icons.edit_note_rounded,
                       // ),
+                      CustomProfileButton(
+                        onTap: () {
+
+                          Get.to(const FavQuestionListScreen());
+
+                        },
+                        text: 'ফেভারিট প্রশ্ন',
+                        icon: Icons.edit_note_rounded,
+                      ),
                       // CustomProfileButton(
                       //   onTap: () {},
-                      //   text: 'আপগ্রেড',
-                      //   icon: Icons.edit_note_rounded,
-                      // ),
-                      // CustomProfileButton(
-                      //   onTap: () {},
-                      //   text: 'সাপোর্ট',
+                      //   text: 'অর্ডারস হিস্ট্রি',
                       //   icon: Icons.edit_note_rounded,
                       // ),
                       // CustomProfileButton(

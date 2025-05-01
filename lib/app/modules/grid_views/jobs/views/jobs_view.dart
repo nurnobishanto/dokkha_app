@@ -25,6 +25,7 @@ class JobsView extends GetView<JobsController> {
               return Padding(
                 padding: const EdgeInsets.all(8.00),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // CustomSearchBar(
                     //   prefixIcon: Icons.search,
@@ -38,7 +39,7 @@ class JobsView extends GetView<JobsController> {
                     // ),
 
                     controller.isLoading.value
-                        ? const CircularProgressIndicator()
+                        ? const Center(child: CircularProgressIndicator())
                         // Expanded(
                         //         child: ListView.builder(
                         //           itemCount: 6,

@@ -4,7 +4,7 @@ import '../../../helper/api_helper.dart';
 
 class ContestSubmitController extends GetxController {
   bool checkQuestionExistInSaved(int id) {
-    return favoriteQuestions.value.favoriteQuestions?.any((q) => q.id == id) ??
+    return favoriteQuestionsModel.value.favoriteQuestions?.any((q) => q.id == id) ??
         false;
   }
 }

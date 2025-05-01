@@ -33,6 +33,7 @@ abstract class Routes {
   static const PACKAGES = _Paths.PACKAGES;
   static const PREMIUM_PACKAGES = _Paths.PREMIUM_PACKAGES;
   static const MY_APP = _Paths.MY_APP;
+  static const SUBJECT_SECTION = _Paths.SUBJECT_SECTION;
 }
 
 abstract class _Paths {
@@ -67,4 +68,5 @@ abstract class _Paths {
   static const PACKAGES = '/packages';
   static const PREMIUM_PACKAGES = '/premium-packages';
   static const MY_APP = '/my-app';
+  static const SUBJECT_SECTION = '/subject-section';
 }

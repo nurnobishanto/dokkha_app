@@ -1,27 +1,25 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
-import 'package:lokkha/app/components/custom_action_button.dart';
 import 'package:lokkha/app/components/custom_drawer.dart';
 import 'package:lokkha/app/data/local/my_shared_pref.dart';
 import 'package:lokkha/app/modules/contest/widgets/last_contest_result_widget.dart';
 import 'package:lokkha/app/modules/contest/widgets/latest_contest_widget.dart';
 import 'package:lokkha/app/modules/random_question/views/random_question_view.dart';
+import 'package:lokkha/app/services/api_call_status.dart';
 import 'package:lokkha/comming_soon_view.dart';
 import 'package:lokkha/config/extensions/common_extension.dart';
 import 'package:lokkha/config/extensions/widget_extensions.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
-import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/utils/constants.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../../../../../config/constants/app_images.dart';
 import '../../../../../styles/text_style.dart';
-
+import '../../../../routes/app_pages.dart';
 import '../../../current_affairs/views/current_affairs_view.dart';
-import '../components/home_components.dart';
+import '../../../subject_sections/views/subject_sections_view.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -50,8 +48,6 @@ class HomeView extends GetView<HomeController> {
         ),
         centerTitle: false,
       ),
-
-
       body: GetBuilder<HomeController>(
         init: HomeController(),
         builder: (_) {
@@ -94,7 +90,7 @@ class HomeView extends GetView<HomeController> {
                 )
                     .paddingOnly(bottom: 10.00.h, left: 15.00.w, right: 15.00.w)
                     .onTap(() {
-               Get.to(const ComingSoonPage());
+                  Get.to(const ComingSoonPage());
                   // showSearch(
                   //     context: context, delegate: CustomSearchDelegate());
                 }),
@@ -245,7 +241,7 @@ class HomeView extends GetView<HomeController> {
                       const LatestContestWidget(),
 
                       /// Leader Board
-                     const LastContestResultWidget(),
+                      const LastContestResultWidget(),
 
                       /// RandomQuestion area
                       RandomQuestionSelector(),
@@ -257,46 +253,77 @@ class HomeView extends GetView<HomeController> {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10,
-                          childAspectRatio: 4,
-                        ),
-                        itemCount: controller.gridViewTitle2.length,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (x, i) {
-                          final image = controller.gridImages2[i];
-                          final title = controller.gridViewTitle2[i];
-                           final route = controller.gridViewRoutePages2s[i];
-                          return GestureDetector(
-                            onTap: () {
-                              Get.to(route);
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(7.0),
-                                  border: Border.all(
-                                      color: Colors.grey, width: .5.w)),
-                              child: Center(
-                                child: Text(
-                                  title,
-                                  style: AppTextStyles.body2.copyWith(
-                                    height: 1.1.h,
-                                    fontSize: 12.sp,
-                                  ),
-                                  maxLines: 2,
-                                  textAlign: TextAlign.center,
-                                  overflow: TextOverflow.ellipsis,
-                                ).paddingSymmetric(
-                                    horizontal: 2.00.w, vertical: 5.00.h),
-                              ),
-                            ),
-                          );
+                      Builder(
+                        builder: (context) {
+                          switch (controller.apiCallStatus.value) {
+                            case ApiCallStatus.loading:
+                              return const Center(
+                                  child: CircularProgressIndicator());
+
+                            case ApiCallStatus.success:
+                              return GridView.builder(
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  crossAxisSpacing: 10,
+                                  mainAxisSpacing: 10,
+                                  childAspectRatio: 4,
+                                ),
+                                itemCount: controller.subjectSectionModel.value
+                                        .subjectSections?.length ??
+                                    0,
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemBuilder: (context, index) {
+                                  final data = controller.subjectSectionModel
+                                      .value.subjectSections![index];
+                                  return GestureDetector(
+                                    onTap: () {
+                                      //Get.toNamed(Routes.SUBJECT_SECTION);
+                                      Get.to(
+                                        SubjectSectionView(
+                                          subject: controller
+                                              .subjectSectionModel
+                                              .value
+                                              .subjectSections![index]
+                                              .subject,
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:
+                                            BorderRadius.circular(7.0),
+                                        border: Border.all(
+                                            color: Colors.grey, width: 0.5.w),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          data.name.toString(),
+                                          style: AppTextStyles.body2.copyWith(
+                                            height: 1.1.h,
+                                            fontSize: 12.sp,
+                                          ),
+                                          maxLines: 2,
+                                          textAlign: TextAlign.center,
+                                          overflow: TextOverflow.ellipsis,
+                                        ).paddingSymmetric(
+                                            horizontal: 2.00.w,
+                                            vertical: 5.00.h),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            case ApiCallStatus.error:
+                              return const Center(
+                                  child: Text(
+                                      "কিছু ভুল হয়েছে, আবার চেষ্টা করুন"));
+
+                            default:
+                              return const SizedBox();
+                          }
                         },
                       ),
 
@@ -319,7 +346,7 @@ class SocialLinksScreen extends StatelessWidget {
 
   void _launchURL(String url) async {
     await launchUrlString(url, mode: LaunchMode.externalApplication);
-    }
+  }
 
   final List<Map<String, dynamic>> socialLinks = [
     {

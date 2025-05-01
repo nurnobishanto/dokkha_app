@@ -1,26 +1,23 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lokkha/app/modules/grid_views/mock_test_tab/mock_test/models/mock_start_exam_model.dart';
-import '../../../../../../utils/constants.dart';
-import '../../../../../../utils/utils.dart';
-import '../../../../../components/custom_snackbar.dart';
-import '../../../../../data/local/my_shared_pref.dart';
-import '../../../../../helper/global.dart';
-import '../../../../../services/api_call_status.dart';
-import '../../../../../services/base_client.dart';
-import '../../../../../models/mock_subject_select_model.dart';
-import '../views/question_view.dart';
+import 'package:lokkha/app/modules/grid_views/latest_test/models/start_exam_model.dart';
+import 'package:lokkha/app/modules/subject_sections/models/sub_sec_select_model.dart';
+import '../../../../../utils/constants.dart';
+import '../../../components/custom_snackbar.dart';
+import '../../../data/local/my_shared_pref.dart';
+import '../../../services/api_call_status.dart';
+import '../../../services/base_client.dart';
+import '../../grid_views/latest_test/views/question_view.dart';
 
-class MockTestSetTimeController extends GetxController {
+
+class SubSecSetTimeController extends GetxController {
   RxBool isNegativeMarkChecked = false.obs;
   RxBool isStartExam = false.obs;
   RxBool isSetTime = false.obs;
   RxBool isChecked = false.obs;
   final RxBool isLoading = false.obs;
   final TextEditingController setTimeCon = TextEditingController();
-  final TextEditingController dayController = TextEditingController(text: '15');
 
   final RxMap<String, String> questionType = {
     "random": "রেনডম প্রশ্ন",
@@ -35,19 +32,19 @@ class MockTestSetTimeController extends GetxController {
   final RxString selectedKey = "random".obs;
 
   RxString dropdownValue = "random".obs;
-  RxList<MockSubjectSelect> selectedSubjects = <MockSubjectSelect>[].obs;
-
+  RxList<SubjectSectionSelect> selectedSubjects = <SubjectSectionSelect>[].obs;
+  //
   Future<void> getSubjects() async {
-    List<MockSubjectSelect> fetchedSubjects =
-        await MySharedPref.getMockSubjects();
+    List<SubjectSectionSelect> fetchedSubjects =
+    await MySharedPref.getSubjectSection();
     selectedSubjects.assignAll(fetchedSubjects);
   }
 
   final TextEditingController passwordController = TextEditingController();
   ApiCallStatus apiCallStatus = ApiCallStatus.holding;
-  RxObjectMixin model = MockStartExamModel().obs;
+  RxObjectMixin model = StartExamModel().obs;
 
-  ///
+  ///  method
   Future<void> testExamStart() async {
     String? token = MySharedPref.getUserToken();
     if (token == '' || token.isEmpty) return;
@@ -56,7 +53,6 @@ class MockTestSetTimeController extends GetxController {
       'is_set_time': isSetTime.value,
       'type': selectedKey.value,
       'duration': int.tryParse(setTimeCon.text) ?? 0,
-      'previous_day_count': (dayController.text == '' || dayController.text.isEmpty)? 0: dayController.text,
       'subjects': selectedSubjects
           .map((subject) => subject.toMap())
           .toList(), // Convert each subject to map
@@ -73,12 +69,13 @@ class MockTestSetTimeController extends GetxController {
         if (response.data['status']) {
           log("Called Success MOCK EXAM");
           isLoading.value = false;
-          MockStartExamModel data = MockStartExamModel.fromJson(response.data);
+          StartExamModel data = StartExamModel.fromJson(response.data);
           model.value = data;
-          Get.to(MockExamQuestionScreen(
-            mockExamStartModel: model.value,
+          log("messages");
+          Get.to(ExamQuestionScreen(
+            examStartModel: model.value,
           ));
-          log("My Mock EXam Data: ${data.startTime.toString()}");
+          log("My EXam Data: ${data.startTime.toString()}");
         } else if (response.data["status"] == false &&
             response.data.containsKey('errors')) {
           response.data['errors'].forEach((key, value) {
@@ -109,13 +106,7 @@ class MockTestSetTimeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-
     getSubjects();
   }
 
-  @override
-  void onClose() {
-    setTimeCon.dispose();
-    super.onClose();
-  }
 }

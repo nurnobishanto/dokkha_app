@@ -27,81 +27,83 @@ class SignInView extends GetView<SignInController> {
         body: GetBuilder(
             init: SignInController(),
             builder: (x) {
-              return SafeArea(
-                child: Column(
-                  spacing: 5.00.h,
-                  children: [
-                    40.height,
-                    Image.asset(AssetImagePaths.appIcon, scale: 5.0),
-                    Text(
-                      "এক টাকা দিয়ে লক্ষ্যে পৌঁছান",
-                      style: AppTextStyles.heading4.copyWith(color: Get.theme.indicatorColor),
-                      textAlign: TextAlign.center,
-                    ),
-                    Text(
-                      "কোনো রেজিস্ট্রেশন এর প্রয়োজন নেই সরাসরি লগইন করুন",
-                      style: AppTextStyles.custom(
-                        color: LightThemeColors.primaryColor,
+              return SingleChildScrollView(
+                child: SafeArea(
+                  child: Column(
+                    spacing: 5.00.h,
+                    children: [
+                      40.height,
+                      Image.asset(AssetImagePaths.appIcon, scale: 5.0),
+                      Text(
+                        "এক টাকা দিয়ে লক্ষ্যে পৌঁছান",
+                        style: AppTextStyles.heading4.copyWith(color: Get.theme.indicatorColor),
+                        textAlign: TextAlign.center,
                       ),
-                    ),
-                    100.h.height,
-                    Text(
-                      "আপনার ফোন নম্বর দিয়ে লগইন করুন",
-                      style: AppTextStyles.custom(
-                        fontSize: 17.00.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    2.0.h.height,
-                    CustomTextFormField(
-                      readOnly: true,
-                      prefixIcon: const Icon(FontAwesomeIcons.phone),
-                      hintText: phoneNumber,
-                      hintStyle: AppTextStyles.heading6,
-                    ),
-                    1.0.h.height,
-                    CustomTextFormField(
-                      controller: controller.passwordController,
-                      prefixIcon: const Icon(FontAwesomeIcons.lock),
-                      hintText: "আপনার পাসওয়ার্ড লিখুন",
-                      obscureText: true,
-                      hintStyle: AppTextStyles.custom(
-                          fontSize: 12.00.sp,
-                          color: LightThemeColors.hintTextColor),
-                    ),
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: GestureDetector(
-                        onTap: () {
-                          //Get.toNamed(Routes.FORGET_PASSWORD);
-                          Get.toNamed(Routes.VERIFY_OTP, arguments: {
-                            'phoneNumber': phoneNumber,
-                            'type': 'Login',
-                          });
-                        },
-                        child: Text(
-                          'পাসওয়ার্ড মনে নেই? OTP দিয়ে লগইন করুন!',
-                          textAlign: TextAlign.right,
-                          style: AppTextStyles.custom(
-                              fontSize: 11.5.sp,
-                              color: LightThemeColors.primaryColor),
+                      Text(
+                        "কোনো রেজিস্ট্রেশন এর প্রয়োজন নেই সরাসরি লগইন করুন",
+                        style: AppTextStyles.custom(
+                          color: LightThemeColors.primaryColor,
                         ),
                       ),
-                    ),
-                    1.0.h.height,
-                    CustomActionButton(
-                      text: "এগিয়ে যান",
-                      isLoading: controller.isLoading,
-                      onPressed: () {
-                        controller.login(
-                          phoneNumber,
-                          type,
-                          controller.passwordController.text,
-                        );
-                      },
-                    ),
-                  ],
-                ).paddingAll(8.00.r),
+                      100.h.height,
+                      Text(
+                        "আপনার ফোন নম্বর দিয়ে লগইন করুন",
+                        style: AppTextStyles.custom(
+                          fontSize: 17.00.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      2.0.h.height,
+                      CustomTextFormField(
+                        readOnly: true,
+                        prefixIcon: const Icon(FontAwesomeIcons.phone),
+                        hintText: phoneNumber,
+                        hintStyle: AppTextStyles.heading6,
+                      ),
+                      1.0.h.height,
+                      CustomTextFormField(
+                        controller: controller.passwordController,
+                        prefixIcon: const Icon(FontAwesomeIcons.lock),
+                        hintText: "আপনার পাসওয়ার্ড লিখুন",
+                        obscureText: true,
+                        hintStyle: AppTextStyles.custom(
+                            fontSize: 12.00.sp,
+                            color: LightThemeColors.hintTextColor),
+                      ),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: GestureDetector(
+                          onTap: () {
+                            //Get.toNamed(Routes.FORGET_PASSWORD);
+                            Get.toNamed(Routes.VERIFY_OTP, arguments: {
+                              'phoneNumber': phoneNumber,
+                              'type': 'Login',
+                            });
+                          },
+                          child: Text(
+                            'পাসওয়ার্ড মনে নেই? OTP দিয়ে লগইন করুন!',
+                            textAlign: TextAlign.right,
+                            style: AppTextStyles.custom(
+                                fontSize: 11.5.sp,
+                                color: LightThemeColors.primaryColor),
+                          ),
+                        ),
+                      ),
+                      1.0.h.height,
+                      CustomActionButton(
+                        text: "এগিয়ে যান",
+                        isLoading: controller.isLoading,
+                        onPressed: () {
+                          controller.login(
+                            phoneNumber,
+                            type,
+                            controller.passwordController.text,
+                          );
+                        },
+                      ),
+                    ],
+                  ).paddingAll(8.00.r),
+                ),
               );
             }));
   }

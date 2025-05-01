@@ -152,3 +152,25 @@ Future<String?> getDeviceId() async {
   }
   return null;
 }
+
+
+
+String convertDaysToHumanReadable(int days) {
+  int years = days ~/ 365;
+  int months = (days % 365) ~/ 30;
+  int remainingDays = days % 365 % 30;
+
+  List<String> result = [];
+
+  if (years > 0) {
+    result.add('$years বছর');
+  }
+  if (months > 0) {
+    result.add('$months মাস');
+  }
+  if (remainingDays > 0 || result.isEmpty) {
+    result.add('$remainingDays দিন');
+  }
+
+  return result.join(' ');
+}

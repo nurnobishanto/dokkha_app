@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 
 import '../../my_app/bindings/my_app_binding.dart';
 import '../../my_app/views/my_app_view.dart';
+import '../../my_app/views/my_app_view.dart';
 import '../modules/auth_views/auth_gateway/bindings/auth_gateway_binding.dart';
 import '../modules/auth_views/auth_gateway/views/auth_gateway_view.dart';
 import '../modules/auth_views/forget_password/bindings/forget_password_binding.dart';
@@ -25,7 +26,6 @@ import '../modules/grid_views/mock_test_tab/mock_test/bindings/mock_test_binding
 import '../modules/grid_views/mock_test_tab/mock_test/controllers/mock_test_controller.dart';
 import '../modules/grid_views/mock_test_tab/mock_test/views/mock_test_view.dart';
 import '../modules/grid_views/mock_test_tab/views/mock_test_tab_view.dart';
-import '../../my_app/views/my_app_view.dart';
 import '../modules/nav_bar_views/blog/bindings/blog_binding.dart';
 import '../modules/nav_bar_views/blog/views/blog_view.dart';
 import '../modules/nav_bar_views/contest/bindings/contest_binding.dart';
@@ -48,6 +48,8 @@ import '../modules/profile_update_required/bindings/profile_update_required_bind
 import '../modules/profile_update_required/views/profile_update_required_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
+import '../modules/subject_sections/bindings/subject_section_binding.dart';
+import '../modules/subject_sections/views/subject_sections_view.dart';
 import '../views/views/onboarding_view.dart';
 
 part 'app_routes.dart';
@@ -186,5 +188,10 @@ class AppPages {
       page: () => const MyApp(),
       binding: MyAppBinding(),
     ),
+    // GetPage(
+    //   name: _Paths.SUBJECT_SECTION,
+    //   page: () => const SubjectSectionView(subject: null,),
+    //   binding: SubjectSectionBinding(),
+    // ),
   ];
 }

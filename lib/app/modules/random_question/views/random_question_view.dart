@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:lokkha/app/modules/random_question/controller/random_question_controller.dart';
 import 'package:lokkha/styles/text_style.dart';
 
+import '../../../../config/theme/light_theme_colors.dart';
 import '../../../components/custom_action_button.dart';
 import '../../../data/local/my_shared_pref.dart';
 import '../../../helper/global.dart';
@@ -244,11 +245,13 @@ class RandomQuestionSelector extends StatelessWidget {
                               Expanded(
                                 child: HtmlWidget(
                                   option.value ?? '',
-                                  textStyle: AppTextStyles.body1.copyWith( color: selectedOptionIndex.value == index
-                                      ? (option.isCorrect == true
-                                      ? Colors.black
-                                      : Colors.white)
-                                      : Colors.black,),
+                                  textStyle: AppTextStyles.body1.copyWith(
+                                    color: selectedOptionIndex.value == index
+                                        ? (option.isCorrect == true
+                                            ? Colors.black
+                                            : Colors.white)
+                                        : Colors.black,
+                                  ),
                                 ),
                               ),
                             ],
@@ -265,28 +268,49 @@ class RandomQuestionSelector extends StatelessWidget {
                   question.options![selectedOptionIndex.value];
               if (selectedOption.isCorrect == true) {
                 MySharedPref.incrementRandomQuestionCheck();
-                return Column(
+                return Row(
                   children: [
-                    (question.explanation?.isNotEmpty ?? false)
-                        ? HtmlWidget(
-                            question.explanation!,
-                          )
-                        : const SizedBox.shrink(),
-                    const SizedBox(height: 10),
-                    CustomActionButton(
-                      text: "নতুন প্রশ্ন →",
-                      onPressed: () async {
-                        selectedOptionIndex.value = -1;
-                        controller.getRandomQuestion(forceNew: true);
-                        int check = await MySharedPref.getRandomQuestionCheck();
-                        if (!isLoggedIn.value) {
+                    if (question.explanation?.isNotEmpty ?? false)
+                      Expanded(
+                        child: CustomActionButton(
+                          text: "ব্যাখ্যা দেখুন",
+                          onPressed: () {
+                            Get.dialog(
+                              AlertDialog(
+                                title: Center(
+                                  child: Text(
+                                    'ব্যাখ্যা',
+                                    style: AppTextStyles.heading3.copyWith(
+                                      color: LightThemeColors.primaryColor,
+                                    ),
+                                  ),
+                                ),
+                                content: Text(question.explanation.toString()),
+                              ),
+                            );
+                          },
+                        ),
+                      )
+                    else
+                      const SizedBox.shrink(),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: CustomActionButton(
+                        text: "নতুন প্রশ্ন →",
+                        onPressed: () async {
+                          selectedOptionIndex.value = -1;
                           controller.getRandomQuestion(forceNew: true);
-                        } else if (check <= 3) {
-                          controller.getRandomQuestion(forceNew: true);
-                        } else {
-                          // Get.to(const AllPackages());
-                        }
-                      },
+                          int check =
+                              await MySharedPref.getRandomQuestionCheck();
+                          if (!isLoggedIn.value) {
+                            controller.getRandomQuestion(forceNew: true);
+                          } else if (check <= 3) {
+                            controller.getRandomQuestion(forceNew: true);
+                          } else {
+                            // Get.to(const AllPackages());
+                          }
+                        },
+                      ),
                     ),
                   ],
                 );

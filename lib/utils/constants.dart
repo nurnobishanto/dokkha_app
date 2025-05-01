@@ -1,49 +1,53 @@
 class AppConstants {
-  static const String baseUrl = "https://lokkha.com/api";
+  static const String baseUrl = "https://lokkha.com";
+  static const String appUrl = "$baseUrl/api";
   static const String storageUrl = 'https://lokkha.com/uploads/';
 
   // Auth Endpoints
-  static const String checkPhoneNumber = "$baseUrl/check-phone-number";
-  static const String sendOtp = "$baseUrl/send-otp";
-  static const String login = "$baseUrl/login";
-  static const String register = "$baseUrl/register";
+  static const String checkPhoneNumber = "$appUrl/check-phone-number";
+  static const String sendOtp = "$appUrl/send-otp";
+  static const String login = "$appUrl/login";
+  static const String register = "$appUrl/register";
   static const String updateProfileRequired =
-      "$baseUrl/update-profile-required";
-  static const String updateProfileInfo = "$baseUrl/update-profile-info";
-  static const String me = "$baseUrl/me";
-  static const String authCheck = "$baseUrl/auth-check";
-  static const String logout = "$baseUrl/logout";
+      "$appUrl/update-profile-required";
+  static const String updateProfileInfo = "$appUrl/update-profile-info";
+  static const String me = "$appUrl/me";
+  static const String authCheck = "$appUrl/auth-check";
+  static const String logout = "$appUrl/logout";
 
   // Subjects
-  static const String subjects = "$baseUrl/subjects";
-  static const String testExamStart = "$baseUrl/test-exam/start";
-  static const String testExamSubmit = "$baseUrl/test-exam/submit";
+  static const String subjects = "$appUrl/subjects";
+  static const String testExamStart = "$appUrl/test-exam/start";
+  static const String testExamSubmit = "$appUrl/test-exam/submit";
   ///  Favorite
-  static const String questionFavAdd = "$baseUrl/question/favorite/add";
-  static const String questionFavRemove = "$baseUrl/question/favorite/remove";
-  static const String questionFavList = "$baseUrl/question/favorite/list";
+  static const String questionFavAdd = "$appUrl/question/favorite/add";
+  static const String questionFavRemove = "$appUrl/question/favorite/remove";
+  static const String questionFavList = "$appUrl/question/favorite/list";
   /// jobs
-  static const String jobsList = "$baseUrl/jobs";
-  static const String job = "$baseUrl/job";
+  static const String jobsList = "$appUrl/jobs";
+  static const String job = "$appUrl/job";
   /// Random Question
-  static const String randomQuestion = "$baseUrl/random-question";
+  static const String randomQuestion = "$appUrl/random-question";
   /// Current Affairs
-  static const String internationalCA = "$baseUrl/current-affairs/international";
-  static const String nationalCA = "$baseUrl/current-affairs/national";
+  static const String internationalCA = "$appUrl/current-affairs/international";
+  static const String nationalCA = "$appUrl/current-affairs/national";
   // Home Screen api
-  static const String sliders = "$baseUrl/sliders";
+  static const String sliders = "$appUrl/sliders";
   /// Drawer pages
-  static const String privacyPolicy = "$baseUrl/page/privacy-policy";
-  static const String termsPolicy = "$baseUrl/page/terms-and-conditions";
-  static const String refundPolicy = "$baseUrl/page/refund-policy";
-  static const String contestPolicy = "$baseUrl/page/contest-policy";
-  static const String about = "$baseUrl/page/about";
+  static const String privacyPolicy = "$appUrl/page/privacy-policy";
+  static const String termsPolicy = "$appUrl/page/terms-and-conditions";
+  static const String refundPolicy = "$appUrl/page/refund-policy";
+  static const String contestPolicy = "$appUrl/page/contest-policy";
+  static const String about = "$appUrl/page/about";
   /// Premium Package
-  static const String premiumPackage = "$baseUrl/packages";
+  static const String premiumPackage = "$appUrl/packages";
+  static const String packageOrderUrl = '$appUrl/package-order/';
 
   /// Contest related
-  static const String latestContest = "$baseUrl/latest-contest";
-  static const String startContest = "$baseUrl/contest/";
-  static const String latestContestResult = "$baseUrl/latest-contest-result";
+  static const String latestContest = "$appUrl/latest-contest";
+  static const String startContest = "$appUrl/contest/";
+  static const String latestContestResult = "$appUrl/latest-contest-result";
+  /// Subject Section related..
+  static const String subjectSections = "$appUrl/subject-sections";
 
 }

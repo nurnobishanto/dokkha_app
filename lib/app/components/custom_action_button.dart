@@ -5,6 +5,7 @@ class CustomActionButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final Color? btnBackgroundColor;
+  final Color? textColor;
   final Color? borderColor;
   final double? height;
   final bool isLoading;
@@ -17,6 +18,7 @@ class CustomActionButton extends StatelessWidget {
     this.borderColor = LightThemeColors.primaryColor,
     this.height = 40.0,
     this.isLoading = false,
+    this.textColor = Colors.white,
   });
 
   @override
@@ -47,10 +49,10 @@ class CustomActionButton extends StatelessWidget {
               : FittedBox(
                 child: Text(
                     text,
-                    style: const TextStyle(
+                    style:  TextStyle(
                       fontSize: 13.0,
                       fontWeight: FontWeight.w600,
-                      color: Colors.white,
+                      color:textColor,
                     ),
                   ),
               ),

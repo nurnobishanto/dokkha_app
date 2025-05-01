@@ -80,7 +80,7 @@ Future<void> removeFavoriteQuestion(int id) async {
   };
   BaseClient.safeApiCall(url, RequestType.post, headers: headers, data: data,
       onSuccess: (response) {
-        apiCallStatus = ApiCallStatus.success;
+    apiCallStatus = ApiCallStatus.success;
     if (response.data['status']) {
       CustomSnackBar.showCustomToast(
           message: response.data['message'].toString());
@@ -89,18 +89,20 @@ Future<void> removeFavoriteQuestion(int id) async {
   getFavList(refresh: true);
 }
 
-RxObjectMixin<FavQuestionListModel> favoriteQuestions =
+RxObjectMixin<FavQuestionListModel> favoriteQuestionsModel =
     FavQuestionListModel().obs;
 
 Future<bool> checkQuestionExistInSaved(int id) async {
   await getFavList(refresh: true);
-  return favoriteQuestions.value.favoriteQuestions?.any((q) => q.id == id) ??
+  return favoriteQuestionsModel.value.favoriteQuestions
+          ?.any((q) => q.id == id) ??
       false;
 }
 
-
-
+ApiCallStatus favApiCallStatus = ApiCallStatus.holding;
+RxBool isFavLoading = true.obs;
 Future<void> getFavList({bool refresh = false}) async {
+  isFavLoading.value = false;
   if (refresh) {
     MyGetStorage.removeCache(MyGetStorage.favQuestionsKey);
   }
@@ -108,7 +110,7 @@ Future<void> getFavList({bool refresh = false}) async {
       MyGetStorage.getStorage.hasData(MyGetStorage.favQuestionsKey)) {
     var cacheData = MyGetStorage.readCache(MyGetStorage.favQuestionsKey);
     if (cacheData != null) {
-      favoriteQuestions.value = FavQuestionListModel.fromJson(cacheData);
+      favoriteQuestionsModel.value = FavQuestionListModel.fromJson(cacheData);
       return;
     }
   }
@@ -119,19 +121,26 @@ Future<void> getFavList({bool refresh = false}) async {
     'Authorization': 'Bearer $token',
     'Content-Type': 'application/json'
   };
-  BaseClient.safeApiCall(url, RequestType.get, headers: headers,
-      onSuccess: (response) {
-        apiCallStatus = ApiCallStatus.success;
-    if (response.data['status']) {
-      FavQuestionListModel modelData =
-          FavQuestionListModel.fromJson(response.data);
-      favoriteQuestions.value = modelData;
-      MyGetStorage.writeCacheData(MyGetStorage.favQuestionsKey, response);
+  BaseClient.safeApiCall(
+    url,
+    RequestType.get,
+    headers: headers,
+    onSuccess: (response) {
+      favApiCallStatus = ApiCallStatus.success;
+      if (response.data['status']) {
 
-      // CustomSnackBar.showCustomToast(
-      //     message: response.data['message'].toString());
-    }
-  }, onError: (err) {
-    CustomSnackBar.showCustomErrorToast(message: err.message);
-  });
+        FavQuestionListModel modelData =
+            FavQuestionListModel.fromJson(response.data);
+        favoriteQuestionsModel.value = modelData;
+        MyGetStorage.writeCacheData(MyGetStorage.favQuestionsKey, response);
+        isFavLoading.value = false;
+        // CustomSnackBar.showCustomToast(
+        //     message: response.data['message'].toString());
+      }
+    },
+    onError: (err) {
+      favApiCallStatus = ApiCallStatus.error;
+      CustomSnackBar.showCustomErrorToast(message: err.message);
+    },
+  );
 }

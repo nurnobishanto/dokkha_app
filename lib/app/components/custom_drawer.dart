@@ -100,11 +100,11 @@ class CustomDrawer extends StatelessWidget {
                 const Text('কাস্টমার সাপোর্ট', style: TextStyle(fontSize: 14)),
             onTap: () {
 
-              Get.to(CustomerSupportView());
+              //Get.to(const CustomerSupportView());
             },
           ),
           const Divider(height: 0.5, color: LightThemeColors.primaryColor),
-
+          const Divider(height: 0.5, color: LightThemeColors.primaryColor),
           ListTile(
             visualDensity: VisualDensity.standard,
             leading: const FaIcon(FontAwesomeIcons.userShield,

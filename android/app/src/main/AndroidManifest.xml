@@ -10,7 +10,7 @@
     <application
         android:enableOnBackInvokedCallback="true"
         android:hardwareAccelerated="true"
-        android:label="lokkha"
+        android:label="Lokkha"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

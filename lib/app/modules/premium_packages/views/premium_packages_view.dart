@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/components/custom_app_bar.dart';
+import 'package:lokkha/app/modules/premium_packages/views/premium_package_checkout_view.dart';
 import '../../../../styles/text_style.dart';
 import '../controllers/premium_packages_controller.dart';
 
@@ -24,15 +25,14 @@ class PremiumPackagesView extends GetView<PremiumPackagesController> {
             : Container(
                 margin: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color:  Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.grey)
-                ),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: Colors.grey)),
                 child: Column(
                   children: [
                     _buildHeaderRow(),
                     const Divider(height: 0, color: Colors.grey),
-                    Expanded(
+                    Flexible(
                       child: ListView.separated(
                         itemCount: controller.model.value.packages?.length ?? 0,
                         separatorBuilder: (_, __) =>
@@ -40,6 +40,11 @@ class PremiumPackagesView extends GetView<PremiumPackagesController> {
                         itemBuilder: (context, index) {
                           final pkg = controller.model.value.packages![index];
                           return _buildPackageTable(
+                            onTapCheckout: () {
+                              Get.to(PremiumPackageCheckoutView(
+                                packagesModel: pkg,
+                              ));
+                            },
                             title: pkg.name.toString(),
                             duration: '${pkg.duration.toString()} দিন',
                             price: pkg.discountedPrice.toString(),
@@ -80,6 +85,7 @@ class PremiumPackagesView extends GetView<PremiumPackagesController> {
     required String oldPrice,
     required String discount,
     required String duration,
+    void Function()? onTapCheckout,
     required List<String> features,
   }) {
     return Padding(
@@ -100,13 +106,11 @@ class PremiumPackagesView extends GetView<PremiumPackagesController> {
                   Text(title,
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 14)),
-
-                  Text(duration,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 14)),
-
-
-
+                  Text(
+                    duration,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 14),
+                  ),
                   const SizedBox(height: 4),
                   ...features.map(
                     (f) => Padding(
@@ -120,7 +124,7 @@ class PremiumPackagesView extends GetView<PremiumPackagesController> {
               // Divider
               Center(
                 child: Container(
-                  height: 80,
+                  height: 90,
                   width: 1,
                   color: Colors.green,
                 ),
@@ -147,7 +151,7 @@ class PremiumPackagesView extends GetView<PremiumPackagesController> {
                   ),
                   const SizedBox(height: 6),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: onTapCheckout,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blueAccent,
                       minimumSize: const Size(90, 30),
@@ -158,7 +162,7 @@ class PremiumPackagesView extends GetView<PremiumPackagesController> {
                           horizontal: 12, vertical: 6),
                     ),
                     child: Text(
-                      'প্যাকেজ নিন',
+                      'প্যাকেজ কিনুন',
                       style: AppTextStyles.body1.copyWith(
                         color: Colors.white,
                         fontSize: 12.0.sp,

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:lokkha/app/data/local/my_shared_pref.dart';
 import '../../../../../utils/constants.dart';
 import '../../../../components/custom_snackbar.dart';
+import '../../../../helper/global.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../services/api_call_status.dart';
 import '../../../../services/base_client.dart';
@@ -40,6 +41,7 @@ class VerifyOtpController extends GetxController {
         apiCallStatus = ApiCallStatus.success;
         if (response.data['status']) {
           MySharedPref.setUserToken(response.data["token"]);
+          isLoggedIn.value = true;
           CustomSnackBar.showCustomToast(
             message: response.data["message"].toString(),
           );

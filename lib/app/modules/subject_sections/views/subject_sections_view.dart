@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,7 +5,8 @@ import 'package:lokkha/app/modules/nav_bar_views/home/controllers/home_controlle
 import 'package:lokkha/app/modules/subject_sections/views/sub_sec_set_time_view.dart';
 import 'package:lokkha/config/extensions/common_extension.dart';
 import '../../../../config/theme/light_theme_colors.dart';
-import '../../../models/mock_subject_select_model.dart';
+import '../../../components/custom_snackbar.dart';
+import '../../../components/custom_text_field.dart';
 import '../../nav_bar_views/home/models/subject_sections_model.dart';
 import '../controllers/subject_section_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,9 +21,9 @@ class SubjectSectionView extends GetView<SubjectSectionController> {
 
   @override
   Widget build(BuildContext context) {
-    final homeController = Get.put(HomeController());
-    final subjectSectionController = Get.put(SubjectSectionController());
-
+    Get.put(HomeController());
+    Get.put(SubjectSectionController());
+    final setNumberController = TextEditingController(text: "20");
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
@@ -54,21 +54,53 @@ class SubjectSectionView extends GetView<SubjectSectionController> {
                 ),
               ),
             ),
-            CustomActionButton(
-              text: "এগিয়ে যান",
-              onPressed: () async {
-                SubjectSectionSelect newSubject = SubjectSectionSelect(
-                  id: subject?.id ?? 0,
-                  name: subject?.name ?? '',
-                  // quantity: min(
-                  //   int.tryParse(setNumberController.text)!.toInt(),
-                  //   subject.questionCount!.toInt(),
-                  // ),
-                );
-                await MySharedPref.addOrUpdateSubjectSectionSelect(newSubject);
-                controller.getSubjects();
-                Get.to(const SubSectionsSetTimeView());
-              },
+            const SizedBox(height: 8.00),
+            Row(
+              children: [
+                Expanded(
+                  child: CustomTextField(
+                    controller: setNumberController,
+                    hintText: "প্রশ্ন সংখ্যা সেট করুন",
+                    validator: (val) {
+                      if (val == null || val.isEmpty) {
+                        return "This field is required";
+                      }
+                      final parsedValue = int.tryParse(val);
+                      if (parsedValue == null) {
+                        return "please enter valid number";
+                      } else if (parsedValue < 5) {
+                        return "Must be at least 10";
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                const SizedBox(width: 8.00),
+                Expanded(
+                  child: CustomActionButton(
+                    text: "এগিয়ে যান",
+                    onPressed: () async {
+                      if (setNumberController.text.isNotEmpty) {
+                        SubjectSectionSelect newSubject = SubjectSectionSelect(
+                          id: subject?.id ?? 0,
+                          name: subject?.name ?? '',
+                          // quantity: min(
+                          //   int.tryParse(setNumberController.text)!.toInt(),
+                          //   subject.questionCount!.toInt(),
+                          // ),
+                        );
+                        await MySharedPref.addOrUpdateSubjectSectionSelect(
+                            newSubject);
+                        controller.getSubjects();
+                        Get.to(const SubSectionsSetTimeView());
+                      } else {
+                        CustomSnackBar.showCustomErrorToast(
+                            message: "please enter number of question!");
+                      }
+                    },
+                  ),
+                ),
+              ],
             ),
           ],
         ),

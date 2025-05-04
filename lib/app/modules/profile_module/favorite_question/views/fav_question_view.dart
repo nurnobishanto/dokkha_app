@@ -2,17 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:lokkha/config/theme/dark_theme_colors.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
 import 'package:lokkha/styles/text_style.dart';
 import 'package:lokkha/utils/constants.dart';
 
-import '../../../../../helper/api_helper.dart';
-import '../../../../../helper/global.dart';
-import '../../../../../models/fav_question_model.dart';
-import '../../../../../views/widgets/exam_custom_button.dart';
-import '../../../../contest/views/contest_submit_view.dart';
-import '../controller/fav_question_list_controller.dart';
+import '../../../../helper/api_helper.dart';
+import '../../../../models/fav_question_model.dart';
+import '../../../../views/views/pdf_viewer.dart';
+import '../../../../views/widgets/exam_custom_button.dart';
 
 class FavQuestionListScreen extends StatelessWidget {
   const FavQuestionListScreen({super.key});
@@ -170,160 +167,156 @@ class FavQuestionListScreen extends StatelessWidget {
             );
           }).toList(),
         ),
-        // Row(
-        //   spacing: 10.0,
-        //   children: [
-        //     Expanded(
-        //       child: ExamCustomButton(
-        //         text: "উত্তর এবং সমাধান",
-        //         onPressed: () {
-        //           Get.defaultDialog(
-        //               title: "উত্তর এবং সমাধান",
-        //               content: AnswerAndSolutionWidgets(question: question));
-        //         },
-        //       ),
-        //     ),
-        //   ],
-        // )
+        Row(
+          spacing: 10.0,
+          children: [
+            Expanded(
+              child: ExamCustomButton(
+                text: "উত্তর এবং সমাধান",
+                onPressed: () {
+                  Get.defaultDialog(
+                      title: "উত্তর এবং সমাধান",
+                      content: AnswerAndSolutionWidgets(question: question));
+                },
+              ),
+            ),
+          ],
+        )
       ],
     );
   }
 }
 
-// class AnswerAndSolutionWidgets extends StatelessWidget {
-//   final FavoriteQuestion question;
-//
-//   const AnswerAndSolutionWidgets({super.key, required this.question});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       mainAxisAlignment: MainAxisAlignment.start,
-//       children: [
-//         if (question.options != null) _buildAnswerSection(),
-//         (question.explanation != null)
-//             ? _buildExplanationSection(context)
-//             : const SizedBox.shrink(),
-//         (question.explanationImage != null)
-//             ? _buildExplanationImage()
-//             : const SizedBox.shrink(),
-//       ],
-//     );
-//   }
-//
-//   Widget _buildAnswerSection() {
-//     return SizedBox(
-//       width: Get.width,
-//       child: Padding(
-//         padding: const EdgeInsets.all(8.0),
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           mainAxisAlignment: MainAxisAlignment.start,
-//           children: [
-//             Text(
-//               EnConstant.answer.tr,
-//               style: kSubtitleStyle,
-//               textAlign: TextAlign.start,
-//             ),
-//             const SizedBox(height: 8),
-//             // if (question.question!.questionType == QuestionType.FILL_IN_THE_BLANK)
-//             //   ...question.question!.answer!.map((answer) => Padding(
-//             //     padding: const EdgeInsets.only(bottom: 4.0),
-//             //     child: Text(answer['answer'],
-//             //         style: const TextStyle(fontSize: 14)),
-//             //   ))
-//             // else
-//             ...question.options!.map((option) {
-//               return option.option != null && option.isCorrect == true
-//                   ? Padding(
-//                 padding: const EdgeInsets.only(bottom: 4.0),
-//                 child: Text(
-//                   option.option!,
-//                   style:
-//                   kSubtitleStyle.copyWith(color: AppColors.darkGreen),
-//                   textAlign: TextAlign.start,
-//                 ),
-//               )
-//                   : const SizedBox.shrink();
-//             }),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-//
-//   Widget _buildExplanationSection(context) {
-//     return SizedBox(
-//       width: Get.width,
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Text(
-//             EnConstant.explanation.tr,
-//             style: kTitleTextStyle,
-//           ),
-//           const SizedBox(height: 8),
-//           HtmlWidget(
-//             onTapUrl: (url) {
-//               conditionalUrlLaunch(url, context);
-//               return true;
-//             },
-//             question.explanation.toString(),
-//             textStyle: kParagraphStyle,
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildExplanationImage() {
-//     String fileUrl = AppUrl.storageUrl + question.explanationImage.toString();
-//     bool isPdf = fileUrl.toLowerCase().endsWith('.pdf');
-//     return SizedBox(
-//       width: Get.width,
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Text(
-//             EnConstant.explanationImage.tr,
-//             style: kTitleTextStyle,
-//           ),
-//           const SizedBox(height: 8),
-//           isPdf
-//               ? InkWell(
-//             onTap: () {
-//               Get.to(() => PdfViewerScreen(
-//                 title: EnConstant.explanation.tr,
-//                 file: fileUrl,
-//               ));
-//             },
-//             child: Container(
-//               padding: const EdgeInsets.all(8),
-//               decoration: BoxDecoration(
-//                 border: Border.all(color: Colors.grey),
-//                 borderRadius: BorderRadius.circular(8),
-//               ),
-//               child: Row(
-//                 mainAxisAlignment: MainAxisAlignment.center,
-//                 children: [
-//                   const Icon(Icons.picture_as_pdf,
-//                       color: Colors.red, size: 24),
-//                   const SizedBox(width: 8),
-//                   Text(
-//                     EnConstant.explanation.tr,
-//                     style: kParagraphStyle.copyWith(color: Colors.blue),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           )
-//               : Image.network(
-//             AppUrl.storageUrl + question.explanationImage.toString(),
-//             fit: BoxFit.cover,
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
+class AnswerAndSolutionWidgets extends StatelessWidget {
+  final FavoriteQuestion question;
+
+  const AnswerAndSolutionWidgets({super.key, required this.question});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        if (question.options != null) _buildAnswerSection(),
+        (question.explanation != null)
+            ? _buildExplanationSection(context)
+            : const SizedBox.shrink(),
+        (question.explanationImage != null)
+            ? _buildExplanationImage()
+            : const SizedBox.shrink(),
+      ],
+    );
+  }
+
+  Widget _buildAnswerSection() {
+    return SizedBox(
+      width: Get.width,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              'উত্তর',
+              style: AppTextStyles.heading5,
+              textAlign: TextAlign.start,
+            ),
+            const SizedBox(height: 8),
+            // if (question.question!.questionType == QuestionType.FILL_IN_THE_BLANK)
+            //   ...question.question!.answer!.map((answer) => Padding(
+            //     padding: const EdgeInsets.only(bottom: 4.0),
+            //     child: Text(answer['answer'],
+            //         style: const TextStyle(fontSize: 14)),
+            //   ))
+            // else
+            ...question.options!.map((option) {
+              return option.key != null && option.isCorrect == true
+                  ? Padding(
+                padding: const EdgeInsets.only(bottom: 4.0),
+                child: Text(
+                  option.value!,
+                  style:
+                AppTextStyles.heading5,
+                  textAlign: TextAlign.start,
+                ),
+              )
+                  : const SizedBox.shrink();
+            }),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildExplanationSection(context) {
+    return SizedBox(
+      width: Get.width,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+           'ব্যাখ্যা',
+            style: AppTextStyles.heading5,
+          ),
+          const SizedBox(height: 8),
+          HtmlWidget(
+            question.explanation.toString(),
+            textStyle: AppTextStyles.body1,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildExplanationImage() {
+    String fileUrl = AppConstants.storageUrl + question.explanationImage.toString();
+    bool isPdf = fileUrl.toLowerCase().endsWith('.pdf');
+    return SizedBox(
+      width: Get.width,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'ব্যাখ্যাচিত্র',
+         style: AppTextStyles.heading5,
+          ),
+          const SizedBox(height: 8),
+          isPdf
+              ? InkWell(
+            onTap: () {
+              Get.to(() => PdfViewerScreen(
+                title: 'ব্যাখ্যা',
+                file: fileUrl,
+              ));
+            },
+            child: Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.picture_as_pdf,
+                      color: Colors.red, size: 24),
+                  const SizedBox(width: 8),
+                  Text(
+                    'ব্যাখ্যা',
+                    style: AppTextStyles.heading5,
+                  ),
+                ],
+              ),
+            ),
+          )
+              : Image.network(
+            AppConstants.storageUrl + question.explanationImage.toString(),
+            fit: BoxFit.cover,
+          ),
+        ],
+      ),
+    );
+  }
+}

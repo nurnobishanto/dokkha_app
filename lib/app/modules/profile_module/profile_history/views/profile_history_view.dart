@@ -2,10 +2,9 @@ import 'package:lokkha/config/extensions/common_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../../../../../config/constants/app_images.dart';
-import '../../../../../../config/theme/light_theme_colors.dart';
-import '../../../../../../styles/text_style.dart';
-import '../../../../../routes/app_pages.dart';
+import '../../../../../config/constants/app_images.dart';
+import '../../../../../config/theme/light_theme_colors.dart';
+import '../../../../../styles/text_style.dart';
 import '../controllers/profile_history_controller.dart';
 
 class ProfileHistoryView extends GetView<ProfileHistoryController> {

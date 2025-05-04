@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/modules/contest/controller/latest_contest_controller.dart';
-import 'package:lokkha/utils/constants.dart';
 
 import '../../../../styles/text_style.dart';
 import '../../nav_bar_views/home/components/home_components.dart';
-import '../models/contest_result_model.dart';
 
 class LastContestResultWidget extends StatelessWidget {
   const LastContestResultWidget({super.key});

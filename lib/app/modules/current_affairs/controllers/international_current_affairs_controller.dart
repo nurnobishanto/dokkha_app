@@ -4,7 +4,6 @@ import 'package:lokkha/app/modules/current_affairs/models/current_affairs_model.
 import 'package:lokkha/app/services/base_client.dart';
 import 'package:lokkha/utils/constants.dart';
 
-import '../../../data/local/my_get_storage.dart';
 
 class InternationalCurrentAffairsController extends GetxController {
   RxBool isLoading = true.obs;

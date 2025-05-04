@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:lokkha/app/components/custom_snackbar.dart';
 import 'package:lokkha/app/services/api_call_status.dart';
 import '../../utils/constants.dart';
-import '../../utils/utils.dart';
 import '../data/local/my_get_storage.dart';
 import '../data/local/my_shared_pref.dart';
 import '../models/fav_question_model.dart';
@@ -102,7 +101,7 @@ Future<bool> checkQuestionExistInSaved(int id) async {
 ApiCallStatus favApiCallStatus = ApiCallStatus.holding;
 RxBool isFavLoading = true.obs;
 Future<void> getFavList({bool refresh = false}) async {
-  isFavLoading.value = false;
+  isFavLoading.value = true;
   if (refresh) {
     MyGetStorage.removeCache(MyGetStorage.favQuestionsKey);
   }
@@ -128,7 +127,6 @@ Future<void> getFavList({bool refresh = false}) async {
     onSuccess: (response) {
       favApiCallStatus = ApiCallStatus.success;
       if (response.data['status']) {
-
         FavQuestionListModel modelData =
             FavQuestionListModel.fromJson(response.data);
         favoriteQuestionsModel.value = modelData;
@@ -139,6 +137,7 @@ Future<void> getFavList({bool refresh = false}) async {
       }
     },
     onError: (err) {
+      isFavLoading.value = false;
       favApiCallStatus = ApiCallStatus.error;
       CustomSnackBar.showCustomErrorToast(message: err.message);
     },

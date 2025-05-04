@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/modules/grid_views/latest_test/models/start_exam_model.dart';
 import 'package:lokkha/app/modules/subject_sections/models/sub_sec_select_model.dart';
+import 'package:lokkha/app/modules/subject_sections/views/read_question.dart';
 import '../../../../../utils/constants.dart';
 import '../../../components/custom_snackbar.dart';
 import '../../../data/local/my_shared_pref.dart';
@@ -45,7 +46,7 @@ class SubSecSetTimeController extends GetxController {
   RxObjectMixin model = StartExamModel().obs;
 
   ///  method
-  Future<void> testExamStart() async {
+  Future<void> testExamStart(String type) async {
     String? token = MySharedPref.getUserToken();
     if (token == '' || token.isEmpty) return;
     Map<String, dynamic> data = {
@@ -72,9 +73,16 @@ class SubSecSetTimeController extends GetxController {
           StartExamModel data = StartExamModel.fromJson(response.data);
           model.value = data;
           log("messages");
-          Get.to(ExamQuestionScreen(
-            examStartModel: model.value,
-          ));
+          if(type == 'exam'){
+            Get.to(ExamQuestionScreen(
+              examStartModel: model.value,
+            ));
+          }else{
+            Get.to(ReadQuestionView(
+              model: model.value,
+            ));
+          }
+
           log("My EXam Data: ${data.startTime.toString()}");
         } else if (response.data["status"] == false &&
             response.data.containsKey('errors')) {
@@ -88,7 +96,7 @@ class SubSecSetTimeController extends GetxController {
         }
 
         update();
-        debugPrint("Login successfully: ${response.data}");
+        debugPrint(" successfully: ${response.data}");
       },
       onError: (error) {
         apiCallStatus = ApiCallStatus.error;

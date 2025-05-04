@@ -1,11 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:lokkha/app/modules/subject_sections/controllers/sub_sec_set_time_controller.dart';
-import 'package:lokkha/app/modules/subject_sections/models/sub_sec_select_model.dart';
-import 'package:lokkha/app/modules/subject_sections/views/read_question.dart';
-
 import '../../../../config/theme/light_theme_colors.dart';
 import '../../../../styles/text_style.dart';
 import '../../../components/custom_action_button.dart';
@@ -162,40 +158,78 @@ class SubSectionsSetTimeView extends GetView {
                         style: AppTextStyles.body1,
                       ),
                       const SizedBox(height: 3.00),
-
-                      Wrap(
-                        spacing: 5,
-                        runSpacing: 5,
-                        children: dropdownItems.map((Map<String, String> item) {
+                      GridView.builder(
+                        shrinkWrap: true, // To make sure it takes only the required space
+                        physics: const NeverScrollableScrollPhysics(), // To prevent scrolling inside the grid
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2, // Number of columns
+                          crossAxisSpacing: 2, // Horizontal space between items
+                          mainAxisSpacing: 2, // Vertical space between items
+                          childAspectRatio: 6.5,
+                        ),
+                        itemCount: dropdownItems.length,
+                        itemBuilder: (context, index) {
+                          final item = dropdownItems[index];
                           return Obx(() => InkWell(
-                                onTap: () {
-                                  controller.selectedKey.value =
-                                      item['key'] ?? '';
-                                },
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Radio<String>(
-                                      materialTapTargetSize:
-                                          MaterialTapTargetSize.shrinkWrap,
-                                      visualDensity: VisualDensity.compact,
-                                      value: item['key'] ?? '',
-                                      groupValue: controller.selectedKey.value,
-                                      onChanged: (String? newValue) {
-                                        if (newValue != null) {
-                                          controller.selectedKey.value =
-                                              newValue;
-                                        }
-                                      },
-                                    ),
-                                    Text(
-                                      item['value'] ?? '',
-                                    ),
-                                  ],
+                            onTap: () {
+                              controller.selectedKey.value = item['key'] ?? '';
+                            },
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Radio<String>(
+                                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                  visualDensity: VisualDensity.compact,
+                                  value: item['key'] ?? '',
+                                  groupValue: controller.selectedKey.value,
+                                  onChanged: (String? newValue) {
+                                    if (newValue != null) {
+                                      controller.selectedKey.value = newValue;
+                                    }
+                                  },
                                 ),
-                              ));
-                        }).toList(),
+                                Text(
+                                  item['value'] ?? '',
+                                ),
+                              ],
+                            ),
+                          ));
+                        },
                       ),
+
+                      // Wrap(
+                      //   spacing: 5,
+                      //   runSpacing: 5,
+                      //   children: dropdownItems.map((Map<String, String> item) {
+                      //     return Obx(() => InkWell(
+                      //           onTap: () {
+                      //             controller.selectedKey.value =
+                      //                 item['key'] ?? '';
+                      //           },
+                      //           child: Row(
+                      //             mainAxisSize: MainAxisSize.min,
+                      //             children: [
+                      //               Radio<String>(
+                      //                 materialTapTargetSize:
+                      //                     MaterialTapTargetSize.shrinkWrap,
+                      //                 visualDensity: VisualDensity.compact,
+                      //                 value: item['key'] ?? '',
+                      //                 groupValue: controller.selectedKey.value,
+                      //                 onChanged: (String? newValue) {
+                      //                   if (newValue != null) {
+                      //                     controller.selectedKey.value =
+                      //                         newValue;
+                      //                   }
+                      //                 },
+                      //               ),
+                      //               Text(
+                      //                 item['value'] ?? '',
+                      //               ),
+                      //             ],
+                      //           ),
+                      //         ));
+                      //   }).toList(),
+                      // ),
 
                       const SizedBox(height: 50.00),
                       Row(
@@ -255,29 +289,11 @@ class SubSectionsSetTimeView extends GetView {
                     child: CustomActionButton(
                       text: "প্রশ্ন পড়ুন",
                       onPressed: () async {
-                        //if (setNumberController.text.isNotEmpty) {
-                        // SubjectSectionSelect newSubject = SubjectSectionSelect(
-                        //   id: subject?.id,
-                        //   name: subject.name,
-                        //   // quantity: min(
-                        //   //   int.tryParse(setNumberController.text)!.toInt(),
-                        //   //   subject.questionCount!.toInt(),
-                        //   // ),
-                        // );
-                        // await MySharedPref.addOrUpdateMockSubjectSelect(
-                        //     newSubject);
-
-                        // controller.getSubjects();
-
-                        // Get.to(() => ReadQuestionView(
-                        //   questionModel: controller.model.subject,
-                        //   questionIndex: 0,
-                        // ));
-
-                        // } else {
-                        //   CustomSnackBar.showCustomErrorToast(
-                        //       message: "please enter number of question!");
-                        // }
+                        if (isLoggedIn.value) {
+                          controller.testExamStart('read');
+                        } else {
+                          Get.toNamed(Routes.AUTH_GATEWAY);
+                        }
                       },
                     ),
                   ),
@@ -299,7 +315,7 @@ class SubSectionsSetTimeView extends GetView {
                           print("Question paper Data: $data}");
                         }
                         if (isLoggedIn.value) {
-                            controller.testExamStart();
+                            controller.testExamStart('exam');
                         } else {
                           Get.toNamed(Routes.AUTH_GATEWAY);
                         }

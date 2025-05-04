@@ -41,13 +41,19 @@ class AppConstants {
   static const String about = "$appUrl/page/about";
   /// Premium Package
   static const String premiumPackage = "$appUrl/packages";
-  static const String packageOrderUrl = '$appUrl/package-order/';
+  static const String packageOrderUrl = '$appUrl/package/order';
+  static const String couponApply = '$appUrl/coupon-apply';
 
   /// Contest related
   static const String latestContest = "$appUrl/latest-contest";
   static const String startContest = "$appUrl/contest/";
   static const String latestContestResult = "$appUrl/latest-contest-result";
+
   /// Subject Section related..
   static const String subjectSections = "$appUrl/subject-sections";
+  /// Subject Section related..
+  static const String myPackages = "$appUrl/my-packages";
+  static const String myOrders = "$appUrl/my-orders";
+  static const String myOrdersDetails = "$appUrl/package/order";
 
 }

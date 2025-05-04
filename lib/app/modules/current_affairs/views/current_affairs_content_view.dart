@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,6 +5,7 @@ import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/modules/current_affairs/controllers/current_affairs_controller.dart';
+import 'package:lokkha/config/extensions/common_extension.dart';
 import 'package:lokkha/styles/text_style.dart';
 
 import '../../../../config/theme/light_theme_colors.dart';
@@ -29,14 +29,14 @@ class CurrentAffairsContentView extends StatelessWidget {
               firstDate: DateTime(2000),
               lastDate: DateTime(2100),
             );
-            if (pickedDate != null ) {
-              String formattedDate = "${pickedDate.year}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
-              controller.fetchCurrentAffairs("",date: formattedDate);
+            if (pickedDate != null) {
+              String formattedDate =
+                  "${pickedDate.year}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
+              controller.fetchCurrentAffairs("", date: formattedDate);
             }
           },
         ),
       ),
-
       body: Obx(() {
         if (controller.isLoading.value) {
           return const Center(child: CircularProgressIndicator());
@@ -47,11 +47,11 @@ class CurrentAffairsContentView extends StatelessWidget {
         if (items!.isEmpty) {
           return const Center(child: Text('No Data Found'));
         }
-            
+
         return ListView.builder(
-          itemCount: items.length + 1, // +1 because we want to show "Load More" button after last item
+          itemCount: items.length +
+              1, // +1 because we want to show "Load More" button after last item
           itemBuilder: (context, index) {
-        
             if (index == items.length) {
               // Last index => Load More Button
               if (controller.currentPage.value <
@@ -91,28 +91,31 @@ class CurrentAffairsContentView extends StatelessWidget {
                 return const SizedBox.shrink();
               }
             }
-        
+
             // Normal Data Row
             final data = items[index];
-            print("tyweugruikegkjerbg:${data}");
-        
+
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-        
                   Row(
                     children: [
-                      Text(
-                        data.date.toString() ?? "",
-                        style: AppTextStyles.heading4,
+                      const Expanded(child: Divider()),
+                      10.0.w.width,
+                      Center(
+                        child: Text(
+                          data.date ?? "",
+                          style: AppTextStyles.heading4,
+                        ),
                       ),
-                      const SizedBox(width: 5),
-                      Expanded(child: const Divider()),
+                      10.0.w.width,
+                      const Expanded(child: Divider()),
                     ],
                   ),
-                  const SizedBox(height: 5.00),
+                  10.0.h.height,
                   ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
@@ -121,53 +124,79 @@ class CurrentAffairsContentView extends StatelessWidget {
                       var question = data.questions![i];
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-        
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Icon(FontAwesomeIcons.arrowRight,size: 18.0,),
-                            const SizedBox(width: 5.00),
-                            Expanded(
-                              child: HtmlWidget(
-                                question.title.toString() ?? "",
-                                textStyle: AppTextStyles.heading5,
-                              ),
-                            ),
-                          ],
-                        ),
-                          const SizedBox(height: 4),
-                          // Answer Row
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("উত্তর :", style: AppTextStyles.heading5),
-                              const SizedBox(width: 5),
+                              const Icon(
+                                FontAwesomeIcons.arrowRight,
+                                size: 15.0,
+                              ),
+                              const SizedBox(width: 5.00),
                               Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: question.options?.where((option) => option.isCorrect == true).map((option) {
-                                    return Padding(
-                                      padding: const EdgeInsets.only(bottom: 4.0),
-                                      child: HtmlWidget(
-                                        option.value ?? "",
-                                        textStyle: AppTextStyles.body1,
-                                      ),
-                                    );
-                                  }).toList() ?? [],
+                                child: HtmlWidget(
+                                  question.title ?? "",
+                                  textStyle: AppTextStyles.heading5,
                                 ),
                               ),
                             ],
                           ),
-                      ],);
+                          const SizedBox(height: 4),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: question.options
+                                    ?.where(
+                                        (option) => option.isCorrect == true)
+                                    .map((option) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(bottom: 4.0),
+                                    child: HtmlWidget(
+                                      '<b>উত্তর:</b> ${option.value ?? ""}',
+                                      textStyle: AppTextStyles.body1,
+                                    ),
+                                  );
+                                }).toList() ??
+                                [],
+                          ),
+                          Align(
+                            alignment: Alignment.topRight,
+                            child:
+                              InkWell(
+                                onTap: () {
+                                  Get.dialog(
+                                    AlertDialog(
+                                      title: Text(
+                                        "ব্যাখ্যা",
+                                       textAlign: TextAlign.center,
+                                        style: AppTextStyles.heading4.copyWith(
+                                          color: LightThemeColors.primaryColor,
+                                        ),
+                                      ),
+                                      content: Text(
+                                        data.questions?[index].explanation ?? '',
+                                        style: AppTextStyles.body1,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: Text(
+                                  "ব্যাখ্যা দেখুন →",
+                                  style: AppTextStyles.body1.copyWith(
+                                    color: LightThemeColors.primaryColor,
+                                  ),
+                                  textAlign: TextAlign.end,
+                                ),
+                              ),
+
+                          ),
+                          const SizedBox(height: 10.00),
+                        ],
+                      );
                     },
                   ),
                   // Title Row
-        
-        
-        
                 ],
               ),
             );

@@ -4,7 +4,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/components/custom_action_button.dart';
 import 'package:lokkha/app/components/custom_text_form_field.dart';
-import 'package:lokkha/app/data/local/my_shared_pref.dart';
 import 'package:lokkha/config/extensions/common_extension.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
 import '../../../../styles/text_style.dart';

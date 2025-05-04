@@ -114,7 +114,7 @@ class ProfileUpdateRequiredController extends GetxController {
           });
         } else {
           CustomSnackBar.showCustomToast(
-            message: error.message ?? "Something went wrong",
+            message: error.message,
           );
         }
         update();

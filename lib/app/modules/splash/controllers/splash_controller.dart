@@ -1,6 +1,4 @@
 import 'package:get/get.dart';
-import 'package:lokkha/app/data/local/my_shared_pref.dart';
-import 'package:lokkha/app/helper/global.dart';
 import '../../../routes/app_pages.dart';
 
 class SplashController extends GetxController {

@@ -28,7 +28,6 @@ class MockTestController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    print("✅ MockTestController initialized!");
   }
   @override
   void onReady() {

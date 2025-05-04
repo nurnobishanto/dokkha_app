@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/modules/auth_views/auth_gateway/views/auth_gateway_view.dart';
 import 'package:lokkha/app/modules/contest/models/contest_result_model.dart';
@@ -69,21 +70,20 @@ class LatestContestController extends GetxController {
         } else {
           status.value = 'ongoing';
           timer.cancel();
-          print("✅ Event Started. You can now show Ongoing or do something.");
+          if (kDebugMode) {
+            print("✅ Event Started. You can now show Ongoing or do something.");
+          }
           // এখানে চাইলে নতুন আরেকটা Timer চালিয়ে ongoing এর সময় ট্র্যাক করতে পারো
         }
         update();
       });
 
-      print("⏳ Event is upcoming. Countdown started.");
     } else if (now.isBefore(endDatetime)) {
       // 🟡 Event ongoing
       status.value = 'ongoing';
-      print("🟡 Event is ongoing.");
     } else {
       status.value = 'ended';
       // 🔴 Event ended
-      print("🔴 Event has ended.");
     }
   }
 
@@ -146,7 +146,7 @@ class LatestContestController extends GetxController {
                       ? AppConstants.storageUrl + result.user!.image
                       : (result.user!.avatar != null && result.user!.avatar != '')
                       ? result.user!.avatar
-                      : 'https://lokkha.com/uploads/files/shares/sadman/avatar.png',
+                      : 'https://lokkha.com/uploads/files/shares/app/avatar.png',
                   sl: sl,
                   resultId: result.id!.toInt()),
             );
@@ -166,7 +166,6 @@ class LatestContestController extends GetxController {
 Rx<ContestStartModel> contestStartModel = ContestStartModel().obs;
   Future<void> startContest() async {
     String? token = MySharedPref.getUserToken();
-    print("Tokenn:$token");
     if (token == '' || token.isEmpty) return Get.to(const AuthGatewayView());
     await BaseClient.safeApiCall(
       '${AppConstants.startContest}${contestModel.value.contest!.id}/start',

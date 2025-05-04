@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:lokkha/utils/constants.dart';
 
 import '../../../data/local/my_get_storage.dart';
-import '../../../data/local/my_shared_pref.dart';
 import '../../../helper/global.dart';
 import '../../../services/base_client.dart';
 import '../models/random_question_model.dart';

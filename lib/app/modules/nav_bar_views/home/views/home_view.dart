@@ -17,8 +17,8 @@ import 'package:lokkha/utils/constants.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../../../../../config/constants/app_images.dart';
 import '../../../../../styles/text_style.dart';
-import '../../../../routes/app_pages.dart';
 import '../../../current_affairs/views/current_affairs_view.dart';
+import '../../../subject_sections/models/sub_sec_select_model.dart';
 import '../../../subject_sections/views/subject_sections_view.dart';
 import '../controllers/home_controller.dart';
 
@@ -108,7 +108,6 @@ class HomeView extends GetView<HomeController> {
               //     onPressed: () {
               //       Get.toNamed(Routes.PREMIUM_PACKAGES);
               //     }),
-
               /// Second Column with others Widget
               Expanded(
                 child: SingleChildScrollView(
@@ -278,8 +277,22 @@ class HomeView extends GetView<HomeController> {
                                   final data = controller.subjectSectionModel
                                       .value.subjectSections![index];
                                   return GestureDetector(
-                                    onTap: () {
-                                      //Get.toNamed(Routes.SUBJECT_SECTION);
+                                    onTap: () async {
+                                      MySharedPref.clearSubjectSection();
+                                      SubjectSectionSelect newSubject = SubjectSectionSelect(
+                                        id: controller
+                                            .subjectSectionModel
+                                            .value
+                                            .subjectSections![index]
+                                            .subject?.id?? 0,
+                                        name: controller
+                                            .subjectSectionModel
+                                            .value
+                                            .subjectSections![index]
+                                            .subject?.name?? '',
+                                        quantity:20,
+                                      );
+                                      await MySharedPref.addOrUpdateSubjectSectionSelect(newSubject);
                                       Get.to(
                                         SubjectSectionView(
                                           subject: controller
@@ -289,6 +302,8 @@ class HomeView extends GetView<HomeController> {
                                               .subject,
                                         ),
                                       );
+
+
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(

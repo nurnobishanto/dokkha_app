@@ -1,13 +1,10 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/modules/grid_views/jobs/views/jobs_view.dart';
-import 'package:lokkha/app/modules/grid_views/latest_test/views/latest_subject_test_view.dart';
 import 'package:lokkha/app/modules/nav_bar_views/home/models/subject_sections_model.dart';
 import 'package:lokkha/app/modules/nav_bar_views/home/services/home_api_service.dart';
 import 'package:lokkha/comming_soon_view.dart';
-import '../../../../routes/app_pages.dart';
 import '../../../../services/api_call_status.dart';
 import '../../../grid_views/mock_test_tab/views/mock_test_tab_view.dart';
 import '../models/slider_model.dart';

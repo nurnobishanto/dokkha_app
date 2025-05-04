@@ -9,7 +9,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import '../../../../routes/app_pages.dart';
-import '../../sign_up/controllers/sign_up_controller.dart';
 import '../controllers/signin_controller.dart';
 
 class SignInView extends GetView<SignInController> {
@@ -74,7 +73,7 @@ class SignInView extends GetView<SignInController> {
                         alignment: Alignment.topRight,
                         child: GestureDetector(
                           onTap: () {
-                            //Get.toNamed(Routes.FORGET_PASSWORD);
+
                             Get.toNamed(Routes.VERIFY_OTP, arguments: {
                               'phoneNumber': phoneNumber,
                               'type': 'Login',
@@ -94,6 +93,7 @@ class SignInView extends GetView<SignInController> {
                         text: "এগিয়ে যান",
                         isLoading: controller.isLoading,
                         onPressed: () {
+
                           controller.login(
                             phoneNumber,
                             type,

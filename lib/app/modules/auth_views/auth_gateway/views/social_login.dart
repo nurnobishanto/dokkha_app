@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class SocialLoginWebView extends StatefulWidget {
@@ -22,17 +21,19 @@ class _SocialLoginWebViewState extends State<SocialLoginWebView> {
       ..setNavigationDelegate(
         NavigationDelegate(
           onProgress: (int progress) {
-            print("Progress Url  :::$progress");
           },
           onPageStarted: (String url) {
-            print("onPageStarted Url  :::$url");
           },
           onPageFinished: (String url) {
-            print("onPageFinished Url  :::$url");
+            if (kDebugMode) {
+              print("onPageFinished Url  :::$url");
+            }
           },
           onWebResourceError: (WebResourceError error) {},
           onNavigationRequest: (NavigationRequest request) {
-            print("Request Url  :::${request.url}");
+            if (kDebugMode) {
+              print("Request Url  :::${request.url}");
+            }
             // if (request.url.contains("google")) {
             //   return NavigationDecision.prevent;
             // }

@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 
 import '../../my_app/bindings/my_app_binding.dart';
 import '../../my_app/views/my_app_view.dart';
-import '../../my_app/views/my_app_view.dart';
 import '../modules/auth_views/auth_gateway/bindings/auth_gateway_binding.dart';
 import '../modules/auth_views/auth_gateway/views/auth_gateway_view.dart';
 import '../modules/auth_views/forget_password/bindings/forget_password_binding.dart';
@@ -32,24 +31,26 @@ import '../modules/nav_bar_views/contest/bindings/contest_binding.dart';
 import '../modules/nav_bar_views/contest/views/contest_view.dart';
 import '../modules/nav_bar_views/home/bindings/home_binding.dart';
 import '../modules/nav_bar_views/home/views/home_view.dart';
-import '../modules/nav_bar_views/profile_module/profile/bindings/profile_binding.dart';
-import '../modules/nav_bar_views/profile_module/profile/views/profile_view.dart';
-import '../modules/nav_bar_views/profile_module/profile_history/bindings/profile_history_binding.dart';
-import '../modules/nav_bar_views/profile_module/profile_history/views/profile_history_view.dart';
-import '../modules/nav_bar_views/profile_module/profile_update/bindings/profile_update_binding.dart';
-import '../modules/nav_bar_views/profile_module/profile_update/views/profile_update_view.dart';
+import '../modules/profile_module/profile/bindings/profile_binding.dart';
+import '../modules/profile_module/profile/views/profile_view.dart';
+import '../modules/profile_module/profile_history/bindings/profile_history_binding.dart';
+import '../modules/profile_module/profile_history/views/profile_history_view.dart';
+import '../modules/profile_module/profile_update/bindings/profile_update_binding.dart';
+import '../modules/profile_module/profile_update/views/profile_update_view.dart';
 import '../modules/nav_bar_views/question_bank/bindings/question_bank_binding.dart';
 import '../modules/nav_bar_views/question_bank/views/question_bank_view.dart';
 import '../modules/navbar/bindings/navbar_binding.dart';
 import '../modules/navbar/views/navbar_view.dart';
 import '../modules/premium_packages/bindings/premium_packages_binding.dart';
 import '../modules/premium_packages/views/premium_packages_view.dart';
+import '../modules/profile_module/my_orders/bindings/my_orders_binding.dart';
+import '../modules/profile_module/my_orders/views/my_orders_view.dart';
+import '../modules/profile_module/my_packages/bindings/my_packages_binding.dart';
+import '../modules/profile_module/my_packages/views/my_packages_view.dart';
 import '../modules/profile_update_required/bindings/profile_update_required_binding.dart';
 import '../modules/profile_update_required/views/profile_update_required_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
-import '../modules/subject_sections/bindings/subject_section_binding.dart';
-import '../modules/subject_sections/views/subject_sections_view.dart';
 import '../views/views/onboarding_view.dart';
 
 part 'app_routes.dart';
@@ -193,5 +194,15 @@ class AppPages {
     //   page: () => const SubjectSectionView(subject: null,),
     //   binding: SubjectSectionBinding(),
     // ),
+    GetPage(
+      name: _Paths.MY_PACKAGES,
+      page: () => const MyPackagesView(),
+      binding: MyPackagesBinding(),
+    ),
+    GetPage(
+      name: _Paths.MY_ORDERS,
+      page: () => const MyOrdersView(),
+      binding: MyOrdersBinding(),
+    ),
   ];
 }

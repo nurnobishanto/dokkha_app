@@ -8,7 +8,6 @@ import '../../../../config/theme/light_theme_colors.dart';
 import '../../../components/custom_action_button.dart';
 import '../../../data/local/my_shared_pref.dart';
 import '../../../helper/global.dart';
-import '../models/random_question_model.dart';
 
 // class RandomQuestionSelector extends StatelessWidget {
 //   final RxInt selectedOptionIndex = RxInt(-1);
@@ -174,7 +173,6 @@ import '../models/random_question_model.dart';
 //   }
 // }
 
-import 'package:flutter/material.dart';
 
 class RandomQuestionSelector extends StatelessWidget {
   final RxInt selectedOptionIndex = RxInt(-1);
@@ -285,7 +283,7 @@ class RandomQuestionSelector extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                content: Text(question.explanation.toString()),
+                                content: HtmlWidget(question.explanation.toString()),
                               ),
                             );
                           },

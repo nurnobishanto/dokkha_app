@@ -4,12 +4,11 @@ import 'package:lokkha/app/components/custom_snackbar.dart';
 import 'package:lokkha/app/helper/api_helper.dart';
 import 'package:lokkha/app/routes/app_pages.dart';
 import 'package:lokkha/app/helper/global.dart';
-import 'package:lokkha/utils/utils.dart';
 
-import '../../../../../../utils/constants.dart';
-import '../../../../../data/local/my_shared_pref.dart';
-import '../../../../../services/auth_service.dart';
-import '../../../../../services/base_client.dart';
+import '../../../../../utils/constants.dart';
+import '../../../../data/local/my_shared_pref.dart';
+import '../../../../services/auth_service.dart';
+import '../../../../services/base_client.dart';
 
 class ProfileController extends GetxController {
 

@@ -6,12 +6,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import '../../../../../config/constants/app_images.dart';
-import '../../../../../config/theme/light_theme_colors.dart';
 import '../../../../../styles/text_style.dart';
 import '../../../../components/custom_action_button.dart';
 import '../../../../components/custom_snackbar.dart';
 import '../../../../components/custom_text_form_field.dart';
-import '../../../../routes/app_pages.dart';
 import '../controllers/sign_up_controller.dart';
 
 class SignUpView extends GetView<SignUpController> {
@@ -52,6 +50,7 @@ class SignUpView extends GetView<SignUpController> {
                       prefixIcon: const Icon(FontAwesomeIcons.phone),
                       hintText: "আপনার ১১ সংখ্যার ফোন নম্বর লিখুন",
                       hintStyle: AppTextStyles.body2,
+                      keyboardType: TextInputType.number,
                     ),
                     1.0.h.height,
                     CustomActionButton(

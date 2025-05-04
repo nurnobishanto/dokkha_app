@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:lokkha/app/modules/auth_views/auth_gateway/views/auth_gateway_view.dart';
 import '../../../../config/theme/light_theme_colors.dart';
-import '../../../data/local/my_shared_pref.dart';
-import '../../../helper/global.dart';
 import '../controllers/navbar_controller.dart';
 
 class NavbarView extends GetView<NavbarController> {

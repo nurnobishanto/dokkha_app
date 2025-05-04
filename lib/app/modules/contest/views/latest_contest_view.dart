@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
-import 'package:lokkha/app/components/custom_action_button.dart';
 import 'package:lokkha/app/data/local/my_shared_pref.dart';
 import 'package:lokkha/app/modules/auth_views/auth_gateway/views/auth_gateway_view.dart';
 import 'package:lokkha/app/modules/contest/widgets/latest_contest_widget.dart';
@@ -11,7 +10,6 @@ import 'package:lokkha/utils/constants.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../controller/latest_contest_controller.dart';
-import 'contest_exam_view.dart';
 
 class LatestContestView extends StatelessWidget {
   const LatestContestView({super.key});
@@ -72,7 +70,7 @@ class LatestContestView extends StatelessWidget {
               );
             },
             label: const Text(
-              "পরীক্ষা শুরু করুন",
+              "কনটেস্ট শুরু করুন",
               style: TextStyle(color: Colors.white),
             ),
             icon: const Icon(

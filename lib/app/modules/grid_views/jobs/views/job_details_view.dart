@@ -1,14 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lokkha/app/modules/auth_views/auth_gateway/views/auth_gateway_view.dart';
 import 'package:lokkha/app/modules/grid_views/jobs/controllers/jobs_controller.dart';
 import 'package:lokkha/styles/text_style.dart';
 import 'package:lokkha/utils/constants.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../../../../../utils/date_formatter.dart';
-import '../../../../helper/global.dart';
 
 class JobDetailsScreen extends StatelessWidget {
   final int id;

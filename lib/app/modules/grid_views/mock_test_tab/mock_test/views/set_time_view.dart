@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:lokkha/app/modules/auth_views/signin/views/signin_view.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
 import '../../../../../../styles/text_style.dart';
 import '../../../../../components/custom_action_button.dart';

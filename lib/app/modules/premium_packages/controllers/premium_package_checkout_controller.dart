@@ -1,8 +1,8 @@
-import 'dart:math';
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:lokkha/app/components/custom_snackbar.dart';
+import 'package:lokkha/app/services/api_call_status.dart';
 import 'package:lokkha/app/services/base_client.dart';
 import 'package:lokkha/utils/constants.dart';
 import '../../../data/local/my_shared_pref.dart';
@@ -16,10 +16,10 @@ class PremiumPackageCheckoutController extends GetxController {
   RxBool isCheckedCondition = false.obs;
   //************************** Text Field Area ******************************* */
   final Rx<TextEditingController> nameController = TextEditingController(
-    text: profileDataModel.value.data!.name.toString(),
+    text: profileDataModel.value.data!.name ?? '',
   ).obs;
   final Rx<TextEditingController> phoneController =
-      TextEditingController(text: profileDataModel.value.data!.phone.toString())
+      TextEditingController(text: profileDataModel.value.data!.phone?? '')
           .obs;
 
   final Rx<TextEditingController> mailController =
@@ -33,7 +33,7 @@ class PremiumPackageCheckoutController extends GetxController {
   Future<void> makePayment(int id) async {
     String email = mailController.value.text.toString().trim();
     String? token = MySharedPref.getUserToken();
-    String orderPlaceUrl = "${AppConstants.packageOrderUrl}$id";
+    String orderPlaceUrl = "${AppConstants.packageOrderUrl}/$id";
 
     Map<String, String> headers = {
       'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ class PremiumPackageCheckoutController extends GetxController {
     };
     // Create a map containing
     Map<String, dynamic> data = {
-      //'discount': couponModel.value.discount,
+      //'coupon_code': couponModel.value.discount,
       'email': email,
       'payment_method': selectedPaymentMethod.value,
     };
@@ -55,85 +55,113 @@ class PremiumPackageCheckoutController extends GetxController {
         if (response.data["status"]) {
           print("PAYMENT: ${response.data["status"]}");
           isLoading.value = false;
-          PackageCheckoutModel data = PackageCheckoutModel.fromJson(response.data);
+          PackageCheckoutModel data =
+              PackageCheckoutModel.fromJson(response.data);
           dataModel.value = data;
-          //Get.to(PaymentWebView(url: data.paymentUrl.toString()));
-          Get.to( const PaymentWebView(url:'https://bdtaxation.com/api/order/1748/payment?payment_method=bkash' ),);
+          Get.to(PaymentWebView(url: data.paymentUrl.toString()));
         } else {
           isLoading.value = false;
-          CustomSnackBar.showCustomToast(title: "Something Went Wrong!", message: response.data["message"].toString());
+          CustomSnackBar.showCustomToast(
+              title: "Something Went Wrong!",
+              message: response.data["message"].toString());
         }
       },
     );
-
   }
 
   //
 
   RxInt selectedPayment = 0.obs;
-  RxString selectedPaymentMethod = RxString("BKASH"); // Default selected index
+  RxString selectedPaymentMethod = RxString("bkash"); // Default selected index
 
   void setSelectedPayment(int index) {
     selectedPayment.value = index;
     switch (selectedPayment.value) {
       case 0:
-        selectedPaymentMethod.value = "BKASH";
+        selectedPaymentMethod.value = "bkash";
         break;
       case 1:
-        selectedPaymentMethod.value = "NAGAD";
+        selectedPaymentMethod.value = "nagad";
         break;
       case 2:
-        selectedPaymentMethod.value = "SSLCOMMERZ";
+        selectedPaymentMethod.value = "sslcommerz";
         break;
       default:
-        selectedPaymentMethod.value = "BKASH";
+        selectedPaymentMethod.value = "bkash";
         break;
     }
   }
-  //
-  // RxObjectMixin<CouponModel> couponModel =
-  //     CouponModel(discount: "0", status: false, finalAmount: " 0").obs;
-  //
-  // Future<void> postCoupon(String couponCode, String price, context) async {
-  //   String? token = MySharedPref.getUserToken();
-  //   String url = AppUrl.couponCode;
-  //   NetworkApiServices networkApiServices = NetworkApiServices();
-  //   Map<String, String> headers = {
-  //     'Content-Type': 'application/json',
-  //     'Authorization': 'Bearer $token',
-  //   };
-  //   Map<String, dynamic> data = {
-  //     'code': couponCode,
-  //     'amount': price,
-  //     'model': "Package",
-  //   };
-  //   var response =
-  //       await networkApiServices.postApi(data, url, headers: headers);
-  //   if (kDebugMode) {
-  //     print("response: ${response["finalAmount"]}");
-  //   }
-  //   if (response["status"]) {
-  //     log(" Coupon Done");
-  //     CouponModel cm = CouponModel.fromJson(response);
-  //     couponModel.value = cm;
-  //     Utils.toastMessage(response["message"]);
-  //   } else if (!response["status"]) {
-  //     couponModel.value =
-  //         CouponModel(discount: "0", status: false, finalAmount: " 0");
-  //     //     : "কিছু ভুল হয়েছে। দয়া করে আবার চেষ্টা করুন।";
-  //     showErrorDialog(context, response);
-  //   } else {
-  //     couponModel.value =
-  //         CouponModel(discount: "0", status: false, finalAmount: " 0");
-  //     Utils.snackBar("Something Went Wrong!", "");
-  //   }
-  // }
-  //
-  // void updateCoupon() {
-  //   if (!isChecked.value) {
-  //     couponModel.value =
-  //         CouponModel(discount: "0", status: false, finalAmount: " 0");
-  //     couponController.text = "";
-  //   }
-  // }
+
+/// Apply coupon Method...
+  ApiCallStatus apiCallStatus = ApiCallStatus.holding;
+  RxString appliedCouponMessage = "".obs;
+  RxInt discountAmount = (-1).obs;
+  RxInt totalAmount = (-1).obs;
+  Future<void> couponApply(String couponCode, String price, BuildContext context) async {
+    apiCallStatus = ApiCallStatus.loading;
+    update();
+    String ? token = MySharedPref.getUserToken();
+    const String url = AppConstants.couponApply;
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+
+    final data = {
+      'coupon_code': couponCode,
+      'price': price,
+    };
+
+    await BaseClient.safeApiCall(
+      url,
+      headers: headers,
+      RequestType.post,
+      data: data,
+      onSuccess: (response) {
+        final status = response.data["status"];
+        final message = response.data["message"];
+
+        if (status == true) {
+          apiCallStatus = ApiCallStatus.success;
+          appliedCouponMessage.value = message; // Optional
+          discountAmount.value = int.tryParse(response.data["discount"].toString()) ?? -1;
+          totalAmount.value = int.tryParse(response.data["discount_price"].toString()) ?? -1;
+          CustomSnackBar.showCustomToast(message: message);
+        } else {
+          apiCallStatus = ApiCallStatus.error;
+          appliedCouponMessage.value = "";
+          discountAmount.value = -1;
+          totalAmount.value = -1;
+          CustomSnackBar.showCustomErrorToast(message: message);
+        }
+
+        update();
+      },
+      onError: (error) {
+        apiCallStatus = ApiCallStatus.error;
+        update();
+        debugPrint("Coupon API error: $error");
+        CustomSnackBar.showCustomErrorToast(message: "সার্ভারে সমস্যা হয়েছে");
+      },
+    );
+  }
+
+  void updateCoupon() {
+    if (!isChecked.value) {
+      couponController.clear();
+      // কুপন ইনঅ্যাক্টিভ হলে status reset করা যায়
+      apiCallStatus = ApiCallStatus.holding;
+      // কুপন success message-এর জন্য আলাদা ভ্যারিয়েবল reset করতে পারো
+      appliedCouponMessage.value = "";
+      discountAmount.value = -1;
+      totalAmount.value = -1;
+    }
+  }
+  @override
+  void onInit() {
+    getMeProfileInfo();
+    super.onInit();
+  }
+
+
 }

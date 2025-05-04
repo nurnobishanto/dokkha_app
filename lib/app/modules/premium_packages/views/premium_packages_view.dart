@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/components/custom_app_bar.dart';
+import 'package:lokkha/app/helper/global.dart';
+import 'package:lokkha/app/modules/auth_views/auth_gateway/views/auth_gateway_view.dart';
 import 'package:lokkha/app/modules/premium_packages/views/premium_package_checkout_view.dart';
 import '../../../../styles/text_style.dart';
 import '../controllers/premium_packages_controller.dart';
@@ -33,26 +35,36 @@ class PremiumPackagesView extends GetView<PremiumPackagesController> {
                     _buildHeaderRow(),
                     const Divider(height: 0, color: Colors.grey),
                     Flexible(
-                      child: ListView.separated(
+                      child: ListView.builder(
                         itemCount: controller.model.value.packages?.length ?? 0,
-                        separatorBuilder: (_, __) =>
-                            const Divider(height: 0, color: Colors.grey),
                         itemBuilder: (context, index) {
                           final pkg = controller.model.value.packages![index];
-                          return _buildPackageTable(
-                            onTapCheckout: () {
-                              Get.to(PremiumPackageCheckoutView(
-                                packagesModel: pkg,
-                              ));
-                            },
-                            title: pkg.name.toString(),
-                            duration: '${pkg.duration.toString()} দিন',
-                            price: pkg.discountedPrice.toString(),
-                            oldPrice: pkg.regularPrice.toString(),
-                            discount: '- ${pkg.discount.toString()}%',
-                            features: (jsonDecode(pkg.features.toString())
-                                    as List<dynamic>)
-                                .cast<String>(),
+                          return Column(
+                            children: [
+                              _buildPackageTable(
+                                onTapCheckout: () {
+                                  if(isLoggedIn.value){
+                                    Get.to(
+                                      PremiumPackageCheckoutView(
+                                        packagesModel: pkg,
+                                      ),
+                                    );
+                                  }else{
+                                    Get.to(const AuthGatewayView());
+                                  }
+
+                                },
+                                title: pkg.name.toString(),
+                                duration: '${pkg.duration.toString()} দিন',
+                                price: pkg.discountedPrice.toString(),
+                                oldPrice: pkg.regularPrice.toString(),
+                                discount: '- ${pkg.discount.toString()}%',
+                                features: (jsonDecode(pkg.features.toString())
+                                        as List<dynamic>)
+                                    .cast<String>(),
+                              ),
+                              const Divider(height: 0),
+                            ],
                           );
                         },
                       ),
@@ -89,12 +101,12 @@ class PremiumPackagesView extends GetView<PremiumPackagesController> {
     required List<String> features,
   }) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+      padding: const EdgeInsets.only(top: 3, bottom: 1, left: 8, right: 8),
       child: Table(
         columnWidths: const {
-          0: FlexColumnWidth(2),
-          1: FixedColumnWidth(16),
-          2: FlexColumnWidth(1.3),
+          0: FlexColumnWidth(3),
+          1: FixedColumnWidth(6),
+          2: FlexColumnWidth(2),
         },
         children: [
           TableRow(
@@ -103,9 +115,13 @@ class PremiumPackagesView extends GetView<PremiumPackagesController> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 14)),
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
+                  ),
                   Text(
                     duration,
                     style: const TextStyle(

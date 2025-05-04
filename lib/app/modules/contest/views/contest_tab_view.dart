@@ -14,7 +14,7 @@ class ContestTabView extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        appBar: CustomAppBar(title: 'কনটেস্ট'),
+        appBar: const CustomAppBar(title: 'কনটেস্ট'),
         backgroundColor: LightThemeColors.primaryColor,
         body: SafeArea(
           maintainBottomViewPadding: true,

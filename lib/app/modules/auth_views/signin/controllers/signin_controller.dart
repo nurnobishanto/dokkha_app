@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/data/local/my_shared_pref.dart';
-import 'package:lokkha/app/services/auth_service.dart';
 
 import '../../../../helper/global.dart';
 import '../../../../../utils/constants.dart';

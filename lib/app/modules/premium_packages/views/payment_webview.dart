@@ -17,7 +17,7 @@ class _PaymentWebViewState extends State<PaymentWebView> {
   late WebViewController webViewController;
   @override
   void initState() {
-    debugPrint("Payment url:${widget.url}");
+    debugPrint("Payment url page:${widget.url}");
     super.initState();
     webViewController = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
@@ -29,7 +29,7 @@ class _PaymentWebViewState extends State<PaymentWebView> {
           onPageFinished: (String url) {},
           onWebResourceError: (WebResourceError error) {},
           onNavigationRequest: (NavigationRequest request) {
-            if (request.url.endsWith('details')) {
+            if (request.url.contains('order-details')) {
               Get.off(const NavbarView());
             } else if (request.url.startsWith("https://youtube.com")) {
               return NavigationDecision.prevent;
@@ -46,19 +46,17 @@ class _PaymentWebViewState extends State<PaymentWebView> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      return Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            "পেমেন্ট করুন",
-            style: TextStyle(color: Colors.white),
-          ),
-          centerTitle: true,
-          iconTheme: const IconThemeData(color: Colors.white),
-          backgroundColor: LightThemeColors.primaryColor,
+    return   Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "পেমেন্ট করুন",
+          style: TextStyle(color: Colors.white),
         ),
-        body: WebViewWidget(controller: webViewController),
-      );
-    });
+        centerTitle: true,
+        iconTheme: const IconThemeData(color: Colors.white),
+        backgroundColor: LightThemeColors.primaryColor,
+      ),
+      body: WebViewWidget(controller: webViewController),
+    );
   }
 }

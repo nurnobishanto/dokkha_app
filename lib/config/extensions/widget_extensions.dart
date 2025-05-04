@@ -387,12 +387,12 @@ Decoration boxDecorationRoundedWithShadow(
     }) {
   return BoxDecoration(
     boxShadow: defaultBoxShadow(
-      shadowColor: shadowColor ?? Colors.grey.withOpacity(0.065),
+      shadowColor: shadowColor ?? Colors.grey.withValues(alpha: 0.065),
       blurRadius: blurRadius,
       spreadRadius: spreadRadius,
       offset: offset,
     ),
-    color: backgroundColor == null ? Colors.amber : backgroundColor,
+    color: backgroundColor ?? Colors.amber,
     gradient: gradient,
     borderRadius: radius(radiusAll.toDouble()),
   );

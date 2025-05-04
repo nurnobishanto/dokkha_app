@@ -4,10 +4,6 @@ class FastPracticeController extends GetxController {
   //TODO: Implement FastPracticeController
 
   final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
   @override
   void onReady() {

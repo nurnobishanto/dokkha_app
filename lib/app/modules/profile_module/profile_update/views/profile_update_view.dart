@@ -8,9 +8,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../../../../../config/constants/app_images.dart';
-import '../../../../../helper/api_helper.dart';
-import '../../../../navbar/controllers/navbar_controller.dart';
+import '../../../../../config/constants/app_images.dart';
+import '../../../../helper/api_helper.dart';
 import '../controllers/profile_update_controller.dart';
 
 class ProfileUpdateView extends GetView<ProfileUpdateController> {

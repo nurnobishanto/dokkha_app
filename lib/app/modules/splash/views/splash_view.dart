@@ -36,7 +36,7 @@ class SplashView extends GetView<SplashController> {
                     width: size.width / 1.7,
                     child: Image.asset(AssetImagePaths.appIcon),
                   ),
-                  Text('চাকরি প্রার্থীদের জন্য বাংলাদেশের সবচেয়ে বড় প্রাকটিস প্লাটফর্ম', style: AppTextStyles.heading4.copyWith(color: LightThemeColors.primaryColor),textAlign: TextAlign.center,),
+                  Text('সঠিক পথে, স্বল্প সময়ে', style: AppTextStyles.heading4.copyWith(color: LightThemeColors.primaryColor),textAlign: TextAlign.center,),
 
                 ],
               ),

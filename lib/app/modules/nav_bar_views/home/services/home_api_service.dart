@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/modules/nav_bar_views/home/models/slider_model.dart';
 import 'package:lokkha/app/modules/nav_bar_views/home/models/subject_sections_model.dart';

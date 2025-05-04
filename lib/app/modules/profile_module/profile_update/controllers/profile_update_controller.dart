@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-import 'package:logger/logger.dart';
 import 'package:lokkha/app/components/custom_snackbar.dart';
 import 'package:lokkha/app/data/local/my_shared_pref.dart';
-import 'package:lokkha/app/modules/navbar/controllers/navbar_controller.dart';
-import 'package:lokkha/app/modules/navbar/model/profile_data_model.dart';
 import 'package:lokkha/app/services/api_call_status.dart';
 import 'package:lokkha/app/services/base_client.dart';
 import 'package:lokkha/utils/constants.dart';
-
-import '../../../../../helper/api_helper.dart';
+import '../../../../helper/api_helper.dart';
 import '../model/update_profile_model.dart';
 
 class ProfileUpdateController extends GetxController {

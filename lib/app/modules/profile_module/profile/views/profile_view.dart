@@ -9,7 +9,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/utils/constants.dart';
 import '../../../../../styles/text_style.dart';
+import '../../../../helper/api_helper.dart';
 import '../../../../helper/global.dart';
+import '../../../../services/api_call_status.dart';
+import '../../../navbar/controllers/navbar_controller.dart';
 import '../../favorite_question/views/fav_question_view.dart';
 import '../controllers/profile_controller.dart';
 
@@ -23,29 +26,42 @@ class ProfileView extends GetView<ProfileController> {
       final token = MySharedPref.getUserToken();
       final isTokenValid = token.isNotEmpty;
       if (!isLoggedIn.value || !isTokenValid) {
-        debugPrint("Error: Not logged in or token missing. isLoggedIn: ${isLoggedIn.value}");
+        debugPrint(
+            "Error: Not logged in or token missing. isLoggedIn: ${isLoggedIn.value}");
         return const AuthGatewayView();
       }
 
-
-      final profileData = profileDataModel.value.data;
-      if (profileData == null) {
-        debugPrint("🚫 data is null");
-      } else {
-        debugPrint("✅ data is present");
-        debugPrint("🧑‍💼 Name: ${profileData.name}");
-        debugPrint("📸 Image: ${profileData.image}");
-        debugPrint("📧 Email: ${profileData.email}");
-      }
+      final profileData = profileDataModel.value!.data;
+      // if (profileData == null) {
+      //   debugPrint("🚫 data is null");
+      // } else {
+      //   debugPrint("✅ data is present");
+      //   debugPrint("🧑‍💼 Name: ${profileData.name}");
+      //   debugPrint("📸 Image: ${profileData.image}");
+      //   debugPrint("📧 Email: ${profileData.email}");
+      // }
 
       return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text("Profile View"),
+          title: const Text("প্রোফাইল"),
         ),
-        body: profileData == null
-            ? const Center(child: CircularProgressIndicator())
-            : SingleChildScrollView(
+        body: Obx(() {
+          switch (getProfileApiStatus) {
+            case ApiCallStatus.loading:
+              return const Center(child: CircularProgressIndicator());
+
+            case ApiCallStatus.error:
+              return const Center(
+                  child: Text("প্রোফাইল ডেটা লোড করতে ব্যর্থ হয়েছে"));
+
+            case ApiCallStatus.success:
+              final profileData = profileDataModel.value?.data;
+              if (profileData == null) {
+                return const Center(child: Text("প্রোফাইল তথ্য পাওয়া যায়নি"));
+              }
+
+              return SingleChildScrollView(
                 padding: EdgeInsets.all(8.0.r),
                 child: Column(
                   spacing: 5.00.h,
@@ -63,7 +79,8 @@ class ProfileView extends GetView<ProfileController> {
                       errorWidget: (context, url, error) => CircleAvatar(
                         radius: 48.0.r,
                         backgroundImage: const NetworkImage(
-                            "https://media.istockphoto.com/id/827247322/vector/danger-sign-vector-icon-attention-caution-illustration-business-concept-simple-flat-pictogram.jpg?s=612x612&w=0&k=20&c=BvyScQEVAM94DrdKVybDKc_s0FBxgYbu-Iv6u7yddbs="),
+                          "https://lokkha.com/uploads/files/shares/app/avatar.png",
+                        ),
                       ),
                     ),
                     10.h.height,
@@ -73,27 +90,18 @@ class ProfileView extends GetView<ProfileController> {
                     ),
                     10.h.height,
                     ...[
-                      // CustomProfileButton(
-                      //   onTap: () {},
-                      //   text: 'একাউন্ট',
-                      //   icon: Icons.edit_note_rounded,
-                      // ),
                       CustomProfileButton(
                         onTap: () => Get.toNamed(Routes.PROFILE_UPDATE),
                         text: 'প্রোফাইল আপডেট করুন',
                         icon: Icons.edit_note_rounded,
                       ),
                       CustomProfileButton(
-                        onTap: () {
-                          Get.toNamed(Routes.MY_PACKAGES);
-                        },
+                        onTap: () => Get.toNamed(Routes.MY_PACKAGES),
                         text: 'সকল প্যাকেজ',
                         icon: Icons.edit_note_rounded,
                       ),
                       CustomProfileButton(
-                        onTap: () {
-                          Get.to(const FavQuestionListScreen());
-                        },
+                        onTap: () => Get.to(const FavQuestionListScreen()),
                         text: 'ফেভারিট প্রশ্ন',
                         icon: Icons.edit_note_rounded,
                       ),
@@ -102,11 +110,6 @@ class ProfileView extends GetView<ProfileController> {
                         text: 'অর্ডারস হিস্ট্রি',
                         icon: Icons.edit_note_rounded,
                       ),
-                      // CustomProfileButton(
-                      //   onTap: () {},
-                      //   text: 'রিভিউ',
-                      //   icon: Icons.edit_note_rounded,
-                      // ),
                       CustomProfileButton(
                         onTap: controller.logout,
                         text: 'লগ আউট',
@@ -115,7 +118,13 @@ class ProfileView extends GetView<ProfileController> {
                     ]
                   ],
                 ),
-              ),
+              );
+
+            case ApiCallStatus.holding:
+            default:
+              return const SizedBox();
+          }
+        }),
       );
     });
   }

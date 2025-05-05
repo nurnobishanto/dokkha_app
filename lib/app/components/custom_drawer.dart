@@ -39,7 +39,8 @@ class CustomDrawer extends StatelessWidget {
                 const Text('আমাদের সম্পর্কে', style: TextStyle(fontSize: 14)),
             onTap: () {
               Get.to(
-                 const BaseWebView(title: "আমাদের সম্পর্কে", url: AppConstants.about),
+                const BaseWebView(
+                    title: "আমাদের সম্পর্কে", url: AppConstants.about),
               );
             },
           ),
@@ -70,7 +71,10 @@ class CustomDrawer extends StatelessWidget {
             visualDensity: VisualDensity.standard,
             leading: const FaIcon(FontAwesomeIcons.share,
                 color: LightThemeColors.primaryColor, size: 20),
-            title: const Text('শেয়ার', style: TextStyle(fontSize: 14)),
+            title: const Text(
+              'শেয়ার',
+              style: TextStyle(fontSize: 14),
+            ),
             onTap: () {
               if (Platform.isAndroid) {
                 SharePlus.instance.share(
@@ -96,7 +100,6 @@ class CustomDrawer extends StatelessWidget {
             title:
                 const Text('কাস্টমার সাপোর্ট', style: TextStyle(fontSize: 14)),
             onTap: () {
-
               //Get.to(const CustomerSupportView());
             },
           ),
@@ -136,7 +139,7 @@ class CustomDrawer extends StatelessWidget {
                   title: "কন্টেস্ট পলিসি", url: AppConstants.contestPolicy),
             ),
           ),
-          const Divider(height: 0.5, color: LightThemeColors.primaryColor),
+          const Divider(height: .7, color: LightThemeColors.primaryColor),
           ListTile(
             visualDensity: VisualDensity.standard,
             leading: const FaIcon(FontAwesomeIcons.fileContract,

@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:gif/gif.dart';
 import 'package:lokkha/config/constants/app_strings.dart';
 import 'package:lokkha/utils/constants.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -139,7 +141,6 @@ Future<void> fetchAppVersion() async {
   appVersion.value = packageInfo.version;
 }
 
-
 Future<String?> getDeviceId() async {
   final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
 
@@ -152,8 +153,6 @@ Future<String?> getDeviceId() async {
   }
   return null;
 }
-
-
 
 String convertDaysToHumanReadable(int days) {
   int years = days ~/ 365;
@@ -173,4 +172,30 @@ String convertDaysToHumanReadable(int days) {
   }
 
   return result.join(' ');
+}
+
+Widget isCheckedGifImage(String imageUrl) {
+  final isGifFile = imageUrl.toLowerCase().endsWith('.gif');
+  return isGifFile
+      ? Gif(
+          image: NetworkImage(imageUrl),
+          autostart: Autostart.loop,
+          fit: BoxFit.fitWidth,
+          height: 110.0.h,
+          width: double.infinity,
+          placeholder: (context) =>
+              const Center(child: CircularProgressIndicator()),
+          onFetchCompleted: () {
+            // You can handle something here if needed
+          },
+        )
+      : CachedNetworkImage(
+          imageUrl: imageUrl,
+          height: 110.0.h,
+          width: double.infinity,
+          fit: BoxFit.fitWidth,
+          placeholder: (context, url) =>
+              const Center(child: CircularProgressIndicator()),
+          errorWidget: (context, url, error) => const Icon(Icons.error),
+        );
 }

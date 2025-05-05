@@ -184,11 +184,11 @@ class AppPages {
       page: () => const PremiumPackagesView(),
       binding: PremiumPackagesBinding(),
     ),
-    GetPage(
-      name: _Paths.MY_APP,
-      page: () => const MyApp(),
-      binding: MyAppBinding(),
-    ),
+    // GetPage(
+    //   name: _Paths.MY_APP,
+    //   page: () =>  MyApp(navigatorKey: null,),
+    //   binding: MyAppBinding(),
+    // ),
     // GetPage(
     //   name: _Paths.SUBJECT_SECTION,
     //   page: () => const SubjectSectionView(subject: null,),

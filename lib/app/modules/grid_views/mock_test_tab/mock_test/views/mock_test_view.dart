@@ -52,6 +52,8 @@ class MockTestView extends GetView<MockTestController> {
                         decoration: BoxDecoration(
                           color: LightThemeColors.white,
                           borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: LightThemeColors.primaryColor,width: .2),
+
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black.withValues(alpha: 0.05),

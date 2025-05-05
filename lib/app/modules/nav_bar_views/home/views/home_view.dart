@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:lokkha/app/components/custom_drawer.dart';
 import 'package:lokkha/app/data/local/my_shared_pref.dart';
+import 'package:lokkha/app/helper/global.dart';
 import 'package:lokkha/app/modules/contest/widgets/last_contest_result_widget.dart';
 import 'package:lokkha/app/modules/contest/widgets/latest_contest_widget.dart';
 import 'package:lokkha/app/modules/random_question/views/random_question_view.dart';
@@ -27,7 +29,6 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     debugPrint("Build Home view");
-    debugPrint("Get token ${MySharedPref.getUserToken()}");
     return Scaffold(
       drawer: const CustomDrawer(),
       appBar: AppBar(
@@ -49,8 +50,8 @@ class HomeView extends GetView<HomeController> {
         centerTitle: false,
       ),
       body: GetBuilder<HomeController>(
-        init: HomeController(),
-        builder: (_) {
+        //init: HomeController(),
+        builder: (controller) {
           return Column(
             children: [
               /// Search Bar
@@ -117,43 +118,54 @@ class HomeView extends GetView<HomeController> {
                       .0.h.height,
 
                       /// Carousel Slider
-                      CarouselSlider(
-                        options: CarouselOptions(
-                          aspectRatio: 14 / 4,
-                          enlargeCenterPage: true,
-                          enlargeStrategy: CenterPageEnlargeStrategy.height,
-                          autoPlay: true,
-                          viewportFraction: 1.0,
-                          onPageChanged:
-                              (currentIndex, carouselPageChangedReason) {
-                            controller.dotsCount = currentIndex;
-                          },
-                        ),
-                        items: controller.sliderModel.value.sliders!
-                            .map((sliderItem) {
-                          debugPrint(
-                              "URL IMAGE : ${AppConstants.storageUrl + sliderItem.image.toString()}");
-                          return ClipRRect(
-                              borderRadius: BorderRadius.circular(7.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.grey.shade200,
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  child: Image.network(
-                                    AppConstants.storageUrl +
-                                        sliderItem.image.toString(),
-                                    fit: BoxFit.cover,
-                                    errorBuilder: (context, error, stackTrace) {
-                                      return Image.network(
-                                          "https://media.istockphoto.com/id/827247322/vector/danger-sign-vector-icon-attention-caution-illustration-business-concept-simple-flat-pictogram.jpg?s=612x612&w=0&k=20&c=BvyScQEVAM94DrdKVybDKc_s0FBxgYbu-Iv6u7yddbs=");
-                                    },
+                      Builder(builder: (context) {
+                        switch (controller.sliderApiStatus.value) {
+                          case ApiCallStatus.loading:
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          case ApiCallStatus.error:
+                            return const Text("Slider loading error");
+                          case ApiCallStatus.holding:
+                            return const SizedBox.shrink();
+                          case ApiCallStatus.success:
+                            return CarouselSlider(
+                              options: CarouselOptions(
+                                aspectRatio: 14 / 4,
+                                enlargeCenterPage: true,
+                                enlargeStrategy:
+                                    CenterPageEnlargeStrategy.height,
+                                autoPlay: true,
+                                viewportFraction: 1.0,
+                                onPageChanged:
+                                    (currentIndex, carouselPageChangedReason) {
+                                  controller.dotsCount = currentIndex;
+                                },
+                              ),
+                              items: controller.sliderModel.value.sliders!
+                                  .map((sliderItem) {
+                                debugPrint(
+                                    "URL IMAGE : ${AppConstants.storageUrl + sliderItem.image.toString()}");
+                                return ClipRRect(
+                                  borderRadius: BorderRadius.circular(7.0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey.shade200,
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      child: isCheckedGifImage(
+                                          AppConstants.storageUrl +
+                                              sliderItem.image.toString()),
+                                    ),
                                   ),
-                                ),
-                              ));
-                        }).toList(),
-                      ),
+                                );
+                              }).toList(),
+                            );
+                          default:
+                            return const SizedBox();
+                        }
+                      }),
 
                       /// Dots Indicator Area
                       // DotsIndicator(
@@ -213,7 +225,7 @@ class HomeView extends GetView<HomeController> {
                           );
                         },
                       ),
-                      5.h.height,
+                      2.h.height,
 
                       InkWell(
                         onTap: () => Get.to(const CurrentAffairsView()),
@@ -254,7 +266,7 @@ class HomeView extends GetView<HomeController> {
                       ),
                       Builder(
                         builder: (context) {
-                          switch (controller.apiCallStatus.value) {
+                          switch (controller.subjectSectionApiStatus.value) {
                             case ApiCallStatus.loading:
                               return const Center(
                                   child: CircularProgressIndicator());
@@ -279,20 +291,27 @@ class HomeView extends GetView<HomeController> {
                                   return GestureDetector(
                                     onTap: () async {
                                       MySharedPref.clearSubjectSection();
-                                      SubjectSectionSelect newSubject = SubjectSectionSelect(
+                                      SubjectSectionSelect newSubject =
+                                          SubjectSectionSelect(
                                         id: controller
-                                            .subjectSectionModel
-                                            .value
-                                            .subjectSections![index]
-                                            .subject?.id?? 0,
+                                                .subjectSectionModel
+                                                .value
+                                                .subjectSections![index]
+                                                .subject
+                                                ?.id ??
+                                            0,
                                         name: controller
-                                            .subjectSectionModel
-                                            .value
-                                            .subjectSections![index]
-                                            .subject?.name?? '',
-                                        quantity:20,
+                                                .subjectSectionModel
+                                                .value
+                                                .subjectSections![index]
+                                                .subject
+                                                ?.name ??
+                                            '',
+                                        quantity: 20,
                                       );
-                                      await MySharedPref.addOrUpdateSubjectSectionSelect(newSubject);
+                                      await MySharedPref
+                                          .addOrUpdateSubjectSectionSelect(
+                                              newSubject);
                                       Get.to(
                                         SubjectSectionView(
                                           subject: controller
@@ -302,8 +321,6 @@ class HomeView extends GetView<HomeController> {
                                               .subject,
                                         ),
                                       );
-
-
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(

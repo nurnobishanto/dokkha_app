@@ -10,6 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../../config/constants/app_images.dart';
 import '../../../../helper/api_helper.dart';
+import '../../../navbar/controllers/navbar_controller.dart';
 import '../controllers/profile_update_controller.dart';
 
 class ProfileUpdateView extends GetView<ProfileUpdateController> {
@@ -76,7 +77,7 @@ class ProfileUpdateView extends GetView<ProfileUpdateController> {
               2.h.height,
               CustomTextFormField(
                 hintText: controller.dob.value.trim().isEmpty
-                    ? profileDataModel.value.data!.dateOfBirth
+                    ? profileDataModel.value!.data!.dateOfBirth
                         .toString()
                         .split(" ")
                         .first
@@ -93,7 +94,7 @@ class ProfileUpdateView extends GetView<ProfileUpdateController> {
               CustomDropdownButton(
                 items: const ["পুরুষ", 'মহিলা', 'অন্যান্য'],
                 dropdownValue: controller.gender.value.isEmpty
-                    ? profileDataModel.value.data!.gender.toString()
+                    ? profileDataModel.value!.data!.gender.toString()
                     : controller.gender.value,
                 onChanged: (v) {
                   controller.gender.value = v!;

@@ -111,7 +111,8 @@ class LatestContestView extends StatelessWidget {
                                       .contestModel.value.contest!.sponsorUrl
                                       .toString());
                                 },
-                                child: Image.network(
+                                child:
+                                Image.network(
                                   AppConstants.storageUrl +
                                       controller.contestModel.value.contest!
                                           .sponsorImage!,

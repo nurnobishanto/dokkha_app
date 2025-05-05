@@ -130,7 +130,6 @@ class LatestContestController extends GetxController {
           lastContestResultModel.value =
               ContestResultModel.fromJson(response.data);
 
-
           for (int i = 0; i < lastContestResultModel.value.contestResults!.length; i++) {
             var result = lastContestResultModel.value.contestResults![i];
             int sl = i == 0

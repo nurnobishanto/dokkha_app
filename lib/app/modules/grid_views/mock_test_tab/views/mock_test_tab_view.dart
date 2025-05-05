@@ -28,7 +28,7 @@ class MockTestTabView extends GetView<MockTestTabController> {
                   tabs: [
                     Tab(
                       child: Text(
-                        "মক পরীক্ষা",
+                        "বিষয় সূমহ",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
@@ -37,7 +37,7 @@ class MockTestTabView extends GetView<MockTestTabController> {
                     ),
                     Tab(
                       child: Text(
-                        "Coming",
+                        "ফাস্ট প্রাকটিস",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,

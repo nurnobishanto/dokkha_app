@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/modules/nav_bar_views/home/models/slider_model.dart';
 import 'package:lokkha/app/modules/nav_bar_views/home/models/subject_sections_model.dart';
@@ -5,50 +6,72 @@ import 'package:lokkha/app/services/api_call_status.dart';
 import 'package:lokkha/app/services/base_client.dart';
 import 'package:lokkha/utils/constants.dart';
 
-class HomeApiService {
+class HomeApiService extends GetxController {
+  // Make the models reactive
   final Rx<SliderModel> sliderModel = SliderModel().obs;
   final Rx<SubjectSectionModel> subjectSectionModel = SubjectSectionModel().obs;
-  final Rx<ApiCallStatus> apiCallStatus = ApiCallStatus.holding.obs;
+
+  // API call status for both
+  final Rx<ApiCallStatus> sliderApiStatus = ApiCallStatus.holding.obs;
+  final Rx<ApiCallStatus> subjectSectionApiStatus = ApiCallStatus.holding.obs;
+
+  // Fetch sliders data
   Future<void> fetchSliders() async {
     const url = AppConstants.sliders;
-    apiCallStatus.value = ApiCallStatus.loading;
+    sliderApiStatus.value = ApiCallStatus.loading;
+
     await BaseClient.safeApiCall(
       url,
       RequestType.get,
       onSuccess: (response) {
         if (response.data['status']) {
+          debugPrint("SLIDER API TEST1");
+          // Update the slider model here
           sliderModel.value = SliderModel.fromJson(response.data);
-          apiCallStatus.value = ApiCallStatus.success;
+          sliderApiStatus.value = ApiCallStatus.success;
+          debugPrint("SLIDER API TEST2");
         } else {
-          apiCallStatus.value = ApiCallStatus.error;
+          sliderApiStatus.value = ApiCallStatus.error;
         }
+        update(); // UI update using GetBuilder
       },
-      onError: (_) {
-        apiCallStatus.value = ApiCallStatus.error;
+      onError: (error) {
+        debugPrint("Error: $error");
+        sliderApiStatus.value = ApiCallStatus.error;
+        update(); // UI update using GetBuilder
+      },
+      onLoading: () {
+        sliderApiStatus.value = ApiCallStatus.loading;
+        update(); // UI update using GetBuilder
       },
     );
   }
 
+  // Fetch subject sections data
   Future<void> fetchSubjectSection() async {
-    apiCallStatus.value = ApiCallStatus.loading;
     const url = AppConstants.subjectSections;
-    BaseClient.safeApiCall(
+    subjectSectionApiStatus.value = ApiCallStatus.loading;
+
+    await BaseClient.safeApiCall(
       url,
       RequestType.get,
       onSuccess: (response) {
         if (response.data['status']) {
-          apiCallStatus.value = ApiCallStatus.success;
-          subjectSectionModel.value =
-              SubjectSectionModel.fromJson(response.data);
+          subjectSectionModel.value = SubjectSectionModel.fromJson(response.data);
+          subjectSectionApiStatus.value = ApiCallStatus.success;
+        } else {
+          subjectSectionApiStatus.value = ApiCallStatus.error;
         }
+        update(); // UI update using GetBuilder
       },
-      onError: (error) {
-        apiCallStatus.value = ApiCallStatus.error;
+      onError: (_) {
+        subjectSectionApiStatus.value = ApiCallStatus.error;
+        update(); // UI update using GetBuilder
       },
       onLoading: () {
-        apiCallStatus.value = ApiCallStatus.loading;
+        subjectSectionApiStatus.value = ApiCallStatus.loading;
+        update(); // UI update using GetBuilder
       },
     );
   }
-
 }

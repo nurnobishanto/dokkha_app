@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/modules/contest/controller/latest_contest_controller.dart';
-
 import '../../../../styles/text_style.dart';
 import '../../nav_bar_views/home/components/home_components.dart';
 
@@ -15,13 +14,14 @@ class LastContestResultWidget extends StatelessWidget {
     return Obx(() {
       return Column(
         children: [
+         controller.rankUsers.isNotEmpty ?
           Text(
             "সর্বশেষ বিজয়ীদের তালিকা",
             style: AppTextStyles.custom(
               fontSize: 17.00.sp,
               fontWeight: FontWeight.w600,
             ),
-          ),
+          ):const SizedBox(),
           controller.isResultLoading.value
               ? const Center(
                   child: CircularProgressIndicator(),

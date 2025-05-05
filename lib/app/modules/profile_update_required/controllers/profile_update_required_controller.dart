@@ -9,6 +9,7 @@ import '../../../helper/global.dart';
 import '../../../components/custom_snackbar.dart';
 import '../../../routes/app_pages.dart';
 import '../../../services/api_call_status.dart';
+import '../../navbar/controllers/navbar_controller.dart';
 
 class ProfileUpdateRequiredController extends GetxController {
   // Controllers

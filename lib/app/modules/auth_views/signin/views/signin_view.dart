@@ -31,11 +31,12 @@ class SignInView extends GetView<SignInController> {
                   child: Column(
                     spacing: 5.00.h,
                     children: [
-                      40.height,
-                      Image.asset(AssetImagePaths.appIcon, scale: 5.0),
+                      100.height,
+                      Image.asset(AssetImagePaths.appIcon, scale: 1.5),
                       Text(
                         "এক টাকা দিয়ে লক্ষ্যে পৌঁছান",
-                        style: AppTextStyles.heading4.copyWith(color: Get.theme.indicatorColor),
+                        style: AppTextStyles.heading4
+                            .copyWith(color: Colors.black),
                         textAlign: TextAlign.center,
                       ),
                       Text(
@@ -44,7 +45,7 @@ class SignInView extends GetView<SignInController> {
                           color: LightThemeColors.primaryColor,
                         ),
                       ),
-                      100.h.height,
+                      70.h.height,
                       Text(
                         "আপনার ফোন নম্বর দিয়ে লগইন করুন",
                         style: AppTextStyles.custom(
@@ -73,7 +74,6 @@ class SignInView extends GetView<SignInController> {
                         alignment: Alignment.topRight,
                         child: GestureDetector(
                           onTap: () {
-
                             Get.toNamed(Routes.VERIFY_OTP, arguments: {
                               'phoneNumber': phoneNumber,
                               'type': 'Login',
@@ -93,7 +93,6 @@ class SignInView extends GetView<SignInController> {
                         text: "এগিয়ে যান",
                         isLoading: controller.isLoading,
                         onPressed: () {
-
                           controller.login(
                             phoneNumber,
                             type,

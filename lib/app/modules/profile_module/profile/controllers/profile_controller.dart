@@ -4,21 +4,20 @@ import 'package:lokkha/app/components/custom_snackbar.dart';
 import 'package:lokkha/app/helper/api_helper.dart';
 import 'package:lokkha/app/routes/app_pages.dart';
 import 'package:lokkha/app/helper/global.dart';
-
 import '../../../../../utils/constants.dart';
 import '../../../../data/local/my_shared_pref.dart';
 import '../../../../services/auth_service.dart';
 import '../../../../services/base_client.dart';
 
 class ProfileController extends GetxController {
-
+  RxBool isLoading = true.obs;
   @override
   void onInit() {
     getMeProfileInfo();
-    debugPrint("TEST");
-    debugPrint(profileDataModel.value.data!.name.toString());
+    debugPrint("Initialize ProfileController");
     super.onInit();
   }
+
   Future<void> logout() async {
     String? token = MySharedPref.getUserToken();
     String url = AppConstants.logout;
@@ -30,12 +29,12 @@ class ProfileController extends GetxController {
       },
       onSuccess: (response) async {
         if (response.data['status']) {
-          await MySharedPref.removeUserToken();
-          isLoggedIn.value = false;
           CustomSnackBar.showCustomToast(message: response.data['message']);
+          await MySharedPref.removeUserToken();
           AuthService authService = AuthService();
           authService.authCheck();
           Get.offNamed(Routes.NAVBAR);
+          isLoading.value = false;
         } else {
           isLoggedIn.value = false;
           await MySharedPref.removeUserToken();

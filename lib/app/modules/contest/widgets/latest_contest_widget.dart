@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/modules/contest/controller/latest_contest_controller.dart';
-
+import '../../../helper/global.dart';
 import '../views/contest_tab_view.dart';
 
 class LatestContestWidget extends StatelessWidget {
@@ -25,12 +25,13 @@ class LatestContestWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(7.0),
                 child: Stack(
                   children: [
-                    Image.network(
-                      controller.imageUrl.value,
-                      height: 110.0.h,
-                      width: double.infinity,
-                      fit: BoxFit.fitWidth,
-                    ),
+                    isCheckedGifImage(controller.imageUrl.value),
+                    // Image.network(
+                    //   controller.imageUrl.value,
+                    //   height: 110.0.h,
+                    //   width: double.infinity,
+                    //   fit: BoxFit.fitWidth,
+                    // ),
                     Positioned(
                       top: 8.0,
                       left: 8.0,

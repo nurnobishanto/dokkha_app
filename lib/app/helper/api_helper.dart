@@ -9,29 +9,38 @@ import '../models/fav_question_model.dart';
 import '../modules/navbar/model/profile_data_model.dart';
 import '../services/base_client.dart';
 import '../helper/global.dart';
-
-Rx<ProfileDataModel> profileDataModel = ProfileDataModel().obs;
-
+/// Rx nullable বানাও
+Rxn<ProfileDataModel> profileDataModel = Rxn<ProfileDataModel>();
+ApiCallStatus getProfileApiStatus = ApiCallStatus.holding;
 Future<void> getMeProfileInfo() async {
-  debugPrint("Called Get Me Profile Information");
+  debugPrint(" Called Get Me Profile Information");
   final token = MySharedPref.getUserToken();
-  if (token == '' || token.isEmpty) return;
+  if (token.isEmpty) {
+    debugPrint("❌ Token is empty, skipping profile fetch.");
+    clearProfileState(); // optionally clear previous data
+    return;
+  }
+  getProfileApiStatus = ApiCallStatus.loading;
   const url = AppConstants.me;
+
   await BaseClient.safeApiCall(
     url,
     RequestType.post,
     headers: {'Authorization': 'Bearer $token'},
     onSuccess: (response) {
-      if (response.data['status']) {
+      final isSuccess = response.data['status'] == true;
+      getProfileApiStatus = ApiCallStatus.success;
+      if (isSuccess) {
         profileDataModel.value = ProfileDataModel.fromJson(response.data);
         isLoggedIn.value = true;
         debugPrint("✅ Profile Data fetch Success");
       } else {
+        debugPrint("⚠️ Profile fetch failed: API status false");
         clearProfileState();
-        debugPrint("⚠️ Profile fetch failed (API said false)");
       }
     },
     onError: (error) {
+      getProfileApiStatus = ApiCallStatus.error;
       debugPrint("❌ Profile Fetch Error: $error");
       clearProfileState();
     },
@@ -40,9 +49,11 @@ Future<void> getMeProfileInfo() async {
 
 void clearProfileState() {
   isLoggedIn.value = false;
-  profileDataModel.value = ProfileDataModel();
-  MySharedPref.removeUserToken(); // optional: clear token on failure
+  profileDataModel.value = null;
+  MySharedPref.removeUserToken(); // optional
 }
+
+
 
 ApiCallStatus apiCallStatus = ApiCallStatus.holding;
 Future<void> questionFavAdd(int id) async {

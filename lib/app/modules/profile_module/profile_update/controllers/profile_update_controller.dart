@@ -6,6 +6,7 @@ import 'package:lokkha/app/services/api_call_status.dart';
 import 'package:lokkha/app/services/base_client.dart';
 import 'package:lokkha/utils/constants.dart';
 import '../../../../helper/api_helper.dart';
+import '../../../navbar/controllers/navbar_controller.dart';
 import '../model/update_profile_model.dart';
 
 class ProfileUpdateController extends GetxController {
@@ -27,26 +28,26 @@ class ProfileUpdateController extends GetxController {
   final nameController = TextEditingController(
       text:profileDataModel
           .value
-          .data!
+          !.data!
           .name
           .toString());
   final emailController = TextEditingController(
       text: profileDataModel
           .value
-          .data!
+          !.data!
           .email
           .toString());
 
   final organizationController = TextEditingController(
       text: profileDataModel
           .value
-          .data!
+          !.data!
           .organization
           .toString());
   final occupationController = TextEditingController(
       text:profileDataModel
           .value
-          .data!
+          !.data!
           .occupation
           .toString());
   final pwdController = TextEditingController();

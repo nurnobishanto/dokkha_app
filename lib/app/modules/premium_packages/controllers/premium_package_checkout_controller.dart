@@ -2,6 +2,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:lokkha/app/components/custom_snackbar.dart';
+import 'package:lokkha/app/modules/navbar/controllers/navbar_controller.dart';
 import 'package:lokkha/app/services/api_call_status.dart';
 import 'package:lokkha/app/services/base_client.dart';
 import 'package:lokkha/utils/constants.dart';
@@ -16,14 +17,14 @@ class PremiumPackageCheckoutController extends GetxController {
   RxBool isCheckedCondition = false.obs;
   //************************** Text Field Area ******************************* */
   final Rx<TextEditingController> nameController = TextEditingController(
-    text: profileDataModel.value.data!.name ?? '',
+    text: profileDataModel.value!.data!.name ?? '',
   ).obs;
   final Rx<TextEditingController> phoneController =
-      TextEditingController(text: profileDataModel.value.data!.phone?? '')
+      TextEditingController(text: profileDataModel.value!.data!.phone?? '')
           .obs;
 
   final Rx<TextEditingController> mailController =
-      TextEditingController(text: profileDataModel.value.data!.email).obs;
+      TextEditingController(text: profileDataModel.value!.data!.email).obs;
   RxBool isLoading = false.obs;
 
   //final otp = MySharedPref.getOTPNumber();
@@ -149,9 +150,9 @@ class PremiumPackageCheckoutController extends GetxController {
   void updateCoupon() {
     if (!isChecked.value) {
       couponController.clear();
-      // কুপন ইনঅ্যাক্টিভ হলে status reset করা যায়
+      // status reset
       apiCallStatus = ApiCallStatus.holding;
-      // কুপন success message-এর জন্য আলাদা ভ্যারিয়েবল reset করতে পারো
+      // success message- reset
       appliedCouponMessage.value = "";
       discountAmount.value = -1;
       totalAmount.value = -1;

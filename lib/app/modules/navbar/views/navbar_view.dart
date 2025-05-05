@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import '../../../../config/theme/light_theme_colors.dart';
+import '../../../helper/global.dart';
 import '../controllers/navbar_controller.dart';
 
 class NavbarView extends GetView<NavbarController> {
@@ -19,17 +20,31 @@ class NavbarView extends GetView<NavbarController> {
         builder: (controller) {
           return BottomNavigationBar(
             currentIndex: controller.currentIndex,
-            onTap: (index) => controller.changeIndex(index), // Call method to update index
-            items:  const [
-              BottomNavigationBarItem(icon:FaIcon(FontAwesomeIcons.house,size: 18.00), label: "হোম", backgroundColor: LightThemeColors.primaryColor),
-              BottomNavigationBarItem(icon: FaIcon(FontAwesomeIcons.newspaper,size: 18.00), label: "ব্লগ",backgroundColor: LightThemeColors.primaryColor),
-              BottomNavigationBarItem(icon: FaIcon(FontAwesomeIcons.boxOpen,size: 18.00), label: "প্রিমিয়াম",backgroundColor: LightThemeColors.primaryColor),
-
-                BottomNavigationBarItem(
-                  icon: FaIcon(FontAwesomeIcons.user, size: 18.0),
-                  label: "প্রোফাইল",
-                  backgroundColor: LightThemeColors.primaryColor,
-                )
+            onTap: controller.changeIndex,
+            items: [
+              const BottomNavigationBarItem(
+                icon: FaIcon(FontAwesomeIcons.house, size: 18),
+                label: "হোম",
+                backgroundColor: LightThemeColors.primaryColor,
+              ),
+              const BottomNavigationBarItem(
+                icon: FaIcon(FontAwesomeIcons.penToSquare, size: 18),
+                label: "বিষয়ভিত্তিক পরীক্ষা",
+                backgroundColor: LightThemeColors.primaryColor,
+              ),
+              const BottomNavigationBarItem(
+                icon: FaIcon(FontAwesomeIcons.boxOpen, size: 18),
+                label: "প্রিমিয়াম",
+                backgroundColor: LightThemeColors.primaryColor,
+              ),
+              BottomNavigationBarItem(
+                // icon: !isLoggedIn.value
+                //     ? const FaIcon(FontAwesomeIcons.rightToBracket, size: 18)
+                //     : const FaIcon(FontAwesomeIcons.user, size: 18),
+                icon: const FaIcon(FontAwesomeIcons.user, size: 18),
+                label: !isLoggedIn.value ? "লগইন" : "প্রোফাইল",
+                backgroundColor: LightThemeColors.primaryColor,
+              ),
             ],
           );
         },
@@ -37,7 +52,6 @@ class NavbarView extends GetView<NavbarController> {
     );
   }
 }
-
 
 // Future<void> handleInitialUri() async {
 //   try {

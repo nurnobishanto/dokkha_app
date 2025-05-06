@@ -16,8 +16,10 @@ class FavQuestionListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final controller = Get.put(FavQuestionListController());
     getFavList();
+
+
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
@@ -30,7 +32,7 @@ class FavQuestionListScreen extends StatelessWidget {
         backgroundColor: LightThemeColors.primaryColor,
       ),
       body: Obx(() {
-        final questionList = favoriteQuestionsModel.value.favoriteQuestions;
+        final questionList = favoriteQuestionsListModel.value.favoriteQuestions;
         if (isFavLoading.value) {
           return const Center(child: CircularProgressIndicator());
         } else if (questionList!.isEmpty) {

@@ -24,11 +24,10 @@ class MockTestTabView extends GetView<MockTestTabController> {
                   indicatorColor: LightThemeColors.white,
                   labelColor: LightThemeColors.white,
                   unselectedLabelColor: Colors.white70,
-
                   tabs: [
                     Tab(
                       child: Text(
-                        "বিষয় সূমহ",
+                        "বিষয় সমূহ",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,

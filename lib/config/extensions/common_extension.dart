@@ -35,7 +35,6 @@ void snackBar(
   double? elevation,
 }) {
   if (title.isEmpty && content == null) {
-    print('SnackBar message is empty');
   } else {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -51,7 +50,7 @@ void snackBar(
         onVisible: onVisible?.call(),
         content: content ??
             Padding(
-              padding: padding ?? EdgeInsets.symmetric(vertical: 4),
+              padding: padding ?? const EdgeInsets.symmetric(vertical: 4),
               child: Text(
                 title,
                 style: TextStyle(color: textColor ?? Colors.white),
@@ -124,7 +123,7 @@ Widget dotIndicator(list, i, {bool isPersonal = false}) {
           return Container(
             height: 4,
             width: i == ind ? 30 : 12,
-            margin: EdgeInsets.all(4),
+            margin: const EdgeInsets.all(4),
             decoration: BoxDecoration(
                 color: i == ind ? Colors.blue : Colors.grey.withOpacity(0.5),
                 borderRadius: radius(4)),
@@ -149,7 +148,7 @@ Widget lineIndicator(list, i, {bool isPersonal = false}) {
             height: 4,
             width: 50,
             // width: i == ind ? 30 : 12,
-            margin: EdgeInsets.all(4),
+            margin: const EdgeInsets.all(4),
             decoration: BoxDecoration(
                 color: i == ind ? Colors.blue : Colors.grey.withOpacity(0.5),
                 borderRadius: radius(4)),

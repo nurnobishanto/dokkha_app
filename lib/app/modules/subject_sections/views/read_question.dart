@@ -10,7 +10,6 @@ import '../../../views/views/pdf_viewer.dart';
 import '../../../views/widgets/exam_custom_button.dart';
 import '../controllers/read_question_controller.dart';
 
-
 class ReadQuestionView extends StatelessWidget {
   final StartExamModel model;
   const ReadQuestionView({super.key, required this.model});
@@ -18,8 +17,7 @@ class ReadQuestionView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final questionList = model.questions;
-    final  controller =
-    Get.put(ReadQuestionController());
+    final controller = Get.put(ReadQuestionController());
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
@@ -37,7 +35,6 @@ class ReadQuestionView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-
               ListView.builder(
                 shrinkWrap: true,
                 itemCount: questionList!.length,
@@ -60,7 +57,7 @@ class ReadQuestionView extends StatelessWidget {
                               Image.network(
                                 "${AppConstants.storageUrl}${question.questionImage}",
                                 errorBuilder: (context, error, stackTrace) =>
-                                const Icon(Icons.error, color: Colors.red),
+                                    const Icon(Icons.error, color: Colors.red),
                               ),
                             question.questionImage != null
                                 ? const SizedBox(height: 10.00)
@@ -85,7 +82,7 @@ class ReadQuestionView extends StatelessWidget {
                               ),
                               child: Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Expanded(
@@ -105,8 +102,8 @@ class ReadQuestionView extends StatelessWidget {
                                     child: Obx(() {
                                       // Ensure that the controller has an observable value for the favorite status
                                       bool isFavorite =
-                                      controller.checkQuestionExistInSaved(
-                                          question.id!.toInt());
+                                          controller.checkQuestionExistInSaved(
+                                              question.id!.toInt());
 
                                       return IconButton(
                                         onPressed: () {
@@ -133,7 +130,7 @@ class ReadQuestionView extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            //customQuestionWidget(question),
+
                             customSingleChoice(question)
                           ],
                         ),
@@ -150,7 +147,6 @@ class ReadQuestionView extends StatelessWidget {
   }
 
   Widget customSingleChoice(Question question) {
-
     return Column(
       children: [
         Column(
@@ -181,8 +177,9 @@ class ReadQuestionView extends StatelessWidget {
                 text: "উত্তর ও সমাধান",
                 onPressed: () {
                   Get.defaultDialog(
-                      title: "উত্তর ও সমাধান",
-                      content: AnswerAndSolutionWidgets(question: question));
+                    title: "উত্তর ও সমাধান",
+                    content: AnswerAndSolutionWidgets(question: question),
+                  );
                 },
               ),
             ),
@@ -211,7 +208,7 @@ class ReadQuestionView extends StatelessWidget {
 }
 
 class AnswerAndSolutionWidgets extends StatelessWidget {
-  final dynamic question;
+  final Question question;
 
   const AnswerAndSolutionWidgets({super.key, required this.question});
 
@@ -221,13 +218,13 @@ class AnswerAndSolutionWidgets extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        if (question.question != null && question.question!.options != null)
+        if (question.options != null)
           _buildAnswerSection(),
-        (question.question != null && question.question!.explanation != null)
+        ( question.explanation != null)
             ? _buildExplanationSection(context)
             : const SizedBox.shrink(),
-        (question.question != null &&
-            question.question!.explanationImage != null)
+        (
+                question.explanationImage != null)
             ? _buildExplanationImage()
             : const SizedBox.shrink(),
       ],
@@ -256,15 +253,15 @@ class AnswerAndSolutionWidgets extends StatelessWidget {
             //         style: const TextStyle(fontSize: 14)),
             //   ))
             // else
-            ...question.question!.options!.map((option) {
+            ...question.options!.map((option) {
               return option.value != null && option.isCorrect == true
                   ? Padding(
-                padding: const EdgeInsets.only(bottom: 4.0),
-                child: HtmlWidget(
-                  option.value!,
-                  textStyle: AppTextStyles.body1,
-                ),
-              )
+                      padding: const EdgeInsets.only(bottom: 4.0),
+                      child: HtmlWidget(
+                        option.value!,
+                        textStyle: AppTextStyles.body1,
+                      ),
+                    )
                   : const SizedBox.shrink();
             }).toList(),
           ],
@@ -285,7 +282,7 @@ class AnswerAndSolutionWidgets extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           HtmlWidget(
-            question.question!.explanation.toString(),
+            question.explanation.toString(),
             textStyle: AppTextStyles.body1,
           ),
         ],
@@ -295,7 +292,7 @@ class AnswerAndSolutionWidgets extends StatelessWidget {
 
   Widget _buildExplanationImage() {
     String fileUrl = AppConstants.storageUrl +
-        question.question!.explanationImage.toString();
+        question.explanationImage.toString();
     bool isPdf = fileUrl.toLowerCase().endsWith('.pdf');
     return SizedBox(
       width: Get.width,
@@ -309,51 +306,43 @@ class AnswerAndSolutionWidgets extends StatelessWidget {
           const SizedBox(height: 8),
           isPdf
               ? InkWell(
-            onTap: () {
-              Get.to(() => PdfViewerScreen(
-                title: 'ব্যাখ্যা',
-                file: fileUrl,
-              ));
-            },
-            child: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.picture_as_pdf,
-                      color: Colors.red, size: 24),
-                  const SizedBox(width: 8),
-                  Text(
-                    "ব্যাখ্যা",
-                    style: AppTextStyles.heading5
-                        .copyWith(color: Colors.blue),
+                  onTap: () {
+                    Get.to(() => PdfViewerScreen(
+                          title: 'ব্যাখ্যা',
+                          file: fileUrl,
+                        ));
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.picture_as_pdf,
+                            color: Colors.red, size: 24),
+                        const SizedBox(width: 8),
+                        Text(
+                          "ব্যাখ্যা",
+                          style: AppTextStyles.heading5
+                              .copyWith(color: Colors.blue),
+                        ),
+                      ],
+                    ),
                   ),
-                ],
-              ),
-            ),
-          )
+                )
               : Image.network(
-            AppConstants.storageUrl +
-                question.question!.explanationImage.toString(),
-            fit: BoxFit.cover,
-          ),
+                  AppConstants.storageUrl +
+                      question.explanationImage.toString(),
+                  fit: BoxFit.cover,
+                ),
         ],
       ),
     );
   }
 }
-
-
-
-
-
-
-
-
 
 // import 'package:flutter/material.dart';
 // import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';

@@ -10,7 +10,6 @@ class InitialBindings extends Bindings {
     Get.put(MyAppController(), permanent: true);
     Get.put(NavbarController(), permanent: true);
     Get.put(HomeController(), permanent: true);
-    //Get.put(ProfileController(), permanent: true);
   }
 }
 

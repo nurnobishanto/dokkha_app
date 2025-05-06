@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../../config/constants/app_images.dart';
-import '../../../../helper/api_helper.dart';
 import '../../../navbar/controllers/navbar_controller.dart';
 import '../controllers/profile_update_controller.dart';
 
@@ -23,9 +22,8 @@ class ProfileUpdateView extends GetView<ProfileUpdateController> {
         automaticallyImplyLeading: true,
         title: Text(
           'প্রোফাইল আপডেট করুন',
-          style:AppTextStyles.heading6
+          style:AppTextStyles.heading5.copyWith(color:Colors.white)
         ),
-        centerTitle: true,
         backgroundColor: LightThemeColors.primaryColor,
         actions: [
           IconButton(
@@ -77,7 +75,7 @@ class ProfileUpdateView extends GetView<ProfileUpdateController> {
               2.h.height,
               CustomTextFormField(
                 hintText: controller.dob.value.trim().isEmpty
-                    ? profileDataModel.value!.data!.dateOfBirth
+                    ? Get.find<NavbarController>().profileDataModel.value!.data!.dateOfBirth
                         .toString()
                         .split(" ")
                         .first
@@ -94,7 +92,7 @@ class ProfileUpdateView extends GetView<ProfileUpdateController> {
               CustomDropdownButton(
                 items: const ["পুরুষ", 'মহিলা', 'অন্যান্য'],
                 dropdownValue: controller.gender.value.isEmpty
-                    ? profileDataModel.value!.data!.gender.toString()
+                    ? Get.find<NavbarController>().profileDataModel.value!.data!.gender.toString()
                     : controller.gender.value,
                 onChanged: (v) {
                   controller.gender.value = v!;

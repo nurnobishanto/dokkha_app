@@ -12,7 +12,6 @@ import 'package:lokkha/utils/constants.dart';
 import '../../../../config/theme/light_theme_colors.dart';
 import '../../../components/custom_action_button.dart';
 import '../../../components/custom_text_field.dart';
-import '../../../helper/api_helper.dart';
 import '../../../helper/global.dart';
 import '../../../services/api_call_status.dart';
 import '../../navbar/controllers/navbar_controller.dart';
@@ -66,7 +65,7 @@ class PremiumPackageCheckoutView
                       const SizedBox(height: 5.0),
                       CustomTextField(
                         controller: TextEditingController(
-                          text: profileDataModel.value!.data?.name.toString() ??
+                          text: Get.find<NavbarController>().profileDataModel.value!.data?.name.toString() ??
                               '',
                         ),
                         hintText: 'No update Phone',

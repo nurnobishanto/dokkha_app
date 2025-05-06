@@ -53,8 +53,8 @@ class BlogView extends GetView<BlogController> {
                       color: Colors.grey[300],
                       child: const Icon(Icons.image, size: 40),
                     ),
-                    title: Text("title"),
-                    subtitle: Text("Published on: date"),
+                    title: const Text("title"),
+                    subtitle: const Text("Published on: date"),
                     onTap: () {
                       //Get.toNamed('/blog-details', arguments: post);
                     },

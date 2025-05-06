@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/components/custom_snackbar.dart';
 import 'package:lokkha/app/services/api_call_status.dart';
@@ -6,54 +5,7 @@ import '../../utils/constants.dart';
 import '../data/local/my_get_storage.dart';
 import '../data/local/my_shared_pref.dart';
 import '../models/fav_question_model.dart';
-import '../modules/navbar/model/profile_data_model.dart';
 import '../services/base_client.dart';
-import '../helper/global.dart';
-/// Rx nullable বানাও
-Rxn<ProfileDataModel> profileDataModel = Rxn<ProfileDataModel>();
-ApiCallStatus getProfileApiStatus = ApiCallStatus.holding;
-Future<void> getMeProfileInfo() async {
-  debugPrint(" Called Get Me Profile Information");
-  final token = MySharedPref.getUserToken();
-  if (token.isEmpty) {
-    debugPrint("❌ Token is empty, skipping profile fetch.");
-    clearProfileState(); // optionally clear previous data
-    return;
-  }
-  getProfileApiStatus = ApiCallStatus.loading;
-  const url = AppConstants.me;
-
-  await BaseClient.safeApiCall(
-    url,
-    RequestType.post,
-    headers: {'Authorization': 'Bearer $token'},
-    onSuccess: (response) {
-      final isSuccess = response.data['status'] == true;
-      getProfileApiStatus = ApiCallStatus.success;
-      if (isSuccess) {
-        profileDataModel.value = ProfileDataModel.fromJson(response.data);
-        isLoggedIn.value = true;
-        debugPrint("✅ Profile Data fetch Success");
-      } else {
-        debugPrint("⚠️ Profile fetch failed: API status false");
-        clearProfileState();
-      }
-    },
-    onError: (error) {
-      getProfileApiStatus = ApiCallStatus.error;
-      debugPrint("❌ Profile Fetch Error: $error");
-      clearProfileState();
-    },
-  );
-}
-
-void clearProfileState() {
-  isLoggedIn.value = false;
-  profileDataModel.value = null;
-  MySharedPref.removeUserToken(); // optional
-}
-
-
 
 ApiCallStatus apiCallStatus = ApiCallStatus.holding;
 Future<void> questionFavAdd(int id) async {
@@ -99,12 +51,12 @@ Future<void> removeFavoriteQuestion(int id) async {
   getFavList(refresh: true);
 }
 
-RxObjectMixin<FavQuestionListModel> favoriteQuestionsModel =
+RxObjectMixin<FavQuestionListModel> favoriteQuestionsListModel =
     FavQuestionListModel().obs;
 
 Future<bool> checkQuestionExistInSaved(int id) async {
   await getFavList(refresh: true);
-  return favoriteQuestionsModel.value.favoriteQuestions
+  return favoriteQuestionsListModel.value.favoriteQuestions
           ?.any((q) => q.id == id) ??
       false;
 }
@@ -120,7 +72,8 @@ Future<void> getFavList({bool refresh = false}) async {
       MyGetStorage.getStorage.hasData(MyGetStorage.favQuestionsKey)) {
     var cacheData = MyGetStorage.readCache(MyGetStorage.favQuestionsKey);
     if (cacheData != null) {
-      favoriteQuestionsModel.value = FavQuestionListModel.fromJson(cacheData);
+      favoriteQuestionsListModel.value =
+          FavQuestionListModel.fromJson(cacheData);
       return;
     }
   }
@@ -140,8 +93,8 @@ Future<void> getFavList({bool refresh = false}) async {
       if (response.data['status']) {
         FavQuestionListModel modelData =
             FavQuestionListModel.fromJson(response.data);
-        favoriteQuestionsModel.value = modelData;
-        MyGetStorage.writeCacheData(MyGetStorage.favQuestionsKey, response);
+        favoriteQuestionsListModel.value = modelData;
+        MyGetStorage.writeCacheData(MyGetStorage.favQuestionsKey, response.data);
         isFavLoading.value = false;
         // CustomSnackBar.showCustomToast(
         //     message: response.data['message'].toString());

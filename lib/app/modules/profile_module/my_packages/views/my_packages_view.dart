@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:lokkha/app/components/custom_app_bar.dart';
 import 'package:lokkha/app/modules/auth_views/auth_gateway/views/auth_gateway_view.dart';
 import 'package:lokkha/app/services/api_call_status.dart';
+import 'package:lokkha/config/constants/app_strings.dart';
 import '../../../../../utils/date_formatter.dart';
 import '../../../../helper/global.dart';
 import '../controllers/my_packages_controller.dart';
@@ -12,50 +13,47 @@ class MyPackagesView extends GetView<MyPackagesController> {
 
   @override
   Widget build(BuildContext context) {
-    final MyPackagesController controller = Get.put(MyPackagesController());
-
     return Scaffold(
-      appBar: CustomAppBar(title: 'আপনার প্যাকেজ'),
-      // appBar: AppBar(
-      //   iconTheme: const IconThemeData(color: Colors.white),
-      //   automaticallyImplyLeading: true,
-      //   title: Text('আপনার প্যাকেজ',
-      //     style: AppTextStyles.heading5.copyWith(color: Colors.white),
-      //   ),
-      //   centerTitle: true,
-      //   backgroundColor: AppColors.primary,
-      // ),
-      body: !isLoggedIn.value
-          ? const AuthGatewayView()
-          : Obx(
-              () {
-                switch (controller.apiCallStatus.value) {
-                  case ApiCallStatus.loading:
-                    return const Center(child: CircularProgressIndicator());
-                  case ApiCallStatus.success:
-                    return ListView.builder(
-                        itemCount: controller.model.value.packages?.length ?? 0,
-                        itemBuilder: (_, index) {
-                          final pkg = controller.model.value.packages![index];
-                          return PackageCard(
-                            name: pkg.package?.name ?? '',
-                            startDate: DateTime.parse(pkg.subscribedAt.toString()),
-                            endDate: DateTime.parse(pkg.cancelledAt.toString()),
-                          );
-                        });
+      appBar: const CustomAppBar(title: 'আপনার প্যাকেজ'),
+      body: Obx(() {
+        if (!isLoggedIn.value) {
+          return const AuthGatewayView();
+        }
 
-                  case ApiCallStatus.error:
-                    return const Center(
-                        child: Text("ডেটা লোড করতে সমস্যা হয়েছে"));
-                  case ApiCallStatus.holding:
-                  default:
-                    return const SizedBox.shrink();
-                }
-              },
-            ),
+        final packages = controller.model.value.packages ?? [];
+
+        if (controller.apiCallStatus.value == ApiCallStatus.loading) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        if (controller.apiCallStatus.value == ApiCallStatus.error) {
+          return const Center(child: Text("ডেটা লোড করতে সমস্যা হয়েছে"));
+        }
+
+        if (packages.isEmpty) {
+          return const Center(child: Text(AppStrings.noDataFound));
+        }
+
+        if (controller.apiCallStatus.value == ApiCallStatus.success) {
+          return ListView.builder(
+            itemCount: packages.length,
+            itemBuilder: (_, index) {
+              final pkg = packages[index];
+              return PackageCard(
+                name: pkg.package?.name ?? '',
+                startDate: DateTime.tryParse(pkg.subscribedAt.toString()) ?? DateTime.now(),
+                endDate: DateTime.tryParse(pkg.cancelledAt.toString()) ?? DateTime.now(),
+              );
+            },
+          );
+        }
+
+        return const SizedBox.shrink(); // for ApiCallStatus.holding or default
+      }),
     );
   }
 }
+
 
 class PackageCard extends StatelessWidget {
   const PackageCard({
@@ -107,9 +105,9 @@ class PackageCard extends StatelessWidget {
             RichText(
               text: TextSpan(
                 children: [
-                  TextSpan(
+                  const TextSpan(
                     text: "শুরু: ",
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontSize: 15.0,
                         fontWeight: FontWeight.bold,
                         color: Colors.black),
@@ -125,9 +123,9 @@ class PackageCard extends StatelessWidget {
             RichText(
               text: TextSpan(
                 children: [
-                  TextSpan(
+                  const TextSpan(
                     text: "শেষ: ",
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontSize: 15.0,
                         fontWeight: FontWeight.bold,
                         color: Colors.black),

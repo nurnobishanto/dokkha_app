@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'app/data/local/my_shared_pref.dart';
 import 'my_app/views/my_app_view.dart';
 

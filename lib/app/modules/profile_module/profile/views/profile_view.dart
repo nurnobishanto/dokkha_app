@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:lokkha/app/data/local/my_shared_pref.dart';
-import 'package:lokkha/app/helper/api_helper.dart';
 import 'package:lokkha/app/modules/auth_views/auth_gateway/views/auth_gateway_view.dart';
+import 'package:lokkha/app/modules/profile_module/my_packages/views/my_packages_view.dart';
 import 'package:lokkha/app/routes/app_pages.dart';
 import 'package:lokkha/config/extensions/common_extension.dart';
 import 'package:flutter/material.dart';
@@ -9,10 +8,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/utils/constants.dart';
 import '../../../../../styles/text_style.dart';
-import '../../../../helper/api_helper.dart';
 import '../../../../helper/global.dart';
 import '../../../../services/api_call_status.dart';
-import '../../../navbar/controllers/navbar_controller.dart';
 import '../../favorite_question/views/fav_question_view.dart';
 import '../controllers/profile_controller.dart';
 
@@ -23,112 +20,201 @@ class ProfileView extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     Get.put(ProfileController());
     return Obx(() {
-      final token = MySharedPref.getUserToken();
-      final isTokenValid = token.isNotEmpty;
-      if (!isLoggedIn.value || !isTokenValid) {
-        debugPrint(
-            "Error: Not logged in or token missing. isLoggedIn: ${isLoggedIn.value}");
-        return const AuthGatewayView();
-      }
+      final status = controller.profileApiStatus.value;
+      final profileData = controller.profileDataModel.value?.data;
 
-      final profileData = profileDataModel.value!.data;
-      // if (profileData == null) {
-      //   debugPrint("🚫 data is null");
-      // } else {
-      //   debugPrint("✅ data is present");
-      //   debugPrint("🧑‍💼 Name: ${profileData.name}");
-      //   debugPrint("📸 Image: ${profileData.image}");
-      //   debugPrint("📧 Email: ${profileData.email}");
-      // }
+      if (!isLoggedIn.value) return const AuthGatewayView();
 
-      return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text("প্রোফাইল"),
-        ),
-        body: Obx(() {
-          switch (getProfileApiStatus) {
-            case ApiCallStatus.loading:
-              return const Center(child: CircularProgressIndicator());
+      switch (status) {
+        case ApiCallStatus.loading:
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
 
-            case ApiCallStatus.error:
-              return const Center(
-                  child: Text("প্রোফাইল ডেটা লোড করতে ব্যর্থ হয়েছে"));
+        case ApiCallStatus.error:
+          return const Scaffold(
+              body: Center(child: Text("প্রোফাইল ডেটা লোড করতে ব্যর্থ হয়েছে")));
 
-            case ApiCallStatus.success:
-              final profileData = profileDataModel.value?.data;
-              if (profileData == null) {
-                return const Center(child: Text("প্রোফাইল তথ্য পাওয়া যায়নি"));
-              }
-
-              return SingleChildScrollView(
-                padding: EdgeInsets.all(8.0.r),
-                child: Column(
-                  spacing: 5.00.h,
-                  children: [
-                    10.h.height,
-                    CachedNetworkImage(
-                      imageUrl:
-                          "${AppConstants.storageUrl}${profileData.image}",
-                      imageBuilder: (context, imageProvider) => CircleAvatar(
-                        radius: 48.0.r,
-                        backgroundImage: imageProvider,
-                      ),
-                      placeholder: (context, url) =>
-                          const CircularProgressIndicator(),
-                      errorWidget: (context, url, error) => CircleAvatar(
-                        radius: 48.0.r,
-                        backgroundImage: const NetworkImage(
-                          "https://lokkha.com/uploads/files/shares/app/avatar.png",
-                        ),
-                      ),
-                    ),
-                    10.h.height,
-                    Text(
-                      profileData.name ?? "no name",
-                      style: AppTextStyles.body1,
-                    ),
-                    10.h.height,
-                    ...[
-                      CustomProfileButton(
-                        onTap: () => Get.toNamed(Routes.PROFILE_UPDATE),
-                        text: 'প্রোফাইল আপডেট করুন',
-                        icon: Icons.edit_note_rounded,
-                      ),
-                      CustomProfileButton(
-                        onTap: () => Get.toNamed(Routes.MY_PACKAGES),
-                        text: 'সকল প্যাকেজ',
-                        icon: Icons.edit_note_rounded,
-                      ),
-                      CustomProfileButton(
-                        onTap: () => Get.to(const FavQuestionListScreen()),
-                        text: 'ফেভারিট প্রশ্ন',
-                        icon: Icons.edit_note_rounded,
-                      ),
-                      CustomProfileButton(
-                        onTap: () => Get.toNamed(Routes.MY_ORDERS),
-                        text: 'অর্ডারস হিস্ট্রি',
-                        icon: Icons.edit_note_rounded,
-                      ),
-                      CustomProfileButton(
-                        onTap: controller.logout,
-                        text: 'লগ আউট',
-                        icon: Icons.edit_note_rounded,
-                      ),
-                    ]
-                  ],
-                ),
-              );
-
-            case ApiCallStatus.holding:
-            default:
-              return const SizedBox();
+        case ApiCallStatus.success:
+          if (profileData == null) {
+            return const Scaffold(
+              body: Center(child: Text("প্রোফাইল তথ্য পাওয়া যায়নি")),
+            );
           }
-        }),
-      );
+
+          return Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              title: const Text("প্রোফাইল"),
+            ),
+            body: SingleChildScrollView(
+              padding: EdgeInsets.all(8.0.r),
+              child: Column(
+                spacing: 5.0,
+                children: [
+                  10.h.height,
+                  CachedNetworkImage(
+                    imageUrl: "${AppConstants.storageUrl}${profileData.image}",
+                    imageBuilder: (context, imageProvider) => CircleAvatar(
+                      radius: 48.0.r,
+                      backgroundImage: imageProvider,
+                    ),
+                    placeholder: (context, url) =>
+                        const CircularProgressIndicator(),
+                    errorWidget: (context, url, error) => CircleAvatar(
+                      radius: 48.0.r,
+                      backgroundImage: const NetworkImage(
+                        "https://lokkha.com/uploads/files/shares/app/avatar.png",
+                      ),
+                    ),
+                  ),
+                  10.h.height,
+                  Text(
+                    profileData.name ?? "no name",
+                    style: AppTextStyles.body1,
+                  ),
+                  10.h.height,
+                  CustomProfileButton(
+                    onTap: () => Get.toNamed(Routes.PROFILE_UPDATE),
+                    text: 'প্রোফাইল আপডেট করুন',
+                    icon: Icons.edit_note_rounded,
+                  ),
+                  CustomProfileButton(
+                    onTap: () => Get.toNamed(Routes.MY_PACKAGES),
+                    text: 'সকল প্যাকেজ',
+                    icon: Icons.edit_note_rounded,
+                  ),
+                  CustomProfileButton(
+                    onTap: () => Get.to(const FavQuestionListScreen()),
+                    text: 'ফেভারিট প্রশ্ন',
+                    icon: Icons.edit_note_rounded,
+                  ),
+                  CustomProfileButton(
+                    onTap: () => Get.toNamed(Routes.MY_ORDERS),
+                    text: 'অর্ডারস হিস্ট্রি',
+                    icon: Icons.edit_note_rounded,
+                  ),
+                  CustomProfileButton(
+                    onTap: controller.logout,
+                    text: 'লগ আউট',
+                    icon: Icons.edit_note_rounded,
+                  ),
+                ],
+              ),
+            ),
+          );
+
+        default:
+          return const SizedBox();
+      }
     });
   }
 }
+
+// class ProfileView extends GetView<ProfileController> {
+//   const ProfileView({super.key});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//
+//     final token = MySharedPref.getUserToken();
+//     final isTokenValid = token.isNotEmpty;
+//
+//     if (!isLoggedIn.value || !isTokenValid) {
+//       debugPrint(
+//           "Error: Not logged in or token missing. isLoggedIn: ${isLoggedIn.value}");
+//       return const AuthGatewayView();
+//     }
+//
+//     return Obx(() {
+//       final profileData = Get.find<NavbarController>().profileDataModel.value?.data;
+//
+//       switch (Get.find<NavbarController>().getProfileApiStatus.value) {
+//         case ApiCallStatus.loading:
+//           return const Scaffold(
+//             body: Center(child: CircularProgressIndicator()),
+//           );
+//
+//         case ApiCallStatus.error:
+//           return const Scaffold(
+//             body: Center(child: Text("প্রোফাইল ডেটা লোড করতে ব্যর্থ হয়েছে")));
+//
+//         case ApiCallStatus.success:
+//           if (profileData == null) {
+//             return const Scaffold(
+//               body: Center(child: Text("প্রোফাইল তথ্য পাওয়া যায়নি")),
+//             );
+//           }
+//
+//           return Scaffold(
+//             appBar: AppBar(
+//               centerTitle: true,
+//               title: const Text("প্রোফাইল"),
+//             ),
+//             body: SingleChildScrollView(
+//               padding: EdgeInsets.all(8.0.r),
+//               child: Column(
+//                 spacing: 5.0,
+//                 children: [
+//                   10.h.height,
+//                   CachedNetworkImage(
+//                     imageUrl: "${AppConstants.storageUrl}${profileData.image}",
+//                     imageBuilder: (context, imageProvider) => CircleAvatar(
+//                       radius: 48.0.r,
+//                       backgroundImage: imageProvider,
+//                     ),
+//                     placeholder: (context, url) =>
+//                     const CircularProgressIndicator(),
+//                     errorWidget: (context, url, error) => CircleAvatar(
+//                       radius: 48.0.r,
+//                       backgroundImage: const NetworkImage(
+//                         "https://lokkha.com/uploads/files/shares/app/avatar.png",
+//                       ),
+//                     ),
+//                   ),
+//                   10.h.height,
+//                   Text(
+//                     profileData.name ?? "no name",
+//                     style: AppTextStyles.body1,
+//                   ),
+//                   10.h.height,
+//                   CustomProfileButton(
+//                     onTap: () => Get.toNamed(Routes.PROFILE_UPDATE),
+//                     text: 'প্রোফাইল আপডেট করুন',
+//                     icon: Icons.edit_note_rounded,
+//                   ),
+//                   CustomProfileButton(
+//                     onTap: () => Get.toNamed(Routes.MY_PACKAGES),
+//                     text: 'সকল প্যাকেজ',
+//                     icon: Icons.edit_note_rounded,
+//                   ),
+//                   CustomProfileButton(
+//                     onTap: () => Get.to(const FavQuestionListScreen()),
+//                     text: 'ফেভারিট প্রশ্ন',
+//                     icon: Icons.edit_note_rounded,
+//                   ),
+//                   CustomProfileButton(
+//                     onTap: () => Get.toNamed(Routes.MY_ORDERS),
+//                     text: 'অর্ডারস হিস্ট্রি',
+//                     icon: Icons.edit_note_rounded,
+//                   ),
+//                   CustomProfileButton(
+//                     onTap: controller.logout,
+//                     text: 'লগ আউট',
+//                     icon: Icons.edit_note_rounded,
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           );
+//
+//         case ApiCallStatus.holding:
+//         default:
+//           return const SizedBox();
+//       }
+//     });
+//   }
+// }
 
 // class ProfileView extends GetView<ProfileController> {
 //   const ProfileView({super.key});

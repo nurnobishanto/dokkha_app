@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:lokkha/app/components/custom_drawer.dart';
@@ -50,7 +49,6 @@ class HomeView extends GetView<HomeController> {
         centerTitle: false,
       ),
       body: GetBuilder<HomeController>(
-        //init: HomeController(),
         builder: (controller) {
           return Column(
             children: [

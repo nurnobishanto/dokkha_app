@@ -47,6 +47,7 @@ class SubSecSetTimeController extends GetxController {
 
   ///  method
   Future<void> testExamStart(String type) async {
+
     String? token = MySharedPref.getUserToken();
     if (token == '' || token.isEmpty) return;
     Map<String, dynamic> data = {
@@ -58,6 +59,7 @@ class SubSecSetTimeController extends GetxController {
           .map((subject) => subject.toMap())
           .toList(), // Convert each subject to map
     };
+
     await BaseClient.safeApiCall(
       AppConstants.testExamStart,
       RequestType.post,
@@ -68,7 +70,7 @@ class SubSecSetTimeController extends GetxController {
       onSuccess: (response) {
         apiCallStatus = ApiCallStatus.success;
         if (response.data['status']) {
-          log("Called Success MOCK EXAM");
+          log("Called Success ");
           isLoading.value = false;
           StartExamModel data = StartExamModel.fromJson(response.data);
           model.value = data;

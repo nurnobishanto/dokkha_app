@@ -111,9 +111,9 @@ class OrderCard extends StatelessWidget {
             RichText(
               text: TextSpan(
                 children: [
-                  TextSpan(
+                  const TextSpan(
                     text: "মোট: ",
-                    style: const TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold, color: Colors.black),
+                    style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold, color: Colors.black),
                   ),
                   TextSpan(
                     text: totalAmount,
@@ -126,9 +126,9 @@ class OrderCard extends StatelessWidget {
             RichText(
               text: TextSpan(
                 children: [
-                  TextSpan(
+                  const TextSpan(
                     text: "পেমেন্ট মেথড: ",
-                    style: const TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold, color: Colors.black),
+                    style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold, color: Colors.black),
                   ),
                   TextSpan(
                     text: paymentMethod.tr,

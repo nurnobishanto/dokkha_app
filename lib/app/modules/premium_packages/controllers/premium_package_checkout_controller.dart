@@ -7,7 +7,6 @@ import 'package:lokkha/app/services/api_call_status.dart';
 import 'package:lokkha/app/services/base_client.dart';
 import 'package:lokkha/utils/constants.dart';
 import '../../../data/local/my_shared_pref.dart';
-import '../../../helper/api_helper.dart';
 import '../models/package_checkout_model.dart';
 import '../views/payment_webview.dart';
 
@@ -17,14 +16,14 @@ class PremiumPackageCheckoutController extends GetxController {
   RxBool isCheckedCondition = false.obs;
   //************************** Text Field Area ******************************* */
   final Rx<TextEditingController> nameController = TextEditingController(
-    text: profileDataModel.value!.data!.name ?? '',
+    text:Get.find<NavbarController>().profileDataModel.value!.data!.name ?? '',
   ).obs;
   final Rx<TextEditingController> phoneController =
-      TextEditingController(text: profileDataModel.value!.data!.phone?? '')
+      TextEditingController(text: Get.find<NavbarController>().profileDataModel.value!.data!.phone?? '')
           .obs;
 
   final Rx<TextEditingController> mailController =
-      TextEditingController(text: profileDataModel.value!.data!.email).obs;
+      TextEditingController(text: Get.find<NavbarController>().profileDataModel.value!.data!.email).obs;
   RxBool isLoading = false.obs;
 
   //final otp = MySharedPref.getOTPNumber();
@@ -160,7 +159,7 @@ class PremiumPackageCheckoutController extends GetxController {
   }
   @override
   void onInit() {
-    getMeProfileInfo();
+    Get.find<NavbarController>().getMeProfileInfo();
     super.onInit();
   }
 

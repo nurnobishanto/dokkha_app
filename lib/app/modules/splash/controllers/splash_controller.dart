@@ -7,7 +7,6 @@ class SplashController extends GetxController {
     super.onInit();
     print("Splash called initial");
     Future.delayed(const Duration(seconds: 1), () {
-      print("Splash called After 10 Second");
       Get.offAllNamed(Routes.NAVBAR);
       // if (MySharedPref.getUserToken().isNotEmpty && MySharedPref.getUserToken() != ''&& isLoggedIn.value) {
       //   Get.offAllNamed(Routes.NAVBAR);

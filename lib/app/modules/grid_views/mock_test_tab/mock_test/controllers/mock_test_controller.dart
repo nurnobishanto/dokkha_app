@@ -26,10 +26,6 @@ class MockTestController extends GetxController {
     );
   }
   @override
-  void onInit() {
-    super.onInit();
-  }
-  @override
   void onReady() {
     getSubjects();
     super.onReady();

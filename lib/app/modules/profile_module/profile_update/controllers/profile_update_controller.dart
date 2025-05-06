@@ -5,7 +5,6 @@ import 'package:lokkha/app/data/local/my_shared_pref.dart';
 import 'package:lokkha/app/services/api_call_status.dart';
 import 'package:lokkha/app/services/base_client.dart';
 import 'package:lokkha/utils/constants.dart';
-import '../../../../helper/api_helper.dart';
 import '../../../navbar/controllers/navbar_controller.dart';
 import '../model/update_profile_model.dart';
 
@@ -26,36 +25,34 @@ class ProfileUpdateController extends GetxController {
 
   /// Controllers
   final nameController = TextEditingController(
-      text:profileDataModel
-          .value
-          !.data!
+      text: Get.find<NavbarController>()
+          .profileDataModel
+          .value!
+          .data!
           .name
           .toString());
   final emailController = TextEditingController(
-      text: profileDataModel
-          .value
-          !.data!
-          .email
-          .toString());
+      text: Get.find<NavbarController>().profileDataModel.value!.data!.email ??
+          '');
 
   final organizationController = TextEditingController(
-      text: profileDataModel
-          .value
-          !.data!
-          .organization
-          .toString());
+    text: Get.find<NavbarController>()
+            .profileDataModel
+            .value!
+            .data!
+            .organization ??
+        '',
+  );
   final occupationController = TextEditingController(
-      text:profileDataModel
-          .value
-          !.data!
-          .occupation
-          .toString());
+    text:
+        Get.find<NavbarController>().profileDataModel.value!.data!.occupation ??
+            '',
+  );
   final pwdController = TextEditingController();
   final confirmPwdController = TextEditingController();
 
   /// Date value using obs
   RxString dob = ''.obs;
-
 
   /// Date Picker Function
   Future<void> selectDate(BuildContext context) async {
@@ -120,7 +117,7 @@ class ProfileUpdateController extends GetxController {
           model.value = profileData;
 
           CustomSnackBar.showCustomToast(message: response.data['message']);
-          getMeProfileInfo();
+          Get.find<NavbarController>().getMeProfileInfo();
           Navigator.pop(context);
         } else {
           CustomSnackBar.showCustomSnackBar(

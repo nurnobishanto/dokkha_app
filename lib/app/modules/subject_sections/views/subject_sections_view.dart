@@ -1,4 +1,6 @@
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/modules/nav_bar_views/home/controllers/home_controller.dart';
@@ -84,10 +86,10 @@ class SubjectSectionView extends GetView<SubjectSectionController> {
                         SubjectSectionSelect newSubject = SubjectSectionSelect(
                           id: subject?.id ?? 0,
                           name: subject?.name ?? '',
-                          // quantity: min(
-                          //   int.tryParse(setNumberController.text)!.toInt(),
-                          //   subject.questionCount!.toInt(),
-                          // ),
+                          quantity: min(
+                            int.tryParse(setNumberController.text)!.toInt(),
+                            1,
+                          ),
                         );
                         await MySharedPref.addOrUpdateSubjectSectionSelect(
                             newSubject);

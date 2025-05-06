@@ -70,7 +70,7 @@ class MockExamResultScreen extends StatelessWidget {
               ListView.builder(
                 shrinkWrap: true,
                 itemCount: questionList!.length,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   final question = questionList[index];
                   return Card(

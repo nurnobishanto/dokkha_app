@@ -63,7 +63,7 @@ extension WidgetExtension on Widget? {
 
   /// set visibility
   Widget visible(bool visible, {Widget? defaultWidget}) {
-    return visible ? this! : (defaultWidget ?? SizedBox());
+    return visible ? this! : (defaultWidget ?? const SizedBox());
   }
 
   /// add custom corner radius each side
@@ -113,7 +113,7 @@ extension WidgetExtension on Widget? {
       maintainSize: maintainSize,
       maintainState: maintainState,
       child: this!,
-      replacement: replacement ?? SizedBox(),
+      replacement: replacement ?? const SizedBox(),
     );
   }
 
@@ -125,7 +125,7 @@ extension WidgetExtension on Widget? {
   }) {
     return AnimatedOpacity(
       opacity: opacity,
-      duration: duration ?? Duration(milliseconds: 500),
+      duration: duration ?? const Duration(milliseconds: 500),
       child: this,
     );
   }
@@ -357,7 +357,6 @@ Decoration boxDecorationWithShadow({
   BoxShape boxShape = BoxShape.rectangle,
   BorderRadius? borderRadius,
 }) {
-  print(backgroundColor);
   return BoxDecoration(
     boxShadow: boxShadow ??
         defaultBoxShadow(

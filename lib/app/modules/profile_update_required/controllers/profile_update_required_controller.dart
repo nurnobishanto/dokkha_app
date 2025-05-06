@@ -4,7 +4,6 @@ import 'package:lokkha/app/data/local/my_shared_pref.dart';
 import 'package:lokkha/app/services/base_client.dart';
 import 'package:lokkha/utils/constants.dart';
 
-import '../../../helper/api_helper.dart';
 import '../../../helper/global.dart';
 import '../../../components/custom_snackbar.dart';
 import '../../../routes/app_pages.dart';
@@ -97,7 +96,7 @@ class ProfileUpdateRequiredController extends GetxController {
             message: response.data["message"],
           );
           isLoggedIn.value = true;
-          getMeProfileInfo();
+          Get.find<NavbarController>().getMeProfileInfo();
           Get.offAllNamed(Routes.NAVBAR);
         }
         update();

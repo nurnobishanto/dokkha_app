@@ -9,7 +9,7 @@ import 'package:lokkha/config/extensions/common_extension.dart';
 import '../../../../config/theme/light_theme_colors.dart';
 import '../../../components/custom_snackbar.dart';
 import '../../../components/custom_text_field.dart';
-import '../../nav_bar_views/home/models/subject_sections_model.dart';
+import '../../../models/subject.dart';
 import '../controllers/subject_section_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lokkha/app/components/custom_action_button.dart';

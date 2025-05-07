@@ -6,6 +6,7 @@ import 'package:lokkha/config/theme/light_theme_colors.dart';
 import 'package:lokkha/utils/constants.dart';
 import '../../../../../../styles/text_style.dart';
 import '../../../helper/api_helper.dart';
+import '../../../models/question.dart';
 import '../../../views/views/pdf_viewer.dart';
 import '../../../views/widgets/exam_custom_button.dart';
 import '../controllers/read_question_controller.dart';

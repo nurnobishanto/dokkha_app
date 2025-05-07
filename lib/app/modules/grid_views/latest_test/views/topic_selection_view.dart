@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:lokkha/app/components/custom_action_button.dart';
 import 'package:lokkha/app/components/custom_snackbar.dart';
 import 'package:lokkha/app/data/local/my_shared_pref.dart';
-import 'package:lokkha/app/models/subject_model.dart';
+
 import 'package:lokkha/app/modules/grid_views/latest_test/controllers/add_more_topic_controller.dart';
 import 'package:lokkha/app/modules/grid_views/latest_test/views/add_more_topic.dart';
 import 'package:lokkha/app/modules/grid_views/latest_test/views/set_time_view.dart';
@@ -14,6 +14,7 @@ import 'package:lokkha/config/theme/light_theme_colors.dart';
 import '../../../../../styles/text_style.dart';
 import '../../../../components/custom_text_field.dart';
 import '../../../../models/mock_subject_select_model.dart';
+import '../../../../models/subject.dart';
 
 class TopicSelectionView extends StatelessWidget {
   final Subject subject;

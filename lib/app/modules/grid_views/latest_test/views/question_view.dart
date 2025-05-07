@@ -7,7 +7,9 @@ import 'package:lokkha/config/theme/light_theme_colors.dart';
 import 'package:lokkha/utils/constants.dart';
 import '../../../../../styles/text_style.dart';
 import '../../../../components/custom_action_button.dart';
+import '../../../../enums/question_type.dart';
 import '../../../../helper/api_helper.dart';
+import '../../../../models/question.dart';
 import '../controllers/start_exam_controller.dart';
 import '../models/start_exam_model.dart';
 

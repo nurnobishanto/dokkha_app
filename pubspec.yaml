@@ -70,6 +70,9 @@ dependencies:
   share_plus: ^11.0.0
   package_info_plus: ^8.3.0
   gif: ^2.3.0
+  image_picker: ^1.1.2
+  image_cropper: ^9.1.0
+  http_parser: ^4.1.2
 
 
 

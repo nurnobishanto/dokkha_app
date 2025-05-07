@@ -184,7 +184,7 @@ class HomeView extends GetView<HomeController> {
                       // ),
                       2.0.h.height,
 
-                      /// GridView for GridView
+                      /// GridView for Exam
                       GridView.builder(
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
@@ -210,7 +210,7 @@ class HomeView extends GetView<HomeController> {
                                 color: LightThemeColors.white,
                                 borderRadius: BorderRadius.circular(7.0),
                                 border:
-                                    Border.all(color: Colors.grey, width: .5),
+                                    Border.all(color: LightThemeColors.primaryColor, width: 1),
                               ),
                               child: Center(
                                 child: Text(

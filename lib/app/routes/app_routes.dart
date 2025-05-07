@@ -36,6 +36,7 @@ abstract class Routes {
   static const SUBJECT_SECTION = _Paths.SUBJECT_SECTION;
   static const MY_PACKAGES = _Paths.MY_PACKAGES + _Paths.MY_PACKAGES;
   static const MY_ORDERS = _Paths.MY_ORDERS + _Paths.MY_ORDERS;
+  static const LATEST_EXAM = _Paths.LATEST_EXAM;
 }
 
 abstract class _Paths {
@@ -73,4 +74,5 @@ abstract class _Paths {
   static const SUBJECT_SECTION = '/subject-section';
   static const MY_PACKAGES = '/my-packages';
   static const MY_ORDERS = '/my-orders';
+  static const LATEST_EXAM = '/latest-exam';
 }

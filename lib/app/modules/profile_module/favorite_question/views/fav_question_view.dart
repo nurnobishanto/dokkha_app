@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:lokkha/app/models/question.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
 import 'package:lokkha/styles/text_style.dart';
 import 'package:lokkha/utils/constants.dart';
@@ -148,7 +149,7 @@ class FavQuestionListScreen extends StatelessWidget {
     );
   }
 
-  Widget customSingleChoice(FavoriteQuestion question) {
+  Widget customSingleChoice(Question question) {
     return Column(
       children: [
         Column(
@@ -190,7 +191,7 @@ class FavQuestionListScreen extends StatelessWidget {
 }
 
 class AnswerAndSolutionWidgets extends StatelessWidget {
-  final FavoriteQuestion question;
+  final Question question;
 
   const AnswerAndSolutionWidgets({super.key, required this.question});
 

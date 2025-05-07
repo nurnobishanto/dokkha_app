@@ -20,6 +20,8 @@ import 'my_styles.dart';
 class MyTheme {
   static ThemeData getThemeData({required bool isLight}) {
     return ThemeData(
+      // primarySwatch: Colors.green,
+
       useMaterial3: true,
       // main color (app bar,tabs..etc)
       primaryColor: isLight

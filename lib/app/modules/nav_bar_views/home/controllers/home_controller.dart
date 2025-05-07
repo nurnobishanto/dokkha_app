@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lokkha/app/modules/current_affairs/views/current_affairs_view.dart';
 import 'package:lokkha/app/modules/grid_views/jobs/views/jobs_view.dart';
 import 'package:lokkha/app/modules/nav_bar_views/home/models/subject_sections_model.dart';
 import 'package:lokkha/app/modules/nav_bar_views/home/services/home_api_service.dart';
@@ -15,30 +16,17 @@ class HomeController extends GetxController {
 
 
   final List<String> gridViewTitle = [
-    //'সর্বশেষ সাবজেক্ট অনুযায়ী তথ্যাদি',
     'বিষয়ভিত্তিক পরীক্ষা',
+    'কারেন্ট এ্যাফেয়ার্স',
     'সর্বশেষ নিয়োগ বিজ্ঞপ্তি',
-  ];
-  final List<String> gridViewTitle2 = [
-    'বিসিএস',
-    'ব্যাংক নিয়োগ পরীক্ষা',
-    'শিক্ষক নিয়োগ ও নিবন্ধন',
-    'বিশ্ববিদ্যালয় ভর্তি পরীক্ষা',
-    'ববার কাউন্সিল ও বিজেএস',
-    'অন্যান্য',
-  ];
-  final List<Widget?> gridViewRoutePages2s = [
-    const ComingSoonPage(),
-    const ComingSoonPage(),
-    const ComingSoonPage(),
-    const ComingSoonPage(),
-    const ComingSoonPage(),
-    const ComingSoonPage(),
+    'সর্বশেষ নিয়োগ পরীক্ষা'
   ];
 
 
   final List gridViewRoutePage = [
     const MockTestTabView(),
+    const CurrentAffairsView(),
+    const JobsView(),
     const JobsView(),
   ];
 

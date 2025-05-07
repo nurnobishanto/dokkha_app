@@ -23,18 +23,14 @@ import '../modules/grid_views/mock_test_tab/mock_test/bindings/mock_test_binding
 import '../modules/grid_views/mock_test_tab/mock_test/controllers/mock_test_controller.dart';
 import '../modules/grid_views/mock_test_tab/mock_test/views/mock_test_view.dart';
 import '../modules/grid_views/mock_test_tab/views/mock_test_tab_view.dart';
+import '../modules/latest_exam/bindings/latest_exam_binding.dart';
+import '../modules/latest_exam/views/latest_exam_view.dart';
 import '../modules/nav_bar_views/blog/bindings/blog_binding.dart';
 import '../modules/nav_bar_views/blog/views/blog_view.dart';
 import '../modules/nav_bar_views/contest/bindings/contest_binding.dart';
 import '../modules/nav_bar_views/contest/views/contest_view.dart';
 import '../modules/nav_bar_views/home/bindings/home_binding.dart';
 import '../modules/nav_bar_views/home/views/home_view.dart';
-import '../modules/profile_module/profile/bindings/profile_binding.dart';
-import '../modules/profile_module/profile/views/profile_view.dart';
-import '../modules/profile_module/profile_history/bindings/profile_history_binding.dart';
-import '../modules/profile_module/profile_history/views/profile_history_view.dart';
-import '../modules/profile_module/profile_update/bindings/profile_update_binding.dart';
-import '../modules/profile_module/profile_update/views/profile_update_view.dart';
 import '../modules/nav_bar_views/question_bank/bindings/question_bank_binding.dart';
 import '../modules/nav_bar_views/question_bank/views/question_bank_view.dart';
 import '../modules/navbar/bindings/navbar_binding.dart';
@@ -45,6 +41,12 @@ import '../modules/profile_module/my_orders/bindings/my_orders_binding.dart';
 import '../modules/profile_module/my_orders/views/my_orders_view.dart';
 import '../modules/profile_module/my_packages/bindings/my_packages_binding.dart';
 import '../modules/profile_module/my_packages/views/my_packages_view.dart';
+import '../modules/profile_module/profile/bindings/profile_binding.dart';
+import '../modules/profile_module/profile/views/profile_view.dart';
+import '../modules/profile_module/profile_history/bindings/profile_history_binding.dart';
+import '../modules/profile_module/profile_history/views/profile_history_view.dart';
+import '../modules/profile_module/profile_update/bindings/profile_update_binding.dart';
+import '../modules/profile_module/profile_update/views/profile_update_view.dart';
 import '../modules/profile_update_required/bindings/profile_update_required_binding.dart';
 import '../modules/profile_update_required/views/profile_update_required_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
@@ -201,6 +203,11 @@ class AppPages {
       name: _Paths.MY_ORDERS,
       page: () => const MyOrdersView(),
       binding: MyOrdersBinding(),
+    ),
+    GetPage(
+      name: _Paths.LATEST_EXAM,
+      page: () => const LatestExamView(),
+      binding: LatestExamBinding(),
     ),
   ];
 }

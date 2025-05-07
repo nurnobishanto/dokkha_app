@@ -38,7 +38,7 @@ class JobsController extends GetxController {
             print("GobJobs Model Data $response");
           }
           JobListModel modelData = JobListModel.fromJson(response.data);
-          MyGetStorage.writeCacheData(MyGetStorage.jobKey, response);
+          MyGetStorage.writeCacheData(MyGetStorage.jobKey, response.data);
           if (page > 1 && model.value.jobs != null) {
             // Merge new data with existing data
             model.value.jobs!.data!.addAll(modelData.jobs!.data!);

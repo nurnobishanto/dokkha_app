@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/modules/current_affairs/views/current_affairs_view.dart';
 import 'package:lokkha/app/modules/grid_views/jobs/views/jobs_view.dart';
+import 'package:lokkha/app/modules/latest_exam/views/latest_exam_view.dart';
 import 'package:lokkha/app/modules/nav_bar_views/home/models/subject_sections_model.dart';
 import 'package:lokkha/app/modules/nav_bar_views/home/services/home_api_service.dart';
 import 'package:lokkha/comming_soon_view.dart';
@@ -27,7 +28,7 @@ class HomeController extends GetxController {
     const MockTestTabView(),
     const CurrentAffairsView(),
     const JobsView(),
-    const JobsView(),
+    const LatestExamView(),
   ];
 
 

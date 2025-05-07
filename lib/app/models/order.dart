@@ -1,10 +1,6 @@
 import 'package:lokkha/app/models/payment.dart';
 import 'package:lokkha/app/models/user.dart';
 
-import '../modules/profile_module/my_packages/models/my_packages_model.dart';
-
-
-
 class Order {
   final int? id;
   final String? invoiceNo;

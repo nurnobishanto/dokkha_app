@@ -55,5 +55,7 @@ class AppConstants {
   static const String myPackages = "$appUrl/my-packages";
   static const String myOrders = "$appUrl/my-orders";
   static const String myOrdersDetails = "$appUrl/package/order";
+  /// Latest Exam
+  static const String latestExam = "$appUrl/latest-exams";
 
 }

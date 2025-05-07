@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
-import 'package:lokkha/app/modules/grid_views/latest_test/models/start_exam_model.dart';
+
 import 'package:lokkha/config/theme/light_theme_colors.dart';
 import 'package:lokkha/utils/constants.dart';
 import '../../../../../../styles/text_style.dart';
@@ -12,12 +12,12 @@ import '../../../views/widgets/exam_custom_button.dart';
 import '../controllers/read_question_controller.dart';
 
 class ReadQuestionView extends StatelessWidget {
-  final StartExamModel model;
+  final List<Question> model;
   const ReadQuestionView({super.key, required this.model});
 
   @override
   Widget build(BuildContext context) {
-    final questionList = model.questions;
+    final questionList = model;
     final controller = Get.put(ReadQuestionController());
     return Scaffold(
       appBar: AppBar(

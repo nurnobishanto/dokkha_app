@@ -1,23 +1,47 @@
 import 'package:get/get.dart';
 
-class LatestExamController extends GetxController {
-  //TODO: Implement LatestExamController
+import '../../../../utils/constants.dart';
+import '../../../services/base_client.dart';
+import '../models/latest_exam_model.dart';
 
-  final count = 0.obs;
+class LatestExamController extends GetxController {
+  RxBool isLoading = true.obs;
+  RxInt currentPage = 1.obs;
+  RxBool isFavourite = false.obs;
+  RxString search = RxString("");
+  RxObjectMixin<LatestExamModel> model = LatestExamModel().obs;
+  Future<void> fetchLatestExam(
+      {int page = 1, String date = '', String search = ''}) async {
+    isLoading.value = true;
+    String url =
+        "${AppConstants.latestExam}?search=$search&page=$page&date=$date";
+
+    BaseClient.safeApiCall(
+      url,
+      RequestType.get,
+      onSuccess: (response) {
+        if (response.data["status"]) {
+          LatestExamModel modelData = LatestExamModel.fromJson(response.data);
+          if (page > 1 && model.value.latestExams != null) {
+            // Merge new data with existing data
+            model.value.latestExams!.data!.addAll(modelData.latestExams!.data!);
+          } else {
+            model.value = modelData;
+          }
+          currentPage.value = page;
+          isLoading.value = false;
+        } else {
+          isLoading.value = false;
+        }
+      },
+
+
+    );
+  }
+
   @override
   void onInit() {
+    fetchLatestExam();
     super.onInit();
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

@@ -209,8 +209,9 @@ class HomeView extends GetView<HomeController> {
                               decoration: BoxDecoration(
                                 color: LightThemeColors.white,
                                 borderRadius: BorderRadius.circular(7.0),
-                                border:
-                                    Border.all(color: LightThemeColors.primaryColor, width: 1),
+                                border: Border.all(
+                                    color: LightThemeColors.primaryColor,
+                                    width: 1),
                               ),
                               child: Center(
                                 child: Text(
@@ -224,27 +225,6 @@ class HomeView extends GetView<HomeController> {
                         },
                       ),
                       2.h.height,
-
-                      InkWell(
-                        onTap: () => Get.to(const CurrentAffairsView()),
-                        child: Container(
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(7.00),
-                            border: Border.all(
-                                color: LightThemeColors.primaryColor),
-                          ),
-                          child: Center(
-                            child: Text(
-                              "কারেন্ট অ্যাফেয়ার্স",
-                              style: AppTextStyles.heading5.copyWith(
-                                  color: LightThemeColors.primaryColor),
-                            ),
-                          ),
-                        ),
-                      ),
-                      5.h.height,
 
                       /// Contest Area
                       const LatestContestWidget(),

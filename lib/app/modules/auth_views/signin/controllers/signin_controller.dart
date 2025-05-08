@@ -1,19 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/data/local/my_shared_pref.dart';
+import 'package:lokkha/app/services/auth_service.dart';
 
-import '../../../../helper/global.dart';
 import '../../../../../utils/constants.dart';
 import '../../../../components/custom_snackbar.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../services/api_call_status.dart';
 import '../../../../services/base_client.dart';
+import '../../../navbar/controllers/navbar_controller.dart';
 
 class SignInController extends GetxController {
   bool isRegister = false;
   bool isLoading = false;
   final TextEditingController passwordController = TextEditingController();
   ApiCallStatus apiCallStatus = ApiCallStatus.holding;
+  AuthService authService = AuthService();
 
   /// login method
   Future<void> login(String phone, String type, String password) async {
@@ -31,14 +33,17 @@ class SignInController extends GetxController {
         apiCallStatus = ApiCallStatus.success;
         if (response.data['status']) {
           MySharedPref.setUserToken(response.data["token"]);
-          isLoggedIn.value = true;
+          authService.authCheck();
+          //isLoggedIn.value = true;
           debugPrint("Saved token");
           CustomSnackBar.showCustomToast(
             message: response.data["message"],
           );
-         Get.offAllNamed(Routes.NAVBAR);
-         // AuthService().authCheck();
+          Get.find<NavbarController>().getMeProfileInfo();
+          Get.offAllNamed(Routes.NAVBAR);
+          // AuthService().authCheck();
         } else {
+          authService.authCheck();
           CustomSnackBar.showCustomErrorSnackBar(
             title: 'Invalid Credential',
             message: response.data["message"],
@@ -50,6 +55,7 @@ class SignInController extends GetxController {
       onError: (error) {
         _setLoadingState(false);
         apiCallStatus = ApiCallStatus.error;
+        authService.authCheck();
         update();
         debugPrint("Error login: ${error.message}");
       },

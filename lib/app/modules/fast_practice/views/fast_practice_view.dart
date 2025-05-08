@@ -1,45 +1,76 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:lokkha/app/modules/subject_sections/views/subject_sections_view.dart';
 import '../../../../config/theme/light_theme_colors.dart';
+import '../../../../styles/text_style.dart';
+import '../../../services/api_call_status.dart';
+import '../../grid_views/mock_test_tab/mock_test/controllers/mock_test_controller.dart';
 import '../controllers/fast_practice_controller.dart';
 
 class FastPracticeView extends GetView<FastPracticeController> {
   const FastPracticeView({super.key});
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(MockTestController());
     return Scaffold(
-      body: Center(
-        child: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Icon(
-                Icons.access_time_rounded,
-                size: 80,
-                color: LightThemeColors.iconColor,
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                "Coming Soon!",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: LightThemeColors.iconColor,
+      body: Obx(() {
+        switch (controller.apiCallStatus.value) {
+          case ApiCallStatus.loading:
+            return const Center(child: CircularProgressIndicator());
+          case ApiCallStatus.success:
+            return
+              SingleChildScrollView(
+                child: Padding(
+                  padding:  EdgeInsets.only(top:16.0, bottom: 8.0.h, left: 8.0.h, right: 8.0.h,),
+                  child: Center(
+                    child: Wrap(
+                      spacing: 10,
+                      runSpacing: 8,
+                      alignment: WrapAlignment.center,
+                      children: List.generate(
+                          controller.model.value.subjects?.length ?? 0, (index) {
+                        final subject = controller.model.value.subjects![index];
+                        return InkWell(
+                          onTap: () async {
+                            Get.to(SubjectSectionView(subject: subject));
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10.00.w, vertical: 8.00.h),
+                            decoration: BoxDecoration(
+                              color: LightThemeColors.white,
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: LightThemeColors.primaryColor,width: .2),
+
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withValues(alpha: 0.05),
+                                  spreadRadius: 1,
+                                  blurRadius: 5,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            child: Text(
+                              subject.name.toString(),
+                              textAlign: TextAlign.center,
+                              style: AppTextStyles.body2,
+                            ),
+                          ),
+                        );
+                      }),
+                    ),
+                  ),
                 ),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                "We're working on it. Stay tuned!",
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey[600],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+              );
+          case ApiCallStatus.error:
+            return const Center(child: Text("Failed to load data. Try again."));
+          case ApiCallStatus.holding:
+          default:
+            return const SizedBox.shrink();
+        }
+      }),
     );
   }
 }

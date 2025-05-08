@@ -37,6 +37,8 @@ abstract class Routes {
   static const MY_PACKAGES = _Paths.MY_PACKAGES + _Paths.MY_PACKAGES;
   static const MY_ORDERS = _Paths.MY_ORDERS + _Paths.MY_ORDERS;
   static const LATEST_EXAM = _Paths.LATEST_EXAM;
+  static const MAINTENANCE_MODE_VIEW = _Paths.MAINTENANCE_MODE_VIEW;
+  static const APP_UPDATE_VIEW = _Paths.APP_UPDATE_VIEW;
 }
 
 abstract class _Paths {
@@ -75,4 +77,6 @@ abstract class _Paths {
   static const MY_PACKAGES = '/my-packages';
   static const MY_ORDERS = '/my-orders';
   static const LATEST_EXAM = '/latest-exam';
+  static const MAINTENANCE_MODE_VIEW = '/maintenance-mode-view';
+  static const APP_UPDATE_VIEW = '/app-update-view';
 }

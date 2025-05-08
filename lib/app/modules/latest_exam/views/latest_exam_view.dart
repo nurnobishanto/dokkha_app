@@ -11,7 +11,6 @@ import 'package:lokkha/utils/date_formatter.dart';
 import '../../../../config/theme/light_theme_colors.dart';
 import '../controllers/latest_exam_controller.dart';
 
-
 class LatestExamView extends GetView<LatestExamController> {
   const LatestExamView({super.key});
   @override
@@ -28,8 +27,45 @@ class LatestExamView extends GetView<LatestExamController> {
                 padding: const EdgeInsets.all(8.0),
                 child: ListView.separated(
                   itemCount:
-                      controller.model.value.latestExams?.data?.length ?? 0,
+                      controller.model.value.latestExams!.data!.length + 1,
                   itemBuilder: (c, index) {
+                    if (index ==
+                        controller.model.value.latestExams!.data!.length) {
+                      return (controller.model.value.latestExams!.lastPage! >
+                              controller.currentPage.value)
+                          ? Column(
+                              children: [
+                                const SizedBox(height: 5.0),
+                                GestureDetector(
+                                  onTap: () {
+                                    controller.fetchLatestExam(
+                                        page: controller.currentPage.value + 1);
+                                  },
+                                  child: Container(
+                                    height: 30,
+                                    width: Get.width / 2,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                      border: Border.all(
+                                        color: LightThemeColors.primaryColor,
+                                        width: 1,
+                                      ),
+                                    ),
+                                    child: const Center(
+                                      child: Text(
+                                        'আরও দেখুন',
+                                        style: TextStyle(
+                                          color: LightThemeColors.primaryColor,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          : const SizedBox.shrink();
+                    }
                     final data =
                         controller.model.value.latestExams?.data![index];
                     return LatestExamCard(
@@ -43,7 +79,8 @@ class LatestExamView extends GetView<LatestExamController> {
                       },
                       date: data!.date,
                     );
-                  }, separatorBuilder: (BuildContext context, int index) => SizedBox(height: 8),
+                  },
+                  separatorBuilder: (x, index) => 8.h.height,
                 ),
               );
       }),

@@ -153,10 +153,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lokkha/app/models/start_exam_model.dart';
 import 'package:lokkha/app/modules/latest_exam/models/latest_exam_model.dart';
 import 'package:lokkha/app/modules/subject_sections/views/read_question.dart';
-import 'package:lokkha/comming_soon_view.dart';
 import 'package:lokkha/styles/text_style.dart';
+
+import '../../../views/views/exam_process_view.dart';
 
 class LatestExamStartDialog extends StatefulWidget {
   final LatestExam latestExam;
@@ -253,9 +255,19 @@ class _LatestExamStartDialogState extends State<LatestExamStartDialog> {
     final time = int.tryParse(examTimeController.text) ?? 60;
 
     if(isStartExam){
-      //   examTime: time,
-      //   negativeMark: double.parse(selectedNegativeMark),
-      Get.to(const ComingSoonPage());
+      StartExamModel model  = StartExamModel(
+        status: true,
+        examName: widget.latestExam.title.toString(),
+        type: 'random',
+        duration: time,
+        startTime: DateTime.now(),
+        isNegativeMark: true,
+        negativeMark: double.tryParse(selectedNegativeMark),
+        isSetTime: true,
+        questionsCount: widget.latestExam.tag!.questions!.length,
+        questions: widget.latestExam.tag!.questions!.toList(),
+      );
+      Get.to(ExamProcessView(examStartModel: model));
     }else{
       Get.to(ReadQuestionView(model: widget.latestExam.tag!.questions!.toList()));
     }

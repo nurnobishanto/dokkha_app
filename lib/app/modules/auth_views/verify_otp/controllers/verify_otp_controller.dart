@@ -7,6 +7,7 @@ import '../../../../helper/global.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../services/api_call_status.dart';
 import '../../../../services/base_client.dart';
+import '../../../navbar/controllers/navbar_controller.dart';
 
 class VerifyOtpController extends GetxController {
   String? otp;
@@ -45,7 +46,7 @@ class VerifyOtpController extends GetxController {
           CustomSnackBar.showCustomToast(
             message: response.data["message"].toString(),
           );
-
+          Get.find<NavbarController>().getMeProfileInfo();
           Get.offAllNamed(Routes.PROFILE_UPDATE_REQUIRED,
               arguments: {'phoneNumber': phone.toString()});
         } else {

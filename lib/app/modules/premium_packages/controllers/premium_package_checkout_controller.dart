@@ -16,14 +16,14 @@ class PremiumPackageCheckoutController extends GetxController {
   RxBool isCheckedCondition = false.obs;
   //************************** Text Field Area ******************************* */
   final Rx<TextEditingController> nameController = TextEditingController(
-    text:Get.find<NavbarController>().profileDataModel.value!.data!.name ?? '',
+    text:Get.find<NavbarController>().profileDataModel.value!.user!.name ?? '',
   ).obs;
   final Rx<TextEditingController> phoneController =
-      TextEditingController(text: Get.find<NavbarController>().profileDataModel.value!.data!.phone?? '')
+      TextEditingController(text: Get.find<NavbarController>().profileDataModel.value!.user!.phone?? '')
           .obs;
 
   final Rx<TextEditingController> mailController =
-      TextEditingController(text: Get.find<NavbarController>().profileDataModel.value!.data!.email).obs;
+      TextEditingController(text: Get.find<NavbarController>().profileDataModel.value!.user!.email).obs;
   RxBool isLoading = false.obs;
 
   //final otp = MySharedPref.getOTPNumber();

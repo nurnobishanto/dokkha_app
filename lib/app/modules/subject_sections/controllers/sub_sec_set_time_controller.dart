@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lokkha/app/modules/grid_views/latest_test/models/start_exam_model.dart';
+import 'package:lokkha/app/models/start_exam_model.dart';
 import 'package:lokkha/app/modules/subject_sections/models/sub_sec_select_model.dart';
 import 'package:lokkha/app/modules/subject_sections/views/read_question.dart';
 import '../../../../../utils/constants.dart';
@@ -9,7 +9,8 @@ import '../../../components/custom_snackbar.dart';
 import '../../../data/local/my_shared_pref.dart';
 import '../../../services/api_call_status.dart';
 import '../../../services/base_client.dart';
-import '../../grid_views/latest_test/views/question_view.dart';
+import '../../../views/views/exam_process_view.dart';
+
 
 
 class SubSecSetTimeController extends GetxController {
@@ -76,12 +77,13 @@ class SubSecSetTimeController extends GetxController {
           model.value = data;
           log("messages");
           if(type == 'exam'){
-            Get.to(ExamQuestionScreen(
+            Get.to(ExamProcessView(
               examStartModel: model.value,
             ));
           }else{
+
             Get.to(ReadQuestionView(
-              model: model.value,
+              model: data.questions!.toList(),
             ));
           }
 

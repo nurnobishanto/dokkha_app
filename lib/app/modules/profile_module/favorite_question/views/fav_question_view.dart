@@ -8,7 +8,6 @@ import 'package:lokkha/styles/text_style.dart';
 import 'package:lokkha/utils/constants.dart';
 
 import '../../../../helper/api_helper.dart';
-import '../../../../models/fav_question_model.dart';
 import '../../../../views/views/pdf_viewer.dart';
 import '../../../../views/widgets/exam_custom_button.dart';
 

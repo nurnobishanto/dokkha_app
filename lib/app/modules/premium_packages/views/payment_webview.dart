@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lokkha/app/modules/navbar/views/navbar_view.dart';
+import 'package:lokkha/app/modules/profile_module/my_orders/views/order_details_view.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -30,7 +30,7 @@ class _PaymentWebViewState extends State<PaymentWebView> {
           onWebResourceError: (WebResourceError error) {},
           onNavigationRequest: (NavigationRequest request) {
             if (request.url.contains('order-details')) {
-              Get.off(const NavbarView());
+              Get.off( OrderDetailsScreen(url: request.url));
             } else if (request.url.startsWith("https://youtube.com")) {
               return NavigationDecision.prevent;
             }

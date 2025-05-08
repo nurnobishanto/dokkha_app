@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'app/data/local/my_shared_pref.dart';
+import 'app/helper/global.dart';
 import 'my_app/views/my_app_view.dart';
 
 Future<void> main() async {
@@ -9,7 +11,16 @@ Future<void> main() async {
   debugPrint("Initializing SharedPreferences...");
   await MySharedPref.init();
   debugPrint("Init complete. Starting app...");
-  runApp(const MyApp());
+
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
+
+  OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+  OneSignal.initialize("673905c9-99a7-4cac-a74d-44fa8fb87efb");
+  OneSignal.Notifications.requestPermission(true);
+  fetchAppVersion();
+  runApp( const MyApp());
 }
 
 // void main() {
@@ -72,3 +83,5 @@ Future<void> main() async {
 //     );
 //   }
 // }
+
+

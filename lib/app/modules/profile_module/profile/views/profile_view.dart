@@ -1,12 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:lokkha/app/modules/auth_views/auth_gateway/views/auth_gateway_view.dart';
-import 'package:lokkha/app/modules/profile_module/my_packages/views/my_packages_view.dart';
 import 'package:lokkha/app/routes/app_pages.dart';
 import 'package:lokkha/config/extensions/common_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:lokkha/utils/constants.dart';
 import '../../../../../styles/text_style.dart';
 import '../../../../helper/global.dart';
 import '../../../../services/api_call_status.dart';
@@ -19,9 +16,10 @@ class ProfileView extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {
     Get.put(ProfileController());
+
     return Obx(() {
       final status = controller.profileApiStatus.value;
-      final profileData = controller.profileDataModel.value?.data;
+      final profileData = myUser;
 
       if (!isLoggedIn.value) return const AuthGatewayView();
 
@@ -53,21 +51,22 @@ class ProfileView extends GetView<ProfileController> {
                 spacing: 5.0,
                 children: [
                   10.h.height,
-                  CachedNetworkImage(
-                    imageUrl: "${AppConstants.storageUrl}${profileData.image}",
-                    imageBuilder: (context, imageProvider) => CircleAvatar(
-                      radius: 48.0.r,
-                      backgroundImage: imageProvider,
-                    ),
-                    placeholder: (context, url) =>
-                        const CircularProgressIndicator(),
-                    errorWidget: (context, url, error) => CircleAvatar(
-                      radius: 48.0.r,
-                      backgroundImage: const NetworkImage(
-                        "https://lokkha.com/uploads/files/shares/app/avatar.png",
-                      ),
-                    ),
-                  ),
+                  // CachedNetworkImage(
+                  //   imageUrl: "${AppConstants.storageUrl}${profileData.image}",
+                  //   imageBuilder: (context, imageProvider) => CircleAvatar(
+                  //     radius: 48.0.r,
+                  //     backgroundImage: imageProvider,
+                  //   ),
+                  //   placeholder: (context, url) =>
+                  //       const CircularProgressIndicator(),
+                  //   errorWidget: (context, url, error) => CircleAvatar(
+                  //     radius: 48.0.r,
+                  //     backgroundImage: const NetworkImage(
+                  //       "https://lokkha.com/uploads/files/shares/app/avatar.png",
+                  //     ),
+                  //   ),
+                  // ),
+                  buildAvatar(myUser,radius: 64),
                   10.h.height,
                   Text(
                     profileData.name ?? "no name",

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -7,16 +8,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:gif/gif.dart';
+import 'package:lokkha/app/data/local/my_get_storage.dart';
 import 'package:lokkha/config/constants/app_strings.dart';
 import 'package:lokkha/utils/constants.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+
+import '../models/user.dart';
 
 /// 🌍 GLOBAL CONFIG: shared across the entire app.
 
 /// ✅ App Info
 String appName = AppStrings.appName;
 RxString appVersion = ''.obs;
-String appPackage = '';
+RxString appVersionCode = ''.obs;
+RxString appPackage = ''.obs;
 String appAuthor = "Techyfo";
 
 /// ✅ Environment
@@ -43,7 +48,7 @@ String? deviceId;
 String? deviceOS;
 String? deviceBrand;
 String? deviceModel;
-Size? screenSize;
+//Size? screenSize;
 
 /// ✅ Theme Settings
 RxBool isDarkMode = false.obs;
@@ -98,13 +103,13 @@ void setDeviceInfo({
   required String os,
   required String brand,
   required String model,
-  required Size size,
+ // required Size size,
 }) {
   deviceId = id;
   deviceOS = os;
   deviceBrand = brand;
   deviceModel = model;
-  screenSize = size;
+  //screenSize = size;
   logInfo("📱 Device Set: $deviceBrand $deviceModel");
 }
 
@@ -139,7 +144,11 @@ bool isImageFile(String fileName) {
 Future<void> fetchAppVersion() async {
   final PackageInfo packageInfo = await PackageInfo.fromPlatform();
   appVersion.value = packageInfo.version;
+  appPackage.value = packageInfo.packageName;
+  appVersionCode.value = packageInfo.buildNumber;
 }
+
+
 
 Future<String?> getDeviceId() async {
   final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
@@ -198,4 +207,66 @@ Widget isCheckedGifImage(String imageUrl) {
               const Center(child: CircularProgressIndicator()),
           errorWidget: (context, url, error) => const Icon(Icons.error),
         );
+}
+
+User myUser = MyGetStorage.readCache(MyGetStorage.meUser) ?? User();
+
+class NameAvatar extends StatelessWidget {
+  final String name;
+  final double radius;
+
+  const NameAvatar({super.key, required this.name, this.radius = 26.0});
+
+  // Function to get initials (e.g. "Safi Sadman" → "SS")
+  String getInitials(String name) {
+    List<String> parts = name.trim().split(' ');
+    if (parts.length == 1) return parts[0][0].toUpperCase();
+    return (parts[0][0] + parts[1][0]).toUpperCase();
+  }
+
+  // Function to generate random background color
+  Color generateAvatarColor() {
+    final random = Random();
+    return Color.fromARGB(
+      255,
+      70 + random.nextInt(110), // R: 70–180
+      70 + random.nextInt(110), // G: 70–180
+      70 + random.nextInt(110), // B: 70–180
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final initials = getInitials(name);
+    final bgColor = generateAvatarColor();
+
+    return CircleAvatar(
+      radius: 26,
+      backgroundColor: bgColor,
+      child: Text(
+        initials,
+        style: const TextStyle(
+          fontSize: 20,
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+}
+
+Widget buildAvatar(User user, {double radius = 26.0}) {
+  if (user.image != null && user.image!.isNotEmpty) {
+    return CircleAvatar(
+      radius: radius,
+      backgroundImage: NetworkImage(AppConstants.storageUrl + user.image!),
+    );
+  } else if (user.avatar != null && user.avatar!.isNotEmpty) {
+    return CircleAvatar(
+      radius: radius,
+      backgroundImage: NetworkImage(user.avatar!),
+    );
+  } else {
+    return NameAvatar(name: user.name.toString(),radius: radius);
+  }
 }

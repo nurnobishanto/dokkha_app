@@ -1,5 +1,8 @@
+import 'package:lokkha/app/models/coupon.dart';
 import 'package:lokkha/app/models/payment.dart';
 import 'package:lokkha/app/models/user.dart';
+import 'package:lokkha/app/models/package.dart';
+
 
 class Order {
   final int? id;
@@ -20,8 +23,10 @@ class Order {
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final dynamic deletedAt;
+  final Package? package;
   final User? user;
   final List<Payment>? payments;
+  final Coupon? coupon;
 
   Order({
     this.id,
@@ -42,8 +47,10 @@ class Order {
     this.createdAt,
     this.updatedAt,
     this.deletedAt,
+    this.package,
     this.user,
     this.payments,
+    this.coupon,
   });
 
   factory Order.fromJson(Map<String, dynamic> json) => Order(
@@ -65,8 +72,10 @@ class Order {
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
     deletedAt: json["deleted_at"],
+    package: json["package"] == null ? null : Package.fromJson(json["package"]),
     user: json["user"] == null ? null : User.fromJson(json["user"]),
     payments: json["payments"] == null ? [] : List<Payment>.from(json["payments"]!.map((x) => Payment.fromJson(x))),
+    coupon: json["coupon"] == null ? null : Coupon.fromJson(json["coupon"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -89,6 +98,8 @@ class Order {
     "updated_at": updatedAt?.toIso8601String(),
     "deleted_at": deletedAt,
     "user": user?.toJson(),
+    "package": package?.toJson(),
     "payments": payments == null ? [] : List<dynamic>.from(payments!.map((x) => x.toJson())),
+    "coupon": coupon?.toJson(),
   };
 }

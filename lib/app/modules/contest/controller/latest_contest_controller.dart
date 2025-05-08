@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/modules/auth_views/auth_gateway/views/auth_gateway_view.dart';
@@ -9,12 +8,14 @@ import 'package:lokkha/app/modules/contest/models/contest_result_model.dart';
 import 'package:lokkha/app/modules/contest/models/contest_start_model.dart';
 import 'package:lokkha/app/modules/contest/models/latest_contest_model.dart';
 import 'package:lokkha/app/modules/contest/views/contest_exam_view.dart';
+import 'package:lokkha/app/modules/premium_packages/views/premium_packages_view.dart';
 import 'package:lokkha/app/services/base_client.dart';
 import 'package:lokkha/utils/constants.dart';
 
 import '../../../components/custom_snackbar.dart';
 import '../../../data/local/my_shared_pref.dart';
 import '../../../helper/api_helper.dart';
+import '../../../models/user.dart';
 import '../../../services/api_call_status.dart';
 
 class LatestContestController extends GetxController {
@@ -77,7 +78,6 @@ class LatestContestController extends GetxController {
         }
         update();
       });
-
     } else if (now.isBefore(endDatetime)) {
       // 🟡 Event ongoing
       status.value = 'ongoing';
@@ -130,27 +130,31 @@ class LatestContestController extends GetxController {
           lastContestResultModel.value =
               ContestResultModel.fromJson(response.data);
 
-          for (int i = 0; i < lastContestResultModel.value.contestResults!.length; i++) {
+          for (int i = 0;
+              i < lastContestResultModel.value.contestResults!.length;
+              i++) {
             var result = lastContestResultModel.value.contestResults![i];
             int sl = i == 0
                 ? 1
                 : i == 1
-                ? 0
-                : i;
+                    ? 0
+                    : i;
             rankUsers.add(
               RankCardUser(
                   userId: result.user!.userId.toString(),
-                  rank: i+1,
-                  image:   (result.user!.image != null && result.user!.image != '')
-                      ? AppConstants.storageUrl + result.user!.image
-                      : (result.user!.avatar != null && result.user!.avatar != '')
-                      ? result.user!.avatar
-                      : 'https://lokkha.com/uploads/files/shares/app/avatar.png',
+                  rank: i + 1,
+                  image: (result.user!.image != null &&
+                          result.user!.image != '')
+                      ? AppConstants.storageUrl + result.user!.image.toString()
+                      : (result.user!.avatar != null &&
+                              result.user!.avatar != '')
+                          ? result.user!.avatar
+                          : 'https://lokkha.com/uploads/files/shares/app/avatar.png',
                   sl: sl,
-                  resultId: result.id!.toInt()),
+                  resultId: result.id!.toInt(),
+                  user: result.user!),
             );
           }
-
 
           isResultLoading.value = false;
           rankUsers.sort((a, b) => a.sl.compareTo(b.sl));
@@ -162,7 +166,8 @@ class LatestContestController extends GetxController {
       },
     );
   }
-Rx<ContestStartModel> contestStartModel = ContestStartModel().obs;
+
+  Rx<ContestStartModel> contestStartModel = ContestStartModel().obs;
   Future<void> startContest() async {
     String? token = MySharedPref.getUserToken();
     if (token == '' || token.isEmpty) return Get.to(const AuthGatewayView());
@@ -179,15 +184,18 @@ Rx<ContestStartModel> contestStartModel = ContestStartModel().obs;
           isLoading.value = false;
           ContestStartModel data = ContestStartModel.fromJson(response.data);
           contestStartModel.value = data;
-          Get.to(()=> ContestExamView(
-            examStartModel: contestStartModel.value,
-          ));
-
-        } else if (response.data["status"] == false ) {
-          CustomSnackBar.showCustomErrorToast(message: response.data["message"].toString());
+          Get.to(() => ContestExamView(
+                examStartModel: contestStartModel.value,
+              ));
+        }
+        else if (response.data["status"] == false) {
+          if(response.data["package_required"] == true){
+            Get.to(const PremiumPackagesView());
           }
+          CustomSnackBar.showCustomErrorToast(
+              message: response.data["message"].toString());
+        }
       },
-
     );
   }
 
@@ -211,6 +219,7 @@ class RankCardUser {
   final String userId;
   final int resultId;
   final String? image;
+  final User user;
 
   RankCardUser({
     required this.sl,
@@ -218,5 +227,6 @@ class RankCardUser {
     required this.userId,
     required this.resultId,
     this.image,
+    required this.user,
   });
 }

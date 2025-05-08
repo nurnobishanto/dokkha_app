@@ -9,6 +9,7 @@ import 'package:lokkha/config/extensions/common_extension.dart';
 import '../../../../config/theme/light_theme_colors.dart';
 import '../../../components/custom_snackbar.dart';
 import '../../../components/custom_text_field.dart';
+import '../../../models/mock_subject_select_model.dart';
 import '../../../models/subject.dart';
 import '../controllers/subject_section_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -88,7 +89,7 @@ class SubjectSectionView extends GetView<SubjectSectionController> {
                           name: subject?.name ?? '',
                           quantity: min(
                             int.tryParse(setNumberController.text)!.toInt(),
-                            1,
+                            subject!.questionCount!.toInt(),
                           ),
                         );
                         await MySharedPref.addOrUpdateSubjectSectionSelect(
@@ -178,18 +179,18 @@ class CustomExpandSubject extends StatelessWidget {
                         onChanged: (value) {
                           // debugPrint("Checked Box: $value");
                           isChecked.value = value!;
-                          // MockSubjectSelect newSubject = MockSubjectSelect(
-                          //   id: topic.id,
-                          //   name: topic.name,
-                          //   parentId: subject.id,
-                          //   max: topic.questionCount!.toInt(),
-                          // );
-                          // if (value) {
-                          //   MySharedPref.addOrUpdateMockSubjectSelect(
-                          //       newSubject);
-                          // } else {
-                          //   MySharedPref.removeMockSubjectSelect(newSubject);
-                          // }
+                          MockSubjectSelect newSubject = MockSubjectSelect(
+                            id: topic.id,
+                            name: topic.name,
+                            parentId: subject.id,
+                            max: topic.questionCount!.toInt(),
+                          );
+                          if (value) {
+                            MySharedPref.addOrUpdateMockSubjectSelect(
+                                newSubject);
+                          } else {
+                            MySharedPref.removeMockSubjectSelect(newSubject);
+                          }
                         },
                         visualDensity: VisualDensity.compact,
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,

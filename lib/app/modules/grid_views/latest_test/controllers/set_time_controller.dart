@@ -1,14 +1,15 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lokkha/app/modules/grid_views/latest_test/models/start_exam_model.dart';
+import 'package:lokkha/app/models/start_exam_model.dart';
 import '../../../../../utils/constants.dart';
 import '../../../../components/custom_snackbar.dart';
 import '../../../../data/local/my_shared_pref.dart';
 import '../../../../models/mock_subject_select_model.dart';
 import '../../../../services/api_call_status.dart';
 import '../../../../services/base_client.dart';
-import '../views/question_view.dart';
+import '../../../../views/views/exam_process_view.dart';
+
 
 class SetTimeController extends GetxController {
   RxBool isNegativeMarkChecked = false.obs;
@@ -43,12 +44,14 @@ class SetTimeController extends GetxController {
   ApiCallStatus apiCallStatus = ApiCallStatus.holding;
   RxObjectMixin model = StartExamModel().obs;
 
-  /// login method
-  Future<void> testExamStart() async {
+  /// startExam method
+  Future<void> startExam() async {
     String? token = MySharedPref.getUserToken();
     if (token == '' || token.isEmpty) return;
     Map<String, dynamic> data = {
-      'negative_mark': isNegativeMarkChecked.value,
+      'negative_mark' : 0.25,
+      'exam_name':'Mock Test',
+      'is_negative_mark': isNegativeMarkChecked.value,
       'is_set_time': isSetTime.value,
       'type': selectedKey.value,
       'duration': int.tryParse(setTimeCon.text) ?? 0,
@@ -70,8 +73,7 @@ class SetTimeController extends GetxController {
           isLoading.value = false;
           StartExamModel data = StartExamModel.fromJson(response.data);
           model.value = data;
-          log("messagessssssss");
-          Get.to(ExamQuestionScreen(
+          Get.to(ExamProcessView(
             examStartModel: model.value,
           ));
           log("My EXam Data: ${data.startTime.toString()}");

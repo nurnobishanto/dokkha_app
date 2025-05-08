@@ -1,34 +1,34 @@
 class User {
   final int? id;
-  final dynamic name;
-  final dynamic email;
+  final String? name;
+  final String? email;
   final String? phone;
-  final dynamic emailVerifiedAt;
-  final dynamic dateOfBirth;
-  final dynamic gender;
-  final dynamic occupation;
-  final dynamic organization;
-  final dynamic referralCode;
+  final String? emailVerifiedAt;
+  final String? dateOfBirth;
+  final String? gender;
+  final String? occupation;
+  final String? organization;
+  final String? referralCode;
   final String? userId;
-  final dynamic image;
-  final dynamic addressLine1;
-  final dynamic addressLine2;
-  final dynamic city;
-  final dynamic state;
-  final dynamic zipCode;
-  final dynamic country;
+  final String? image;
+  final String? addressLine1;
+  final String? addressLine2;
+  final String? city;
+  final String? state;
+  final String? zipCode;
+  final String? country;
   final int? points;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  final dynamic deletedAt;
+  final String? deletedAt;
   final String? jwtToken;
-  final dynamic googleId;
-  final dynamic facebookId;
-  final dynamic githubId;
-  final dynamic linkedinId;
-  final dynamic twitterId;
-  final dynamic avatar;
-  final dynamic provider;
+  final String? googleId;
+  final String? facebookId;
+  final String? githubId;
+  final String? linkedinId;
+  final String? twitterId;
+  final String? avatar;
+  final String? provider;
 
   User({
     this.id,

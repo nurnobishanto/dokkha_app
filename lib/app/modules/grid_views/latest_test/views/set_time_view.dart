@@ -262,7 +262,7 @@ class SetTimeView extends StatelessWidget {
                       print("Question paper Data: $data}");
                     }
                     if (isLoggedIn.value) {
-                      controller.testExamStart();
+                      controller.startExam();
                     } else {
                       Get.toNamed(Routes.AUTH_GATEWAY);
                     }

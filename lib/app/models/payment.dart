@@ -10,6 +10,7 @@ class Payment {
   final String? response;
   final DateTime? createdAt;
   final DateTime? updatedAt;
+  final String? paymentUrl;
 
   Payment({
     this.id,
@@ -23,6 +24,7 @@ class Payment {
     this.response,
     this.createdAt,
     this.updatedAt,
+    this.paymentUrl,
   });
 
   factory Payment.fromJson(Map<String, dynamic> json) => Payment(
@@ -37,6 +39,7 @@ class Payment {
     response: json["response"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+    paymentUrl: json["payment_url"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -51,5 +54,6 @@ class Payment {
     "response": response,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
+    "payment_url": paymentUrl,
   };
 }

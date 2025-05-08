@@ -14,16 +14,20 @@ String resultModelToJson(ResultModel data) =>
 class ResultModel {
   final bool? status;
   final Summary? summary;
-  final bool? negativeMark;
+  final bool? isNegativeMark;
+  final double? negativeMark;
   final List<Result>? results;
   final String? message;
+  final String? examName;
 
   ResultModel({
     this.status,
     this.summary,
+    this.isNegativeMark,
     this.negativeMark,
     this.results,
     this.message,
+    this.examName,
   });
 
   factory ResultModel.fromJson(Map<String, dynamic> json) =>
@@ -31,22 +35,26 @@ class ResultModel {
         status: json["status"],
         summary:
             json["summary"] == null ? null : Summary.fromJson(json["summary"]),
+        isNegativeMark: json["is_negative_mark"],
         negativeMark: json["negative_mark"],
         results: json["results"] == null
             ? []
             : List<Result>.from(
                 json["results"]!.map((x) => Result.fromJson(x))),
         message: json["message"],
+        examName: json["exam_name"],
       );
 
   Map<String, dynamic> toJson() => {
         "status": status,
         "summary": summary?.toJson(),
+        "is_negative_mark": isNegativeMark,
         "negative_mark": negativeMark,
         "results": results == null
             ? []
             : List<dynamic>.from(results!.map((x) => x.toJson())),
         "message": message,
+        "exam_name": examName,
       };
 }
 
@@ -114,7 +122,7 @@ class Summary {
   final int? correct;
   final int? incorrect;
   final int? attempt;
-  final int? mark;
+  final double? mark;
 
   Summary({
     this.total,

@@ -3,22 +3,23 @@ import 'package:get/get.dart';
 import 'package:lokkha/app/components/custom_snackbar.dart';
 import 'package:lokkha/app/routes/app_pages.dart';
 import 'package:lokkha/app/helper/global.dart';
+import 'package:lokkha/app/services/auth_service.dart';
 import '../../../../../utils/constants.dart';
 import '../../../../data/local/my_shared_pref.dart';
 import '../../../../services/api_call_status.dart';
 import '../../../../services/base_client.dart';
 import '../../../navbar/model/profile_data_model.dart';
 
-
 class ProfileController extends GetxController {
   RxBool isLoading = true.obs;
   Rxn<ProfileDataModel> profileDataModel = Rxn<ProfileDataModel>();
   Rx<ApiCallStatus> profileApiStatus = ApiCallStatus.holding.obs;
-
+  AuthService authService = AuthService();
   @override
   void onInit() {
     debugPrint("ProfileController initialized");
-    fetchProfileData();
+     fetchProfileData();
+
     super.onInit();
   }
 
@@ -70,7 +71,8 @@ class ProfileController extends GetxController {
         if (response.data['status']) {
           CustomSnackBar.showCustomToast(message: response.data['message']);
         } else {
-          CustomSnackBar.showCustomErrorToast(message: response.data['message']);
+          CustomSnackBar.showCustomErrorToast(
+              message: response.data['message']);
         }
 
         Get.offAllNamed(Routes.NAVBAR);
@@ -81,9 +83,6 @@ class ProfileController extends GetxController {
     );
   }
 }
-
-
-
 
 // class ProfileController extends GetxController {
 //   RxBool isLoading = true.obs;

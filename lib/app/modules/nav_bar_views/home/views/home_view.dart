@@ -18,7 +18,6 @@ import 'package:lokkha/utils/constants.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../../../../../config/constants/app_images.dart';
 import '../../../../../styles/text_style.dart';
-import '../../../current_affairs/views/current_affairs_view.dart';
 import '../../../subject_sections/models/sub_sec_select_model.dart';
 import '../../../subject_sections/views/subject_sections_view.dart';
 import '../controllers/home_controller.dart';

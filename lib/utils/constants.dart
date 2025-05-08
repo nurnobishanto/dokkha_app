@@ -8,6 +8,7 @@ class AppConstants {
   static const String sendOtp = "$appUrl/send-otp";
   static const String login = "$appUrl/login";
   static const String register = "$appUrl/register";
+  static const String appVersionCheckApi = "$appUrl/app/update";
   static const String updateProfileRequired =
       "$appUrl/update-profile-required";
   static const String updateProfileInfo = "$appUrl/update-profile-info";
@@ -54,7 +55,7 @@ class AppConstants {
   /// Subject Section related..
   static const String myPackages = "$appUrl/my-packages";
   static const String myOrders = "$appUrl/my-orders";
-  static const String myOrdersDetails = "$appUrl/package/order";
+  static const String myOrdersDetails = "$appUrl/order-details";
   /// Latest Exam
   static const String latestExam = "$appUrl/latest-exams";
 

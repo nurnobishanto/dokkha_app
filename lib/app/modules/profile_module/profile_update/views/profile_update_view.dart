@@ -1,17 +1,16 @@
 import 'dart:io';
 
 import 'package:lokkha/app/components/custom_action_button.dart';
+import 'package:lokkha/app/components/custom_app_bar.dart';
 import 'package:lokkha/app/components/custom_drop_down_button.dart';
 import 'package:lokkha/app/components/custom_text_form_field.dart';
-import 'package:lokkha/app/modules/profile_module/profile/controllers/profile_controller.dart';
 import 'package:lokkha/config/extensions/common_extension.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
 import 'package:lokkha/styles/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:lokkha/utils/constants.dart';
-import '../../../../../config/constants/app_images.dart';
+import '../../../../helper/global.dart';
 import '../../../navbar/controllers/navbar_controller.dart';
 import '../controllers/profile_update_controller.dart';
 
@@ -20,19 +19,7 @@ class ProfileUpdateView extends GetView<ProfileUpdateController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.white),
-        automaticallyImplyLeading: true,
-        title: Text('প্রোফাইল আপডেট করুন',
-            style: AppTextStyles.heading5.copyWith(color: Colors.white)),
-        backgroundColor: LightThemeColors.primaryColor,
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.check, color: Colors.white),
-          ),
-        ],
-      ),
+      appBar: const CustomAppBar(title: 'প্রোফাইল আপডেট করুন'),
       body: Obx(() {
         return SingleChildScrollView(
           child: Padding(
@@ -41,45 +28,39 @@ class ProfileUpdateView extends GetView<ProfileUpdateController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 10.h.height,
-              Center(
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    CircleAvatar(
-                      radius: 64.0,
-                      backgroundColor: LightThemeColors.primaryColor,
-                      child: CircleAvatar(
-                        radius: 62.0,
-                        backgroundImage: controller.croppedImage.value != null
-                            ? FileImage(File(controller.croppedImage.value!.path))
-                            :Get.find<ProfileController>().profileDataModel.value!.data!.image != null &&
-                            Get.find<ProfileController>().profileDataModel.value!.data!.image != null
-                            ? NetworkImage(
-                            AppConstants.storageUrl+ Get.find<ProfileController>().profileDataModel.value!.data!.image)
-                            : AssetImage(AssetImagePaths.appleImg)
-                        as ImageProvider, // Placeholder if no image is available
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0.8,
-                      right: 0.5,
-                      child: InkWell(
-                        onTap: () {
-                          controller.pickImage();
-                        },
-                        child: const CircleAvatar(
-                          radius: 20.0,
-                          child: Icon(
-                            Icons.camera_alt,
-                            color: Colors.black,
-                            size: 24.0,
+                Center(
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      controller.croppedImage.value != null
+                          ? CircleAvatar(
+                              radius: 64.0,
+                              backgroundColor: LightThemeColors.primaryColor,
+                              child: CircleAvatar(
+                                  radius: 62.0,
+                                  backgroundImage: FileImage(File(
+                                      controller.croppedImage.value!.path))))
+                          : buildAvatar(myUser, radius: 64),
+                      Positioned(
+                        bottom: 0.8,
+                        right: 0.5,
+                        child: InkWell(
+                          onTap: () {
+                            controller.pickImage();
+                          },
+                          child: const CircleAvatar(
+                            radius: 20.0,
+                            child: Icon(
+                              Icons.camera_alt,
+                              color: Colors.black,
+                              size: 24.0,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
                 // InkWell(
                 //   onTap: () {
                 //     controller.pickImage();
@@ -124,7 +105,7 @@ class ProfileUpdateView extends GetView<ProfileUpdateController> {
                       ? Get.find<NavbarController>()
                           .profileDataModel
                           .value!
-                          .data!
+                          .user!
                           .dateOfBirth
                           .toString()
                           .split(" ")
@@ -145,7 +126,7 @@ class ProfileUpdateView extends GetView<ProfileUpdateController> {
                       ? Get.find<NavbarController>()
                           .profileDataModel
                           .value!
-                          .data!
+                          .user!
                           .gender
                           .toString()
                       : controller.gender.value,

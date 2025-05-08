@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:lokkha/app/modules/contest/controller/latest_contest_controller.dart';
 import '../../../../styles/text_style.dart';
 import '../../nav_bar_views/home/components/home_components.dart';
+import '../views/contest_result_view.dart';
 
 class LastContestResultWidget extends StatelessWidget {
   const LastContestResultWidget({super.key});
@@ -14,14 +15,15 @@ class LastContestResultWidget extends StatelessWidget {
     return Obx(() {
       return Column(
         children: [
-         controller.rankUsers.isNotEmpty ?
-          Text(
-            "সর্বশেষ বিজয়ীদের তালিকা",
-            style: AppTextStyles.custom(
-              fontSize: 17.00.sp,
-              fontWeight: FontWeight.w600,
-            ),
-          ):const SizedBox(),
+          controller.rankUsers.isNotEmpty
+              ? Text(
+                  "সর্বশেষ বিজয়ীদের তালিকা",
+                  style: AppTextStyles.custom(
+                    fontSize: 17.00.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
+                )
+              : const SizedBox(),
           controller.isResultLoading.value
               ? const Center(
                   child: CircularProgressIndicator(),
@@ -38,14 +40,20 @@ class LastContestResultWidget extends StatelessWidget {
                         int displayRank = controller.rankUsers[index]
                             .rank; // can change this based on actual data
                         double topPadding = index == 1 ? 5.h : 30.h;
-                        return Padding(
-                          padding: EdgeInsets.only(top: topPadding),
-                          child: buildTopRankedUser(
-                            imagePath:
-                                controller.rankUsers[index].image.toString(),
-                            id: controller.rankUsers[index].userId.toString(),
-                            rank: displayRank,
-                            isFirst: displayRank == 1,
+                        return InkWell(
+                          onTap: () {
+                            Get.to(ContestResultView(contestResultModel: controller.lastContestResultModel.value));
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.only(top: topPadding),
+                            child: buildTopRankedUser(
+                              imagePath:
+                                  controller.rankUsers[index].image.toString(),
+                              id: controller.rankUsers[index].userId.toString(),
+                              rank: displayRank,
+                              isFirst: displayRank == 1,
+                              user:  controller.rankUsers[index].user
+                            ),
                           ),
                         );
                       },

@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-
 import '../modules/auth_views/auth_gateway/bindings/auth_gateway_binding.dart';
 import '../modules/auth_views/auth_gateway/views/auth_gateway_view.dart';
 import '../modules/auth_views/forget_password/bindings/forget_password_binding.dart';
@@ -25,6 +24,9 @@ import '../modules/grid_views/mock_test_tab/mock_test/views/mock_test_view.dart'
 import '../modules/grid_views/mock_test_tab/views/mock_test_tab_view.dart';
 import '../modules/latest_exam/bindings/latest_exam_binding.dart';
 import '../modules/latest_exam/views/latest_exam_view.dart';
+
+import '../modules/maintenance_mode/bindings/maintenance_mode_view_binding.dart';
+import '../modules/maintenance_mode/views/maintenance_mode_view_view.dart';
 import '../modules/nav_bar_views/blog/bindings/blog_binding.dart';
 import '../modules/nav_bar_views/blog/views/blog_view.dart';
 import '../modules/nav_bar_views/contest/bindings/contest_binding.dart';
@@ -209,5 +211,11 @@ class AppPages {
       page: () => const LatestExamView(),
       binding: LatestExamBinding(),
     ),
+    GetPage(
+      name: _Paths.MAINTENANCE_MODE_VIEW,
+      page: () => const MaintenanceModeView(),
+      binding: MaintenanceModeBinding(),
+    ),
+
   ];
 }

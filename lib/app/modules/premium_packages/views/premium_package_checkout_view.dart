@@ -13,9 +13,9 @@ import '../../../../config/theme/light_theme_colors.dart';
 import '../../../components/custom_action_button.dart';
 import '../../../components/custom_text_field.dart';
 import '../../../helper/global.dart';
+import '../../../models/package.dart';
 import '../../../services/api_call_status.dart';
 import '../../navbar/controllers/navbar_controller.dart';
-import '../models/premium_package_model.dart';
 
 class PremiumPackageCheckoutView
     extends GetView<PremiumPackageCheckoutController> {
@@ -65,7 +65,7 @@ class PremiumPackageCheckoutView
                       const SizedBox(height: 5.0),
                       CustomTextField(
                         controller: TextEditingController(
-                          text: Get.find<NavbarController>().profileDataModel.value!.data?.name.toString() ??
+                          text: Get.find<NavbarController>().profileDataModel.value!.user?.name.toString() ??
                               '',
                         ),
                         hintText: 'No update Phone',

@@ -1,10 +1,7 @@
-import 'dart:io';
 
-import 'package:dio/dio.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http_parser/http_parser.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lokkha/app/components/custom_snackbar.dart';
@@ -33,22 +30,21 @@ class ProfileUpdateController extends GetxController {
 
   /// Controllers
   final nameController = TextEditingController(
-      text: Get.find<NavbarController>().profileDataModel.value!.data?.name ??
+      text: Get.find<NavbarController>().profileDataModel.value!.user?.name ??
           '');
   final emailController = TextEditingController(
-      text: Get.find<NavbarController>().profileDataModel.value!.data!.email ??
+      text: Get.find<NavbarController>().profileDataModel.value!.user!.email ??
           '');
   final organizationController = TextEditingController(
-    text: Get.find<NavbarController>()
-            .profileDataModel
+    text: Get.find<NavbarController>().profileDataModel
             .value!
-            .data!
+            .user!
             .organization ??
         '',
   );
   final occupationController = TextEditingController(
     text:
-        Get.find<NavbarController>().profileDataModel.value!.data!.occupation ??
+    Get.find<NavbarController>().profileDataModel.value!.user!.occupation ??
             '',
   );
   final pwdController = TextEditingController();
@@ -134,30 +130,39 @@ class ProfileUpdateController extends GetxController {
     if (token == "" && token.isEmpty) {
       return;
     }
+    //
 
-    XFile xFile = XFile(croppedImage.value!.path);
-    File imageFile = File(xFile.path); // convert to File
-    //final dio.Dio dioClient = dio.Dio();
-    dio.MultipartFile imageMultipart = await dio.MultipartFile.fromFile(
-      imageFile.path,
-      filename: 'profile.jpg',
-      contentType: MediaType('image', 'jpeg'),
-    );
 
+
+
+
+
+    dio.MultipartFile? imageMultipart;
+
+    if (croppedImage.value != null) {
+      XFile xFile = XFile(croppedImage.value!.path);
+      imageMultipart = await dio.MultipartFile.fromFile(
+        xFile.path,
+        filename: nameController.text.trim(),
+      );
+    }
     String url = AppConstants.updateProfileInfo;
-    Map<String, dynamic> data = {
+
+
+    dio.FormData data = dio.FormData.fromMap({
       'name': nameController.text.trim().toString(),
       'email': emailController.text.trim().toString(),
       'occupation': occupationController.text.trim().toString(),
       'organization': organizationController.text.trim().toString(),
       'gender': genderSelect().toString(),
       'date_of_birth': dob.value.toString(),
-      'password': pwdController.text,
-      "password_confirmation": confirmPwdController.text.trim(),
+      if (pwdController.text.trim().isNotEmpty)
+        'password': pwdController.text,
+      if (pwdController.text.trim().isNotEmpty)
+        'password_confirmation': confirmPwdController.text.trim(),
       'image': imageMultipart ?? '', // fallback if null
-    };
+    });
 
-    print("Imagesss ${imageMultipart}");
     Map<String, dynamic> headers = {
       'Authorization': 'Bearer $token',
       'Content-Type': 'application/json',
@@ -179,6 +184,7 @@ class ProfileUpdateController extends GetxController {
 
           CustomSnackBar.showCustomToast(message: response.data['message']);
           Get.find<NavbarController>().getMeProfileInfo();
+
           Navigator.pop(context);
         } else {
           CustomSnackBar.showCustomSnackBar(

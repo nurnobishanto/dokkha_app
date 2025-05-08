@@ -38,7 +38,7 @@ class ReadQuestionView extends StatelessWidget {
             children: [
               ListView.builder(
                 shrinkWrap: true,
-                itemCount: questionList!.length,
+                itemCount: questionList.length,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   final question = questionList[index];

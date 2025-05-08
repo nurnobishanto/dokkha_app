@@ -3,13 +3,13 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/utils/constants.dart';
-import '../../../../data/local/my_shared_pref.dart';
-import '../../../../helper/api_helper.dart';
-import '../../../../services/api_call_status.dart';
-import '../../../../services/base_client.dart';
-import '../models/result_model.dart';
+import '../data/local/my_shared_pref.dart';
+import '../helper/api_helper.dart';
+import '../services/api_call_status.dart';
+import '../services/base_client.dart';
+import '../modules/grid_views/latest_test/models/result_model.dart';
 import '../models/start_exam_model.dart';
-import '../views/result_screen.dart';
+import '../modules/grid_views/latest_test/views/result_screen.dart';
 
 
 class StartExamController extends GetxController {
@@ -40,6 +40,8 @@ class StartExamController extends GetxController {
       'start_time': exam!.startTime.toString(),
       'duration': exam!.duration,
       'negative_mark': exam!.negativeMark,
+      'is_negative_mark': exam!.isNegativeMark,
+      'exam_name': exam!.examName,
     };
     log("log${data.toString()}");
 

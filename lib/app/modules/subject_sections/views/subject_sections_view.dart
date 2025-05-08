@@ -129,7 +129,7 @@ class CustomExpandSubject extends StatelessWidget {
   Widget build(BuildContext context) {
     final isExpanded = false.obs;
     return FutureBuilder<bool>(
-      future: MySharedPref.isMockSubjectExist(topic.id!.toInt()),
+      future: MySharedPref.isSubjectSectionExist(topic.id!.toInt()),
       builder: (context, snapshot) {
         final isChecked = (snapshot.data ?? false).obs;
         return Obx(() {
@@ -179,17 +179,17 @@ class CustomExpandSubject extends StatelessWidget {
                         onChanged: (value) {
                           // debugPrint("Checked Box: $value");
                           isChecked.value = value!;
-                          MockSubjectSelect newSubject = MockSubjectSelect(
+                          SubjectSectionSelect newSubject = SubjectSectionSelect(
                             id: topic.id,
                             name: topic.name,
                             parentId: subject.id,
                             max: topic.questionCount!.toInt(),
                           );
                           if (value) {
-                            MySharedPref.addOrUpdateMockSubjectSelect(
+                            MySharedPref.addOrUpdateSubjectSectionSelect(
                                 newSubject);
                           } else {
-                            MySharedPref.removeMockSubjectSelect(newSubject);
+                            MySharedPref.removeSubjectSectionSelect(newSubject);
                           }
                         },
                         visualDensity: VisualDensity.compact,

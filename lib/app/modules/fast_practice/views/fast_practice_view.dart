@@ -4,8 +4,10 @@ import 'package:get/get.dart';
 import 'package:lokkha/app/modules/subject_sections/views/subject_sections_view.dart';
 import '../../../../config/theme/light_theme_colors.dart';
 import '../../../../styles/text_style.dart';
+import '../../../data/local/my_shared_pref.dart';
 import '../../../services/api_call_status.dart';
 import '../../grid_views/mock_test_tab/mock_test/controllers/mock_test_controller.dart';
+import '../../subject_sections/models/sub_sec_select_model.dart';
 import '../controllers/fast_practice_controller.dart';
 
 class FastPracticeView extends GetView<FastPracticeController> {
@@ -33,6 +35,18 @@ class FastPracticeView extends GetView<FastPracticeController> {
                         final subject = controller.model.value.subjects![index];
                         return InkWell(
                           onTap: () async {
+                            MySharedPref.clearSubjectSection();
+                            SubjectSectionSelect newSubject =
+                            SubjectSectionSelect(
+                              id: subject.id ??
+                                  0,
+                              name: subject.name ??
+                                  '',
+                              quantity: 20,
+                            );
+                            await MySharedPref
+                                .addOrUpdateSubjectSectionSelect(
+                                newSubject);
                             Get.to(SubjectSectionView(subject: subject));
                           },
                           child: Container(

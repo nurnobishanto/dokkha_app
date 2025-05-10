@@ -184,7 +184,7 @@ String convertDaysToHumanReadable(int days) {
 }
 
 Widget isCheckedGifImage(String imageUrl) {
-  final isGifFile = imageUrl.toLowerCase().endsWith('.gif');
+  final isGifFile = imageUrl.toLowerCase().endsWith('.giff');
   return isGifFile
       ? Gif(
           image: NetworkImage(imageUrl),

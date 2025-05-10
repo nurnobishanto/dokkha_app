@@ -94,7 +94,7 @@ class SetTimeController extends GetxController {
       onError: (error) {
         apiCallStatus = ApiCallStatus.error;
         update();
-        debugPrint("Error login: ${error.message}");
+        debugPrint("Error set time controller: ${error.message}");
       },
       onLoading: () {
         apiCallStatus = ApiCallStatus.loading;

@@ -15,7 +15,7 @@ class ResultModel {
   final bool? status;
   final Summary? summary;
   final bool? isNegativeMark;
-  final double? negativeMark;
+  final dynamic negativeMark;
   final List<Result>? results;
   final String? message;
   final String? examName;
@@ -122,7 +122,7 @@ class Summary {
   final int? correct;
   final int? incorrect;
   final int? attempt;
-  final double? mark;
+  final dynamic mark;
 
   Summary({
     this.total,

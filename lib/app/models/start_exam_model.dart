@@ -39,7 +39,7 @@ class StartExamModel {
     negativeMark: json["negative_mark"]?.toDouble(),
     isSetTime: json["is_set_time"],
     questionsCount: json["questions_count"],
-    questions: json["questions"] == null ? [] : List<Question>.from(json["questions"]!.map((x) => x)),
+    questions: json["questions"] == null ? [] : List<Question>.from(json["questions"]!.map((x) => Question.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -52,6 +52,6 @@ class StartExamModel {
     "negative_mark": negativeMark,
     "is_set_time": isSetTime,
     "questions_count": questionsCount,
-    "questions": questions == null ? [] : List<Question>.from(questions!.map((x) => x)),
+    "questions": questions == null ? [] : List<dynamic>.from(questions!.map((x) => x.toJson())),
   };
 }

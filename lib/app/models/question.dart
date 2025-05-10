@@ -55,8 +55,8 @@ class Question {
     status: json["status"],
     customId: json["custom_id"],
     comment: json["comment"],
-    tags: json["tags"] == null ? [] : List<Tag>.from(json["tags"]!.map((x) => Tag.fromJson(x))),
-    subjects: json["subjects"] == null ? [] : List<Subject>.from(json["subjects"]!.map((x) => Subject.fromJson(x))),
+    //tags: json["tags"] == null ? [] : List<Tag>.from(json["tags"]!.map((x) => Tag.fromJson(x))),
+    //subjects: json["subjects"] == null ? [] : List<Subject>.from(json["subjects"]!.map((x) => Subject.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -103,23 +103,4 @@ class Option {
   };
 }
 
-class QuestionPivot {
-  final int? tagId;
-  final int? questionId;
-
-  QuestionPivot({
-    this.tagId,
-    this.questionId,
-  });
-
-  factory QuestionPivot.fromJson(Map<String, dynamic> json) => QuestionPivot(
-    tagId: json["tag_id"],
-    questionId: json["question_id"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "tag_id": tagId,
-    "question_id": questionId,
-  };
-}
 

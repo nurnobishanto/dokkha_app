@@ -51,11 +51,20 @@ class SubSecSetTimeController extends GetxController {
 
     String? token = MySharedPref.getUserToken();
     if (token == '' || token.isEmpty) return;
+
+    final bool isSetTimeValue = isSetTime.value;
+    final int durationValue = int.tryParse(setTimeCon.text) ?? 0;
+    final int finalDuration = isSetTimeValue ? (durationValue < 1 ? 1 : durationValue) : 0;
+
     Map<String, dynamic> data = {
-      'negative_mark': isNegativeMarkChecked.value,
+      'exam_name': 'Question Bank Exam',
+      'is_negative_mark': isNegativeMarkChecked.value,
+      'negative_mark': isNegativeMarkChecked.value?0.25:0,
+
       'is_set_time': isSetTime.value,
+      'duration': finalDuration,
       'type': selectedKey.value,
-      'duration': int.tryParse(setTimeCon.text) ?? 0,
+
       'subjects': selectedSubjects
           .map((subject) => subject.toMap())
           .toList(), // Convert each subject to map
@@ -105,7 +114,7 @@ class SubSecSetTimeController extends GetxController {
       onError: (error) {
         apiCallStatus = ApiCallStatus.error;
         update();
-        debugPrint("Error login: ${error.message}");
+        debugPrint("Error sub section controller: ${error.message}");
       },
       onLoading: () {
         apiCallStatus = ApiCallStatus.loading;

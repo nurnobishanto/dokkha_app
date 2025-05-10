@@ -25,13 +25,13 @@ class LatestContestWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(7.0),
                 child: Stack(
                   children: [
-                    isCheckedGifImage(controller.imageUrl.value),
-                    // Image.network(
-                    //   controller.imageUrl.value,
-                    //   height: 110.0.h,
-                    //   width: double.infinity,
-                    //   fit: BoxFit.fitWidth,
-                    // ),
+                    //isCheckedGifImage(controller.imageUrl.value),
+                    Image.network(
+                      controller.imageUrl.value,
+                      height: 110.0.h,
+                      width: double.infinity,
+                      fit: BoxFit.fitWidth,
+                    ),
                     Positioned(
                       top: 8.0,
                       left: 8.0,

@@ -2,14 +2,15 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lokkha/app/modules/grid_views/mock_test_tab/mock_test/models/mock_start_exam_model.dart';
+import 'package:lokkha/app/models/start_exam_model.dart';
+import 'package:lokkha/app/views/views/exam_process_view.dart';
 import '../../../../../../utils/constants.dart';
 import '../../../../../components/custom_snackbar.dart';
 import '../../../../../data/local/my_shared_pref.dart';
 import '../../../../../services/api_call_status.dart';
 import '../../../../../services/base_client.dart';
 import '../../../../../models/mock_subject_select_model.dart';
-import '../views/question_view.dart';
+
 
 class MockTestSetTimeController extends GetxController {
   RxBool isNegativeMarkChecked = false.obs;
@@ -43,17 +44,24 @@ class MockTestSetTimeController extends GetxController {
 
   final TextEditingController passwordController = TextEditingController();
   ApiCallStatus apiCallStatus = ApiCallStatus.holding;
-  RxObjectMixin model = MockStartExamModel().obs;
+  RxObjectMixin model = StartExamModel().obs;
 
   ///
   Future<void> testExamStart() async {
     String? token = MySharedPref.getUserToken();
     if (token == '' || token.isEmpty) return;
+
+    final bool isSetTimeValue = isSetTime.value;
+    final int durationValue = int.tryParse(setTimeCon.text) ?? 0;
+    final int finalDuration = isSetTimeValue ? (durationValue < 1 ? 1 : durationValue) : 0;
+
     Map<String, dynamic> data = {
-      'negative_mark': isNegativeMarkChecked.value,
+      'exam_name':'Mock Test',
+      'negative_mark': isNegativeMarkChecked.value?0.25:0,
+      'is_negative_mark': isNegativeMarkChecked.value,
       'is_set_time': isSetTime.value,
       'type': selectedKey.value,
-      'duration': int.tryParse(setTimeCon.text) ?? 0,
+      'duration': finalDuration,
       'previous_day_count': (dayController.text == '' || dayController.text.isEmpty)? 0: dayController.text,
       'subjects': selectedSubjects
           .map((subject) => subject.toMap())
@@ -71,11 +79,9 @@ class MockTestSetTimeController extends GetxController {
         if (response.data['status']) {
           log("Called Success MOCK EXAM");
           isLoading.value = false;
-          MockStartExamModel data = MockStartExamModel.fromJson(response.data);
+          StartExamModel data = StartExamModel.fromJson(response.data);
           model.value = data;
-          Get.to(MockExamQuestionScreen(
-            mockExamStartModel: model.value,
-          ));
+          Get.to(ExamProcessView(examStartModel: data));
           log("My Mock EXam Data: ${data.startTime.toString()}");
         } else if (response.data["status"] == false &&
             response.data.containsKey('errors')) {
@@ -89,12 +95,12 @@ class MockTestSetTimeController extends GetxController {
         }
 
         update();
-        debugPrint("Login successfully: ${response.data}");
+        debugPrint("data fetch successfully: ${response.data}");
       },
       onError: (error) {
         apiCallStatus = ApiCallStatus.error;
         update();
-        debugPrint("Error login: ${error.message}");
+        debugPrint("Error mock test set time controller: ${error.message}");
       },
       onLoading: () {
         apiCallStatus = ApiCallStatus.loading;

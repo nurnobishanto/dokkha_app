@@ -14,17 +14,36 @@ import '../../../navbar/controllers/navbar_controller.dart';
 import '../model/update_profile_model.dart';
 
 class ProfileUpdateController extends GetxController {
+
   RxString gender = 'অন্যান্য'.obs;
+
   String genderSelect() {
     final map = {
       'পুরুষ': 'male',
       'মহিলা': 'female',
       'অন্যান্য': 'other',
     };
-    return map[gender.value] ?? 'others';
+    return map[gender.value] ?? 'other';
   }
 
-  var groupValue = "a";
+  void setGenderFromEnglishKey(String key) {
+    final reverseMap = {
+      'male': 'পুরুষ',
+      'female': 'মহিলা',
+      'other': 'অন্যান্য',
+
+    };
+
+    gender.value = reverseMap[key.toLowerCase()] ?? 'অন্যান্য';
+  }
+  @override
+  void onInit() {
+    setGenderFromEnglishKey(Get.find<NavbarController>().profileDataModel.value!.user?.gender ??
+        'others');
+    super.onInit();
+  }
+
+  //var groupValue = "a";
   final RxBool _isLoading = false.obs;
   RxObjectMixin<ProfileUpdateModel> model = ProfileUpdateModel().obs;
 
@@ -150,18 +169,26 @@ class ProfileUpdateController extends GetxController {
 
 
     dio.FormData data = dio.FormData.fromMap({
-      'name': nameController.text.trim().toString(),
-      'email': emailController.text.trim().toString(),
-      'occupation': occupationController.text.trim().toString(),
-      'organization': organizationController.text.trim().toString(),
-      'gender': genderSelect().toString(),
-      'date_of_birth': dob.value.toString(),
+      if (nameController.text.trim().isNotEmpty)
+        'name': nameController.text.trim(),
+      if (emailController.text.trim().isNotEmpty)
+        'email': emailController.text.trim(),
+      if (occupationController.text.trim().isNotEmpty)
+        'occupation': occupationController.text.trim(),
+      if (organizationController.text.trim().isNotEmpty)
+        'organization': organizationController.text.trim(),
+      if (genderSelect().toString().isNotEmpty)
+        'gender': genderSelect().toString(),
+      if (dob.value.toString().isNotEmpty)
+        'date_of_birth': dob.value.toString(),
       if (pwdController.text.trim().isNotEmpty)
-        'password': pwdController.text,
-      if (pwdController.text.trim().isNotEmpty)
+        'password': pwdController.text.trim(),
+      if (confirmPwdController.text.trim().isNotEmpty)
         'password_confirmation': confirmPwdController.text.trim(),
-      'image': imageMultipart ?? '', // fallback if null
+      if (imageMultipart != null)
+        'image': imageMultipart,
     });
+
 
     Map<String, dynamic> headers = {
       'Authorization': 'Bearer $token',

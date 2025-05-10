@@ -72,7 +72,7 @@ class Order {
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
     deletedAt: json["deleted_at"],
-    package: json["package"] == null ? null : Package.fromJson(json["package"]),
+    package: json["model"] == null ? null : Package.fromJson(json["model"]),
     user: json["user"] == null ? null : User.fromJson(json["user"]),
     payments: json["payments"] == null ? [] : List<Payment>.from(json["payments"]!.map((x) => Payment.fromJson(x))),
     coupon: json["coupon"] == null ? null : Coupon.fromJson(json["coupon"]),

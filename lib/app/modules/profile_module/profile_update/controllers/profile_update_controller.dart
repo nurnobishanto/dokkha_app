@@ -144,6 +144,80 @@ class ProfileUpdateController extends GetxController {
   /// Method
   ApiCallStatus apiCallStatus = ApiCallStatus.holding;
   Future<void> updateProfileInfo(context) async {
+    if (nameController.text.trim().isEmpty) {
+      CustomSnackBar.showCustomErrorSnackBar(
+        title: "নাম আবশ্যক",
+        message: "আপনার নাম প্রদান করা বাধ্যতামূলক। অনুগ্রহ করে সঠিকভাবে লিখুন।",
+      );
+      return;
+    }
+
+    // if (emailController.text.trim().isEmpty) {
+    //   CustomSnackBar.showCustomErrorSnackBar(
+    //     title: "ইমেইল প্রয়োজন",
+    //     message: "অনুগ্রহ করে একটি বৈধ ইমেইল ঠিকানা লিখুন।",
+    //   );
+    //   return;
+    // }
+    // else if (!GetUtils.isEmail(emailController.text.trim())) {
+    //   CustomSnackBar.showCustomErrorSnackBar(
+    //     title: "ইমেইল অবৈধ",
+    //     message: "আপনার ইমেইল ঠিকানাটি সঠিক নয়। দয়া করে আবার যাচাই করুন।",
+    //   );
+    //   return;
+    // }
+
+    if (dob.value.trim().isEmpty) {
+      CustomSnackBar.showCustomErrorSnackBar(
+        title: "জন্ম তারিখ প্রয়োজন",
+        message: "অনুগ্রহ করে আপনার জন্ম তারিখ নির্বাচন করুন।",
+      );
+      return;
+    }
+
+    if (gender.value.trim().isEmpty) {
+      CustomSnackBar.showCustomErrorSnackBar(
+        title: "লিঙ্গ নির্বাচন করুন",
+        message: "অনুগ্রহ করে আপনার লিঙ্গ নির্বাচন করুন।",
+      );
+      return;
+    }
+
+    if (occupationController.text.trim().isEmpty) {
+      CustomSnackBar.showCustomErrorSnackBar(
+        title: "পেশা প্রয়োজন",
+        message: "অনুগ্রহ করে আপনার পেশা লিখুন।",
+      );
+      return;
+    }
+
+    if (organizationController.text.trim().isEmpty) {
+      CustomSnackBar.showCustomErrorSnackBar(
+        title: "প্রতিষ্ঠানের নাম প্রয়োজন",
+        message: "আপনার প্রতিষ্ঠানের নাম লিখুন।",
+      );
+      return;
+    }
+
+    // যদি পাসওয়ার্ড দেওয়া হয়, তাহলে কনফার্মেশন চেক করতে হবে
+    if (pwdController.text.trim().isNotEmpty ||
+        confirmPwdController.text.trim().isNotEmpty) {
+      if (pwdController.text.trim().length < 6) {
+        CustomSnackBar.showCustomErrorSnackBar(
+          title: "পাসওয়ার্ড ত্রুটি",
+          message: "পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।",
+        );
+        return;
+      }
+
+      if (pwdController.text.trim() != confirmPwdController.text.trim()) {
+        CustomSnackBar.showCustomErrorSnackBar(
+          title: "পাসওয়ার্ড মিলছে না",
+          message: "পাসওয়ার্ড এবং নিশ্চিতকরণ পাসওয়ার্ড এক হতে হবে।",
+        );
+        return;
+      }
+    }
     _isLoading.value = true;
     String? token = MySharedPref.getUserToken();
     if (token == "" && token.isEmpty) {

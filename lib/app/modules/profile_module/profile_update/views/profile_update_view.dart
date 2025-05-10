@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:lokkha/app/components/custom_action_button.dart';
 import 'package:lokkha/app/components/custom_app_bar.dart';
 import 'package:lokkha/app/components/custom_drop_down_button.dart';
+import 'package:lokkha/app/components/custom_snackbar.dart';
 import 'package:lokkha/app/components/custom_text_form_field.dart';
 import 'package:lokkha/config/extensions/common_extension.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
@@ -190,6 +191,8 @@ class ProfileUpdateView extends GetView<ProfileUpdateController> {
                 CustomActionButton(
                   text: "আপডেট করুন",
                   onPressed: () {
+
+
                     controller.updateProfileInfo(context);
                   },
                 ),
@@ -202,6 +205,7 @@ class ProfileUpdateView extends GetView<ProfileUpdateController> {
     );
   }
 }
+
 //
 // Center buildProfileImageWidget(ProfileUpdateController controller) {
 //   return

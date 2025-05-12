@@ -41,7 +41,7 @@ class PremiumPackageCheckoutController extends GetxController {
     };
     // Create a map containing
     Map<String, dynamic> data = {
-      //'coupon_code': couponModel.value.discount,
+      'coupon_code': couponController.text,
       'email': email,
       'payment_method': selectedPaymentMethod.value,
     };

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/data/local/my_shared_pref.dart';
+import 'package:lokkha/app/helper/global.dart';
 import 'package:lokkha/app/modules/auth_views/auth_gateway/views/auth_gateway_view.dart';
 import 'package:lokkha/app/modules/contest/widgets/latest_contest_widget.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
@@ -17,7 +18,9 @@ class LatestContestView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(LatestContestController());
-    return Scaffold(
+    return isLoggedIn.value !=true ? const AuthGatewayView():
+
+      Scaffold(
       floatingActionButton: Obx(() {
         if (controller.status.value == "ongoing") {
           return FloatingActionButton.extended(
@@ -83,13 +86,15 @@ class LatestContestView extends StatelessWidget {
           return const SizedBox.shrink();
         }
       }),
-      body: Padding(
+      body:
+      Padding(
         padding: const EdgeInsets.all(8.0),
         child: controller.isLoading.value
             ? const Center(
                 child: CircularProgressIndicator(),
               )
-            : SingleChildScrollView(
+            :
+        SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,

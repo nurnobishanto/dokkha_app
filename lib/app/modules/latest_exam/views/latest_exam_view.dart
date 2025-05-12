@@ -105,7 +105,7 @@ class LatestExamCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: Get.height / 12,
+        height: Get.height / 10,
         decoration: BoxDecoration(
           color: LightThemeColors.white,
           borderRadius: BorderRadius.circular(8.0),
@@ -114,18 +114,21 @@ class LatestExamCard extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.only(left: 10.00),
+          padding: const EdgeInsets.all( 8.00),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                title,
-                style: AppTextStyles.heading5,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
+              Flexible(
+                child: Text(
+                  title,
+                  style: AppTextStyles.heading5,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
               const SizedBox(height: 4.00),
+
               Row(
                 children: [
                   Container(

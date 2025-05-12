@@ -19,7 +19,7 @@ class LastContestResultWidget extends StatelessWidget {
               ? Text(
                   "সর্বশেষ বিজয়ীদের তালিকা",
                   style: AppTextStyles.custom(
-                    fontSize: 17.00.sp,
+                    fontSize: 16.00.sp,
                     fontWeight: FontWeight.w600,
                   ),
                 )
@@ -28,25 +28,25 @@ class LastContestResultWidget extends StatelessWidget {
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
-              : Container(
-                  color: Colors.green.shade50,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: List.generate(
-                      controller.rankUsers.length >= 3
-                          ? 3
-                          : controller.rankUsers.length,
-                      (index) {
-                        int displayRank = controller.rankUsers[index]
-                            .rank; // can change this based on actual data
-                        double topPadding = index == 1 ? 5.h : 30.h;
-                        return InkWell(
-                          onTap: () {
-                            Get.to(ContestResultView(contestResultModel: controller.lastContestResultModel.value));
-                          },
-                          child: Padding(
+              : InkWell(
+            onTap: (){
+              Get.to(ContestResultView(contestResults: controller.lastContestResultModel.value.contestResults!.toList()));
+            },
+                child: Container(
+                    color: Colors.green.shade50,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: List.generate(
+                        controller.rankUsers.length >= 3
+                            ? 3
+                            : controller.rankUsers.length,
+                        (index) {
+                          int displayRank = controller.rankUsers[index]
+                              .rank; // can change this based on actual data
+                          double topPadding = index == 1 ? 1.h : 30.h;
+                          return Padding(
                             padding: EdgeInsets.only(top: topPadding),
-                            child: buildTopRankedUser(
+                            child: topRankedUser(
                               imagePath:
                                   controller.rankUsers[index].image.toString(),
                               id: controller.rankUsers[index].userId.toString(),
@@ -54,12 +54,12 @@ class LastContestResultWidget extends StatelessWidget {
                               isFirst: displayRank == 1,
                               user:  controller.rankUsers[index].user
                             ),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
                   ),
-                ),
+              ),
         ],
       );
     });

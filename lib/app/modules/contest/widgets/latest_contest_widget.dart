@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/modules/contest/controller/latest_contest_controller.dart';
-import '../../../helper/global.dart';
 import '../views/contest_tab_view.dart';
 
 class LatestContestWidget extends StatelessWidget {
@@ -49,8 +48,8 @@ class LatestContestWidget extends StatelessWidget {
                                 "${controller.seconds.value.toString().padLeft(2, '0')}",
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 16.0.sp,
-                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12.5.sp,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               )
                             : controller.status.value == 'ongoing'

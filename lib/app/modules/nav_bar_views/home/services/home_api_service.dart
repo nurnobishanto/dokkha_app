@@ -25,15 +25,14 @@ class HomeApiService extends GetxController {
       RequestType.get,
       onSuccess: (response) {
         if (response.data['status']) {
-          debugPrint("SLIDER API TEST1");
           // Update the slider model here
           sliderModel.value = SliderModel.fromJson(response.data);
           sliderApiStatus.value = ApiCallStatus.success;
-          debugPrint("SLIDER API TEST2");
+
         } else {
           sliderApiStatus.value = ApiCallStatus.error;
         }
-        update(); // UI update using GetBuilder
+        update();
       },
       onError: (error) {
         debugPrint("Error: $error");

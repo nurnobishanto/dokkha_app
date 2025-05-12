@@ -33,8 +33,7 @@ class AppUpdateService {
     _firstTimer?.cancel();
     _timer?.cancel();
     //appVersionCheck();
-    // Start a new timer to show popup every 30 seconds
-
+    // Start a new timer to show popup every 5 seconds
     _firstTimer = Timer.periodic(const Duration(seconds: 5), (timer) {
       if (Get.currentRoute != Routes.MAINTENANCE_MODE_VIEW &&
           Get.currentRoute != Routes.APP_UPDATE_VIEW) {

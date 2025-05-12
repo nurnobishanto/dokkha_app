@@ -1,5 +1,8 @@
+import 'package:lokkha/app/models/contest_result.dart';
 import 'package:lokkha/app/models/question.dart';
 import 'package:lokkha/app/models/subject.dart';
+
+
 class Contest {
   final int? id;
   final String? name;
@@ -22,6 +25,7 @@ class Contest {
   final String? status;
   final DateTime? createdAt;
   final DateTime? updatedAt;
+  final List<ContestResult>? results;
   final List<Subject>? subjects;
   final List<Question>? questions;
 
@@ -47,6 +51,7 @@ class Contest {
     this.status,
     this.createdAt,
     this.updatedAt,
+    this.results,
     this.subjects,
     this.questions,
   });
@@ -73,6 +78,7 @@ class Contest {
     status: json["status"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+    results: json["results"] == null ? [] : List<ContestResult>.from(json["results"]!.map((x) => ContestResult.fromJson(x))),
     subjects: json["subjects"] == null ? [] : List<Subject>.from(json["subjects"]!.map((x) => Subject.fromJson(x))),
     questions: json["questions"] == null ? [] : List<Question>.from(json["questions"]!.map((x) => Question.fromJson(x))),
   );
@@ -99,6 +105,7 @@ class Contest {
     "status": status,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
+    "results": results == null ? [] : List<dynamic>.from(results!.map((x) => x.toJson())),
     "subjects": subjects == null ? [] : List<dynamic>.from(subjects!.map((x) => x.toJson())),
     "questions": questions == null ? [] : List<dynamic>.from(questions!.map((x) => x.toJson())),
   };

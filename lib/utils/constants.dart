@@ -49,6 +49,7 @@ class AppConstants {
   static const String latestContest = "$appUrl/latest-contest";
   static const String startContest = "$appUrl/contest/";
   static const String latestContestResult = "$appUrl/latest-contest-result";
+  static const String allContestList = "$appUrl/contest-list";
 
   /// Subject Section related..
   static const String subjectSections = "$appUrl/subject-sections";

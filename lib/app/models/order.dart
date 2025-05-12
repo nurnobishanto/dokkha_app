@@ -17,7 +17,7 @@ class Order {
   final String? status;
   final String? subtotal;
   final String? discount;
-  final String? total;
+  final dynamic total;
   final String? billingDetails;
   final dynamic paidAt;
   final DateTime? createdAt;

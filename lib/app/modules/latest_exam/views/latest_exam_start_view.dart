@@ -189,7 +189,7 @@ class _LatestExamStartDialogState extends State<LatestExamStartDialog> {
   @override
   Widget build(BuildContext context) {
     var questionCount = widget.latestExam.tag?.questions?.length ?? 0;
-    final passMark = (questionCount * 0.4).toStringAsFixed(0);
+    (questionCount * 0.4).toStringAsFixed(0);
 
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -208,20 +208,20 @@ class _LatestExamStartDialogState extends State<LatestExamStartDialog> {
             const SizedBox(height: 24),
             Row(
               children: [
-                _buildReadOnlyField(label: 'প্রশ্ন', value: questionCount.toString()),
+                _readOnlyField(label: 'প্রশ্ন', value: questionCount.toString()),
                 const SizedBox(width: 12),
-                _buildEditableField(label: 'পরীক্ষার সময়', controller: examTimeController),
+                _editableField(label: 'পরীক্ষার সময়', controller: examTimeController),
               ],
             ),
-            const SizedBox(height: 12),
-            Row(
-              children: [
-                _buildReadOnlyField(label: 'পাস মার্ক', value: passMark),
-                const SizedBox(width: 12),
-                _buildDropdownField(label: 'নেগেটিভ মার্ক'),
-              ],
-            ),
-            const SizedBox(height: 12),
+            // const SizedBox(height: 12),
+            // Row(
+            //   children: [
+            //     _buildReadOnlyField(label: 'পাস মার্ক', value: passMark),
+            //     const SizedBox(width: 12),
+            //     _buildDropdownField(label: 'নেগেটিভ মার্ক'),
+            //   ],
+            // ),
+             const SizedBox(height: 12),
             const Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -229,18 +229,21 @@ class _LatestExamStartDialogState extends State<LatestExamStartDialog> {
                 style: TextStyle(fontSize: 14, color: Colors.black54),
               ),
             ),
-            const SizedBox(height: 24),
+            // const SizedBox(height: 24),
             Row(
               children: [
-                _buildButton('পরীক্ষা শুরু', Colors.redAccent, Colors.white, () {
+                _button('পরীক্ষা শুরু', Colors.redAccent, Colors.white, () {
+                  Navigator.pop(context);
                   _navigateToNextPage(context, isStartExam: true);
                 }),
                 const SizedBox(width: 8),
-                _buildButton('পড়ুন', Colors.green, Colors.white, () {
+                _button('পড়ুন', Colors.green, Colors.white, () {
+                  Navigator.pop(context);
                   _navigateToNextPage(context, isStartExam: false);
+
                 }),
                 const SizedBox(width: 8),
-                _buildButton('বাতিল', Colors.grey.shade300, Colors.black87, () {
+                _button('বাতিল', Colors.grey.shade300, Colors.black87, () {
                   Navigator.pop(context);
                 }),
               ],
@@ -273,7 +276,7 @@ class _LatestExamStartDialogState extends State<LatestExamStartDialog> {
     }
   }
 
-  Widget _buildReadOnlyField({required String label, required String value}) {
+  Widget _readOnlyField({required String label, required String value}) {
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -294,7 +297,7 @@ class _LatestExamStartDialogState extends State<LatestExamStartDialog> {
     );
   }
 
-  Widget _buildEditableField({required String label, required TextEditingController controller}) {
+  Widget _editableField({required String label, required TextEditingController controller}) {
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -315,7 +318,7 @@ class _LatestExamStartDialogState extends State<LatestExamStartDialog> {
     );
   }
 
-  Widget _buildDropdownField({required String label}) {
+  Widget _dropdownField({required String label}) {
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -354,7 +357,7 @@ class _LatestExamStartDialogState extends State<LatestExamStartDialog> {
     );
   }
 
-  Widget _buildButton(
+  Widget _button(
       String label,
       Color bgColor,
       Color textColor,

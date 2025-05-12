@@ -1,11 +1,91 @@
 import 'package:flutter/material.dart';
-import 'package:lokkha/comming_soon_view.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:lokkha/config/extensions/common_extension.dart';
+import 'package:lokkha/utils/constants.dart';
+
+import '../../../helper/global.dart';
+import '../../auth_views/auth_gateway/views/auth_gateway_view.dart';
+import '../controller/latest_contest_controller.dart';
+import 'contest_details_view.dart';
 
 class AllContestView extends StatelessWidget {
   const AllContestView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const ComingSoonPage();
+    final controller = Get.find<LatestContestController>();
+    return Scaffold(
+      body: Obx(() {
+        return isLoggedIn.value != true
+            ? const AuthGatewayView()
+            : controller.isLoading.value
+                ? const Center(child: CircularProgressIndicator())
+                : ListView.separated(
+                    itemCount:
+                        controller.allContestModel.value.contests!.length,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (_, index) {
+                      final contest =
+                          controller.allContestModel.value.contests![index];
+                      final timerModel = controller.contestTimers[contest.id];
+
+                      return InkWell(
+                        onTap: () {
+                          Get.to(ContestDetailsView(contest: contest));
+                        },
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(7.0.r),
+                          child: Stack(
+                            children: [
+                              Image.network(
+                                AppConstants.storageUrl +
+                                    contest.image.toString(),
+                                height: 110.0.h,
+                                width: double.infinity,
+                                fit: BoxFit.fitWidth,
+                              ),
+                              Positioned(
+                                top: 8.0,
+                                left: 8.0,
+                                child: Obx(() {
+                                  if (timerModel == null)
+                                    return const SizedBox();
+                                  return Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0, vertical: 4.0),
+                                    decoration: BoxDecoration(
+                                      color: Colors.black54,
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                    child: timerModel.status.value == 'timer'
+                                        ? Text(
+                                            "${timerModel.hours.value.toString().padLeft(2, '0')}:"
+                                            "${timerModel.minutes.value.toString().padLeft(2, '0')}:"
+                                            "${timerModel.seconds.value.toString().padLeft(2, '0')}",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 12.sp),
+                                          )
+                                        : timerModel.status.value == 'ongoing'
+                                            ? const Text("🟡 Ongoing",
+                                                style: TextStyle(
+                                                    color: Colors.white))
+                                            : const Text("🔴 Ended",
+                                                style: TextStyle(
+                                                    color: Colors.white)),
+                                  );
+                                }),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                    separatorBuilder: (_, __) => 10.0.h.height,
+                  );
+      }),
+    );
   }
 }

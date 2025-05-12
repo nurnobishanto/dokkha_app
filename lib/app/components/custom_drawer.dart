@@ -11,6 +11,7 @@ import 'package:lokkha/utils/constants.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../config/constants/app_images.dart';
 import '../helper/global.dart';
+import '../modules/drawer_pages/views/customer_support_view.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
@@ -100,7 +101,7 @@ class CustomDrawer extends StatelessWidget {
             title:
                 const Text('কাস্টমার সাপোর্ট', style: TextStyle(fontSize: 14)),
             onTap: () {
-              //Get.to(const CustomerSupportView());
+              Get.to(const CustomerSupportView());
             },
           ),
           const Divider(height: 0.5, color: LightThemeColors.primaryColor),

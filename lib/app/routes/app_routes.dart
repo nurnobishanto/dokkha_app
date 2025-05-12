@@ -39,6 +39,7 @@ abstract class Routes {
   static const LATEST_EXAM = _Paths.LATEST_EXAM;
   static const MAINTENANCE_MODE_VIEW = _Paths.MAINTENANCE_MODE_VIEW;
   static const APP_UPDATE_VIEW = _Paths.APP_UPDATE_VIEW;
+  static const ALL_CONTEST = _Paths.ALL_CONTEST;
 }
 
 abstract class _Paths {
@@ -79,4 +80,5 @@ abstract class _Paths {
   static const LATEST_EXAM = '/latest-exam';
   static const MAINTENANCE_MODE_VIEW = '/maintenance-mode-view';
   static const APP_UPDATE_VIEW = '/app-update-view';
+  static const ALL_CONTEST = '/all-contest';
 }

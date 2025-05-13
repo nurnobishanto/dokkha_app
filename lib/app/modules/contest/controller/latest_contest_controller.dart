@@ -253,11 +253,11 @@ class LatestContestController extends GetxController {
 
   Rx<ContestStartModel> contestStartModel = ContestStartModel().obs;
   /// Fetch Contest Start Method
-  Future<void> startContest() async {
+  Future<void> startContest(int id) async {
     String? token = MySharedPref.getUserToken();
     if (token == '' || token.isEmpty) return Get.to(const AuthGatewayView());
     await BaseClient.safeApiCall(
-      '${AppConstants.startContest}${contestModel.value.contest!.id}/start',
+      '${AppConstants.startContest}$id/start',
       RequestType.post,
       headers: {
         "Authorization": 'Bearer $token',

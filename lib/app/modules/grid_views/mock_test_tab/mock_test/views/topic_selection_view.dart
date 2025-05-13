@@ -26,7 +26,7 @@ class TopicSelectionView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
-        title:  Text(
+        title: Text(
           "নির্বাচিত বিষয়গুলি",
           style: AppTextStyles.heading4.copyWith(color: Colors.white),
         ),
@@ -35,10 +35,9 @@ class TopicSelectionView extends StatelessWidget {
         backgroundColor: LightThemeColors.primaryColor,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Column(
           children: [
-            const SizedBox(height: 20.00),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
@@ -120,9 +119,7 @@ class TopicSelectionView extends StatelessWidget {
                             );
                             await MySharedPref.addOrUpdateMockSubjectSelect(
                                 newSubject);
-
                             controller.getSubjects();
-
                             Get.to(const SetTimeView());
                           } else {
                             CustomSnackBar.showCustomErrorToast(
@@ -142,118 +139,133 @@ class TopicSelectionView extends StatelessWidget {
   }
 }
 
-class CustomExpandSubject extends StatelessWidget {
+class CustomExpandSubject extends StatefulWidget {
   final Subject subject;
   final Subject topic;
   final double padding;
   final bool initialExpand;
 
-  const CustomExpandSubject(
-      {super.key,
-      required this.subject,
-      required this.topic,
-      required this.padding,
-      required this.initialExpand});
+  const CustomExpandSubject({
+    super.key,
+    required this.subject,
+    required this.topic,
+    required this.padding,
+    required this.initialExpand,
+  });
+
+  @override
+  State<CustomExpandSubject> createState() => _CustomExpandSubjectState();
+}
+
+class _CustomExpandSubjectState extends State<CustomExpandSubject> {
+  late final RxBool isExpanded;
+  late final RxBool isChecked = false.obs;
+
+  @override
+  void initState() {
+    super.initState();
+    isExpanded = widget.initialExpand.obs;
+    _loadCheckedState();
+  }
+
+  void _loadCheckedState() async {
+    final checked =
+        await MySharedPref.isMockSubjectExist(widget.topic.id!.toInt());
+    isChecked.value = checked;
+  }
 
   @override
   Widget build(BuildContext context) {
-    final isExpanded = false.obs;
-    return FutureBuilder<bool>(
-      future: MySharedPref.isMockSubjectExist(topic.id!.toInt()),
-      builder: (context, snapshot) {
-        final isChecked = (snapshot.data ?? false).obs;
-        return Obx(() {
-          return Container(
-            margin: EdgeInsets.only(left: padding),
-            decoration: const BoxDecoration(
-              border: Border(
-                left: BorderSide(
-                  color: Colors.grey,
-                  width: 0.2,
+    return Container(
+      margin: EdgeInsets.only(left: widget.padding),
+      decoration: const BoxDecoration(
+        border: Border(
+          left: BorderSide(
+            color: Colors.grey,
+            width: 0.2,
+          ),
+        ),
+      ),
+      child: Theme(
+        data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+        child: ExpansionTile(
+          minTileHeight: 0.00,
+          showTrailingIcon: false,
+          visualDensity: const VisualDensity(horizontal: 0, vertical: 0),
+          initiallyExpanded: widget.initialExpand,
+          tilePadding: EdgeInsets.zero,
+          childrenPadding: EdgeInsets.zero,
+          onExpansionChanged: (expanded) => isExpanded.value = expanded,
+          title: Container(
+            decoration: BoxDecoration(
+              color: LightThemeColors.white,
+              borderRadius: BorderRadius.circular(7.r),
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black12,
+                  blurRadius: 10,
+                  spreadRadius: 1,
+                  offset: Offset(0, 2),
                 ),
-              ),
+              ],
             ),
-            child: Theme(
-              data:
-                  Theme.of(context).copyWith(dividerColor: Colors.transparent),
-              child: ExpansionTile(
-                // backgroundColor: Colors.blue,
-                minTileHeight: 0.00,
-                showTrailingIcon: false,
-                visualDensity: const VisualDensity(horizontal: 0, vertical: 0),
-                initiallyExpanded: initialExpand,
-                tilePadding: EdgeInsets.zero,
-                childrenPadding: EdgeInsets.zero,
-                onExpansionChanged: (expanded) => isExpanded.value = expanded,
-                title: Container(
-                  decoration: BoxDecoration(
-                    color: LightThemeColors.white,
-                    borderRadius: BorderRadius.circular(7.r),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.black12,
-                        blurRadius: 10,
-                        spreadRadius: 1,
-                        offset: Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  // padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 8.h),
-                  child: Row(
+            child: widget.topic.parentId != null
+                ? Row(
                     children: [
-                      Checkbox(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(4.r),
-                        ),
-                        value: isChecked.value,
-                        onChanged: (value) {
-                          debugPrint("Checked Box: $value");
-                          isChecked.value = value!;
-                          MockSubjectSelect newSubject = MockSubjectSelect(
-                              id: topic.id,
-                              name: topic.name,
-                              parentId: subject.id,
-                              max: topic.questionCount!.toInt());
-                          if (value) {
-                            MySharedPref.addOrUpdateMockSubjectSelect(
-                                newSubject);
-                          } else {
-                            MySharedPref.removeMockSubjectSelect(newSubject);
-                          }
-                        },
-                        visualDensity: VisualDensity.compact,
-                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      ),
+                      Obx(() => Checkbox(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4.r),
+                            ),
+                            value: isChecked.value,
+                            onChanged: (value) {
+                              isChecked.value = value!;
+                              MockSubjectSelect newSubject = MockSubjectSelect(
+                                id: widget.topic.id,
+                                name: widget.topic.name,
+                                parentId: widget.topic.parentId,
+                                quantity: null,
+                                max: widget.topic.questionCount!.toInt(),
+                              );
+                              if (value) {
+                                MySharedPref.addOrUpdateMockSubjectSelect(
+                                    newSubject);
+                              } else {
+                                MySharedPref.removeMockSubjectSelect(
+                                    newSubject);
+                              }
+                            },
+                            visualDensity: VisualDensity.compact,
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
+                          )),
                       2.0.w.width,
                       Expanded(
                         child: Text(
-                          topic.name.toString(),
+                          widget.topic.name.toString(),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
-                       style: AppTextStyles.body2,
+                          style: AppTextStyles.body2,
                         ),
                       ),
-                      Obx(() => AnimatedRotation(
-                            turns: isExpanded.value ? 0.5 : 0.0,
-                            duration: const Duration(milliseconds: 200),
-                            child: const Icon(Icons.keyboard_arrow_down),
-                          )),
+                      AnimatedRotation(
+                        turns: isExpanded.value ? 0.5 : 0.0,
+                        duration: const Duration(milliseconds: 200),
+                        child: const Icon(Icons.keyboard_arrow_down),
+                      ),
                     ],
-                  ),
-                ),
-                children: topic.children!
-                    .map((child) => CustomExpandSubject(
-                          subject: subject,
-                          topic: child,
-                          padding: 10,
-                          initialExpand: false,
-                        ))
-                    .toList(),
-              ),
-            ),
-          );
-        });
-      },
+                  )
+                : const SizedBox(),
+          ),
+          children: widget.topic.children!
+              .map((child) => CustomExpandSubject(
+                    subject: widget.subject,
+                    topic: child,
+                    padding: 10,
+                    initialExpand: true,
+                  ))
+              .toList(),
+        ),
+      ),
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/components/custom_app_bar.dart';
+import 'package:lokkha/app/modules/contest/controller/latest_contest_controller.dart';
 import 'package:lokkha/app/modules/contest/views/contest_result_view.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../../../../config/theme/light_theme_colors.dart';
@@ -55,7 +56,7 @@ class ContestDetailsView extends StatelessWidget {
                       onPressed: () {
                         if (MySharedPref.getUserToken() != '' ||
                             MySharedPref.getUserToken().isNotEmpty) {
-                          // controller.startContest();
+                          Get.find<LatestContestController>().startContest(contest.id!.toInt());
                           Get.back();
                         } else {
                           Get.to(const AuthGatewayView());
@@ -90,7 +91,10 @@ class ContestDetailsView extends StatelessWidget {
           return FloatingActionButton.extended(
             onPressed: () {
               Get.to(
-                  ContestResultView(contestResults: contest.results!.toList()));
+                ContestResultView(
+                  contestResults: contest.results!.toList(),
+                ),
+              );
             },
             label: const Text(
               "রেজাল্ট দেখুন",

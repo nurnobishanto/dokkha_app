@@ -318,44 +318,6 @@ class _LatestExamStartDialogState extends State<LatestExamStartDialog> {
     );
   }
 
-  Widget _dropdownField({required String label}) {
-    return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(label, style: const TextStyle(fontSize: 13)),
-          const SizedBox(height: 6),
-          Container(
-            height: 37.9,
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.black38),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: DropdownButtonHideUnderline(
-              child: DropdownButton<String>(
-                value: selectedNegativeMark,
-                isExpanded: true,
-                items: ['0.25', '0.50', '0.75']
-                    .map((value) => DropdownMenuItem(
-                  value: value,
-                  child: Text(value),
-                ))
-                    .toList(),
-                onChanged: (value) {
-                  if (value != null) {
-                    setState(() {
-                      selectedNegativeMark = value;
-                    });
-                  }
-                },
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 
   Widget _button(
       String label,

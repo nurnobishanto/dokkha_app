@@ -40,6 +40,7 @@ abstract class Routes {
   static const MAINTENANCE_MODE_VIEW = _Paths.MAINTENANCE_MODE_VIEW;
   static const APP_UPDATE_VIEW = _Paths.APP_UPDATE_VIEW;
   static const ALL_CONTEST = _Paths.ALL_CONTEST;
+  static const SPONSOR_ADS = _Paths.SPONSOR_ADS;
 }
 
 abstract class _Paths {
@@ -81,4 +82,5 @@ abstract class _Paths {
   static const MAINTENANCE_MODE_VIEW = '/maintenance-mode-view';
   static const APP_UPDATE_VIEW = '/app-update-view';
   static const ALL_CONTEST = '/all-contest';
+  static const SPONSOR_ADS = '/sponsor-ads';
 }

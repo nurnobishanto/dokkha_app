@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lokkha/app/core/widgets/base_webview.dart';
+import 'package:lokkha/app/views/widgets/base_webview.dart';
 import 'package:lokkha/config/extensions/common_extension.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

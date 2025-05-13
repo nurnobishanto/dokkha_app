@@ -59,5 +59,7 @@ class AppConstants {
   static const String myOrdersDetails = "$appUrl/order-details";
   /// Latest Exam
   static const String latestExam = "$appUrl/latest-exams";
+  // Sponsor Ads
+  static const String sponsorAds = "https://bdtaxation.com/api/app-ads";
 
 }

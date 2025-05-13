@@ -16,7 +16,6 @@ import 'package:get/get.dart';
 import 'package:lokkha/utils/constants.dart';
 import '../../../../../config/constants/app_images.dart';
 import '../../../../../styles/text_style.dart';
-import '../../../subject_sections/models/sub_sec_select_model.dart';
 import '../../../subject_sections/views/subject_sections_view.dart';
 import '../components/social_links_widget.dart';
 import '../controllers/home_controller.dart';
@@ -25,6 +24,7 @@ class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
   @override
   Widget build(BuildContext context) {
+    //final spController = Get.put(SponsorAdsController());
     debugPrint("Build Home view");
     return Scaffold(
       drawer: const CustomDrawer(),
@@ -49,7 +49,7 @@ class HomeView extends GetView<HomeController> {
       body: GetBuilder<HomeController>(
         builder: (controller) {
           return RefreshIndicator(
-            onRefresh: ()  {
+            onRefresh: () {
               return controller.refreshHomeViewData();
             },
             child: Column(
@@ -89,7 +89,8 @@ class HomeView extends GetView<HomeController> {
                     ),
                     // onChanged: controller.onSearchChanged,
                   )
-                      .paddingOnly(bottom: 10.00.h, left: 15.00.w, right: 15.00.w)
+                      .paddingOnly(
+                          bottom: 10.00.h, left: 15.00.w, right: 15.00.w)
                       .onTap(() {
                     Get.to(const ComingSoonPage());
                     // showSearch(
@@ -137,8 +138,8 @@ class HomeView extends GetView<HomeController> {
                                       CenterPageEnlargeStrategy.height,
                                   autoPlay: true,
                                   viewportFraction: 1.0,
-                                  onPageChanged:
-                                      (currentIndex, carouselPageChangedReason) {
+                                  onPageChanged: (currentIndex,
+                                      carouselPageChangedReason) {
                                     controller.dotsCount = currentIndex;
                                   },
                                 ),
@@ -153,7 +154,8 @@ class HomeView extends GetView<HomeController> {
                                         color: Colors.grey.shade200,
                                       ),
                                       child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(8.0),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
                                         child: isCheckedGifImage(
                                             AppConstants.storageUrl +
                                                 sliderItem.image.toString()),
@@ -260,8 +262,8 @@ class HomeView extends GetView<HomeController> {
                                     mainAxisSpacing: 10,
                                     childAspectRatio: 4,
                                   ),
-                                  itemCount: controller.subjectSectionModel.value
-                                          .subjectSections?.length ??
+                                  itemCount: controller.subjectSectionModel
+                                          .value.subjectSections?.length ??
                                       0,
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
@@ -271,27 +273,6 @@ class HomeView extends GetView<HomeController> {
                                     return GestureDetector(
                                       onTap: () async {
                                         MySharedPref.clearSubjectSection();
-                                        SubjectSectionSelect newSubject =
-                                            SubjectSectionSelect(
-                                          id: controller
-                                                  .subjectSectionModel
-                                                  .value
-                                                  .subjectSections![index]
-                                                  .subject
-                                                  ?.id ??
-                                              0,
-                                          name: controller
-                                                  .subjectSectionModel
-                                                  .value
-                                                  .subjectSections![index]
-                                                  .subject
-                                                  ?.name ??
-                                              '',
-                                          quantity: 20,
-                                        );
-                                        await MySharedPref
-                                            .addOrUpdateSubjectSectionSelect(
-                                                newSubject);
                                         Get.to(
                                           SubjectSectionView(
                                             subject: controller
@@ -338,7 +319,11 @@ class HomeView extends GetView<HomeController> {
                             }
                           },
                         ),
-
+                        // spController.dashboardAds.length > 2
+                        //     ? SponsorAdsWidget(
+                        //   ad: spController.dashboardAds[2],
+                        // )
+                        //     : const SizedBox.shrink(),
                         const Divider(color: LightThemeColors.primaryColor),
                         SocialLinksScreen(),
                       ],
@@ -353,4 +338,3 @@ class HomeView extends GetView<HomeController> {
     );
   }
 }
-

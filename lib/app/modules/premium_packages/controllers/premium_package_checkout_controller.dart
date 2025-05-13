@@ -53,7 +53,7 @@ class PremiumPackageCheckoutController extends GetxController {
       headers: headers,
       onSuccess: (response) {
         if (response.data["status"]) {
-          print("PAYMENT: ${response.data["status"]}");
+          debugPrint("PAYMENT: ${response.data["status"]}");
           isLoading.value = false;
           PackageCheckoutModel data =
               PackageCheckoutModel.fromJson(response.data);

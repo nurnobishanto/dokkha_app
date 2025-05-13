@@ -55,6 +55,8 @@ import '../modules/profile_update_required/bindings/profile_update_required_bind
 import '../modules/profile_update_required/views/profile_update_required_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
+import '../modules/sponsor_ads/bindings/sponsor_ads_binding.dart';
+import '../modules/sponsor_ads/views/sponsor_ads_view.dart';
 import '../views/views/onboarding_view.dart';
 
 part 'app_routes.dart';
@@ -224,6 +226,11 @@ class AppPages {
       name: _Paths.MAINTENANCE_MODE_VIEW,
       page: () => const MaintenanceModeView(),
       binding: MaintenanceModeBinding(),
+    ),
+    GetPage(
+      name: _Paths.SPONSOR_ADS,
+      page: () => const SponsorAdsView(),
+      binding: SponsorAdsBinding(),
     ),
   ];
 }

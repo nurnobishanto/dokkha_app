@@ -7,7 +7,6 @@ import '../../../../styles/text_style.dart';
 import '../../../data/local/my_shared_pref.dart';
 import '../../../services/api_call_status.dart';
 import '../../grid_views/mock_test_tab/mock_test/controllers/mock_test_controller.dart';
-import '../../subject_sections/models/sub_sec_select_model.dart';
 import '../controllers/fast_practice_controller.dart';
 
 class FastPracticeView extends GetView<FastPracticeController> {
@@ -21,63 +20,57 @@ class FastPracticeView extends GetView<FastPracticeController> {
           case ApiCallStatus.loading:
             return const Center(child: CircularProgressIndicator());
           case ApiCallStatus.success:
-            return
-              SingleChildScrollView(
-                child: Padding(
-                  padding:  EdgeInsets.only(top:16.0, bottom: 8.0.h, left: 8.0.h, right: 8.0.h,),
-                  child: Center(
-                    child: Wrap(
-                      spacing: 10,
-                      runSpacing: 8,
-                      alignment: WrapAlignment.center,
-                      children: List.generate(
-                          controller.model.value.subjects?.length ?? 0, (index) {
-                        final subject = controller.model.value.subjects![index];
-                        return InkWell(
-                          onTap: () async {
-                            MySharedPref.clearSubjectSection();
-                            SubjectSectionSelect newSubject =
-                            SubjectSectionSelect(
-                              id: subject.id ??
-                                  0,
-                              name: subject.name ??
-                                  '',
-                              quantity: 20,
-                            );
-                            await MySharedPref
-                                .addOrUpdateSubjectSectionSelect(
-                                newSubject);
-                            Get.to(SubjectSectionView(subject: subject));
-                          },
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 10.00.w, vertical: 8.00.h),
-                            decoration: BoxDecoration(
-                              color: LightThemeColors.white,
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(color: LightThemeColors.primaryColor,width: .2),
-
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withValues(alpha: 0.05),
-                                  spreadRadius: 1,
-                                  blurRadius: 5,
-                                  offset: const Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            child: Text(
-                              subject.name.toString(),
-                              textAlign: TextAlign.center,
-                              style: AppTextStyles.body2,
-                            ),
+            return SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.only(
+                  top: 16.0,
+                  bottom: 8.0.h,
+                  left: 8.0.h,
+                  right: 8.0.h,
+                ),
+                child: Center(
+                  child: Wrap(
+                    spacing: 10,
+                    runSpacing: 8,
+                    alignment: WrapAlignment.center,
+                    children: List.generate(
+                        controller.model.value.subjects?.length ?? 0, (index) {
+                      final subject = controller.model.value.subjects![index];
+                      return InkWell(
+                        onTap: () async {
+                          MySharedPref.clearSubjectSection();
+                          Get.to(SubjectSectionView(subject: subject));
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 10.00.w, vertical: 8.00.h),
+                          decoration: BoxDecoration(
+                            color: LightThemeColors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                                color: LightThemeColors.primaryColor,
+                                width: .2),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withValues(alpha: 0.05),
+                                spreadRadius: 1,
+                                blurRadius: 5,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
                           ),
-                        );
-                      }),
-                    ),
+                          child: Text(
+                            subject.name.toString(),
+                            textAlign: TextAlign.center,
+                            style: AppTextStyles.body2,
+                          ),
+                        ),
+                      );
+                    }),
                   ),
                 ),
-              );
+              ),
+            );
           case ApiCallStatus.error:
             return const Center(child: Text("Failed to load data. Try again."));
           case ApiCallStatus.holding:

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/components/custom_snackbar.dart';
-import 'package:lokkha/app/core/widgets/base_webview.dart';
+import 'package:lokkha/app/views/widgets/base_webview.dart';
 import 'package:lokkha/app/modules/auth_views/auth_gateway/views/auth_gateway_view.dart';
 import 'package:lokkha/app/modules/premium_packages/controllers/premium_package_checkout_controller.dart';
 import 'package:lokkha/styles/text_style.dart';
@@ -15,7 +15,6 @@ import '../../../components/custom_text_field.dart';
 import '../../../helper/global.dart';
 import '../../../models/package.dart';
 import '../../../services/api_call_status.dart';
-import '../../navbar/controllers/navbar_controller.dart';
 
 class PremiumPackageCheckoutView
     extends GetView<PremiumPackageCheckoutController> {
@@ -38,7 +37,6 @@ class PremiumPackageCheckoutView
         iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Obx(() {
-
         return isLoggedIn.value
             ? SingleChildScrollView(
                 child: Padding(
@@ -64,10 +62,7 @@ class PremiumPackageCheckoutView
                       ),
                       const SizedBox(height: 5.0),
                       CustomTextField(
-                        controller: TextEditingController(
-                          text: Get.find<NavbarController>().profileDataModel.value!.user?.name.toString() ??
-                              '',
-                        ),
+                        controller: controller.phoneController.value,
                         hintText: 'No update Phone',
                         readOnly: true,
                       ),
@@ -289,24 +284,29 @@ class PremiumPackageCheckoutView
                                     },
                                   ),
                                   Expanded(
-                                    child:
-                                    RichText(
+                                    child: RichText(
                                       text: TextSpan(
-                                        style: const TextStyle(color: Colors.black),
+                                        style: const TextStyle(
+                                            color: Colors.black),
                                         children: [
-                                          const TextSpan(text: "By proceeding, you agree to our "),
+                                          const TextSpan(
+                                              text:
+                                                  "By proceeding, you agree to our "),
                                           TextSpan(
                                             text: "Privacy Policy",
                                             style: const TextStyle(
-                                              color: LightThemeColors.primaryColor,
-                                              decoration: TextDecoration.underline,
+                                              color:
+                                                  LightThemeColors.primaryColor,
+                                              decoration:
+                                                  TextDecoration.underline,
                                             ),
                                             recognizer: TapGestureRecognizer()
                                               ..onTap = () {
                                                 Get.to(
                                                   const BaseWebView(
                                                     title: 'Privacy Policy',
-                                                    url: AppConstants.privacyPolicy,
+                                                    url: AppConstants
+                                                        .privacyPolicy,
                                                   ),
                                                 );
                                               },
@@ -315,15 +315,18 @@ class PremiumPackageCheckoutView
                                           TextSpan(
                                             text: "Terms & Conditions",
                                             style: const TextStyle(
-                                              color: LightThemeColors.primaryColor,
-                                              decoration: TextDecoration.underline,
+                                              color:
+                                                  LightThemeColors.primaryColor,
+                                              decoration:
+                                                  TextDecoration.underline,
                                             ),
                                             recognizer: TapGestureRecognizer()
                                               ..onTap = () {
                                                 Get.to(
                                                   const BaseWebView(
                                                     title: 'Terms & Conditions',
-                                                    url: AppConstants.termsPolicy,
+                                                    url: AppConstants
+                                                        .termsPolicy,
                                                   ),
                                                 );
                                               },
@@ -332,15 +335,18 @@ class PremiumPackageCheckoutView
                                           TextSpan(
                                             text: "Refund Policy",
                                             style: const TextStyle(
-                                              color: LightThemeColors.primaryColor,
-                                              decoration: TextDecoration.underline,
+                                              color:
+                                                  LightThemeColors.primaryColor,
+                                              decoration:
+                                                  TextDecoration.underline,
                                             ),
                                             recognizer: TapGestureRecognizer()
                                               ..onTap = () {
                                                 Get.to(
                                                   const BaseWebView(
                                                     title: 'Refund Policy',
-                                                    url: AppConstants.refundPolicy,
+                                                    url: AppConstants
+                                                        .refundPolicy,
                                                   ),
                                                 );
                                               },
@@ -349,7 +355,6 @@ class PremiumPackageCheckoutView
                                         ],
                                       ),
                                     ),
-
                                   ),
                                 ],
                               ),
@@ -375,7 +380,8 @@ class PremiumPackageCheckoutView
                     ],
                   ),
                 ),
-              ):const AuthGatewayView();
+              )
+            : const AuthGatewayView();
       }),
     );
   }

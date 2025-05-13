@@ -15,13 +15,15 @@ class ContestResultView extends StatefulWidget {
 }
 
 class _ContestResultViewState extends State<ContestResultView> {
-  late List<ContestResult> filteredResults;
+  List<ContestResult>? filteredResults;
   String searchQuery = '';
 
   @override
   void initState() {
     super.initState();
     filteredResults = widget.contestResults;
+    debugPrint('contestResults: ${widget.contestResults[0].positiveMark}');
+    debugPrint('filteredResults: ${filteredResults![0].positiveMark}');
   }
 
   void updateSearch(String query) {
@@ -37,11 +39,11 @@ class _ContestResultViewState extends State<ContestResultView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("প্রতিযোগিতার র‍্যাঙ্ক")),
-      body: isLoggedIn.value != true
-          ? const AuthGatewayView()
-          : Column(
+    return isLoggedIn.value != true
+        ? const AuthGatewayView()
+        : Scaffold(
+            appBar: AppBar(title: const Text("প্রতিযোগিতার র‍্যাঙ্ক")),
+            body: Column(
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -60,9 +62,10 @@ class _ContestResultViewState extends State<ContestResultView> {
                 /// 📄 রেজাল্ট লিস্ট
                 Expanded(
                   child: ListView.builder(
-                    itemCount: filteredResults.length,
+                    itemCount: filteredResults?.length ?? 0,
                     itemBuilder: (context, index) {
-                      final result = filteredResults[index];
+                      final result = filteredResults![index];
+                      debugPrint("my mark: ${result.contest}");
                       final originalIndex =
                           widget.contestResults.indexOf(result);
                       final user = result.user;
@@ -82,11 +85,12 @@ class _ContestResultViewState extends State<ContestResultView> {
                                   contentPadding: EdgeInsets.zero,
                                   leading: buildAvatar(user!),
                                   title: Text(
-                                    user.name.toString(),
+                                    user.name ?? 'নাম নেই',
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  subtitle: Text('আইডি: ${user.userId}'),
+                                  subtitle: Text(
+                                      'আইডি: ${user.userId ?? 'আইডি নেই'}'),
                                   trailing: Container(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 12, vertical: 6),
@@ -113,7 +117,10 @@ class _ContestResultViewState extends State<ContestResultView> {
                                         size: 20, color: Colors.grey),
                                     const SizedBox(width: 6),
                                     Text(
-                                        'সময়: ${result.completeDuration! ~/ 60} মিনিট ${result.completeDuration! % 60} সেকেন্ড'),
+                                      result.completeDuration != null
+                                          ? 'সময়: ${result.completeDuration! ~/ 60} মিনিট ${result.completeDuration! % 60} সেকেন্ড'
+                                          : 'সময়: পাওয়া যায়নি',
+                                    ),
                                   ],
                                 ),
                                 const SizedBox(height: 6),
@@ -125,7 +132,10 @@ class _ContestResultViewState extends State<ContestResultView> {
                                         size: 20, color: Colors.grey),
                                     const SizedBox(width: 6),
                                     Text(
-                                        'সাবমিট: ${DateFormat('dd-MM-yyyy hh:mm a').format(DateTime.parse(result.updatedAt))}'),
+                                      result.updatedAt.isNotEmpty
+                                          ? 'সাবমিট: ${DateFormat('dd-MM-yyyy hh:mm a').format(DateTime.parse(result.updatedAt))}'
+                                          : 'সাবমিট টাইম পাওয়া যায়নি',
+                                    ),
                                   ],
                                 ),
                                 const SizedBox(height: 6),
@@ -150,10 +160,11 @@ class _ContestResultViewState extends State<ContestResultView> {
                                         size: 20, color: Colors.amber),
                                     const SizedBox(width: 6),
                                     Text(
-                                      'মোট নম্বর: ${(result.correctAnswers!.toInt() * result.contest!.positiveMark!.toInt()) - (result.incorrectAnswers!.toInt() * result.contest!.negativeMark!.toInt())}',
+                                      'মোট নম্বর: ${calculateTotalMarks(result)}',
                                       style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black87),
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black87,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -167,6 +178,15 @@ class _ContestResultViewState extends State<ContestResultView> {
                 ),
               ],
             ),
-    );
+          );
   }
+}
+
+double calculateTotalMarks(ContestResult result) {
+  final correct = result.correctAnswers ?? 0;
+  final incorrect = result.incorrectAnswers ?? 0;
+  final positive = result.positiveMark ?? 0;
+  final negative = result.negativeMark ?? 0;
+
+  return (correct * positive) - (incorrect * negative);
 }

@@ -51,21 +51,6 @@ class ProfileView extends GetView<ProfileController> {
                 spacing: 5.0,
                 children: [
                   10.h.height,
-                  // CachedNetworkImage(
-                  //   imageUrl: "${AppConstants.storageUrl}${profileData.image}",
-                  //   imageBuilder: (context, imageProvider) => CircleAvatar(
-                  //     radius: 48.0.r,
-                  //     backgroundImage: imageProvider,
-                  //   ),
-                  //   placeholder: (context, url) =>
-                  //       const CircularProgressIndicator(),
-                  //   errorWidget: (context, url, error) => CircleAvatar(
-                  //     radius: 48.0.r,
-                  //     backgroundImage: const NetworkImage(
-                  //       "https://lokkha.com/uploads/files/shares/app/avatar.png",
-                  //     ),
-                  //   ),
-                  // ),
                   buildAvatar(myUser,radius: 64),
                   10.h.height,
                   Text(
@@ -85,7 +70,7 @@ class ProfileView extends GetView<ProfileController> {
                   ),
                   CustomProfileButton(
                     onTap: () => Get.toNamed(Routes.MY_PACKAGES),
-                    text: 'সকল প্যাকেজ',
+                    text: 'আপনার প্যাকেজ',
                     icon: Icons.edit_note_rounded,
                   ),
                   CustomProfileButton(

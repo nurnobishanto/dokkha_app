@@ -30,7 +30,7 @@ class StartExamController extends GetxController {
       'Authorization': 'Bearer $token',
       'Content-Type': 'application/json'
     };
-    const url = AppConstants.testExamSubmit;
+    var url = AppConstants.testExamSubmit;
     // Convert userAnswers map to a list of JSON objects
     List<Map<String, dynamic>> userAnswersArray =
         userAnswers.values.map((userAnswer) => userAnswer.toJson()).toList();

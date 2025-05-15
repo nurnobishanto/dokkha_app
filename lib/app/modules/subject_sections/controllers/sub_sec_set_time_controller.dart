@@ -11,8 +11,6 @@ import '../../../services/api_call_status.dart';
 import '../../../services/base_client.dart';
 import '../../../views/views/exam_process_view.dart';
 
-
-
 class SubSecSetTimeController extends GetxController {
   RxBool isNegativeMarkChecked = false.obs;
   RxBool isStartExam = false.obs;
@@ -38,7 +36,7 @@ class SubSecSetTimeController extends GetxController {
   //
   Future<void> getSubjects() async {
     List<SubjectSectionSelect> fetchedSubjects =
-    await MySharedPref.getSubjectSection();
+        await MySharedPref.getSubjectSection();
     selectedSubjects.assignAll(fetchedSubjects);
   }
 
@@ -48,18 +46,19 @@ class SubSecSetTimeController extends GetxController {
 
   ///  method
   Future<void> testExamStart(String type) async {
-
+    isLoading.value = true;
     String? token = MySharedPref.getUserToken();
     if (token == '' || token.isEmpty) return;
 
     final bool isSetTimeValue = isSetTime.value;
     final int durationValue = int.tryParse(setTimeCon.text) ?? 0;
-    final int finalDuration = isSetTimeValue ? (durationValue < 1 ? 1 : durationValue) : 0;
+    final int finalDuration =
+        isSetTimeValue ? (durationValue < 1 ? 1 : durationValue) : 0;
 
     Map<String, dynamic> data = {
       'exam_name': 'Question Bank Exam',
       'is_negative_mark': isNegativeMarkChecked.value,
-      'negative_mark': isNegativeMarkChecked.value?0.25:0,
+      'negative_mark': isNegativeMarkChecked.value ? 0.25 : 0,
 
       'is_set_time': isSetTime.value,
       'duration': finalDuration,
@@ -80,17 +79,15 @@ class SubSecSetTimeController extends GetxController {
       onSuccess: (response) {
         apiCallStatus = ApiCallStatus.success;
         if (response.data['status']) {
-          log("Called Success ");
-          isLoading.value = false;
           StartExamModel data = StartExamModel.fromJson(response.data);
           model.value = data;
+          isLoading.value = false;
           log("messages");
-          if(type == 'exam'){
+          if (type == 'exam') {
             Get.to(ExamProcessView(
               examStartModel: model.value,
             ));
-          }else{
-
+          } else {
             Get.to(ReadQuestionView(
               model: data.questions!.toList(),
             ));
@@ -100,6 +97,7 @@ class SubSecSetTimeController extends GetxController {
         } else if (response.data["status"] == false &&
             response.data.containsKey('errors')) {
           response.data['errors'].forEach((key, value) {
+            isLoading.value = false;
             if (value is List && value.isNotEmpty) {
               CustomSnackBar.showCustomToast(
                 message: value[0].toString(),
@@ -114,6 +112,7 @@ class SubSecSetTimeController extends GetxController {
       onError: (error) {
         apiCallStatus = ApiCallStatus.error;
         update();
+        isLoading.value = false;
         debugPrint("Error sub section controller: ${error.message}");
       },
       onLoading: () {
@@ -129,5 +128,4 @@ class SubSecSetTimeController extends GetxController {
     super.onInit();
     getSubjects();
   }
-
 }

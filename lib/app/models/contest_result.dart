@@ -1,5 +1,4 @@
 import 'package:lokkha/app/models/user.dart';
-
 import '../modules/contest/models/latest_contest_model.dart';
 
 class ContestResult {

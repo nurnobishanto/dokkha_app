@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/modules/subject_sections/controllers/sub_sec_set_time_controller.dart';
@@ -19,7 +18,7 @@ class SubSectionsSetTimeView extends GetView {
       appBar: AppBar(
         automaticallyImplyLeading: true,
         title: Text(
-          'নির্ধারণ',
+          'সময় নির্ধারণ',
           style: AppTextStyles.heading4.copyWith(color: LightThemeColors.white),
         ),
         iconTheme: const IconThemeData(color: Colors.white),
@@ -27,7 +26,6 @@ class SubSectionsSetTimeView extends GetView {
         backgroundColor: LightThemeColors.primaryColor,
       ),
       body: Obx(() {
-        // Create DropdownMenuItems from the questionType map
         List<Map<String, String>> dropdownItems =
             controller.questionType.entries.map((entry) {
           return {
@@ -203,40 +201,6 @@ class SubSectionsSetTimeView extends GetView {
                         },
                       ),
 
-                      // Wrap(
-                      //   spacing: 5,
-                      //   runSpacing: 5,
-                      //   children: dropdownItems.map((Map<String, String> item) {
-                      //     return Obx(() => InkWell(
-                      //           onTap: () {
-                      //             controller.selectedKey.value =
-                      //                 item['key'] ?? '';
-                      //           },
-                      //           child: Row(
-                      //             mainAxisSize: MainAxisSize.min,
-                      //             children: [
-                      //               Radio<String>(
-                      //                 materialTapTargetSize:
-                      //                     MaterialTapTargetSize.shrinkWrap,
-                      //                 visualDensity: VisualDensity.compact,
-                      //                 value: item['key'] ?? '',
-                      //                 groupValue: controller.selectedKey.value,
-                      //                 onChanged: (String? newValue) {
-                      //                   if (newValue != null) {
-                      //                     controller.selectedKey.value =
-                      //                         newValue;
-                      //                   }
-                      //                 },
-                      //               ),
-                      //               Text(
-                      //                 item['value'] ?? '',
-                      //               ),
-                      //             ],
-                      //           ),
-                      //         ));
-                      //   }).toList(),
-                      // ),
-
                       const SizedBox(height: 50.00),
                       Row(
                         children: [
@@ -308,18 +272,18 @@ class SubSectionsSetTimeView extends GetView {
                     child: CustomActionButton(
                       text: "পরীক্ষা শুরু করুন",
                       onPressed: () async {
-                        Map<String, dynamic> data = {
-                          'duration': controller.setTimeCon.text,
-                          'type': controller.selectedKey.value,
-                          'negative_mark':
-                              controller.isNegativeMarkChecked.value,
-                          'subjects': controller.selectedSubjects
-                              .map((subject) => subject.toMap())
-                              .toList(), // Convert each subject to map
-                        };
-                        if (kDebugMode) {
-                          print("Question paper Data: $data}");
-                        }
+                        // Map<String, dynamic> data = {
+                        //   'duration': controller.setTimeCon.text,
+                        //   'type': controller.selectedKey.value,
+                        //   'negative_mark':
+                        //       controller.isNegativeMarkChecked.value,
+                        //   'subjects': controller.selectedSubjects
+                        //       .map((subject) => subject.toMap())
+                        //       .toList(), // Convert each subject to map
+                        // };
+                        // if (kDebugMode) {
+                        //   print("Question paper Data: $data}");
+                        // }
                         if (isLoggedIn.value) {
                           controller.testExamStart('exam');
                         } else {

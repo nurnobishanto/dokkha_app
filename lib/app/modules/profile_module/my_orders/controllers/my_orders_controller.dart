@@ -19,7 +19,7 @@ class MyOrdersController extends GetxController {
   Future<void> fetchMyOrders({required bool refresh}) async {
     apiCallStatus.value = ApiCallStatus.loading;
     String? token = MySharedPref.getUserToken();
-    const String url = AppConstants.myOrders;
+    String url = AppConstants.myOrders;
 
     final headers = {
       'Content-Type': 'application/json',

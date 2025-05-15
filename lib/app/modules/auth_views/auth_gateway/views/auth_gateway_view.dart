@@ -79,7 +79,7 @@ class AuthGatewayView extends GetView<AuthGatewayController> {
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
                       Get.to(
-                        const BaseWebView(
+                        BaseWebView(
                           title: "শর্তাবলী ও নীতিমালা",
                           url: AppConstants.termsPolicy,
                         ),

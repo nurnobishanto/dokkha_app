@@ -19,7 +19,7 @@ class MyPackagesController extends GetxController {
   Future<void> fetchMyPackages() async {
     apiCallStatus.value = ApiCallStatus.loading;
     String? token = MySharedPref.getUserToken();
-    const String url = AppConstants.myPackages;
+    String url = AppConstants.myPackages;
 
     final headers = {
       'Content-Type': 'application/json',

@@ -134,7 +134,7 @@ class LatestContestController extends GetxController {
   /// Fetch Contest Method
   Future<void> fetchContest() async {
     isLoading.value = true;
-    const url = AppConstants.latestContest;
+    var url = AppConstants.latestContest;
     BaseClient.safeApiCall(
       url,
       RequestType.get,
@@ -164,7 +164,7 @@ class LatestContestController extends GetxController {
 
   Future<void> fetchAllContest() async {
     isLoading.value = true;
-    const url = AppConstants.allContestList;
+    var url = AppConstants.allContestList;
 
     BaseClient.safeApiCall(
       url,
@@ -205,7 +205,7 @@ class LatestContestController extends GetxController {
   Future<void> fetchContestResult() async {
     isLoading.value = true;
     rankUsers.clear();
-    const url = AppConstants.latestContestResult;
+    var url = AppConstants.latestContestResult;
     BaseClient.safeApiCall(
       url,
       RequestType.get,

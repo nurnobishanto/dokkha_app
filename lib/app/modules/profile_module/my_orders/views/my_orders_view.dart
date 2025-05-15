@@ -30,7 +30,7 @@ class MyOrdersView extends GetView<MyOrdersController> {
                   return InkWell(
                     onTap: () => Get.to(() => OrderDetailsScreen(
                         url:
-                            "${AppConstants.myOrdersDetails}/${data.id!.toInt()}")),
+                            "${AppConstants.myOrderDetails}/${data.id!.toInt()}")),
                     child: OrderCard(
                       orderId: "#${data.invoiceNo}",
                       date: data.createdAt!,

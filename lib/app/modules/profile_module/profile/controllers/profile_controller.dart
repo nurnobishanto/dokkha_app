@@ -31,7 +31,7 @@ class ProfileController extends GetxController {
     }
 
     profileApiStatus.value = ApiCallStatus.loading;
-    const url = AppConstants.me;
+    var url = AppConstants.me;
 
     await BaseClient.safeApiCall(
       url,
@@ -58,7 +58,7 @@ class ProfileController extends GetxController {
 
   Future<void> logout() async {
     final token = MySharedPref.getUserToken();
-    const url = AppConstants.logout;
+    var url = AppConstants.logout;
 
     await BaseClient.safeApiCall(
       url,

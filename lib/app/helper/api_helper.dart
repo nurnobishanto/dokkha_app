@@ -10,7 +10,7 @@ import '../services/base_client.dart';
 ApiCallStatus apiCallStatus = ApiCallStatus.holding;
 Future<void> questionFavAdd(int id) async {
   String? token = MySharedPref.getUserToken();
-  const url = AppConstants.questionFavAdd;
+  var url = AppConstants.questionFavAdd;
   Map<String, String> headers = {
     'Authorization': 'Bearer $token',
     'Content-Type': 'application/json'
@@ -32,7 +32,7 @@ Future<void> questionFavAdd(int id) async {
 
 Future<void> removeFavoriteQuestion(int id) async {
   String? token = MySharedPref.getUserToken();
-  const url = AppConstants.questionFavRemove;
+  var url = AppConstants.questionFavRemove;
   Map<String, String> headers = {
     'Authorization': 'Bearer $token',
     'Content-Type': 'application/json'
@@ -79,7 +79,7 @@ Future<void> getFavList({bool refresh = false}) async {
   }
 
   String? token = MySharedPref.getUserToken();
-  const url = AppConstants.questionFavList;
+  var url = AppConstants.questionFavList;
   Map<String, String> headers = {
     'Authorization': 'Bearer $token',
     'Content-Type': 'application/json'

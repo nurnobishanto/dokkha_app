@@ -303,7 +303,7 @@ class PremiumPackageCheckoutView
                                             recognizer: TapGestureRecognizer()
                                               ..onTap = () {
                                                 Get.to(
-                                                  const BaseWebView(
+                                                  BaseWebView(
                                                     title: 'Privacy Policy',
                                                     url: AppConstants
                                                         .privacyPolicy,
@@ -323,7 +323,7 @@ class PremiumPackageCheckoutView
                                             recognizer: TapGestureRecognizer()
                                               ..onTap = () {
                                                 Get.to(
-                                                  const BaseWebView(
+                                                  BaseWebView(
                                                     title: 'Terms & Conditions',
                                                     url: AppConstants
                                                         .termsPolicy,
@@ -343,7 +343,7 @@ class PremiumPackageCheckoutView
                                             recognizer: TapGestureRecognizer()
                                               ..onTap = () {
                                                 Get.to(
-                                                  const BaseWebView(
+                                                  BaseWebView(
                                                     title: 'Refund Policy',
                                                     url: AppConstants
                                                         .refundPolicy,

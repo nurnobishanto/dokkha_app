@@ -45,7 +45,7 @@ class NavbarController extends GetxController {
       return;
     }
     getProfileApiStatus.value = ApiCallStatus.loading;
-    const url = AppConstants.me;
+    var url = AppConstants.me;
 
     await BaseClient.safeApiCall(
       url,

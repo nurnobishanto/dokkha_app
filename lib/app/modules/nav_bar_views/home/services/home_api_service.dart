@@ -17,7 +17,7 @@ class HomeApiService extends GetxController {
 
   // Fetch sliders data
   Future<void> fetchSliders() async {
-    const url = AppConstants.sliders;
+    var url = AppConstants.sliders;
     sliderApiStatus.value = ApiCallStatus.loading;
 
     await BaseClient.safeApiCall(
@@ -48,7 +48,7 @@ class HomeApiService extends GetxController {
 
   // Fetch subject sections data
   Future<void> fetchSubjectSection() async {
-    const url = AppConstants.subjectSections;
+    var url = AppConstants.subjectSections;
     subjectSectionApiStatus.value = ApiCallStatus.loading;
 
     await BaseClient.safeApiCall(

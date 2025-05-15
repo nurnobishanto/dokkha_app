@@ -63,7 +63,7 @@ class AppUpdateService {
     }
     log("My Platform:$platform");
     String authCheckUrl =
-        "${AppConstants.appVersionCheckApi}?platform=$platform&version_code=$appVersionCode";
+        "${AppConstants.appVersionCheck}?platform=$platform&version_code=$appVersionCode";
 
     BaseClient.safeApiCall(authCheckUrl, RequestType.get,
         onSuccess: (response) {

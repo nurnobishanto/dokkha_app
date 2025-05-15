@@ -11,7 +11,7 @@ class PremiumPackagesController extends GetxController {
 final isLoading = true.obs;
   Future<void> fetchPremiumPackage() async {
     isLoading.value = true;
-    const url = AppConstants.premiumPackage;
+    var url = AppConstants.premiumPackage;
     BaseClient.safeApiCall(
       url,
       RequestType.get,

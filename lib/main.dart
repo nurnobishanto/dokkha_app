@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'app/data/local/my_shared_pref.dart';
 import 'app/helper/global.dart';
@@ -8,20 +9,40 @@ import 'my_app/views/my_app_view.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  debugPrint("Initializing SharedPreferences...");
-  await MySharedPref.init();
-  debugPrint("Init complete. Starting app...");
 
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
+  // Load .env safely
+  try {
+    await dotenv.load(fileName: ".env");
+  } catch (e) {
+    debugPrint("❌.env load failed: $e");
+  }
 
-  OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
-  OneSignal.initialize("673905c9-99a7-4cac-a74d-44fa8fb87efb");
-  OneSignal.Notifications.requestPermission(true);
+  // Init SharedPreferences safely
+  try {
+    await MySharedPref.init();
+  } catch (e) {
+    debugPrint("❌SharedPreferences init failed: $e");
+  }
+
+  // Init OneSignal safely
+  final oneSignalAppId = dotenv.env['ONESIGNAL_APP_ID'];
+  if (oneSignalAppId != null && oneSignalAppId.isNotEmpty) {
+    try {
+      OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+      OneSignal.initialize(oneSignalAppId);
+      OneSignal.Notifications.requestPermission(true);
+    } catch (e) {
+      debugPrint("❌OneSignal init failed: $e");
+    }
+  } else {
+    debugPrint(" ONESIGNAL_APP_ID not found in .env");
+  }
+
   fetchAppVersion();
-  runApp( const MyApp());
+  runApp(const MyApp());
 }
+
+
 
 // void main() {
 //   runApp(const MaterialApp(home: Scaffold(body: Center(child: Text("Hello")))));

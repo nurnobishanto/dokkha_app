@@ -33,7 +33,7 @@ class PremiumPackageCheckoutController extends GetxController {
   Future<void> makePayment(int id) async {
     String email = mailController.value.text.toString().trim();
     String? token = MySharedPref.getUserToken();
-    String orderPlaceUrl = "${AppConstants.packageOrderUrl}/$id";
+    String orderPlaceUrl = "${AppConstants.packageOrder}/$id";
 
     Map<String, String> headers = {
       'Content-Type': 'application/json',
@@ -101,7 +101,7 @@ class PremiumPackageCheckoutController extends GetxController {
     apiCallStatus = ApiCallStatus.loading;
     update();
     String ? token = MySharedPref.getUserToken();
-    const String url = AppConstants.couponApply;
+    String url = AppConstants.couponApply;
     final headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $token',

@@ -40,7 +40,7 @@ class CustomDrawer extends StatelessWidget {
                 const Text('আমাদের সম্পর্কে', style: TextStyle(fontSize: 14)),
             onTap: () {
               Get.to(
-                const BaseWebView(
+                BaseWebView(
                     title: "আমাদের সম্পর্কে", url: AppConstants.about),
               );
             },
@@ -113,7 +113,7 @@ class CustomDrawer extends StatelessWidget {
             title:
                 const Text('প্রাইভেসি পলিসি', style: TextStyle(fontSize: 14)),
             onTap: () => Get.to(
-              const BaseWebView(
+              BaseWebView(
                   title: "প্রাইভেসি পলিসি", url: AppConstants.privacyPolicy),
             ),
           ),
@@ -125,7 +125,7 @@ class CustomDrawer extends StatelessWidget {
                 color: LightThemeColors.primaryColor, size: 20),
             title: const Text('রিফান্ড পলিসি', style: TextStyle(fontSize: 14)),
             onTap: () => Get.to(
-              const BaseWebView(
+              BaseWebView(
                   title: "রিফান্ড পলিসি", url: AppConstants.refundPolicy),
             ),
           ),
@@ -136,7 +136,7 @@ class CustomDrawer extends StatelessWidget {
                 color: LightThemeColors.primaryColor, size: 20),
             title: const Text('কন্টেস্ট পলিসি', style: TextStyle(fontSize: 14)),
             onTap: () => Get.to(
-              const BaseWebView(
+              BaseWebView(
                   title: "কন্টেস্ট পলিসি", url: AppConstants.contestPolicy),
             ),
           ),
@@ -148,7 +148,7 @@ class CustomDrawer extends StatelessWidget {
             title: const Text('টার্মস এন্ড কন্ডিশন',
                 style: TextStyle(fontSize: 14)),
             onTap: () => Get.to(
-              const BaseWebView(
+              BaseWebView(
                   title: "টার্মস এন্ড কন্ডিশন", url: AppConstants.termsPolicy),
             ),
           ),

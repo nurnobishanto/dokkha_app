@@ -298,8 +298,8 @@ class MySharedPref {
   static const String _lightThemeKey = 'is_theme_light';
   static const String _subSectionKey = 'sub_section_key';
   static const String _userTokenKey = 'user_token';
-  static const String _mockSubjectsKey = 'mockSubjects';
-  static const String _randomQuestionCheckKey = 'randomQuestionCheck';
+  static const String _mockSubjectsKey = 'mock_subjects';
+  static const String _randomQuestionCheckKey = 'random_question_check';
 
   /// Initialize shared preferences
   static Future<void> init() async {
@@ -391,7 +391,7 @@ class MySharedPref {
     return subjects.any((s) => s.id == id);
   }
 
-  // ───── Subject Section ─────
+  /// ───── Subject Section ─────
   static Future<void> addOrUpdateSubjectSectionSelect(
       SubjectSectionSelect subject) async {
     List<String> list = _prefs.getStringList(_subSectionKey) ?? [];
@@ -437,7 +437,7 @@ class MySharedPref {
     return subjects.any((s) => s.id == id);
   }
 
-  // ───── Random Question Counter ─────
+  /// ───── Random Question Counter ─────
   static Future<void> incrementRandomQuestionCheck() async {
     int current = _prefs.getInt(_randomQuestionCheckKey) ?? 0;
     current++;

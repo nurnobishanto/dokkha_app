@@ -27,6 +27,8 @@ import '../modules/latest_exam/bindings/latest_exam_binding.dart';
 import '../modules/latest_exam/views/latest_exam_view.dart';
 import '../modules/maintenance_mode/bindings/maintenance_mode_view_binding.dart';
 import '../modules/maintenance_mode/views/maintenance_mode_view_view.dart';
+import '../modules/model_test/bindings/model_test_binding.dart';
+import '../modules/model_test/views/model_test_view.dart';
 import '../modules/nav_bar_views/blog/bindings/blog_binding.dart';
 import '../modules/nav_bar_views/blog/views/blog_view.dart';
 import '../modules/nav_bar_views/contest/all_contest/bindings/all_contest_binding.dart';
@@ -57,6 +59,8 @@ import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 import '../modules/sponsor_ads/bindings/sponsor_ads_binding.dart';
 import '../modules/sponsor_ads/views/sponsor_ads_view.dart';
+import '../modules/vocabulary/bindings/vocabulary_binding.dart';
+import '../modules/vocabulary/views/vocabulary_view.dart';
 import '../views/views/onboarding_view.dart';
 
 part 'app_routes.dart';
@@ -231,6 +235,16 @@ class AppPages {
       name: _Paths.SPONSOR_ADS,
       page: () => const SponsorAdsView(),
       binding: SponsorAdsBinding(),
+    ),
+    GetPage(
+      name: _Paths.VOCABULARY,
+      page: () => const VocabularyView(),
+      binding: VocabularyBinding(),
+    ),
+    GetPage(
+      name: _Paths.MODEL_TEST,
+      page: () => const ModelTestView(),
+      binding: ModelTestBinding(),
     ),
   ];
 }

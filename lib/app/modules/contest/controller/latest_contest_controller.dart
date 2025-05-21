@@ -194,9 +194,6 @@ class LatestContestController extends GetxController {
 
 
 
-
-
-
   RxObjectMixin<ContestResultModel> lastContestResultModel =
       ContestResultModel().obs;
   final isResultLoading = true.obs;

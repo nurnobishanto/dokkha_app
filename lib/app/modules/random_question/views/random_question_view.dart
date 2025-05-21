@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/modules/random_question/controller/random_question_controller.dart';
+import 'package:lokkha/app/views/widgets/explanation_dialog.dart';
 import 'package:lokkha/styles/text_style.dart';
 
 import '../../../../config/theme/light_theme_colors.dart';
@@ -173,7 +174,6 @@ import '../../../helper/global.dart';
 //   }
 // }
 
-
 class RandomQuestionSelector extends StatelessWidget {
   final RxInt selectedOptionIndex = RxInt(-1);
 
@@ -273,19 +273,7 @@ class RandomQuestionSelector extends StatelessWidget {
                         child: CustomActionButton(
                           text: "ব্যাখ্যা দেখুন",
                           onPressed: () {
-                            Get.dialog(
-                              AlertDialog(
-                                title: Center(
-                                  child: Text(
-                                    'ব্যাখ্যা',
-                                    style: AppTextStyles.heading3.copyWith(
-                                      color: LightThemeColors.primaryColor,
-                                    ),
-                                  ),
-                                ),
-                                content: HtmlWidget(question.explanation.toString()),
-                              ),
-                            );
+                            ExplanationDialog.show(question);
                           },
                         ),
                       )

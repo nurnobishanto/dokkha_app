@@ -8,6 +8,7 @@ import 'package:lokkha/config/extensions/common_extension.dart';
 import 'package:lokkha/styles/text_style.dart';
 
 import '../../../../config/theme/light_theme_colors.dart';
+import '../../../views/widgets/explanation_dialog.dart';
 class InternationalCurrentAffairsContentView extends StatelessWidget {
   const InternationalCurrentAffairsContentView({super.key});
 
@@ -163,21 +164,7 @@ class InternationalCurrentAffairsContentView extends StatelessWidget {
                             child:
                             InkWell(
                               onTap: () {
-                                Get.dialog(
-                                  AlertDialog(
-                                    title: Text(
-                                      "ব্যাখ্যা",
-                                      textAlign: TextAlign.center,
-                                      style: AppTextStyles.heading4.copyWith(
-                                        color: LightThemeColors.primaryColor,
-                                      ),
-                                    ),
-                                    content: Text(
-                                      data.questions?[index].explanation ?? '',
-                                      style: AppTextStyles.body1,
-                                    ),
-                                  ),
-                                );
+                                ExplanationDialog.show(question);
                               },
                               child: Text(
                                 "ব্যাখ্যা দেখুন →",

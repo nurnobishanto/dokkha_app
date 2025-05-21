@@ -72,4 +72,5 @@ class AppConstants {
 
   /// Latest Exams
   static final String latestExam = '$appUrl/latest-exams';
+  static final String vocabulary = '$appUrl/vocabulary';
 }

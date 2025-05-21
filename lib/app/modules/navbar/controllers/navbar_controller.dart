@@ -1,5 +1,6 @@
 import 'package:lokkha/app/data/local/my_get_storage.dart';
 import 'package:lokkha/app/data/local/my_shared_pref.dart';
+import 'package:lokkha/app/modules/model_test/views/model_test_view.dart';
 import 'package:lokkha/app/modules/profile_module/profile/views/profile_view.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class NavbarController extends GetxController {
 
   final List<Widget> nabBarBody = [
     const HomeView(),
-    const MockTestTabView(),
+    const ModelTestView(),
     const PremiumPackagesView(),
     const ProfileView(),
   ];
@@ -81,7 +82,6 @@ class NavbarController extends GetxController {
     myUser = User();
     MySharedPref.removeUserToken(); // optional
   }
-
 
 
   @override

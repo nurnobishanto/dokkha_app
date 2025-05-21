@@ -41,6 +41,8 @@ abstract class Routes {
   static const APP_UPDATE_VIEW = _Paths.APP_UPDATE_VIEW;
   static const ALL_CONTEST = _Paths.ALL_CONTEST;
   static const SPONSOR_ADS = _Paths.SPONSOR_ADS;
+  static const VOCABULARY = _Paths.VOCABULARY;
+  static const MODEL_TEST = _Paths.MODEL_TEST;
 }
 
 abstract class _Paths {
@@ -83,4 +85,6 @@ abstract class _Paths {
   static const APP_UPDATE_VIEW = '/app-update-view';
   static const ALL_CONTEST = '/all-contest';
   static const SPONSOR_ADS = '/sponsor-ads';
+  static const VOCABULARY = '/vocabulary';
+  static const MODEL_TEST = '/model-test';
 }

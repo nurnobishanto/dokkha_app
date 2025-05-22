@@ -1,133 +1,72 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:lokkha/app/modules/model_test/components/model_test_card.dart';
+import 'package:lokkha/app/modules/model_test/views/model_test_details_view.dart';
+import 'package:lokkha/utils/constants.dart';
+import '../../../services/api_call_status.dart';
+import '../controllers/model_test_controller.dart';
 
-class ModelTestView extends StatelessWidget {
+class ModelTestView extends GetView<ModelTestController> {
   const ModelTestView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(ModelTestController());
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ModelTestView'),
+        title: const Text('মডেল টেস্ট'),
         centerTitle: true,
       ),
-      body: GridView.builder(
-        padding: EdgeInsets.all(12.w),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 1,
-          childAspectRatio: 0.68,
-        ),
-        itemCount: 1,
-        itemBuilder: (_, __) {
-          return const OnlineCourseCard();
+      body: RefreshIndicator(
+        onRefresh: () {
+          return controller.fetchModelTests();
         },
-      ),
-    );
-  }
-}
+        child: Obx(() {
+          switch (controller.apiCallStatus.value) {
+            case ApiCallStatus.loading:
+              return const Center(child: CircularProgressIndicator());
 
-class OnlineCourseCard extends StatelessWidget {
-  const OnlineCourseCard({super.key});
+            case ApiCallStatus.success:
+              return GridView.builder(
+                padding: EdgeInsets.all(8.w),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 7.w,
+                  mainAxisSpacing: 8.h,
+                  childAspectRatio: 1.10,
+                ),
+                itemCount:
+                    controller.modelTestList.value?.data?.data?.length ?? 0,
+                itemBuilder: (_, index) {
+                  final data =
+                      controller.modelTestList.value?.data?.data?[index];
+                  return ModelTestCard(
+                    imageUrl: AppConstants.storageUrl + data!.image.toString(),
+                    title: data.title ?? '',
+                    onTap: () {
+                      final int? id = data.id is int
+                          ? data.id
+                          : int.tryParse(data.id.toString());
+                      if (id != null) {
+                        Get.to(ModelTestDetailsView(id: id));
+                      } else {
+                        Get.snackbar("Error", "Invalid exam ID");
+                      }
+                    },
+                    examCount: data.exams!.length.toString(),
+                  );
+                },
+              );
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 12.h),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300),
-        borderRadius: BorderRadius.circular(12.r),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          /// Header Banner Image
-          Container(
-            width: double.infinity,
-            height: 120.h,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(12.r),
-                topRight: Radius.circular(12.r),
-              ),
-              image: const DecorationImage(
-                image: AssetImage('assets/images/banner_image.png'),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
+            case ApiCallStatus.error:
+              return const Center(child: Text('Something went wrong'));
 
-          // Course Info Section
-          Padding(
-            padding: EdgeInsets.all(12.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'ভর্তি পরীক্ষা প্রস্তুতি ব্যাচ কোর্স',
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 8.h),
-
-                //  Info Rows
-                Row(
-                  children: [
-                    Icon(Icons.video_library_outlined, size: 18.sp),
-                    SizedBox(width: 6.w),
-                    Text('মডিউল: 1', style: TextStyle(fontSize: 13.sp)),
-                    SizedBox(width: 16.w),
-                    Text('ক্লাস: 1', style: TextStyle(fontSize: 13.sp)),
-                  ],
-                ),
-                SizedBox(height: 6.h),
-                Row(
-                  children: [
-                    Icon(Icons.schedule, size: 18.sp),
-                    SizedBox(width: 6.w),
-                    Expanded(
-                      child: Text(
-                        'ক্লাস হবে: কোর্স এডমিন দ্বারা নির্ধারিত',
-                        style: TextStyle(fontSize: 13.sp),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 6.h),
-                Row(
-                  children: [
-                    Icon(Icons.calendar_today, size: 18.sp),
-                    SizedBox(width: 6.w),
-                    Text('শুরুর তারিখ: নির্ধারিত নয়',
-                        style: TextStyle(fontSize: 13.sp)),
-                  ],
-                ),
-                SizedBox(height: 10.h),
-
-                // ⭐ Rating and Count
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: List.generate(
-                        5,
-                        (index) => Icon(
-                          Icons.star_border,
-                          color: Colors.orange,
-                          size: 20.sp,
-                        ),
-                      ),
-                    ),
-                    Text('(0/5 - ০ রেটিং)', style: TextStyle(fontSize: 12.sp)),
-                  ],
-                ),
-                SizedBox(height: 14.h),
-              ],
-            ),
-          ),
-        ],
+            case ApiCallStatus.holding:
+            default:
+              return const SizedBox();
+          }
+        }),
       ),
     );
   }

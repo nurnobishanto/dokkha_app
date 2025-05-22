@@ -7,10 +7,10 @@ const Map<String, String> bnBD = {
   Strings.changeTheme : 'Change theme',
   Strings.changeLanguage : 'Change language',
 
-  Strings.noInternetConnection : 'No internet connection!',
-  Strings.serverNotResponding : 'Server is not responding!',
-  Strings.someThingWentWrong : 'Something went wrong',
-  Strings.apiNotFound : 'Route not found!',
-  Strings.serverError : 'Server error',
-  Strings.urlNotFound : 'Url not found',
+  // Strings.noInternetConnection : 'No internet connection!',
+  // Strings.serverNotResponding : 'Server is not responding!',
+  // Strings.someThingWentWrong : 'Something went wrong',
+  // Strings.apiNotFound : 'Route not found!',
+  // Strings.serverError : 'Server error',
+  // Strings.urlNotFound : 'Url not found',
 };

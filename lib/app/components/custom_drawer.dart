@@ -7,6 +7,7 @@ import 'package:lokkha/config/extensions/common_extension.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lokkha/styles/text_style.dart';
 import 'package:lokkha/utils/constants.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../config/constants/app_images.dart';
@@ -40,8 +41,7 @@ class CustomDrawer extends StatelessWidget {
                 const Text('আমাদের সম্পর্কে', style: TextStyle(fontSize: 14)),
             onTap: () {
               Get.to(
-                BaseWebView(
-                    title: "আমাদের সম্পর্কে", url: AppConstants.about),
+                BaseWebView(title: "আমাদের সম্পর্কে", url: AppConstants.about),
               );
             },
           ),
@@ -154,19 +154,29 @@ class CustomDrawer extends StatelessWidget {
           ),
           const Divider(height: 0.5, color: LightThemeColors.primaryColor),
           15.h.height,
-
+        const  Spacer(),
           /// App Version (standard)
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.symmetric(vertical: 0),
+            child: Center(
+              child: Text(
+                '© 2025 Lokkha. All rights reserved.',
+                style: AppTextStyles.body1.copyWith(fontSize: 11.sp),
+              ),
+            ),
+          ),
+
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 1),
             child: Center(
               child: Text(
                 'অ্যাপ ভার্শন: $appVersion',
-                style: const TextStyle(fontSize: 12, color: Colors.grey),
+                style: AppTextStyles.body1.copyWith(fontSize: 11.sp),
               ),
             ),
           ),
         ],
-      ).paddingSymmetric(horizontal: 10.0.w), // Reduced horizontal padding
+      ).paddingSymmetric(horizontal: 10.0.w).paddingOnly(bottom: 20.0.h), // Reduced horizontal padding
     );
   }
 }

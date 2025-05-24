@@ -19,139 +19,139 @@ class ExamOverview extends GetView {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        title: Text(
-          'মডেল টেস্ট তথ্য',
-          style: AppTextStyles.heading4.copyWith(color: LightThemeColors.white),
+        appBar: AppBar(
+          automaticallyImplyLeading: true,
+          title: Text(
+            'মডেল টেস্ট তথ্য',
+            style:
+                AppTextStyles.heading4.copyWith(color: LightThemeColors.white),
+          ),
+          iconTheme: const IconThemeData(color: Colors.white),
+          centerTitle: true,
+          backgroundColor: LightThemeColors.primaryColor,
         ),
-        iconTheme: const IconThemeData(color: Colors.white),
-        centerTitle: true,
-        backgroundColor: LightThemeColors.primaryColor,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Exam Image
-            exam.image!.isNotEmpty
-                ? CustomNetworkImageCard(
-                    imageUrl: AppConstants.storageUrl + exam.image.toString(),
-                  )
-                : const SizedBox.shrink(),
-            // Title below image
-            Text(
-              exam.name ?? '',
-              style: AppTextStyles.heading4,
-            ),
-            const SizedBox(height: 12),
-
-            // Description
-            Text(
-              "পরীক্ষার বিবরণ",
-              style: AppTextStyles.heading5,
-            ),
-            4.h.height,
-            HtmlWidget(
-              exam.description.toString(),
-              textStyle: AppTextStyles.body1,
-            ),
-
-            10.h.height,
-
-            // Marks and Time Info
-            Row(
-              children: [
-                Expanded(
-                  child: CustomInfoTile(
-                    icon: Icons.add_circle_outline,
-                    label: "পজিটিভ নম্বর",
-                    value: exam.positiveMark.toString(),
-                  ),
-                ),
-                Expanded(
-                  child: CustomInfoTile(
-                    icon: Icons.remove_circle_outline,
-                    label: "নেগেটিভ নম্বর",
-                    value: "${exam.negativeMark}",
-                  ),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Exam Title
+              Text(
+                exam.name ?? '',
+                style: AppTextStyles.heading3
+                    .copyWith(fontWeight: FontWeight.bold),
+              ),
+              const Divider(),
+              // Exam Image with rounded border and shadow
+              if (exam.image?.isNotEmpty ?? false) ...[
+                10.h.height,
+                CustomNetworkImageCard(
+                  imageUrl: AppConstants.storageUrl + exam.image.toString(),
                 ),
               ],
-            ),
-            const Spacer(),
+              10.h.height,
+              // Description Title
+              Text(
+                "পরীক্ষার বিবরণ",
+                style: AppTextStyles.heading4
+              ),
+              2.h.height,
+              HtmlWidget(
+                exam.description ?? '',
+                textStyle: AppTextStyles.body1.copyWith(height: 1.6),
+              ),
 
-            // Action Buttons
-            Row(
-              children: [
-                Expanded(
-                  child: CustomActionButton(
-                    text: "প্রশ্ন পড়ুন",
-                    onPressed: () async {
-                      if (isLoggedIn.value) {
-                        controller.testExamStart('read');
-                      } else {
-                        Get.toNamed(Routes.AUTH_GATEWAY);
-                      }
-                    },
+              15.h.height,
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                decoration: BoxDecoration(
+                  color: Colors.grey[100],
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.grey.shade300),
+                ),
+                child: Row(
+                  children: [
+                    const Icon(Icons.add_circle_outline,
+                        color: Colors.green, size: 20),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        "পজিটিভ নম্বর",
+                        style: AppTextStyles.body2,
+                      ),
+                    ),
+                    Text(
+                      exam.positiveMark.toString(),
+                      style: AppTextStyles.body2
+                          .copyWith(fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+              5.h.height,
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                decoration: BoxDecoration(
+                  color: Colors.grey[100],
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.grey.shade300),
+                ),
+                child: Row(
+                  children: [
+                    const Icon(Icons.remove_circle_outline,
+                        color: Colors.red, size: 20),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        "নেগেটিভ নম্বর",
+                        style: AppTextStyles.body2,
+                      ),
+                    ),
+                    Text(
+                      exam.negativeMark.toString(),
+                      style: AppTextStyles.body2
+                          .copyWith(fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+
+              const Spacer(),
+              // Action Buttons (unchanged)
+              Row(
+                children: [
+                  Expanded(
+                    child: CustomActionButton(
+                      text: "প্রশ্ন পড়ুন",
+                      onPressed: () async {
+                        if (isLoggedIn.value) {
+                          controller.testExamStart('read');
+                        } else {
+                          Get.toNamed(Routes.AUTH_GATEWAY);
+                        }
+                      },
+                    ),
                   ),
-                ),
-                const SizedBox(width: 8.0),
-                Expanded(
-                  child: CustomActionButton(
-                    text: "পরীক্ষা শুরু করুন",
-                    onPressed: () async {
-                      if (isLoggedIn.value) {
-                        controller.testExamStart('exam');
-                      } else {
-                        Get.toNamed(Routes.AUTH_GATEWAY);
-                      }
-                    },
+                  const SizedBox(width: 8.0),
+                  Expanded(
+                    child: CustomActionButton(
+                      text: "পরীক্ষা শুরু করুন",
+                      onPressed: () async {
+                        if (isLoggedIn.value) {
+                          controller.testExamStart('exam');
+                        } else {
+                          Get.toNamed(Routes.AUTH_GATEWAY);
+                        }
+                      },
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class CustomInfoTile extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final String value;
-
-  const CustomInfoTile({
-    Key? key,
-    required this.icon,
-    required this.label,
-    required this.value,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-      child: Row(
-        children: [
-          Icon(icon, color: Theme.of(context).colorScheme.primary),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Text(
-              label,
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
+                ],
+              ),
+              10.h.height,
+            ],
           ),
-          Text(
-            value,
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-          ),
-        ],
-      ),
-    );
+        ));
   }
 }

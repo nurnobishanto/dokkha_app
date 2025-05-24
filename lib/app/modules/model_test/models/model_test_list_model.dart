@@ -1,7 +1,13 @@
 import 'dart:convert';
+
+import 'package:lokkha/app/models/question.dart';
+import 'package:lokkha/app/models/subject.dart';
+
 import '../../../models/category.dart';
 import '../../../models/exam.dart';
+
 ModelTestListModel modelTestListModelFromJson(String str) => ModelTestListModel.fromJson(json.decode(str));
+
 String modelTestListModelToJson(ModelTestListModel data) => json.encode(data.toJson());
 
 class ModelTestListModel {
@@ -99,7 +105,7 @@ class ModelTest {
   final int? status;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  final List<ExamData>? exams;
+  final List<Exam>? exams;
   final Category? category;
 
   ModelTest({
@@ -128,7 +134,7 @@ class ModelTest {
     status: json["status"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-    exams: json["exams"] == null ? [] : List<ExamData>.from(json["exams"]!.map((x) => ExamData.fromJson(x))),
+    exams: json["exams"] == null ? [] : List<Exam>.from(json["exams"]!.map((x) => Exam.fromJson(x))),
     category: json["category"] == null ? null : Category.fromJson(json["category"]),
   );
 
@@ -147,47 +153,6 @@ class ModelTest {
     "category": category?.toJson(),
   };
 }
-class ExamData {
-  final int? id;
-  final int? modelTestId;
-  final int? examId;
-  final bool? isFree;
-  final dynamic createdAt;
-  final dynamic updatedAt;
-  final Exam? exam;
-
-  ExamData({
-    this.id,
-    this.modelTestId,
-    this.examId,
-    this.isFree,
-    this.createdAt,
-    this.updatedAt,
-    this.exam,
-  });
-
-  factory ExamData.fromJson(Map<String, dynamic> json) => ExamData(
-    id: json["id"],
-    modelTestId: json["model_test_id"],
-    examId: json["exam_id"],
-    isFree: json["is_free"],
-    createdAt: json["created_at"],
-    updatedAt: json["updated_at"],
-    exam: json["exam"] == null ? null : Exam.fromJson(json["exam"]),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "model_test_id": modelTestId,
-    "exam_id": examId,
-    "is_free": isFree,
-    "created_at": createdAt,
-    "updated_at": updatedAt,
-    "exam": exam?.toJson(),
-  };
-}
-
-
 
 class Link {
   final String? url;
@@ -213,3 +178,14 @@ class Link {
   };
 }
 
+class EnumValues<T> {
+  Map<String, T> map;
+  late Map<T, String> reverseMap;
+
+  EnumValues(this.map);
+
+  Map<T, String> get reverse {
+    reverseMap = map.map((k, v) => MapEntry(v, k));
+    return reverseMap;
+  }
+}

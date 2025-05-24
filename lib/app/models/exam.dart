@@ -19,6 +19,7 @@ class Exam {
   final String? status;
   final DateTime? createdAt;
   final DateTime? updatedAt;
+  final ExamModelTestPivot? examModelTestPivot;
   final List<Subject>? subjects;
   final List<Question>? questions;
   final List<Subject>? primarySubjects;
@@ -42,6 +43,7 @@ class Exam {
     this.status,
     this.createdAt,
     this.updatedAt,
+    this.examModelTestPivot,
     this.subjects,
     this.questions,
     this.primarySubjects,
@@ -64,9 +66,9 @@ class Exam {
     previousDayCount: json["previous_day_count"],
     examPolicy: json["exam_policy"],
     status: json["status"],
-
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+    examModelTestPivot: json["pivot"] == null ? null : ExamModelTestPivot.fromJson(json["pivot"]),
     subjects: json["subjects"] == null ? [] : List<Subject>.from(json["subjects"]!.map((x) => Subject.fromJson(x))),
     questions: json["questions"] == null ? [] : List<Question>.from(json["questions"]!.map((x) => Question.fromJson(x))),
     primarySubjects: json["primary_subjects"] == null ? [] : List<Subject>.from(json["primary_subjects"]!.map((x) => Subject.fromJson(x))),
@@ -91,9 +93,34 @@ class Exam {
     "status": status,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
+    "pivot": examModelTestPivot?.toJson(),
     "subjects": subjects == null ? [] : List<dynamic>.from(subjects!.map((x) => x.toJson())),
     "questions": questions == null ? [] : List<dynamic>.from(questions!.map((x) => x)),
     "primary_subjects": primarySubjects == null ? [] : List<dynamic>.from(primarySubjects!.map((x) => x.toJson())),
     "secondary_subjects": secondarySubjects == null ? [] : List<dynamic>.from(secondarySubjects!.map((x) => x.toJson())),
+  };
+}
+
+class ExamModelTestPivot {
+  final int? modelTestId;
+  final int? examId;
+  final int? isFree;
+
+  ExamModelTestPivot({
+    this.modelTestId,
+    this.examId,
+    this.isFree,
+  });
+
+  factory ExamModelTestPivot.fromJson(Map<String, dynamic> json) => ExamModelTestPivot(
+    modelTestId: json["model_test_id"],
+    examId: json["exam_id"],
+    isFree: json["is_free"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "model_test_id": modelTestId,
+    "exam_id": examId,
+    "is_free": isFree,
   };
 }

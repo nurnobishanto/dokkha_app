@@ -7,6 +7,7 @@ import 'package:lokkha/app/modules/latest_exam/views/latest_exam_view.dart';
 import 'package:lokkha/app/modules/nav_bar_views/home/models/subject_sections_model.dart';
 import 'package:lokkha/app/modules/nav_bar_views/home/services/home_api_service.dart';
 import 'package:lokkha/app/modules/vocabulary/views/vocabulary_view.dart';
+import 'package:lokkha/comming_soon_view.dart';
 import '../../../../services/api_call_status.dart';
 import '../../../grid_views/mock_test_tab/views/mock_test_tab_view.dart';
 import '../models/slider_model.dart';
@@ -19,8 +20,8 @@ class HomeController extends GetxController {
     'কারেন্ট এ্যাফেয়ার্স',
     'সর্বশেষ নিয়োগ বিজ্ঞপ্তি',
     'সর্বশেষ নিয়োগ পরীক্ষা',
-    'ভোকাবুলারি',
-    'লেকচার শীট',
+    'Vocabulary',
+    'Lecture sheet',
   ];
 
   final List gridViewRoutePage = [
@@ -29,7 +30,7 @@ class HomeController extends GetxController {
     const JobsView(),
     const LatestExamView(),
     const VocabularyView(),
-    const VocabularyView(),
+    const ComingSoonPage(),
   ];
 
   final HomeApiService homeApiService = HomeApiService();

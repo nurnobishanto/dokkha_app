@@ -20,7 +20,7 @@ class VocabularyView extends StatelessWidget {
     final controller = Get.put(VocabularyController());
 
     return Scaffold(
-      appBar: const CustomAppBar(title: 'ভোকাবুলারি'),
+      appBar: const CustomAppBar(title: 'Vocabulary'),
       // floatingActionButton: CircleAvatar(
       //   backgroundColor: LightThemeColors.primaryColor,
       //   radius: 28,

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:lokkha/app/data/local/my_shared_pref.dart';
 import 'package:lokkha/app/modules/model_test/models/model_test_list_model.dart';
@@ -5,7 +7,12 @@ import 'package:lokkha/app/services/api_call_status.dart';
 import 'package:lokkha/app/services/base_client.dart';
 import 'package:lokkha/utils/constants.dart';
 
+import '../../../components/custom_snackbar.dart';
+import '../../auth_views/auth_gateway/views/auth_gateway_view.dart';
+import '../../premium_packages/views/premium_packages_view.dart';
+import '../models/exam_start_model.dart';
 import '../models/single_model_test_model.dart';
+import '../views/exam_run_view.dart';
 
 class ModelTestController extends GetxController {
   Rx<ModelTestListModel?> modelTestList = Rx<ModelTestListModel?>(null);
@@ -63,6 +70,43 @@ class ModelTestController extends GetxController {
       },
       onError: (error) {
         singleModelApiCallStatus.value = ApiCallStatus.error;
+      },
+    );
+  }
+
+
+  RxBool isLoading = true.obs;
+
+
+  Rx<ExamStartModel> examStartModel = ExamStartModel().obs;
+  ApiCallStatus startExamApiCallStatus = ApiCallStatus.holding;
+  /// Fetch Exam Start Method
+  Future<void> startExam(int id) async {
+    String? token = MySharedPref.getUserToken();
+    if (token == '' || token.isEmpty) return Get.to(const AuthGatewayView());
+    await BaseClient.safeApiCall(
+      '${AppConstants.exam}/$id/start',
+      RequestType.post,
+      headers: {
+        "Authorization": 'Bearer $token',
+      },
+      onSuccess: (response) {
+        startExamApiCallStatus = ApiCallStatus.success;
+        if (response.data['status']) {
+          isLoading.value = false;
+          ExamStartModel data = ExamStartModel.fromJson(response.data);
+          examStartModel.value = data;
+          Get.to(() => RunExamView(
+            examStartModel: examStartModel.value,
+          ));
+        }
+        else if (response.data["status"] == false) {
+          if(response.data["package_required"] == true){
+            Get.to(const PremiumPackagesView());
+          }
+          CustomSnackBar.showCustomErrorToast(
+              message: response.data["message"].toString());
+        }
       },
     );
   }

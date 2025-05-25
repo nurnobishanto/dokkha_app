@@ -18,7 +18,7 @@ class ExamCard extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+        margin: const EdgeInsets.symmetric(vertical: 3, horizontal: 12),
         padding: EdgeInsets.all(8.r),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -26,8 +26,8 @@ class ExamCard extends StatelessWidget {
           boxShadow: const [
             BoxShadow(
               color: Colors.black12,
-              blurRadius: 6,
-              offset: Offset(0, 3),
+              blurRadius: 2,
+              offset: Offset(1, 0),
             )
           ],
           border: Border.all(color: Colors.grey.shade300),

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
-import 'package:lokkha/app/modules/subject_sections/controllers/sub_sec_set_time_controller.dart';
 import 'package:lokkha/config/constants/app_strings.dart';
-
 import 'package:lokkha/config/theme/light_theme_colors.dart';
 import 'package:lokkha/utils/constants.dart';
 import '../../../../../../styles/text_style.dart';
@@ -21,7 +19,6 @@ class ReadQuestionView extends StatelessWidget {
   Widget build(BuildContext context) {
     final questionList = model;
     final controller = Get.put(ReadQuestionController());
-    final setTimeController = Get.put(SubSecSetTimeController());
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
@@ -33,136 +30,129 @@ class ReadQuestionView extends StatelessWidget {
         centerTitle: true,
         backgroundColor: LightThemeColors.primaryColor,
       ),
-      body: setTimeController.isLoading.value == true
+      body: questionList.isEmpty
           ? const Center(
-              child: CircularProgressIndicator(),
+              child: Text(AppStrings.noDataFound),
             )
-          : questionList.isEmpty
-              ? const Center(
-                  child: Text(AppStrings.noDataFound),
-                )
-              : Padding(
-                  padding: const EdgeInsets.all(8.00),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: questionList.length,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            final question = questionList[index];
-                            return Card(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: LightThemeColors.primaryColor,
-                                      width: 1.5),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      if (question.questionImage != null)
-                                        Image.network(
-                                          "${AppConstants.storageUrl}${question.questionImage}",
-                                          errorBuilder:
-                                              (context, error, stackTrace) =>
-                                                  const Icon(Icons.error,
-                                                      color: Colors.red),
-                                        ),
-                                      question.questionImage != null
-                                          ? const SizedBox(height: 10.00)
-                                          : const SizedBox.shrink(),
+          : Padding(
+              padding: const EdgeInsets.all(8.00),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: questionList.length,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        final question = questionList[index];
+                        return Card(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: LightThemeColors.primaryColor,
+                                  width: 1.5),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  if (question.questionImage != null)
+                                    Image.network(
+                                      "${AppConstants.storageUrl}${question.questionImage}",
+                                      errorBuilder:
+                                          (context, error, stackTrace) =>
+                                              const Icon(Icons.error,
+                                                  color: Colors.red),
+                                    ),
+                                  question.questionImage != null
+                                      ? const SizedBox(height: 10.00)
+                                      : const SizedBox.shrink(),
 
-                                      /// des
-                                      if (question.description != null)
-                                        HtmlWidget(
-                                          question.description.toString(),
-                                        ),
-                                      question.description != null
-                                          ? const SizedBox(height: 10.00)
-                                          : const SizedBox.shrink(),
-                                      Container(
-                                        width: double.infinity,
-                                        decoration: const BoxDecoration(
-                                          color: LightThemeColors.primaryColor,
-                                          borderRadius: BorderRadius.only(
-                                            topRight: Radius.circular(8.0),
-                                            topLeft: Radius.circular(8.0),
+                                  /// des
+                                  if (question.description != null)
+                                    HtmlWidget(
+                                      question.description.toString(),
+                                    ),
+                                  question.description != null
+                                      ? const SizedBox(height: 10.00)
+                                      : const SizedBox.shrink(),
+                                  Container(
+                                    width: double.infinity,
+                                    decoration: const BoxDecoration(
+                                      color: LightThemeColors.primaryColor,
+                                      borderRadius: BorderRadius.only(
+                                        topRight: Radius.circular(8.0),
+                                        topLeft: Radius.circular(8.0),
+                                      ),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          flex: 10,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: HtmlWidget(
+                                              "${index + 1}. ${question.title}",
+                                              textStyle: AppTextStyles.body1
+                                                  .copyWith(
+                                                      color: Colors.white),
+                                            ),
                                           ),
                                         ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Expanded(
-                                              flex: 10,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: HtmlWidget(
-                                                  "${index + 1}. ${question.title}",
-                                                  textStyle: AppTextStyles.body1
-                                                      .copyWith(
-                                                          color: Colors.white),
-                                                ),
+
+                                        /// popup menu items area
+                                        Expanded(
+                                          child: Obx(() {
+                                            // Ensure that the controller has an observable value for the favorite status
+                                            bool isFavorite = controller
+                                                .checkQuestionExistInSaved(
+                                                    question.id!.toInt());
+
+                                            return IconButton(
+                                              onPressed: () {
+                                                if (isFavorite) {
+                                                  removeFavoriteQuestion(
+                                                      question.id!.toInt());
+                                                } else {
+                                                  questionFavAdd(
+                                                      question.id!.toInt());
+                                                }
+                                                // This will trigger the UI update when the state changes
+                                                controller.update();
+                                              },
+                                              icon: Icon(
+                                                isFavorite
+                                                    ? Icons.favorite
+                                                    : Icons.favorite_border,
+                                                color: LightThemeColors.white,
                                               ),
-                                            ),
-
-                                            /// popup menu items area
-                                            Expanded(
-                                              child: Obx(() {
-                                                // Ensure that the controller has an observable value for the favorite status
-                                                bool isFavorite = controller
-                                                    .checkQuestionExistInSaved(
-                                                        question.id!.toInt());
-
-                                                return IconButton(
-                                                  onPressed: () {
-                                                    if (isFavorite) {
-                                                      removeFavoriteQuestion(
-                                                          question.id!.toInt());
-                                                    } else {
-                                                      questionFavAdd(
-                                                          question.id!.toInt());
-                                                    }
-                                                    // This will trigger the UI update when the state changes
-                                                    controller.update();
-                                                  },
-                                                  icon: Icon(
-                                                    isFavorite
-                                                        ? Icons.favorite
-                                                        : Icons.favorite_border,
-                                                    color:
-                                                        LightThemeColors.white,
-                                                  ),
-                                                );
-                                              }),
-                                            ),
-                                            const SizedBox(width: 5.00),
-                                          ],
+                                            );
+                                          }),
                                         ),
-                                      ),
-
-                                      customSingleChoice(question)
-                                    ],
+                                        const SizedBox(width: 5.00),
+                                      ],
+                                    ),
                                   ),
-                                ),
+
+                                  customSingleChoice(question)
+                                ],
                               ),
-                            );
-                          },
-                        ),
-                      ],
+                            ),
+                          ),
+                        );
+                      },
                     ),
-                  ),
+                  ],
                 ),
+              ),
+            ),
     );
   }
 

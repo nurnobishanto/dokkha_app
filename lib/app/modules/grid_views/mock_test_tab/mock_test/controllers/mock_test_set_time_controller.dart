@@ -77,12 +77,12 @@ class MockTestSetTimeController extends GetxController {
       onSuccess: (response) {
         apiCallStatus = ApiCallStatus.success;
         if (response.data['status']) {
-          log("Called Success MOCK EXAM");
+          log("Called Success EXAM");
           isLoading.value = false;
           StartExamModel data = StartExamModel.fromJson(response.data);
           model.value = data;
           Get.to(ExamProcessView(examStartModel: data));
-          log("My Mock EXam Data: ${data.startTime.toString()}");
+          log("My EXam Data: ${data.startTime.toString()}");
         } else if (response.data["status"] == false &&
             response.data.containsKey('errors')) {
           response.data['errors'].forEach((key, value) {
@@ -113,7 +113,6 @@ class MockTestSetTimeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-
     getSubjects();
   }
 

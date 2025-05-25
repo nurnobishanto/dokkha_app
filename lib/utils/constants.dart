@@ -78,4 +78,5 @@ class AppConstants {
   static final String modelTests = '$appUrl/model-tests';
   static final String modelTest = '$appUrl/model-test';
   static final String modelTestCategories = '$appUrl/model-test-categories';
+  static final String exam = '$appUrl/exam';
 }

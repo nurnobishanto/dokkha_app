@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/components/custom_app_bar.dart';
 import 'package:lokkha/app/modules/model_test/controllers/model_test_controller.dart';
-import 'package:lokkha/app/modules/model_test/views/model_test_overview.dart';
+import 'package:lokkha/app/modules/model_test/views/exam_overview.dart';
 import '../../../services/api_call_status.dart';
 import '../components/exam_card.dart';
 import '../models/model_test_list_model.dart';
@@ -18,7 +18,7 @@ class ModelTestDetailsView extends StatelessWidget {
     controller.fetchSingleModelTest(id);
 
     return Scaffold(
-      appBar: const CustomAppBar(title: "Model Test Details"),
+      appBar: const CustomAppBar(title: "প্রশ্ন সমূহ"),
       body: Obx(() {
         switch (controller.singleModelApiCallStatus.value) {
           case ApiCallStatus.loading:

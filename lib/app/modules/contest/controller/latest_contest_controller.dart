@@ -112,7 +112,7 @@ class LatestContestController extends GetxController {
           if (kDebugMode) {
             print("✅ Event Started. You can now show Ongoing or do something.");
           }
-          // এখানে চাইলে নতুন আরেকটা Timer চালিয়ে ongoing এর সময় ট্র্যাক করতে পারো
+
         }
         update();
       });

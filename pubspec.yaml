@@ -65,7 +65,7 @@ dependencies:
   get_storage: ^2.1.1
   syncfusion_flutter_pdfviewer: ^29.1.39
   device_info_plus: ^11.4.0
-  webview_flutter: ^4.11.0
+  webview_flutter: ^4.13.0
   flutter_social_button: ^1.1.6+1
   share_plus: ^11.0.0
   package_info_plus: ^8.3.0
@@ -87,7 +87,7 @@ dev_dependencies:
   json_serializable: ^6.9.5
   #hive_generator: # generate hive files
 
-  flutter_lints: ^2.0.0
+  flutter_lints: ^5.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

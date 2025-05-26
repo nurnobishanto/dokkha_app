@@ -1,93 +1,132 @@
 
 import 'dart:convert';
-
-import '../../../models/question.dart';
-
+import '../../../models/category.dart';
+import '../../../models/vocabulary.dart';
 VocabularyModel vocabularyModelFromJson(String str) => VocabularyModel.fromJson(json.decode(str));
-
 String vocabularyModelToJson(VocabularyModel data) => json.encode(data.toJson());
 
 class VocabularyModel {
   final bool? status;
-  final String? message;
-  final Vocabulary? vocabulary;
+  final Vocabularies? vocabularies;
+  final List<Category>? types;
+  final List<Category>? categories;
+  final List<String>? alphabets;
+  final String? selectedAlphabet;
 
   VocabularyModel({
     this.status,
-    this.message,
-    this.vocabulary,
+    this.vocabularies,
+    this.types,
+    this.categories,
+    this.alphabets,
+    this.selectedAlphabet,
   });
 
   factory VocabularyModel.fromJson(Map<String, dynamic> json) => VocabularyModel(
     status: json["status"],
-    message: json["message"],
-    vocabulary: json["vocabulary"] == null ? null : Vocabulary.fromJson(json["vocabulary"]),
+    vocabularies: json["vocabularies"] == null ? null : Vocabularies.fromJson(json["vocabularies"]),
+    // types: json["types"] == null ? [] : List<Category>.from(json["types"]!.map((x) => Category.fromJson(x))),
+    //categories: json["categories"] == null ? [] : List<Category>.from(json["categories"]!.map((x) => Category.fromJson(x))),
+    alphabets: json["alphabets"] == null ? [] : List<String>.from(json["alphabets"]!.map((x) => x)),
+    selectedAlphabet: json["selected_alphabet"],
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
-    "message": message,
-    "vocabulary": vocabulary?.toJson(),
+    "vocabularies": vocabularies?.toJson(),
+    "types": types == null ? [] : List<dynamic>.from(types!.map((x) => x.toJson())),
+    "categories": categories == null ? [] : List<dynamic>.from(categories!.map((x) => x.toJson())),
+    "alphabets": alphabets == null ? [] : List<dynamic>.from(alphabets!.map((x) => x)),
+    "selected_alphabet": selectedAlphabet,
   };
 }
 
-class Vocabulary {
-  final List<Data>? data;
+class Vocabularies {
   final int? currentPage;
-  final int? perPage;
-  final int? total;
-  final int? lastPage;
+  final List<Vocabulary>? data;
+  final String? firstPageUrl;
   final int? from;
+  final int? lastPage;
+  final String? lastPageUrl;
+  final List<Link>? links;
+  final dynamic nextPageUrl;
+  final String? path;
+  final int? perPage;
+  final dynamic prevPageUrl;
   final int? to;
+  final int? total;
 
-  Vocabulary({
-    this.data,
+  Vocabularies({
     this.currentPage,
-    this.perPage,
-    this.total,
-    this.lastPage,
+    this.data,
+    this.firstPageUrl,
     this.from,
+    this.lastPage,
+    this.lastPageUrl,
+    this.links,
+    this.nextPageUrl,
+    this.path,
+    this.perPage,
+    this.prevPageUrl,
     this.to,
+    this.total,
   });
 
-  factory Vocabulary.fromJson(Map<String, dynamic> json) => Vocabulary(
-    data: json["data"] == null ? [] : List<Data>.from(json["data"]!.map((x) => Data.fromJson(x))),
+  factory Vocabularies.fromJson(Map<String, dynamic> json) => Vocabularies(
     currentPage: json["current_page"],
-    perPage: json["per_page"],
-    total: json["total"],
-    lastPage: json["last_page"],
+    data: json["data"] == null ? [] : List<Vocabulary>.from(json["data"]!.map((x) => Vocabulary.fromJson(x))),
+    firstPageUrl: json["first_page_url"],
     from: json["from"],
+    lastPage: json["last_page"],
+    lastPageUrl: json["last_page_url"],
+    links: json["links"] == null ? [] : List<Link>.from(json["links"]!.map((x) => Link.fromJson(x))),
+    nextPageUrl: json["next_page_url"],
+    path: json["path"],
+    perPage: json["per_page"],
+    prevPageUrl: json["prev_page_url"],
     to: json["to"],
+    total: json["total"],
   );
 
   Map<String, dynamic> toJson() => {
-    "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x.toJson())),
     "current_page": currentPage,
-    "per_page": perPage,
-    "total": total,
-    "last_page": lastPage,
+    "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x.toJson())),
+    "first_page_url": firstPageUrl,
     "from": from,
+    "last_page": lastPage,
+    "last_page_url": lastPageUrl,
+    "links": links == null ? [] : List<dynamic>.from(links!.map((x) => x.toJson())),
+    "next_page_url": nextPageUrl,
+    "path": path,
+    "per_page": perPage,
+    "prev_page_url": prevPageUrl,
     "to": to,
+    "total": total,
   };
 }
 
-class Data {
-  final DateTime? date;
-  final List<Question>? questions;
 
-  Data({
-    this.date,
-    this.questions,
+
+class Link {
+  final String? url;
+  final String? label;
+  final bool? active;
+
+  Link({
+    this.url,
+    this.label,
+    this.active,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-    date: json["date"] == null ? null : DateTime.parse(json["date"]),
-    questions: json["questions"] == null ? [] : List<Question>.from(json["questions"]!.map((x) => Question.fromJson(x))),
+  factory Link.fromJson(Map<String, dynamic> json) => Link(
+    url: json["url"],
+    label: json["label"],
+    active: json["active"],
   );
 
   Map<String, dynamic> toJson() => {
-    "date": "${date!.year.toString().padLeft(4, '0')}-${date!.month.toString().padLeft(2, '0')}-${date!.day.toString().padLeft(2, '0')}",
-    "questions": questions == null ? [] : List<dynamic>.from(questions!.map((x) => x.toJson())),
+    "url": url,
+    "label": label,
+    "active": active,
   };
 }
-

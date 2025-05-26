@@ -18,7 +18,7 @@ PODS:
     - TOCropViewController (~> 2.7.4)
   - image_picker_ios (0.0.1):
     - Flutter
-  - onesignal_flutter (5.3.0):
+  - onesignal_flutter (5.3.2):
     - Flutter
     - OneSignalXCFramework (= 5.2.10)
   - OneSignalXCFramework (5.2.10):
@@ -154,7 +154,7 @@ SPEC CHECKSUMS:
   flutter_meta_sdk: 7d4dfb3061e9135ab022e49a9fccf666d3c47fbe
   image_cropper: c4326ea50132b1e1564499e5d32a84f01fb03537
   image_picker_ios: 7fe1ff8e34c1790d6fff70a32484959f563a928a
-  onesignal_flutter: 6596144e1f08756a2c402047366c867a62b0f6f1
+  onesignal_flutter: 1e2a4aa3ae27fa887222232836560cf116a0a5e0
   OneSignalXCFramework: 1a3b28dfbff23aabce585796d23c1bef37772774
   package_info_plus: af8e2ca6888548050f16fa2f1938db7b5a5df499
   path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
@@ -166,6 +166,6 @@ SPEC CHECKSUMS:
   url_launcher_ios: 694010445543906933d732453a59da0a173ae33d
   webview_flutter_wkwebview: 1821ceac936eba6f7984d89a9f3bcb4dea99ebb2
 
-PODFILE CHECKSUM: 351dbda8241c6ae667acbc7bc0353a0d9978d7f1
+PODFILE CHECKSUM: 05d05a2c6068dd7e832ab4b0d31a977490b6380a
 
 COCOAPODS: 1.16.2

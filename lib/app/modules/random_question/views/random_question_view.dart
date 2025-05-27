@@ -5,7 +5,6 @@ import 'package:lokkha/app/modules/random_question/controller/random_question_co
 import 'package:lokkha/app/views/widgets/explanation_dialog.dart';
 import 'package:lokkha/styles/text_style.dart';
 
-import '../../../../config/theme/light_theme_colors.dart';
 import '../../../components/custom_action_button.dart';
 import '../../../data/local/my_shared_pref.dart';
 import '../../../helper/global.dart';

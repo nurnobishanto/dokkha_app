@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/components/custom_app_bar.dart';
 import 'package:lokkha/app/modules/model_test/controllers/model_test_controller.dart';
 import 'package:lokkha/app/modules/model_test/views/exam_overview.dart';
 import '../../../services/api_call_status.dart';
 import '../components/exam_card.dart';
-import '../models/model_test_list_model.dart';
 
 class ModelTestDetailsView extends StatelessWidget {
   final int id;

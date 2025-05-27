@@ -25,8 +25,8 @@ class VocabularyModel {
   factory VocabularyModel.fromJson(Map<String, dynamic> json) => VocabularyModel(
     status: json["status"],
     vocabularies: json["vocabularies"] == null ? null : Vocabularies.fromJson(json["vocabularies"]),
-    // types: json["types"] == null ? [] : List<Category>.from(json["types"]!.map((x) => Category.fromJson(x))),
-    //categories: json["categories"] == null ? [] : List<Category>.from(json["categories"]!.map((x) => Category.fromJson(x))),
+    types: json["types"] == null ? [] : List<Category>.from(json["types"]!.map((x) => Category.fromJson(x))),
+    categories: json["categories"] == null ? [] : List<Category>.from(json["categories"]!.map((x) => Category.fromJson(x))),
     alphabets: json["alphabets"] == null ? [] : List<String>.from(json["alphabets"]!.map((x) => x)),
     selectedAlphabet: json["selected_alphabet"],
   );

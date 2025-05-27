@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
-import 'package:lokkha/app/modules/model_test/controllers/exam_controller.dart';
 import 'package:lokkha/app/modules/model_test/controllers/model_test_controller.dart';
 import 'package:lokkha/app/modules/subject_sections/views/read_question.dart';
 import 'package:lokkha/config/extensions/common_extension.dart';

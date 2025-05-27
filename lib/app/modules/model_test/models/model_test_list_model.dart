@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:lokkha/app/models/question.dart';
-import 'package:lokkha/app/models/subject.dart';
 
 import '../../../models/category.dart';
 import '../../../models/exam.dart';

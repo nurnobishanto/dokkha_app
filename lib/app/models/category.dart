@@ -8,7 +8,10 @@ class Category {
   final bool? status;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-
+  final int? lecturesheetsCount;
+  final String? details;
+  final String? file;
+  final dynamic files;
   Category({
     this.id,
     this.name,
@@ -19,8 +22,10 @@ class Category {
     this.status,
     this.createdAt,
     this.updatedAt,
-
-
+    this.lecturesheetsCount,
+    this.details,
+    this.file,
+    this.files,
   });
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
@@ -33,6 +38,10 @@ class Category {
     status: json["status"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+    lecturesheetsCount: json["lecturesheets_count"],
+    details: json["details"],
+    file: json["file"],
+    files: json["files"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -45,6 +54,10 @@ class Category {
     "status": status,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
+    "lecturesheets_count": lecturesheetsCount,
+    "details": details,
+    "file": file,
+    "files": files,
   };
 
   @override

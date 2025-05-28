@@ -14,6 +14,13 @@ class VocabularyView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(VocabularyController());
+    final scrollController = ScrollController();
+    scrollController.addListener(() {
+      if (scrollController.position.pixels >=
+          scrollController.position.maxScrollExtent - 200) {
+        controller.fetchVocabulary(); // Safe fetch handled in controller
+      }
+    });
     return Scaffold(
       appBar: const CustomAppBar(title: 'Vocabulary'),
       body: Obx(() {
@@ -44,6 +51,7 @@ class VocabularyView extends StatelessWidget {
                               onTap: () {
                                 controller.selectedAlphabet.value =
                                     char.toString();
+                                controller.currentPage.value = 1;
                                 controller.fetchVocabulary();
                               },
                               child: Container(
@@ -149,6 +157,87 @@ class VocabularyView extends StatelessWidget {
                           );
                         },
                       ),
+                      10.0.height,
+                      Divider(),
+                      10.0.height,
+                      if (controller.totalPages.value > 1)
+                        Obx(() => SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  // First Page
+                                  IconButton(
+                                    onPressed: controller.currentPage.value > 1
+                                        ? controller.firstPage
+                                        : null,
+                                    icon: Icon(Icons.first_page),
+                                  ),
+
+                                  // Previous Page
+                                  IconButton(
+                                    onPressed: controller.currentPage.value > 1
+                                        ? controller.previousPage
+                                        : null,
+                                    icon: Icon(Icons.navigate_before),
+                                  ),
+
+                                  // Numbered Buttons (show max 5 at a time)
+                                  ...List.generate(controller.totalPages.value,
+                                      (index) => index + 1).where((page) {
+                                    int current = controller.currentPage.value;
+                                    return (page >= current - 2 &&
+                                            page <= current + 2) ||
+                                        page == 1 ||
+                                        page == controller.totalPages.value;
+                                  }).map((page) {
+                                    bool isActive =
+                                        page == controller.currentPage.value;
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 2),
+                                      child: ElevatedButton(
+                                        onPressed: () =>
+                                            controller.goToPage(page),
+                                        style: ElevatedButton.styleFrom(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 12, vertical: 6),
+                                          backgroundColor: isActive
+                                              ? LightThemeColors.primaryColor
+                                              : Colors.grey.shade200,
+                                          foregroundColor: isActive
+                                              ? Colors.white
+                                              : Colors.black87,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(6),
+                                          ),
+                                        ),
+                                        child: Text("$page"),
+                                      ),
+                                    );
+                                  }),
+
+                                  // Next Page
+                                  IconButton(
+                                    onPressed: controller.currentPage.value <
+                                            controller.totalPages.value
+                                        ? controller.nextPage
+                                        : null,
+                                    icon: Icon(Icons.navigate_next),
+                                  ),
+
+                                  // Last Page
+                                  IconButton(
+                                    onPressed: controller.currentPage.value <
+                                            controller.totalPages.value
+                                        ? controller.lastPage
+                                        : null,
+                                    icon: Icon(Icons.last_page),
+                                  ),
+                                ],
+                              ),
+                            )),
                     ],
                   ),
           ),
@@ -193,6 +282,7 @@ class FilterRow extends StatelessWidget {
                   }).toList(),
                   onChanged: (value) {
                     if (value != null) {
+                      vocabularyController.currentPage.value = 1;
                       vocabularyController.setType(value);
                       vocabularyController.selectedAlphabet.value = '';
                       vocabularyController.fetchVocabulary();
@@ -232,6 +322,7 @@ class FilterRow extends StatelessWidget {
                   }).toList(),
                   onChanged: (value) {
                     if (value != null) {
+                      vocabularyController.currentPage.value = 1;
                       vocabularyController.setCategory(value);
                       vocabularyController.selectedAlphabet.value = '';
                       vocabularyController.fetchVocabulary();
@@ -245,7 +336,7 @@ class FilterRow extends StatelessWidget {
   }
 }
 
-Widget _buildPopupList(String title, List<String>? items, Color color) {
+Widget _buildPopupList(String title, List<String?>? items, Color color) {
   if (items == null || items.isEmpty) return SizedBox();
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -260,7 +351,7 @@ Widget _buildPopupList(String title, List<String>? items, Color color) {
         runSpacing: 4,
         children: items.asMap().entries.map((entry) {
           int idx = entry.key;
-          String e = entry.value;
+          String e = entry.value!;
           bool isLast = idx == items.length - 1;
           return Text(
             isLast ? e : "$e,",

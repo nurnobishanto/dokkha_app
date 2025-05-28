@@ -4,14 +4,20 @@ import 'package:lokkha/app/modules/vocabulary/models/vocabulary_model.dart';
 
 import '../../../../utils/constants.dart';
 import '../../../models/category.dart';
+import '../../../services/api_call_status.dart';
 import '../../../services/base_client.dart';
 
 class VocabularyController extends GetxController {
   RxBool isLoading = true.obs;
-  RxInt currentPage = 1.obs;
   RxString search = RxString("");
   var selectedAlphabet = ''.obs;
 
+  // Pagination
+  RxInt currentPage = 1.obs;
+  RxInt totalPages = 1.obs;
+  final isLastPage = false.obs;
+
+  final apiCallStatus = ApiCallStatus.holding.obs;
 
   final Rxn<Category> selectedType = Rxn<Category>();
   final Rxn<Category> selectedCategory = Rxn<Category>();
@@ -19,17 +25,15 @@ class VocabularyController extends GetxController {
   void setType(Category type) => selectedType.value = type;
   void setCategory(Category category) => selectedCategory.value = category;
 
-
   Rx<VocabularyModel> model = VocabularyModel().obs;
 
-  Future<void> fetchVocabulary(
-      {int page = 1, bool refresh = false, String? date}) async {
+  Future<void> fetchVocabulary({bool refresh = false, String? date}) async {
     isLoading.value = true;
     String url = AppConstants.vocabularies;
 
     Map<String, dynamic> data = {
       'alphabet': selectedAlphabet.value.toUpperCase(),
-      'page': page,
+      'page': currentPage.value,
       'search': search.value.toString(),
     };
     if (selectedType.value?.id != null) {
@@ -46,20 +50,27 @@ class VocabularyController extends GetxController {
       onSuccess: (response) {
         if (response.data["status"]) {
           VocabularyModel modelData = VocabularyModel.fromJson(response.data);
-          selectedAlphabet.value = modelData.selectedAlphabet.toString().toUpperCase();
-          if (page > 1 &&
-              model.value.vocabularies != null &&
-              modelData.vocabularies != null) {
-            model.value.vocabularies!.data!
-                .addAll(modelData.vocabularies!.data!);
-            model.refresh();
-          } else {
-            model.value = modelData;
-          }
-          currentPage.value = page;
+          selectedAlphabet.value =
+              modelData.selectedAlphabet?.toUpperCase() ?? '';
+          model.value = modelData;
+          //
+          // if (refresh || currentPage.value == 1) {
+          //   model.value = modelData;
+          // } else {
+          //   model.value.vocabularies?.data?.addAll(
+          //     modelData.vocabularies?.data ?? [],
+          //   );
+          // }
+
+          totalPages.value = modelData.vocabularies?.lastPage ?? 1;
+          isLastPage.value = modelData.vocabularies?.currentPage ==
+              modelData.vocabularies?.lastPage;
+
+          apiCallStatus.value = ApiCallStatus.success;
         } else {
-          debugPrint("ERROR ::::::: ");
+          apiCallStatus.value = ApiCallStatus.error;
         }
+
         isLoading.value = false;
       },
       onError: (error) {
@@ -68,6 +79,31 @@ class VocabularyController extends GetxController {
       },
     );
   }
+
+  // Pagination helpers
+  void goToPage(int page) {
+    if (page >= 1 && page <= totalPages.value) {
+      currentPage.value = page;
+      fetchVocabulary();
+    }
+  }
+
+  void nextPage() {
+    if (currentPage.value < totalPages.value) {
+      currentPage.value++;
+      fetchVocabulary();
+    }
+  }
+
+  void previousPage() {
+    if (currentPage.value > 1) {
+      currentPage.value--;
+      fetchVocabulary();
+    }
+  }
+
+  void firstPage() => goToPage(1);
+  void lastPage() => goToPage(totalPages.value);
 
   @override
   void onInit() {

@@ -4,10 +4,7 @@ import 'package:lokkha/app/modules/current_affairs/models/current_affairs_model.
 import 'package:lokkha/app/services/base_client.dart';
 import 'package:lokkha/utils/constants.dart';
 
-
 class CurrentAffairsController extends GetxController {
-
-
   RxBool isLoading = true.obs;
   RxInt currentPage = 1.obs;
   RxString search = RxString("");
@@ -16,7 +13,6 @@ class CurrentAffairsController extends GetxController {
 
   Future<void> fetchCurrentAffairs(String search,
       {int page = 1, bool refresh = false, String? date}) async {
-
     //
     // if (refresh) {
     //
@@ -32,11 +28,9 @@ class CurrentAffairsController extends GetxController {
     //     }
     //   }
 
-
     isLoading.value = true;
-    String
-      url = "${AppConstants.nationalCA}?search=$search&page=$page&date=$date";
-
+    String url =
+        "${AppConstants.nationalCA}?search=$search&page=$page&date=$date";
 
     BaseClient.safeApiCall(
       url,
@@ -45,23 +39,19 @@ class CurrentAffairsController extends GetxController {
         if (response.data["status"]) {
           CurrentAffairsModel modelData =
               CurrentAffairsModel.fromJson(response.data);
-
-            // MyGetStorage.writeCacheData(MyGetStorage.bdAffairs, response);
+          // MyGetStorage.writeCacheData(MyGetStorage.bdAffairs, response);
 
           if (page > 1 && model.value.currentAffairs != null) {
             // Merge new data with existing data
             model.value.currentAffairs!.data!
                 .addAll(modelData.currentAffairs!.data!);
           } else {
-             model.value = modelData;
+            model.value = modelData;
           }
           currentPage.value = page;
-           isLoading.value = false;
+          isLoading.value = false;
         } else {
           isLoading.value = false;
-          if (kDebugMode) {
-            print("ERROR ::::::: ");
-          }
         }
       },
     );

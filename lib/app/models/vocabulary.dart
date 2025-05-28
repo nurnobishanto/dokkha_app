@@ -4,10 +4,10 @@ class Vocabulary {
   final int? id;
   final String? word;
   final String? details;
-  final List<String>? synonym;
-  final List<String>? antonym;
-  final List<String>? wrongSynonym;
-  final List<String>? wrongAntonym;
+  final List<String?>? synonym;
+  final List<String?>? antonym;
+  final List<String?>? wrongSynonym;
+  final List<String?>? wrongAntonym;
   final String? status;
   final DateTime? createdAt;
   final DateTime? updatedAt;
@@ -33,10 +33,10 @@ class Vocabulary {
     id: json["id"],
     word: json["word"],
     details: json["details"],
-    synonym: json["synonym"] == null ? [] : List<String>.from(json["synonym"]!.map((x) => x)),
-    antonym: json["antonym"] == null ? [] : List<String>.from(json["antonym"]!.map((x) => x)),
-    wrongSynonym: json["wrong_synonym"] == null ? [] : List<String>.from(json["wrong_synonym"]!.map((x) => x)),
-    wrongAntonym: json["wrong_antonym"] == null ? [] : List<String>.from(json["wrong_antonym"]!.map((x) => x)),
+    synonym: json["synonym"] == null ? [] : List<String?>.from(json["synonym"]!.map((x) => x)),
+    antonym: json["antonym"] == null ? [] : List<String?>.from(json["antonym"]!.map((x) => x)),
+    wrongSynonym: json["wrong_synonym"] == null ? [] : List<String?>.from(json["wrong_synonym"]!.map((x) => x)),
+    wrongAntonym: json["wrong_antonym"] == null ? [] : List<String?>.from(json["wrong_antonym"]!.map((x) => x)),
     status: json["status"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),

@@ -43,6 +43,7 @@ abstract class Routes {
   static const SPONSOR_ADS = _Paths.SPONSOR_ADS;
   static const VOCABULARY = _Paths.VOCABULARY;
   static const MODEL_TEST = _Paths.MODEL_TEST;
+  static const LECTURE_SHEET = _Paths.LECTURE_SHEET;
 }
 
 abstract class _Paths {
@@ -87,4 +88,5 @@ abstract class _Paths {
   static const SPONSOR_ADS = '/sponsor-ads';
   static const VOCABULARY = '/vocabulary';
   static const MODEL_TEST = '/model-test';
+  static const LECTURE_SHEET = '/lecture-sheet';
 }

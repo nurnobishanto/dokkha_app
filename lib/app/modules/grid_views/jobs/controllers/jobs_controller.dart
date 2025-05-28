@@ -34,9 +34,6 @@ class JobsController extends GetxController {
       RequestType.get,
       onSuccess: (response) {
         if (response.data["status"]) {
-          if (kDebugMode) {
-            print("GobJobs Model Data $response");
-          }
           JobListModel modelData = JobListModel.fromJson(response.data);
           MyGetStorage.writeCacheData(MyGetStorage.jobKey, response.data);
           if (page > 1 && model.value.jobs != null) {

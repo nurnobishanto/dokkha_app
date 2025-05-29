@@ -5,16 +5,16 @@ import 'package:lokkha/app/services/api_call_status.dart';
 import 'package:lokkha/app/services/base_client.dart';
 import 'package:lokkha/utils/constants.dart';
 import '../../../models/category.dart';
-import '../models/lecture_sheet_categories_model.dart';
+import '../models/lecture_sheet_list_categories_model.dart';
 
-class LectureSheetController extends GetxController {
+class LectureSheetListController extends GetxController {
   final apiCallStatus = ApiCallStatus.holding.obs;
   final categories = <Category>[].obs;
   final isLoading = false.obs;
   final isLastPage = false.obs;
   final currentPage = 1.obs;
 
-  Future<void> fetchSheetCategories() async {
+  Future<void> fetchSheetListCategories() async {
     if (isLoading.value || isLastPage.value) return;
     isLoading.value = true;
     print("Call Current After Page ${currentPage.value}");
@@ -24,7 +24,7 @@ class LectureSheetController extends GetxController {
       RequestType.get,
       onSuccess: (response) {
         if (response.data['status']) {
-          final model = LectureSheetCategoriesModel.fromJson(response.data);
+          final model = LectureSheetListCategoriesModel.fromJson(response.data);
           if (model.categories?.data?.isNotEmpty ?? false) {
             categories.addAll(model.categories!.data!);
             currentPage.value++;
@@ -51,7 +51,7 @@ class LectureSheetController extends GetxController {
 
   @override
   void onInit() {
-    fetchSheetCategories();
+    fetchSheetListCategories();
     super.onInit();
   }
 }

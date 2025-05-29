@@ -26,7 +26,7 @@ import '../modules/grid_views/mock_test_tab/views/mock_test_tab_view.dart';
 import '../modules/latest_exam/bindings/latest_exam_binding.dart';
 import '../modules/latest_exam/views/latest_exam_view.dart';
 import '../modules/lecture_sheet/bindings/lecture_sheet_binding.dart';
-import '../modules/lecture_sheet/views/lecture_sheet_view.dart';
+import '../modules/lecture_sheet/views/lecture_sheet_list_view.dart';
 import '../modules/maintenance_mode/bindings/maintenance_mode_view_binding.dart';
 import '../modules/maintenance_mode/views/maintenance_mode_view_view.dart';
 import '../modules/model_test/bindings/model_test_binding.dart';
@@ -250,7 +250,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.LECTURE_SHEET,
-      page: () => LectureSheetView(),
+      page: () => const LectureSheetListView(),
       binding: LectureSheetBinding(),
     ),
   ];

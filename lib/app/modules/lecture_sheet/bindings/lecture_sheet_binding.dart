@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
 
-import '../controllers/lecture_sheet_controller.dart';
+import '../controllers/lecture_sheet_list_controller.dart';
 
 class LectureSheetBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<LectureSheetController>(
-      () => LectureSheetController(),
+    Get.lazyPut<LectureSheetListController>(
+      () => LectureSheetListController(),
     );
   }
 }

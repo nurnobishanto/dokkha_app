@@ -4,7 +4,7 @@ import 'package:lokkha/app/modules/contest/controller/latest_contest_controller.
 import 'package:lokkha/app/modules/current_affairs/views/current_affairs_view.dart';
 import 'package:lokkha/app/modules/grid_views/jobs/views/jobs_view.dart';
 import 'package:lokkha/app/modules/latest_exam/views/latest_exam_view.dart';
-import 'package:lokkha/app/modules/lecture_sheet/views/lecture_sheet_view.dart';
+import 'package:lokkha/app/modules/lecture_sheet/views/lecture_sheet_list_view.dart';
 import 'package:lokkha/app/modules/nav_bar_views/home/models/subject_sections_model.dart';
 import 'package:lokkha/app/modules/nav_bar_views/home/services/home_api_service.dart';
 import 'package:lokkha/app/modules/vocabulary/views/vocabulary_view.dart';
@@ -31,7 +31,7 @@ class HomeController extends GetxController {
     const JobsView(),
     const LatestExamView(),
     const VocabularyView(),
-     LectureSheetView(),
+    const LectureSheetListView(),
   ];
 
   final HomeApiService homeApiService = HomeApiService();

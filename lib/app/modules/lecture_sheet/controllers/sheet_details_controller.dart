@@ -9,6 +9,15 @@ class SheetDetailsController extends GetxController {
   final apiCallStatus = Rx<ApiCallStatus>(ApiCallStatus.holding);
   final model = Rx<LectureSheetDetailsModel?>(null);
 
+  late final int id;
+
+  @override
+  void onInit() {
+    super.onInit();
+    id = Get.arguments as int;
+    fetchSheetDetails(id);
+  }
+
   Future<void> fetchSheetDetails(int id) async {
     apiCallStatus.value = ApiCallStatus.loading;
     final url = "${AppConstants.lectureSheet}/$id";

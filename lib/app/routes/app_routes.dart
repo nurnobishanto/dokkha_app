@@ -44,6 +44,7 @@ abstract class Routes {
   static const VOCABULARY = _Paths.VOCABULARY;
   static const MODEL_TEST = _Paths.MODEL_TEST;
   static const LECTURE_SHEET = _Paths.LECTURE_SHEET;
+  static const SHEET_DETAILS = _Paths.SHEET_DETAILS;
 }
 
 abstract class _Paths {
@@ -89,4 +90,5 @@ abstract class _Paths {
   static const VOCABULARY = '/vocabulary';
   static const MODEL_TEST = '/model-test';
   static const LECTURE_SHEET = '/lecture-sheet';
+  static const SHEET_DETAILS = '/sheet-details';
 }

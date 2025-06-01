@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/components/custom_app_bar.dart';
 import 'package:lokkha/app/helper/api_helper.dart';
 import 'package:lokkha/app/modules/lecture_sheet/components/title_description_card.dart';
 import 'package:lokkha/app/modules/lecture_sheet/controllers/lecture_sheet_list_details_controller.dart';
+import 'package:lokkha/styles/text_style.dart';
+import '../../../models/lecture_sheet.dart';
+import '../../../routes/app_pages.dart';
 import '../../../services/api_call_status.dart';
-
+import 'lecture_sheet_details_view.dart';
 
 class LectureSheetListDetailsView extends StatelessWidget {
   final int id;
@@ -25,16 +30,19 @@ class LectureSheetListDetailsView extends StatelessWidget {
 
           case ApiCallStatus.success:
             final model = controller.detailsModel.value;
-            if (model == null) return const Center(child: Text("No Data Found"));
+            if (model == null) {
+              return const Center(child: Text("No Data Found"));
+            }
 
             return Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(8),
               child: ListView(
                 children: [
                   /// Name
                   Text(
                     model.category?.name ?? '',
-                    style: Get.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+                    style: Get.textTheme.titleLarge
+                        ?.copyWith(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 12),
 
@@ -61,10 +69,44 @@ class LectureSheetListDetailsView extends StatelessWidget {
                   const SizedBox(height: 24),
 
                   /// List of Sheets
-                  ...controller.lectureSheets.map((sheet) => TitleDescriptionCard(
-                    title: sheet.name ?? '',
-                    description: sheet.description ?? '',
-                  )),
+                  ...controller.lectureSheets.map(
+                    (sheet) => GestureDetector(
+                      onTap: () {
+                        Get.toNamed(Routes.SHEET_DETAILS, arguments: sheet.id);
+                      },
+                      child:
+                      Container(
+                        margin: const EdgeInsets.symmetric(vertical: 5),
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.04),
+                              blurRadius: 7,
+                              spreadRadius: 1,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          children: [
+                            const FaIcon(FontAwesomeIcons.fileLines, size: 21, color: Colors.blue),
+                            const SizedBox(width: 10.0),
+                            Expanded(
+                              child: Text(
+                                sheet.name ?? 'No title',
+                                style: AppTextStyles.heading5
+                              ),
+                            ),
+                            const FaIcon(FontAwesomeIcons.chevronRight, size: 14),
+                          ],
+                        ),
+                      )
+
+                    ),
+                  ),
                 ],
               ),
             );
@@ -77,4 +119,42 @@ class LectureSheetListDetailsView extends StatelessWidget {
       }),
     );
   }
+}
+
+Widget buildSheetTile(LectureSheet sheet) {
+  return GestureDetector(
+    onTap: () {
+      Get.toNamed(Routes.SHEET_DETAILS, arguments: sheet.id);
+    },
+    child: Container(
+      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          const Icon(Icons.description_rounded, size: 32, color: Colors.blue),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              sheet.name ?? 'No title',
+              style: Get.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+          const Icon(Icons.arrow_forward_ios_rounded, size: 16),
+        ],
+      ),
+    ),
+  );
 }

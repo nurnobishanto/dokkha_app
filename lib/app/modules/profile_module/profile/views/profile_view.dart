@@ -1,3 +1,4 @@
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lokkha/app/modules/auth_views/auth_gateway/views/auth_gateway_view.dart';
 import 'package:lokkha/app/routes/app_pages.dart';
 import 'package:lokkha/config/extensions/common_extension.dart';
@@ -51,42 +52,41 @@ class ProfileView extends GetView<ProfileController> {
                 spacing: 5.0,
                 children: [
                   10.h.height,
-                  buildAvatar(myUser,radius: 64),
+                  buildAvatar(myUser, radius: 64),
                   10.h.height,
                   Text(
                     profileData.name ?? "no name",
                     style: AppTextStyles.body1,
                   ),
                   Text(
-                   "আইডি: ${profileData.userId ?? ""}",
+                    "আইডি: ${profileData.userId ?? ""}",
                     style: AppTextStyles.body1,
                   ),
-
                   10.h.height,
                   CustomProfileButton(
                     onTap: () => Get.toNamed(Routes.PROFILE_UPDATE),
                     text: 'প্রোফাইল আপডেট করুন',
-                    icon: Icons.edit_note_rounded,
+                    icon: FontAwesomeIcons.userPen,
                   ),
                   CustomProfileButton(
                     onTap: () => Get.toNamed(Routes.MY_PACKAGES),
                     text: 'আপনার প্যাকেজ',
-                    icon: Icons.edit_note_rounded,
+                    icon: FontAwesomeIcons.boxOpen,
                   ),
                   CustomProfileButton(
                     onTap: () => Get.to(const FavQuestionListScreen()),
                     text: 'ফেভারিট প্রশ্ন',
-                    icon: Icons.edit_note_rounded,
+                    icon: FontAwesomeIcons.solidHeart,
                   ),
                   CustomProfileButton(
                     onTap: () => Get.toNamed(Routes.MY_ORDERS),
                     text: 'অর্ডারস হিস্ট্রি',
-                    icon: Icons.edit_note_rounded,
+                    icon: FontAwesomeIcons.receipt,
                   ),
                   CustomProfileButton(
                     onTap: controller.logout,
                     text: 'লগ আউট',
-                    icon: Icons.edit_note_rounded,
+                    icon: FontAwesomeIcons.arrowRightFromBracket,
                   ),
                 ],
               ),
@@ -99,7 +99,6 @@ class ProfileView extends GetView<ProfileController> {
     });
   }
 }
-
 
 class CustomProfileButton extends StatelessWidget {
   final VoidCallback onTap;
@@ -133,7 +132,7 @@ class CustomProfileButton extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Icon(icon, size: 18, color: Colors.blue),
+            Icon(icon, size: 15.5, color: Colors.blue),
             const SizedBox(width: 16.0),
             Expanded(
               child: Text(

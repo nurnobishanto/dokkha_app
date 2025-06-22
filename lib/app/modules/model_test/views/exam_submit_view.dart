@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
@@ -11,7 +10,6 @@ import '../../../views/widgets/exam_custom_button.dart';
 import '../controllers/exam_submit_controller.dart';
 import '../models/exam_submit_model.dart';
 
-
 class ExamSubmitView extends StatelessWidget {
   final ExamSubmitModel model;
   const ExamSubmitView({super.key, required this.model});
@@ -19,8 +17,7 @@ class ExamSubmitView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final questionList = model.results;
-    final ExamSubmitController controller =
-    Get.put(ExamSubmitController());
+    final ExamSubmitController controller = Get.put(ExamSubmitController());
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
@@ -90,7 +87,7 @@ class ExamSubmitView extends StatelessWidget {
                               Image.network(
                                 "${AppConstants.storageUrl}${question.question!.questionImage}",
                                 errorBuilder: (context, error, stackTrace) =>
-                                const Icon(Icons.error, color: Colors.red),
+                                    const Icon(Icons.error, color: Colors.red),
                               ),
                             question.question!.questionImage != null
                                 ? const SizedBox(height: 10.00)
@@ -115,7 +112,7 @@ class ExamSubmitView extends StatelessWidget {
                               ),
                               child: Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Expanded(
@@ -135,8 +132,8 @@ class ExamSubmitView extends StatelessWidget {
                                     child: Obx(() {
                                       // Ensure that the controller has an observable value for the favorite status
                                       bool isFavorite =
-                                      controller.checkQuestionExistInSaved(
-                                          question.question!.id!.toInt());
+                                          controller.checkQuestionExistInSaved(
+                                              question.question!.id!.toInt());
 
                                       return IconButton(
                                         onPressed: () {
@@ -299,7 +296,7 @@ class AnswerAndSolutionWidgets extends StatelessWidget {
             ? _buildExplanationSection(context)
             : const SizedBox.shrink(),
         (question.question != null &&
-            question.question!.explanationImage != null)
+                question.question!.explanationImage != null)
             ? _buildExplanationImage()
             : const SizedBox.shrink(),
       ],
@@ -331,12 +328,12 @@ class AnswerAndSolutionWidgets extends StatelessWidget {
             ...question.question!.options!.map((option) {
               return option.value != null && option.isCorrect == true
                   ? Padding(
-                padding: const EdgeInsets.only(bottom: 4.0),
-                child: HtmlWidget(
-                  option.value!,
-                  textStyle: AppTextStyles.body1,
-                ),
-              )
+                      padding: const EdgeInsets.only(bottom: 4.0),
+                      child: HtmlWidget(
+                        option.value!,
+                        textStyle: AppTextStyles.body1,
+                      ),
+                    )
                   : const SizedBox.shrink();
             }).toList(),
           ],
@@ -381,38 +378,38 @@ class AnswerAndSolutionWidgets extends StatelessWidget {
           const SizedBox(height: 8),
           isPdf
               ? InkWell(
-            onTap: () {
-              Get.to(() => PdfViewerScreen(
-                title: 'ব্যাখ্যা',
-                file: fileUrl,
-              ));
-            },
-            child: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.picture_as_pdf,
-                      color: Colors.red, size: 24),
-                  const SizedBox(width: 8),
-                  Text(
-                    "ব্যাখ্যা",
-                    style: AppTextStyles.heading5
-                        .copyWith(color: Colors.blue),
+                  onTap: () {
+                    Get.to(() => PdfViewerScreen(
+                          title: 'ব্যাখ্যা',
+                          file: fileUrl,
+                        ));
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.picture_as_pdf,
+                            color: Colors.red, size: 24),
+                        const SizedBox(width: 8),
+                        Text(
+                          "ব্যাখ্যা",
+                          style: AppTextStyles.heading5
+                              .copyWith(color: Colors.blue),
+                        ),
+                      ],
+                    ),
                   ),
-                ],
-              ),
-            ),
-          )
+                )
               : Image.network(
-            AppConstants.storageUrl +
-                question.question!.explanationImage.toString(),
-            fit: BoxFit.cover,
-          ),
+                  AppConstants.storageUrl +
+                      question.question!.explanationImage.toString(),
+                  fit: BoxFit.cover,
+                ),
         ],
       ),
     );

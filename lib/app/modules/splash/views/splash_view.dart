@@ -11,7 +11,7 @@ class SplashView extends GetView<SplashController> {
   @override
   Widget build(BuildContext context) {
     debugPrint("Splash Called");
-  Get.put(SplashController());
+    Get.put(SplashController());
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -37,8 +37,12 @@ class SplashView extends GetView<SplashController> {
                     width: size.width / 1.7,
                     child: Image.asset(AssetImagePaths.appIcon),
                   ),
-                  Text('সঠিক পথে, স্বল্প সময়ে', style: AppTextStyles.heading4.copyWith(color: LightThemeColors.primaryColor),textAlign: TextAlign.center,),
-
+                  Text(
+                    'সঠিক পথে, স্বল্প সময়ে',
+                    style: AppTextStyles.heading4
+                        .copyWith(color: LightThemeColors.primaryColor),
+                    textAlign: TextAlign.center,
+                  ),
                 ],
               ),
             ),

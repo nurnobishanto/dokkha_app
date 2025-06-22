@@ -14,8 +14,11 @@ class ComingSoonPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.access_time_filled_rounded,
-                  size: 80, color: LightThemeColors.primaryColor,),
+              const Icon(
+                Icons.access_time_filled_rounded,
+                size: 80,
+                color: LightThemeColors.primaryColor,
+              ),
               const SizedBox(height: 24),
               const Text(
                 "Coming Soon",

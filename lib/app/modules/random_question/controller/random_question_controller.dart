@@ -47,7 +47,8 @@ class RandomQuestionController extends GetxController {
         if (response.data["status"]) {
           RandomQuestionModel data =
               RandomQuestionModel.fromJson(response.data);
-          MyGetStorage.writeCacheData(MyGetStorage.randomQuestionKey, response.data);
+          MyGetStorage.writeCacheData(
+              MyGetStorage.randomQuestionKey, response.data);
           randomQuestionModel.value = data;
           isLoading.value = false;
           randomQuestionPackage.value = response.data["package_required"];

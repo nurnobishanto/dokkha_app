@@ -7,7 +7,7 @@ import '../../../../services/base_client.dart';
 import '../models/orders_details_model.dart';
 
 class OrdersDetailsController extends GetxController {
-RxBool isLoading = true.obs;
+  RxBool isLoading = true.obs;
   // Data Model
   Rx<OrderDetailsModel> model = OrderDetailsModel().obs;
 
@@ -19,7 +19,6 @@ RxBool isLoading = true.obs;
     isLoading.value = true;
     apiCallStatus.value = ApiCallStatus.loading;
     String? token = MySharedPref.getUserToken();
-
 
     final headers = {
       'Content-Type': 'application/json',
@@ -34,11 +33,11 @@ RxBool isLoading = true.obs;
         if (response.data['status'] == true) {
           model.value = OrderDetailsModel.fromJson(response.data);
           apiCallStatus.value = ApiCallStatus.success;
-
         } else {
           apiCallStatus.value = ApiCallStatus.error;
           CustomSnackBar.showCustomErrorToast(
-              message: response.data['message'] ?? "অর্ডার তথ্য লোড করতে ব্যর্থ");
+              message:
+                  response.data['message'] ?? "অর্ডার তথ্য লোড করতে ব্যর্থ");
         }
         isLoading.value = false;
       },
@@ -51,5 +50,4 @@ RxBool isLoading = true.obs;
       },
     );
   }
-
 }

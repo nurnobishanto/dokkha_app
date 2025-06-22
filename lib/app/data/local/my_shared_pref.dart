@@ -276,8 +276,6 @@
 //   }
 // }
 
-
-
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -350,7 +348,7 @@ class MySharedPref {
       MockSubjectSelect subject) async {
     List<String> list = _prefs.getStringList(_mockSubjectsKey) ?? [];
     List<MockSubjectSelect> subjects =
-    list.map(MockSubjectSelect.fromJson).toList();
+        list.map(MockSubjectSelect.fromJson).toList();
 
     int index = subjects.indexWhere((s) => s.id == subject.id);
     if (index != -1) {
@@ -363,11 +361,10 @@ class MySharedPref {
     await _prefs.setStringList(_mockSubjectsKey, updatedList);
   }
 
-  static Future<void> removeMockSubjectSelect(
-      MockSubjectSelect subject) async {
+  static Future<void> removeMockSubjectSelect(MockSubjectSelect subject) async {
     List<String> list = _prefs.getStringList(_mockSubjectsKey) ?? [];
     List<MockSubjectSelect> subjects =
-    list.map(MockSubjectSelect.fromJson).toList();
+        list.map(MockSubjectSelect.fromJson).toList();
 
     subjects.removeWhere((s) => s.id == subject.id);
 
@@ -386,7 +383,7 @@ class MySharedPref {
   static Future<bool> isMockSubjectExist(int id) async {
     List<String> list = _prefs.getStringList(_mockSubjectsKey) ?? [];
     List<MockSubjectSelect> subjects =
-    list.map(MockSubjectSelect.fromJson).toList();
+        list.map(MockSubjectSelect.fromJson).toList();
 
     return subjects.any((s) => s.id == id);
   }
@@ -396,7 +393,7 @@ class MySharedPref {
       SubjectSectionSelect subject) async {
     List<String> list = _prefs.getStringList(_subSectionKey) ?? [];
     List<SubjectSectionSelect> subjects =
-    list.map(SubjectSectionSelect.fromJson).toList();
+        list.map(SubjectSectionSelect.fromJson).toList();
 
     int index = subjects.indexWhere((s) => s.id == subject.id);
     if (index != -1) {
@@ -413,7 +410,7 @@ class MySharedPref {
       SubjectSectionSelect subject) async {
     List<String> list = _prefs.getStringList(_subSectionKey) ?? [];
     List<SubjectSectionSelect> subjects =
-    list.map(SubjectSectionSelect.fromJson).toList();
+        list.map(SubjectSectionSelect.fromJson).toList();
 
     subjects.removeWhere((s) => s.id == subject.id);
 
@@ -432,7 +429,7 @@ class MySharedPref {
   static Future<bool> isSubjectSectionExist(int id) async {
     List<String> list = _prefs.getStringList(_subSectionKey) ?? [];
     List<SubjectSectionSelect> subjects =
-    list.map(SubjectSectionSelect.fromJson).toList();
+        list.map(SubjectSectionSelect.fromJson).toList();
 
     return subjects.any((s) => s.id == id);
   }

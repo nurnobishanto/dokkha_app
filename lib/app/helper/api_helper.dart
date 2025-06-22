@@ -94,7 +94,8 @@ Future<void> getFavList({bool refresh = false}) async {
         FavQuestionListModel modelData =
             FavQuestionListModel.fromJson(response.data);
         favoriteQuestionsListModel.value = modelData;
-        MyGetStorage.writeCacheData(MyGetStorage.favQuestionsKey, response.data);
+        MyGetStorage.writeCacheData(
+            MyGetStorage.favQuestionsKey, response.data);
         isFavLoading.value = false;
         // CustomSnackBar.showCustomToast(
         //     message: response.data['message'].toString());

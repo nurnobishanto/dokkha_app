@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 // TODO add your light theme colors palette
-class LightThemeColors
-{
+class LightThemeColors {
   //dark swatch
   //static const Color primary = Color(0xFF40A76A);
   //static const Color primaryColorOld = Color(0xFF2B3990);
@@ -18,7 +17,7 @@ class LightThemeColors
 
   //SCAFFOLD
   //static const Color scaffoldBackgroundColor = Color(0xffFAFAFA);
-  static const Color scaffoldBackgroundColor =Color(0xFFFFFBFB);
+  static const Color scaffoldBackgroundColor = Color(0xFFFFFBFB);
   static const Color backgroundColor = Colors.white;
   static const Color dividerColor = Color(0xff686868);
   static const Color cardColor = Color(0xfffafafa);
@@ -38,7 +37,7 @@ class LightThemeColors
   static const Color bodyTextColor = Colors.black;
   static const Color headlinesTextColor = Colors.black;
   static const Color captionTextColor = Colors.grey;
-  static const Color hintTextColor =  Color(0xff686868);
+  static const Color hintTextColor = Color(0xff686868);
 
   //chip
   static const Color chipBackground = primaryColor;

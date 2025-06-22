@@ -14,7 +14,7 @@ class QuestionBankView extends GetView<QuestionBankController> {
         title: const Text('প্রশ্ন ব্যাংক'),
         centerTitle: true,
       ),
-      body:const ComingSoonPage(),
+      body: const ComingSoonPage(),
     );
   }
 }

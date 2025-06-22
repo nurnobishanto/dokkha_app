@@ -47,15 +47,15 @@ class CustomActionButton extends StatelessWidget {
                   ),
                 )
               : FittedBox(
-                child: Text(
+                  child: Text(
                     text,
-                    style:  TextStyle(
+                    style: TextStyle(
                       fontSize: 13.0,
                       fontWeight: FontWeight.w600,
-                      color:textColor,
+                      color: textColor,
                     ),
                   ),
-              ),
+                ),
         ),
       ),
     );

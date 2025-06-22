@@ -9,6 +9,7 @@ import 'package:lokkha/styles/text_style.dart';
 
 import '../../../../config/theme/light_theme_colors.dart';
 import '../../../views/widgets/explanation_dialog.dart';
+
 class InternationalCurrentAffairsContentView extends StatelessWidget {
   const InternationalCurrentAffairsContentView({super.key});
 
@@ -30,8 +31,9 @@ class InternationalCurrentAffairsContentView extends StatelessWidget {
               lastDate: DateTime(2100),
             );
             if (pickedDate != null) {
-              String formattedDate = "${pickedDate.year}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
-              controller.fetchCurrentAffairs("",date: formattedDate);
+              String formattedDate =
+                  "${pickedDate.year}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
+              controller.fetchCurrentAffairs("", date: formattedDate);
             }
           },
         ),
@@ -146,37 +148,36 @@ class InternationalCurrentAffairsContentView extends StatelessWidget {
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: question.options
-                                ?.where(
-                                    (option) => option.isCorrect == true)
-                                .map((option) {
-                              return Padding(
-                                padding: const EdgeInsets.only(bottom: 4.0),
-                                child: HtmlWidget(
-                                  '<b>উত্তর:</b> ${option.value ?? ""}',
-                                  textStyle: AppTextStyles.body1,
-                                ),
-                              );
-                            }).toList() ??
+                                    ?.where(
+                                        (option) => option.isCorrect == true)
+                                    .map((option) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(bottom: 4.0),
+                                    child: HtmlWidget(
+                                      '<b>উত্তর:</b> ${option.value ?? ""}',
+                                      textStyle: AppTextStyles.body1,
+                                    ),
+                                  );
+                                }).toList() ??
                                 [],
                           ),
-                          Align(
-                            alignment: Alignment.topRight,
-                            child:
-                            InkWell(
-                              onTap: () {
-                                ExplanationDialog.show(question);
-                              },
-                              child: Text(
-                                "ব্যাখ্যা দেখুন →",
-                                style: AppTextStyles.body1.copyWith(
-                                  color: LightThemeColors.primaryColor,
-                                ),
-                                textAlign: TextAlign.end,
-                              ),
-                            ),
-
-                          ),
-                          const SizedBox(height: 10.00),
+                          (question.explanation != null)
+                              ? Align(
+                                  alignment: Alignment.topRight,
+                                  child: InkWell(
+                                    onTap: () {
+                                      ExplanationDialog.show(question);
+                                    },
+                                    child: Text(
+                                      "ব্যাখ্যা দেখুন →",
+                                      style: AppTextStyles.body1.copyWith(
+                                        color: LightThemeColors.primaryColor,
+                                      ),
+                                      textAlign: TextAlign.end,
+                                    ),
+                                  ),
+                                )
+                              : const SizedBox(height: 10.00),
                         ],
                       );
                     },

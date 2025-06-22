@@ -27,7 +27,7 @@ class TopicSelectionView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
-        title:  Text(
+        title: Text(
           "নির্বাচিত বিষয়গুলি",
           style: AppTextStyles.heading4.copyWith(color: Colors.white),
         ),
@@ -231,7 +231,7 @@ class CustomExpandSubject extends StatelessWidget {
                           topic.name.toString(),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
-                       style: AppTextStyles.body2,
+                          style: AppTextStyles.body2,
                         ),
                       ),
                       Obx(() => AnimatedRotation(

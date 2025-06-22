@@ -1,10 +1,12 @@
-
 import 'dart:convert';
 
 import '../../../models/category.dart';
 import '../../../models/paginator.dart';
-LectureSheetCategory lectureSheetCategoryFromJson(String str) => LectureSheetCategory.fromJson(json.decode(str));
-String lectureSheetCategoryToJson(LectureSheetCategory data) => json.encode(data.toJson());
+
+LectureSheetCategory lectureSheetCategoryFromJson(String str) =>
+    LectureSheetCategory.fromJson(json.decode(str));
+String lectureSheetCategoryToJson(LectureSheetCategory data) =>
+    json.encode(data.toJson());
 
 class LectureSheetCategory {
   final bool? status;
@@ -17,16 +19,21 @@ class LectureSheetCategory {
     this.lecturesheets,
   });
 
-  factory LectureSheetCategory.fromJson(Map<String, dynamic> json) => LectureSheetCategory(
-    status: json["status"],
-    category: json["category"] == null ? null : Category.fromJson(json["category"]),
-    lecturesheets: json["lecturesheets"] == null ? null : Paginator<Category>.fromJson(json["lecturesheets"], (x) => Category.fromJson(x)),
-  );
+  factory LectureSheetCategory.fromJson(Map<String, dynamic> json) =>
+      LectureSheetCategory(
+        status: json["status"],
+        category: json["category"] == null
+            ? null
+            : Category.fromJson(json["category"]),
+        lecturesheets: json["lecturesheets"] == null
+            ? null
+            : Paginator<Category>.fromJson(
+                json["lecturesheets"], (x) => Category.fromJson(x)),
+      );
 
   Map<String, dynamic> toJson() => {
-    "status": status,
-    "category": category?.toJson(),
-    "lecturesheets": lecturesheets?.toJson((x) => (x).toJson()),
-  };
+        "status": status,
+        "category": category?.toJson(),
+        "lecturesheets": lecturesheets?.toJson((x) => (x).toJson()),
+      };
 }
-

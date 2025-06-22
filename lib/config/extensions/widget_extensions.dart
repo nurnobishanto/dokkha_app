@@ -97,14 +97,14 @@ extension WidgetExtension on Widget? {
   /// set widget visibility
   @Deprecated('')
   Visibility withVisibility(
-      bool visible, {
-        Widget? replacement,
-        bool maintainAnimation = false,
-        bool maintainState = false,
-        bool maintainSize = false,
-        bool maintainSemantics = false,
-        bool maintainInteractivity = false,
-      }) {
+    bool visible, {
+    Widget? replacement,
+    bool maintainAnimation = false,
+    bool maintainState = false,
+    bool maintainSize = false,
+    bool maintainSemantics = false,
+    bool maintainInteractivity = false,
+  }) {
     return Visibility(
       visible: visible,
       maintainAnimation: maintainAnimation,
@@ -241,9 +241,9 @@ extension WidgetExtension on Widget? {
 
   /// Wrap with ShaderMask widget
   Widget withShaderMask(
-      List<Color> colors, {
-        BlendMode blendMode = BlendMode.srcATop,
-      }) {
+    List<Color> colors, {
+    BlendMode blendMode = BlendMode.srcATop,
+  }) {
     return withShaderMaskGradient(
       LinearGradient(colors: colors),
       blendMode: blendMode,
@@ -252,9 +252,9 @@ extension WidgetExtension on Widget? {
 
   /// Wrap with ShaderMask widget Gradient
   Widget withShaderMaskGradient(
-      Gradient gradient, {
-        BlendMode blendMode = BlendMode.srcATop,
-      }) {
+    Gradient gradient, {
+    BlendMode blendMode = BlendMode.srcATop,
+  }) {
     return ShaderMask(
       shaderCallback: (rect) => gradient.createShader(rect),
       blendMode: blendMode,
@@ -320,7 +320,6 @@ extension WidgetExtension on Widget? {
   }
 }
 
-
 /// rounded box decoration
 Decoration boxDecorationWithRoundedCorners({
   Color? backgroundColor,
@@ -334,7 +333,7 @@ Decoration boxDecorationWithRoundedCorners({
   return BoxDecoration(
     color: backgroundColor ?? Colors.amber,
     borderRadius:
-    boxShape == BoxShape.circle ? null : (borderRadius ?? radius()),
+        boxShape == BoxShape.circle ? null : (borderRadius ?? radius()),
     gradient: gradient,
     border: border,
     boxShadow: boxShadow,
@@ -365,7 +364,9 @@ Decoration boxDecorationWithShadow({
           spreadRadius: spreadRadius,
           offset: offset,
         ),
-    color: backgroundColor ?? Colors.amber, // backgroundColor == null ? Colors.amber : backgroundColor >> are same
+    color: backgroundColor ??
+        Colors
+            .amber, // backgroundColor == null ? Colors.amber : backgroundColor >> are same
     gradient: gradient,
     border: border,
     image: decorationImage,
@@ -376,14 +377,14 @@ Decoration boxDecorationWithShadow({
 
 /// rounded box decoration with shadow
 Decoration boxDecorationRoundedWithShadow(
-    int radiusAll, {
-      Color? backgroundColor,
-      Color? shadowColor,
-      double? blurRadius,
-      double? spreadRadius,
-      Offset offset = const Offset(0, 0),
-      LinearGradient? gradient,
-    }) {
+  int radiusAll, {
+  Color? backgroundColor,
+  Color? shadowColor,
+  double? blurRadius,
+  double? spreadRadius,
+  Offset offset = const Offset(0, 0),
+  LinearGradient? gradient,
+}) {
   return BoxDecoration(
     boxShadow: defaultBoxShadow(
       shadowColor: shadowColor ?? Colors.grey.withValues(alpha: 0.065),
@@ -396,7 +397,6 @@ Decoration boxDecorationRoundedWithShadow(
     borderRadius: radius(radiusAll.toDouble()),
   );
 }
-
 
 /// OnTap Extension for Widgets
 extension OnTapExtension on Widget {
@@ -411,7 +411,6 @@ extension OnTapExtension on Widget {
     );
   }
 }
-
 
 ///////How to use////////
 ///

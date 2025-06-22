@@ -30,35 +30,47 @@ class Subject {
   });
 
   factory Subject.fromJson(Map<String, dynamic> json) => Subject(
-    id: json["id"],
-    name: json["name"],
-    slug: json["slug"],
-    description: json["description"],
-    status: json["status"],
-    questions: json["questions"] == null ? [] : List<Question>.from(json["questions"]!.map((x) => Question.fromJson(x))),
-    parentId: json["parent_id"],
-    questionCount: json["question_count"],
-    children: json["children"] == null ? [] : List<Subject>.from(json["children"]!.map((x) => Subject.fromJson(x))),
-    image: json["image"],
-    showApp: json["show_app"],
-    pivot: json["pivot"] == null ? null : SubjectPivot.fromJson(json["pivot"]),
-  );
+        id: json["id"],
+        name: json["name"],
+        slug: json["slug"],
+        description: json["description"],
+        status: json["status"],
+        questions: json["questions"] == null
+            ? []
+            : List<Question>.from(
+                json["questions"]!.map((x) => Question.fromJson(x))),
+        parentId: json["parent_id"],
+        questionCount: json["question_count"],
+        children: json["children"] == null
+            ? []
+            : List<Subject>.from(
+                json["children"]!.map((x) => Subject.fromJson(x))),
+        image: json["image"],
+        showApp: json["show_app"],
+        pivot:
+            json["pivot"] == null ? null : SubjectPivot.fromJson(json["pivot"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "slug": slug,
-    "description": description,
-    "status": status,
-    "questions": questions == null ? [] : List<dynamic>.from(questions!.map((x) => x.toJson())),
-    "parent_id": parentId,
-    "question_count": questionCount,
-    "children": children == null ? [] : List<dynamic>.from(children!.map((x) => x.toJson())),
-    "image": image,
-    "show_app": showApp,
-    "pivot": pivot?.toJson(),
-  };
+        "id": id,
+        "name": name,
+        "slug": slug,
+        "description": description,
+        "status": status,
+        "questions": questions == null
+            ? []
+            : List<dynamic>.from(questions!.map((x) => x.toJson())),
+        "parent_id": parentId,
+        "question_count": questionCount,
+        "children": children == null
+            ? []
+            : List<dynamic>.from(children!.map((x) => x.toJson())),
+        "image": image,
+        "show_app": showApp,
+        "pivot": pivot?.toJson(),
+      };
 }
+
 class SubjectPivot {
   final int? questionId;
   final int? subjectId;
@@ -67,12 +79,12 @@ class SubjectPivot {
     this.subjectId,
   });
   factory SubjectPivot.fromJson(Map<String, dynamic> json) => SubjectPivot(
-    questionId: json["question_id"],
-    subjectId: json["subject_id"],
-  );
+        questionId: json["question_id"],
+        subjectId: json["subject_id"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "question_id": questionId,
-    "subject_id": subjectId,
-  };
+        "question_id": questionId,
+        "subject_id": subjectId,
+      };
 }

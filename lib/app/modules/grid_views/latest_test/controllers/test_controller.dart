@@ -25,6 +25,7 @@ class TestController extends GetxController {
       },
     );
   }
+
   @override
   void onReady() {
     getSubjects();

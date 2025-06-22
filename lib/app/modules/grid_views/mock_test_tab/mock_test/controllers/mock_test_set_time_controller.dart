@@ -11,7 +11,6 @@ import '../../../../../services/api_call_status.dart';
 import '../../../../../services/base_client.dart';
 import '../../../../../models/mock_subject_select_model.dart';
 
-
 class MockTestSetTimeController extends GetxController {
   RxBool isNegativeMarkChecked = false.obs;
   RxBool isStartExam = false.obs;
@@ -53,16 +52,20 @@ class MockTestSetTimeController extends GetxController {
 
     final bool isSetTimeValue = isSetTime.value;
     final int durationValue = int.tryParse(setTimeCon.text) ?? 0;
-    final int finalDuration = isSetTimeValue ? (durationValue < 1 ? 1 : durationValue) : 0;
+    final int finalDuration =
+        isSetTimeValue ? (durationValue < 1 ? 1 : durationValue) : 0;
 
     Map<String, dynamic> data = {
-      'exam_name':'Mock Test',
-      'negative_mark': isNegativeMarkChecked.value?0.25:0,
+      'exam_name': 'Mock Test',
+      'negative_mark': isNegativeMarkChecked.value ? 0.25 : 0,
       'is_negative_mark': isNegativeMarkChecked.value,
       'is_set_time': isSetTime.value,
       'type': selectedKey.value,
       'duration': finalDuration,
-      'previous_day_count': (dayController.text == '' || dayController.text.isEmpty)? 0: dayController.text,
+      'previous_day_count':
+          (dayController.text == '' || dayController.text.isEmpty)
+              ? 0
+              : dayController.text,
       'subjects': selectedSubjects
           .map((subject) => subject.toMap())
           .toList(), // Convert each subject to map

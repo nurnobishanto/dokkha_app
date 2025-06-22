@@ -67,17 +67,19 @@ class CustomTextFormField extends StatelessWidget {
                 : null,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
-              borderSide: BorderSide(color: Get.theme.dividerColor), // default border
+              borderSide:
+                  BorderSide(color: Get.theme.dividerColor), // default border
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
-              borderSide: BorderSide(color: Get.theme.hintColor), // light/dark এ auto change
+              borderSide: BorderSide(
+                  color: Get.theme.hintColor), // light/dark এ auto change
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
-              borderSide: BorderSide(color: Get.theme.primaryColor), // e.g., app theme color
+              borderSide: BorderSide(
+                  color: Get.theme.primaryColor), // e.g., app theme color
             ),
-
           ),
         );
       },

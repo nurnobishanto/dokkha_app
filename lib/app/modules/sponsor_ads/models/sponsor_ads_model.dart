@@ -6,7 +6,7 @@ class SponsorAdsModel {
 
   factory SponsorAdsModel.fromJson(Map<String, dynamic> json) {
     final appAds = (json['app_ads'] as Map<String, dynamic>).map(
-          (key, value) => MapEntry(
+      (key, value) => MapEntry(
         key,
         (value as List<dynamic>).map((ad) => Ad.fromJson(ad)).toList(),
       ),
@@ -20,7 +20,7 @@ class SponsorAdsModel {
 
   Map<String, dynamic> toJson() {
     final appAdsJson = appAds!.map(
-          (key, value) => MapEntry(
+      (key, value) => MapEntry(
         key,
         value.map((ad) => ad.toJson()).toList(),
       ),

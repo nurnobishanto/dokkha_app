@@ -1,8 +1,10 @@
 import 'dart:convert';
 import '../../../models/contest.dart';
 
-AllContestModel allContestModelFromJson(String str) => AllContestModel.fromJson(json.decode(str));
-String allContestModelToJson(AllContestModel data) => json.encode(data.toJson());
+AllContestModel allContestModelFromJson(String str) =>
+    AllContestModel.fromJson(json.decode(str));
+String allContestModelToJson(AllContestModel data) =>
+    json.encode(data.toJson());
 
 class AllContestModel {
   final bool? status;
@@ -13,24 +15,19 @@ class AllContestModel {
     this.contests,
   });
 
-  factory AllContestModel.fromJson(Map<String, dynamic> json) => AllContestModel(
-    status: json["status"],
-    contests: json["contests"] == null ? [] : List<Contest>.from(json["contests"]!.map((x) => Contest.fromJson(x))),
-  );
+  factory AllContestModel.fromJson(Map<String, dynamic> json) =>
+      AllContestModel(
+        status: json["status"],
+        contests: json["contests"] == null
+            ? []
+            : List<Contest>.from(
+                json["contests"]!.map((x) => Contest.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "status": status,
-    "contests": contests == null ? [] : List<dynamic>.from(contests!.map((x) => x.toJson())),
-  };
+        "status": status,
+        "contests": contests == null
+            ? []
+            : List<dynamic>.from(contests!.map((x) => x.toJson())),
+      };
 }
-
-
-
-
-
-
-
-
-
-
-

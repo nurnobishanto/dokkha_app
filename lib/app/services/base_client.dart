@@ -36,17 +36,17 @@ class BaseClient {
 
   /// Perform safe API request
   static safeApiCall(
-      String url,
-      RequestType requestType, {
-        Map<String, dynamic>? headers,
-        Map<String, dynamic>? queryParameters,
-        required Function(Response response) onSuccess,
-        Function(ApiException)? onError,
-        Function(int value, int progress)? onReceiveProgress,
-        Function(int total, int progress)? onSendProgress,
-        Function? onLoading,
-        dynamic data,
-      }) async {
+    String url,
+    RequestType requestType, {
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? queryParameters,
+    required Function(Response response) onSuccess,
+    Function(ApiException)? onError,
+    Function(int value, int progress)? onReceiveProgress,
+    Function(int total, int progress)? onSendProgress,
+    Function? onLoading,
+    dynamic data,
+  }) async {
     try {
       await onLoading?.call();
 
@@ -179,7 +179,8 @@ class BaseClient {
 
     if (statusCode == 404) {
       final message = Strings.urlNotFound.tr;
-      final exception = ApiException(message: message, url: url, statusCode: 404);
+      final exception =
+          ApiException(message: message, url: url, statusCode: 404);
       if (onError != null) {
         return onError(exception);
       } else {
@@ -187,7 +188,9 @@ class BaseClient {
       }
     }
 
-    if (errorMessage.contains('socket') || error.type == DioExceptionType.connectionError || errorMessage.contains('failed host lookup')) {
+    if (errorMessage.contains('socket') ||
+        error.type == DioExceptionType.connectionError ||
+        errorMessage.contains('failed host lookup')) {
       final message = Strings.noInternetConnection.tr;
       final exception = ApiException(message: message, url: url);
       if (onError != null) {
@@ -199,7 +202,8 @@ class BaseClient {
 
     if (statusCode == 500) {
       final message = Strings.serverError.tr;
-      final exception = ApiException(message: message, url: url, statusCode: 500);
+      final exception =
+          ApiException(message: message, url: url, statusCode: 500);
       if (onError != null) {
         return onError(exception);
       } else {
@@ -236,8 +240,6 @@ class BaseClient {
     }
   }
 }
-
-
 
 // import 'dart:async';
 // import 'dart:io';

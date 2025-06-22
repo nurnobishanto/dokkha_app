@@ -50,7 +50,8 @@ class OrderDetailsScreen extends GetView<OrdersDetailsController> {
                               ),
                               const SizedBox(height: 10),
                               Text(
-                                DateFormatter.formatToDMY(model.order!.createdAt!),
+                                DateFormatter.formatToDMY(
+                                    model.order!.createdAt!),
                                 style: const TextStyle(
                                     color: Colors.grey, fontSize: 14),
                               ),
@@ -59,10 +60,12 @@ class OrderDetailsScreen extends GetView<OrdersDetailsController> {
                                 name: () {
                                   if (model.order!.modelType.toString() ==
                                       'App\\Models\\Package') {
-                                    return model.order!.package?.name?.toString() ??
+                                    return model.order!.package?.name
+                                            ?.toString() ??
                                         '';
                                   } else {
-                                    return model.order!.package?.name?.toString() ??
+                                    return model.order!.package?.name
+                                            ?.toString() ??
                                         '';
                                   }
                                 }(),
@@ -84,13 +87,15 @@ class OrderDetailsScreen extends GetView<OrdersDetailsController> {
                               (model.order!.status.toString() == 'paid')
                                   ? OrderSummaryItem(
                                       label: "পরিশোধ",
-                                      amount: '৳ ${model.order!.total.toString()}',
+                                      amount:
+                                          '৳ ${model.order!.total.toString()}',
                                     )
                                   : const SizedBox(),
                               (model.order!.status.toString() != 'paid')
                                   ? OrderSummaryItem(
                                       label: "বকেয়া",
-                                      amount: '৳ ${model.order!.total.toString()}',
+                                      amount:
+                                          '৳ ${model.order!.total.toString()}',
                                       isNegative: true,
                                     )
                                   : const SizedBox(),
@@ -102,7 +107,9 @@ class OrderDetailsScreen extends GetView<OrdersDetailsController> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   OrderStatusLabel(
-                                    status: model.order!.status.toString().toUpperCase(),
+                                    status: model.order!.status
+                                        .toString()
+                                        .toUpperCase(),
                                     color: model.order!.status == 'pending'
                                         ? Colors.amber
                                         : model.order!.status == 'paid'
@@ -117,7 +124,8 @@ class OrderDetailsScreen extends GetView<OrdersDetailsController> {
                                   OrderStatusLabel(
                                     // status:
                                     //     order!.paymentMethod!.toUpperCase().toString(),
-                                    status: model.order!.paymentMethod!.toString(),
+                                    status:
+                                        model.order!.paymentMethod!.toString(),
                                     color: Colors.black,
                                     fontColor: Colors.white,
                                   ),
@@ -182,31 +190,39 @@ class OrderDetailsScreen extends GetView<OrdersDetailsController> {
                                                   .payments![index].status!
                                                   .toString()
                                                   .toUpperCase(),
-                                              color: model.order!.payments![index]
+                                              color: model
+                                                          .order!
+                                                          .payments![index]
                                                           .status ==
                                                       'pending'
                                                   ? Colors.amber
-                                                  : model.order!.payments![index]
+                                                  : model
+                                                              .order!
+                                                              .payments![index]
                                                               .status ==
                                                           'paid'
                                                       ? Colors.green
                                                       : Colors.red,
-                                              fontColor: model.order!.payments![index]
+                                              fontColor: model
+                                                          .order!
+                                                          .payments![index]
                                                           .status ==
                                                       'pending'
                                                   ? Colors.black
-                                                  : model.order!.payments![index]
+                                                  : model
+                                                              .order!
+                                                              .payments![index]
                                                               .status ==
                                                           'paid'
                                                       ? Colors.white
                                                       : Colors.white,
                                             ),
-                                            model.order!.payments![index].status ==
+                                            model.order!.payments![index]
+                                                        .status ==
                                                     'pending'
                                                 ? Padding(
-                                                    padding:
-                                                         EdgeInsets.only(
-                                                            top: 8.0.h),
+                                                    padding: EdgeInsets.only(
+                                                        top: 8.0.h),
                                                     child: SizedBox(
                                                       width: 100,
                                                       height: 30,
@@ -214,7 +230,8 @@ class OrderDetailsScreen extends GetView<OrdersDetailsController> {
                                                         text: 'পেমেন্ট করুন',
                                                         onPressed: () {
                                                           Get.to(PaymentWebView(
-                                                              url: model.order!
+                                                              url: model
+                                                                  .order!
                                                                   .payments![
                                                                       index]
                                                                   .paymentUrl

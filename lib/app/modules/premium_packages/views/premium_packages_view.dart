@@ -43,16 +43,15 @@ class PremiumPackagesView extends GetView<PremiumPackagesController> {
                             children: [
                               _buildPackageTable(
                                 onTapCheckout: () {
-                                  if(isLoggedIn.value){
+                                  if (isLoggedIn.value) {
                                     Get.to(
                                       PremiumPackageCheckoutView(
                                         packagesModel: pkg,
                                       ),
                                     );
-                                  }else{
+                                  } else {
                                     Get.to(const AuthGatewayView());
                                   }
-
                                 },
                                 title: pkg.name.toString(),
                                 duration: '${pkg.duration.toString()} দিন',

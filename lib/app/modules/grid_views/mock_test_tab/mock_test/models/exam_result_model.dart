@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import '../../../../../models/question.dart';
@@ -75,7 +74,9 @@ class Result {
         question: json["question"] == null
             ? null
             : Question.fromJson(json["question"]),
-        userAnswer: json["user_answer"] == null ? [] : List<String?>.from(json["user_answer"]!.map((x) => x)),
+        userAnswer: json["user_answer"] == null
+            ? []
+            : List<String?>.from(json["user_answer"]!.map((x) => x)),
         correctAnswer: json["correct_answer"] == null
             ? []
             : List<CorrectAnswer>.from(
@@ -113,7 +114,6 @@ class CorrectAnswer {
       };
 }
 
-
 class Summary {
   final int? total;
   final int? correct;
@@ -145,5 +145,3 @@ class Summary {
         "mark": mark,
       };
 }
-
-

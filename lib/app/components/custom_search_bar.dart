@@ -20,17 +20,18 @@ class CustomSearchBar extends StatelessWidget {
       controller: controller,
       onChanged: onChanged,
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         hintText: hintText,
         prefixIcon: const Icon(Icons.search),
         suffixIcon: controller != null && controller!.text.isNotEmpty
             ? IconButton(
-          icon: const Icon(Icons.clear),
-          onPressed: () {
-            controller!.clear();
-            if (onClear != null) onClear!();
-          },
-        )
+                icon: const Icon(Icons.clear),
+                onPressed: () {
+                  controller!.clear();
+                  if (onClear != null) onClear!();
+                },
+              )
             : null,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),

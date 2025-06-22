@@ -55,7 +55,8 @@ class SubjectSectionView extends GetView<SubjectSectionController> {
             CustomActionButton(
               text: "এগিয়ে যান",
               onPressed: () async {
-                List<SubjectSectionSelect> selectSubjects = await MySharedPref.getSubjectSection();
+                List<SubjectSectionSelect> selectSubjects =
+                    await MySharedPref.getSubjectSection();
                 if (selectSubjects.isNotEmpty) {
                   controller.getSubjects();
                   Get.to(const SubSectionsSetTimeView());
@@ -215,7 +216,6 @@ class _CustomExpandSubjectState extends State<CustomExpandSubject> {
                               } else {
                                 MySharedPref.removeSubjectSectionSelect(
                                     newSubject);
-
                               }
                             },
                             visualDensity: VisualDensity.compact,

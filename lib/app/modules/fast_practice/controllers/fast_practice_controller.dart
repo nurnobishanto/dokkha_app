@@ -1,6 +1,3 @@
 import 'package:get/get.dart';
 
-class FastPracticeController extends GetxController {
-
-
-}
+class FastPracticeController extends GetxController {}

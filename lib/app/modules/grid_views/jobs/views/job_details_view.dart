@@ -42,172 +42,165 @@ class JobDetailsScreen extends StatelessWidget {
           final isDeadlineOver = jobData.deadline != null &&
               DateTime.now().isAfter(jobData.deadline!);
 
-          return  Column(
-                  children: [
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: isDeadlineOver
-                                  ? Colors.red.shade50
-                                  : Colors.white,
-                              border: Border.all(
-                                color: isDeadlineOver
-                                    ? Colors.red
-                                    : Colors.grey.shade300,
-                                width: 2.0,
-                              ),
-                              borderRadius: BorderRadius.circular(8.0),
+          return Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color:
+                            isDeadlineOver ? Colors.red.shade50 : Colors.white,
+                        border: Border.all(
+                          color: isDeadlineOver
+                              ? Colors.red
+                              : Colors.grey.shade300,
+                          width: 2.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ////////////////
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  flex: 5,
+                                  child: Text(
+                                    jobData.companyName.toString(),
+                                    style: AppTextStyles.heading5,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                // const SizedBox(width: 5.0),
+                                // GestureDetector(
+                                //   onTap: () async {
+                                //     try {
+                                //       if (controller.isFavourite.value) {
+                                //         // debugPrint("Called removeFavJob");
+                                //         // await controller
+                                //         //     .removeFavJob(id);
+                                //         // await Get.find<
+                                //         //         FavoriteJobsListController>()
+                                //         //     .getFavJobsList();
+                                //         // Get.back();
+                                //       } else {
+                                //         debugPrint("Called addFavJob");
+                                //         await controller.addFavJob(id);
+                                //       }
+                                //     } catch (error) {
+                                //       debugPrint(
+                                //           "Error processing favorite job: $error");
+                                //     }
+                                //   },
+                                //   child: Obx(
+                                //     () => CircleAvatar(
+                                //       radius: controller.isFavourite.value
+                                //           ? 13
+                                //           : 17,
+                                //       backgroundColor:
+                                //           controller.isFavourite.value
+                                //               ? Colors.red
+                                //               : Colors.grey.shade200,
+                                //       child: Icon(
+                                //         controller.isFavourite.value
+                                //             ? Icons.favorite
+                                //             : Icons.bookmark_border,
+                                //         color:
+                                //             controller.isFavourite.value
+                                //                 ? Colors.white
+                                //                 : Colors.black,
+                                //         size: controller.isFavourite.value
+                                //             ? 19
+                                //             : 20,
+                                //       ),
+                                //     ),
+                                //   ),
+                                // ),
+                                // const SizedBox(width: 5.0),
+                              ],
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  ////////////////
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Expanded(
-                                        flex: 5,
-                                        child: Text(
-                                          jobData.companyName.toString(),
-                                          style: AppTextStyles.heading5,
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                      // const SizedBox(width: 5.0),
-                                      // GestureDetector(
-                                      //   onTap: () async {
-                                      //     try {
-                                      //       if (controller.isFavourite.value) {
-                                      //         // debugPrint("Called removeFavJob");
-                                      //         // await controller
-                                      //         //     .removeFavJob(id);
-                                      //         // await Get.find<
-                                      //         //         FavoriteJobsListController>()
-                                      //         //     .getFavJobsList();
-                                      //         // Get.back();
-                                      //       } else {
-                                      //         debugPrint("Called addFavJob");
-                                      //         await controller.addFavJob(id);
-                                      //       }
-                                      //     } catch (error) {
-                                      //       debugPrint(
-                                      //           "Error processing favorite job: $error");
-                                      //     }
-                                      //   },
-                                      //   child: Obx(
-                                      //     () => CircleAvatar(
-                                      //       radius: controller.isFavourite.value
-                                      //           ? 13
-                                      //           : 17,
-                                      //       backgroundColor:
-                                      //           controller.isFavourite.value
-                                      //               ? Colors.red
-                                      //               : Colors.grey.shade200,
-                                      //       child: Icon(
-                                      //         controller.isFavourite.value
-                                      //             ? Icons.favorite
-                                      //             : Icons.bookmark_border,
-                                      //         color:
-                                      //             controller.isFavourite.value
-                                      //                 ? Colors.white
-                                      //                 : Colors.black,
-                                      //         size: controller.isFavourite.value
-                                      //             ? 19
-                                      //             : 20,
-                                      //       ),
-                                      //     ),
-                                      //   ),
-                                      // ),
-                                      // const SizedBox(width: 5.0),
-                                    ],
-                                  ),
-                                  // const SizedBox(height: 5.0),
-                                  // Text(
-                                  //   jobData.jobTitle.toString(),
-                                  //   style: kHeadingTextStyle.copyWith(
-                                  //     color: AppColors.black,
-                                  //     fontWeight: FontWeight.bold,
-                                  //     fontSize: 14.5,
-                                  //   ),
-                                  //   maxLines: 2,
-                                  //   overflow: TextOverflow.ellipsis,
-                                  // ),
-                                  const SizedBox(height: 2.0),
-                                  Text(
-                                    "প্রকাশিত: ${DateFormatter.formatJobDeadline(jobData.createdAt)}",
-                                    style: AppTextStyles.heading5,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  const SizedBox(height: 5.0),
-                                  Text(
-                                    "আবেদনের শেষ তারিখ: ${DateFormatter.formatJobDeadline(jobData.deadline)}",
-                                    style: AppTextStyles.heading5,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  const SizedBox(height: 5.0),
-                                  Text(
-                                    "সোর্স: ${jobData.source}",
-                                    style: AppTextStyles.heading5,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
+                            // const SizedBox(height: 5.0),
+                            // Text(
+                            //   jobData.jobTitle.toString(),
+                            //   style: kHeadingTextStyle.copyWith(
+                            //     color: AppColors.black,
+                            //     fontWeight: FontWeight.bold,
+                            //     fontSize: 14.5,
+                            //   ),
+                            //   maxLines: 2,
+                            //   overflow: TextOverflow.ellipsis,
+                            // ),
+                            const SizedBox(height: 2.0),
+                            Text(
+                              "প্রকাশিত: ${DateFormatter.formatJobDeadline(jobData.createdAt)}",
+                              style: AppTextStyles.heading5,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            const SizedBox(height: 5.0),
+                            Text(
+                              "আবেদনের শেষ তারিখ: ${DateFormatter.formatJobDeadline(jobData.deadline)}",
+                              style: AppTextStyles.heading5,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            const SizedBox(height: 5.0),
+                            Text(
+                              "সোর্স: ${jobData.source}",
+                              style: AppTextStyles.heading5,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
 
-                                  const SizedBox(height: 10.0),
+                            const SizedBox(height: 10.0),
 
-
-
-                                  // PDF or Image Viewer
-                                  jobData.sourceFile!.contains("pdf")
-                                      ? SizedBox(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.6,
-                                          child: SfPdfViewer.network(
+                            // PDF or Image Viewer
+                            jobData.sourceFile!.contains("pdf")
+                                ? SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.6,
+                                    child: SfPdfViewer.network(
+                                      "${AppConstants.storageUrl}${jobData.sourceFile.toString()}",
+                                    ),
+                                  )
+                                : SizedBox(
+                                    width: double.infinity,
+                                    // height:
+                                    //     MediaQuery.of(context).size.height *
+                                    //         0.6,
+                                    child: InteractiveViewer(
+                                      panEnabled: true,
+                                      minScale: 0.5,
+                                      maxScale: 4.5,
+                                      child: CachedNetworkImage(
+                                        imageUrl:
                                             "${AppConstants.storageUrl}${jobData.sourceFile.toString()}",
-                                          ),
-                                        )
-                                      : SizedBox(
-                                          width: double.infinity,
-                                          // height:
-                                          //     MediaQuery.of(context).size.height *
-                                          //         0.6,
-                                          child: InteractiveViewer(
-                                            panEnabled: true,
-                                            minScale: 0.5,
-                                            maxScale: 4.5,
-                                            child: CachedNetworkImage(
-                                              imageUrl:
-                                                  "${AppConstants.storageUrl}${jobData.sourceFile.toString()}",
-                                              fit: BoxFit.fitHeight,
-                                              placeholder: (context, url) =>
-                                                  const Center(
-                                                      child:
-                                                          CircularProgressIndicator()),
-                                              errorWidget:
-                                                  (context, url, error) =>
-                                                      const Icon(Icons.error),
-                                            ),
-                                          ),
-                                        ),
-                                ],
-                              ),
-                            ),
-                          ),
+                                        fit: BoxFit.fitHeight,
+                                        placeholder: (context, url) =>
+                                            const Center(
+                                                child:
+                                                    CircularProgressIndicator()),
+                                        errorWidget: (context, url, error) =>
+                                            const Icon(Icons.error),
+                                      ),
+                                    ),
+                                  ),
+                          ],
                         ),
                       ),
                     ),
-                  ],
-                );
+                  ),
+                ),
+              ),
+            ],
+          );
         },
       ),
     );

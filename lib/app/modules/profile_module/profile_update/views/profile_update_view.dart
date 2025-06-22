@@ -190,8 +190,6 @@ class ProfileUpdateView extends GetView<ProfileUpdateController> {
                 CustomActionButton(
                   text: "আপডেট করুন",
                   onPressed: () {
-
-
                     controller.updateProfileInfo(context);
                   },
                 ),

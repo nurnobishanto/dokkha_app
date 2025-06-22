@@ -1,5 +1,3 @@
 import 'package:get/get.dart';
 
-class FavQuestionListController extends GetxController{
-
-}
+class FavQuestionListController extends GetxController {}

@@ -9,6 +9,7 @@ final questionTypeValues = EnumValues({
   "multiple_choice": QuestionType.MULTIPLE_CHOICE,
   "fill_in_the_blank": QuestionType.FILL_IN_THE_BLANK,
 });
+
 class EnumValues<T> {
   Map<String, T> map;
   late Map<T, String> reverseMap;

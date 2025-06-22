@@ -162,9 +162,12 @@ class SetTimeView extends StatelessWidget {
                       ),
                       const SizedBox(height: 3.00),
                       GridView.builder(
-                        shrinkWrap: true, // To make sure it takes only the required space
-                        physics: const NeverScrollableScrollPhysics(), // To prevent scrolling inside the grid
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        shrinkWrap:
+                            true, // To make sure it takes only the required space
+                        physics:
+                            const NeverScrollableScrollPhysics(), // To prevent scrolling inside the grid
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2, // Number of columns
                           crossAxisSpacing: 2, // Horizontal space between items
                           mainAxisSpacing: 2, // Vertical space between items
@@ -174,32 +177,34 @@ class SetTimeView extends StatelessWidget {
                         itemBuilder: (context, index) {
                           final item = dropdownItems[index];
                           return Obx(() => InkWell(
-                            onTap: () {
-                              controller.selectedKey.value = item['key'] ?? '';
-                            },
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Radio<String>(
-                                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                  visualDensity: VisualDensity.compact,
-                                  value: item['key'] ?? '',
-                                  groupValue: controller.selectedKey.value,
-                                  onChanged: (String? newValue) {
-                                    if (newValue != null) {
-                                      controller.selectedKey.value = newValue;
-                                    }
-                                  },
+                                onTap: () {
+                                  controller.selectedKey.value =
+                                      item['key'] ?? '';
+                                },
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Radio<String>(
+                                      materialTapTargetSize:
+                                          MaterialTapTargetSize.shrinkWrap,
+                                      visualDensity: VisualDensity.compact,
+                                      value: item['key'] ?? '',
+                                      groupValue: controller.selectedKey.value,
+                                      onChanged: (String? newValue) {
+                                        if (newValue != null) {
+                                          controller.selectedKey.value =
+                                              newValue;
+                                        }
+                                      },
+                                    ),
+                                    Text(
+                                      item['value'] ?? '',
+                                    ),
+                                  ],
                                 ),
-                                Text(
-                                  item['value'] ?? '',
-                                ),
-                              ],
-                            ),
-                          ));
+                              ));
                         },
-                      )
-,
+                      ),
 
                       const SizedBox(height: 00),
                       Row(

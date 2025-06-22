@@ -1,15 +1,11 @@
-
 import 'dart:convert';
 
 import '../../../../models/question.dart';
 
-
-
 ResultModel resultModelFromJson(String str) =>
     ResultModel.fromJson(json.decode(str));
 
-String resultModelToJson(ResultModel data) =>
-    json.encode(data.toJson());
+String resultModelToJson(ResultModel data) => json.encode(data.toJson());
 
 class ResultModel {
   final bool? status;
@@ -30,8 +26,7 @@ class ResultModel {
     this.examName,
   });
 
-  factory ResultModel.fromJson(Map<String, dynamic> json) =>
-      ResultModel(
+  factory ResultModel.fromJson(Map<String, dynamic> json) => ResultModel(
         status: json["status"],
         summary:
             json["summary"] == null ? null : Summary.fromJson(json["summary"]),
@@ -77,7 +72,9 @@ class Result {
         question: json["question"] == null
             ? null
             : Question.fromJson(json["question"]),
-        userAnswer: json["user_answer"] == null ? [] : List<String?>.from(json["user_answer"]!.map((x) => x)),
+        userAnswer: json["user_answer"] == null
+            ? []
+            : List<String?>.from(json["user_answer"]!.map((x) => x)),
         correctAnswer: json["correct_answer"] == null
             ? []
             : List<CorrectAnswer>.from(
@@ -115,8 +112,6 @@ class CorrectAnswer {
       };
 }
 
-
-
 class Summary {
   final int? total;
   final int? correct;
@@ -148,5 +143,3 @@ class Summary {
         "mark": mark,
       };
 }
-
-

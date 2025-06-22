@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
 import 'package:lokkha/styles/text_style.dart';
 
-
 class CustomTextField extends StatelessWidget {
   final String hintText;
   final TextEditingController? controller;
@@ -45,7 +44,7 @@ class CustomTextField extends StatelessWidget {
       textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(
         contentPadding:
-        const EdgeInsets.symmetric(horizontal: 10, vertical: 10.0),
+            const EdgeInsets.symmetric(horizontal: 10, vertical: 10.0),
         isDense: true,
         hintText: hintText,
         // hintStyle: kSubtitleStyle.copyWith(

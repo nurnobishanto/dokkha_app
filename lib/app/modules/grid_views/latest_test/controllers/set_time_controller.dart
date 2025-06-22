@@ -10,7 +10,6 @@ import '../../../../services/api_call_status.dart';
 import '../../../../services/base_client.dart';
 import '../../../../views/views/exam_process_view.dart';
 
-
 class SetTimeController extends GetxController {
   RxBool isNegativeMarkChecked = false.obs;
   RxBool isStartExam = false.obs;
@@ -49,8 +48,8 @@ class SetTimeController extends GetxController {
     String? token = MySharedPref.getUserToken();
     if (token == '' || token.isEmpty) return;
     Map<String, dynamic> data = {
-      'negative_mark' : 0.25,
-      'exam_name':'Mock Test',
+      'negative_mark': 0.25,
+      'exam_name': 'Mock Test',
       'is_negative_mark': isNegativeMarkChecked.value,
       'is_set_time': isSetTime.value,
       'type': selectedKey.value,

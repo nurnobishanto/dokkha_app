@@ -4,7 +4,8 @@
 
 import 'dart:convert';
 
-JobListModel jobListModelFromJson(String str) => JobListModel.fromJson(json.decode(str));
+JobListModel jobListModelFromJson(String str) =>
+    JobListModel.fromJson(json.decode(str));
 
 String jobListModelToJson(JobListModel data) => json.encode(data.toJson());
 
@@ -18,14 +19,14 @@ class JobListModel {
   });
 
   factory JobListModel.fromJson(Map<String, dynamic> json) => JobListModel(
-    status: json["status"],
-    jobs: json["jobs"] == null ? null : Jobs.fromJson(json["jobs"]),
-  );
+        status: json["status"],
+        jobs: json["jobs"] == null ? null : Jobs.fromJson(json["jobs"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "status": status,
-    "jobs": jobs?.toJson(),
-  };
+        "status": status,
+        "jobs": jobs?.toJson(),
+      };
 }
 
 class Jobs {
@@ -60,36 +61,44 @@ class Jobs {
   });
 
   factory Jobs.fromJson(Map<String, dynamic> json) => Jobs(
-    currentPage: json["current_page"],
-    data: json["data"] == null ? [] : List<Job>.from(json["data"]!.map((x) => Job.fromJson(x))),
-    firstPageUrl: json["first_page_url"],
-    from: json["from"],
-    lastPage: json["last_page"],
-    lastPageUrl: json["last_page_url"],
-    links: json["links"] == null ? [] : List<Link>.from(json["links"]!.map((x) => Link.fromJson(x))),
-    nextPageUrl: json["next_page_url"],
-    path: json["path"],
-    perPage: json["per_page"],
-    prevPageUrl: json["prev_page_url"],
-    to: json["to"],
-    total: json["total"],
-  );
+        currentPage: json["current_page"],
+        data: json["data"] == null
+            ? []
+            : List<Job>.from(json["data"]!.map((x) => Job.fromJson(x))),
+        firstPageUrl: json["first_page_url"],
+        from: json["from"],
+        lastPage: json["last_page"],
+        lastPageUrl: json["last_page_url"],
+        links: json["links"] == null
+            ? []
+            : List<Link>.from(json["links"]!.map((x) => Link.fromJson(x))),
+        nextPageUrl: json["next_page_url"],
+        path: json["path"],
+        perPage: json["per_page"],
+        prevPageUrl: json["prev_page_url"],
+        to: json["to"],
+        total: json["total"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "current_page": currentPage,
-    "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x.toJson())),
-    "first_page_url": firstPageUrl,
-    "from": from,
-    "last_page": lastPage,
-    "last_page_url": lastPageUrl,
-    "links": links == null ? [] : List<dynamic>.from(links!.map((x) => x.toJson())),
-    "next_page_url": nextPageUrl,
-    "path": path,
-    "per_page": perPage,
-    "prev_page_url": prevPageUrl,
-    "to": to,
-    "total": total,
-  };
+        "current_page": currentPage,
+        "data": data == null
+            ? []
+            : List<dynamic>.from(data!.map((x) => x.toJson())),
+        "first_page_url": firstPageUrl,
+        "from": from,
+        "last_page": lastPage,
+        "last_page_url": lastPageUrl,
+        "links": links == null
+            ? []
+            : List<dynamic>.from(links!.map((x) => x.toJson())),
+        "next_page_url": nextPageUrl,
+        "path": path,
+        "per_page": perPage,
+        "prev_page_url": prevPageUrl,
+        "to": to,
+        "total": total,
+      };
 }
 
 class Job {
@@ -150,62 +159,69 @@ class Job {
   });
 
   factory Job.fromJson(Map<String, dynamic> json) => Job(
-    id: json["id"],
-    title: json["title"],
-    slug: json["slug"],
-    departmentId: json["department_id"],
-    companyName: json["company_name"],
-    source: json["source"],
-    sourceFile: json["source_file"],
-    details: json["details"],
-    deadline: json["deadline"] == null ? null : DateTime.parse(json["deadline"]),
-    publishedDate: json["published_date"] == null ? null : DateTime.parse(json["published_date"]),
-    isFeatured: json["is_featured"],
-    status: json["status"],
-    views: json["views"],
-    approvedAt: json["approved_at"],
-    metaTitle: json["meta_title"],
-    metaDescription: json["meta_description"],
-    metaKeywords: json["meta_keywords"],
-    metaImage: json["meta_image"],
-    metaAuthor: json["meta_author"],
-    metaUrl: json["meta_url"],
-    metaData: json["meta_data"],
-    headerCode: json["header_code"],
-    footerCode: json["footer_code"],
-    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-    deletedAt: json["deleted_at"],
-  );
+        id: json["id"],
+        title: json["title"],
+        slug: json["slug"],
+        departmentId: json["department_id"],
+        companyName: json["company_name"],
+        source: json["source"],
+        sourceFile: json["source_file"],
+        details: json["details"],
+        deadline:
+            json["deadline"] == null ? null : DateTime.parse(json["deadline"]),
+        publishedDate: json["published_date"] == null
+            ? null
+            : DateTime.parse(json["published_date"]),
+        isFeatured: json["is_featured"],
+        status: json["status"],
+        views: json["views"],
+        approvedAt: json["approved_at"],
+        metaTitle: json["meta_title"],
+        metaDescription: json["meta_description"],
+        metaKeywords: json["meta_keywords"],
+        metaImage: json["meta_image"],
+        metaAuthor: json["meta_author"],
+        metaUrl: json["meta_url"],
+        metaData: json["meta_data"],
+        headerCode: json["header_code"],
+        footerCode: json["footer_code"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
+        deletedAt: json["deleted_at"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "title": title,
-    "slug": slug,
-    "department_id": departmentId,
-    "company_name": companyName,
-    "source": source,
-    "source_file": sourceFile,
-    "details": details,
-    "deadline": deadline?.toIso8601String(),
-    "published_date": publishedDate?.toIso8601String(),
-    "is_featured": isFeatured,
-    "status": status,
-    "views": views,
-    "approved_at": approvedAt,
-    "meta_title": metaTitle,
-    "meta_description": metaDescription,
-    "meta_keywords": metaKeywords,
-    "meta_image": metaImage,
-    "meta_author": metaAuthor,
-    "meta_url": metaUrl,
-    "meta_data": metaData,
-    "header_code": headerCode,
-    "footer_code": footerCode,
-    "created_at": createdAt?.toIso8601String(),
-    "updated_at": updatedAt?.toIso8601String(),
-    "deleted_at": deletedAt,
-  };
+        "id": id,
+        "title": title,
+        "slug": slug,
+        "department_id": departmentId,
+        "company_name": companyName,
+        "source": source,
+        "source_file": sourceFile,
+        "details": details,
+        "deadline": deadline?.toIso8601String(),
+        "published_date": publishedDate?.toIso8601String(),
+        "is_featured": isFeatured,
+        "status": status,
+        "views": views,
+        "approved_at": approvedAt,
+        "meta_title": metaTitle,
+        "meta_description": metaDescription,
+        "meta_keywords": metaKeywords,
+        "meta_image": metaImage,
+        "meta_author": metaAuthor,
+        "meta_url": metaUrl,
+        "meta_data": metaData,
+        "header_code": headerCode,
+        "footer_code": footerCode,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+        "deleted_at": deletedAt,
+      };
 }
 
 class Link {
@@ -220,14 +236,14 @@ class Link {
   });
 
   factory Link.fromJson(Map<String, dynamic> json) => Link(
-    url: json["url"],
-    label: json["label"],
-    active: json["active"],
-  );
+        url: json["url"],
+        label: json["label"],
+        active: json["active"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "url": url,
-    "label": label,
-    "active": active,
-  };
+        "url": url,
+        "label": label,
+        "active": active,
+      };
 }

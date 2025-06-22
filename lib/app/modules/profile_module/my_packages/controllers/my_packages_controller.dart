@@ -54,5 +54,4 @@ class MyPackagesController extends GetxController {
     fetchMyPackages();
     super.onInit();
   }
-
 }

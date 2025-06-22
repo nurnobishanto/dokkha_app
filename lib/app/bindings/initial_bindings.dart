@@ -12,4 +12,3 @@ class InitialBindings extends Bindings {
     Get.put(HomeController(), permanent: true);
   }
 }
-

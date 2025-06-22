@@ -7,7 +7,6 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 import '../models/sponsor_ads_model.dart';
 
-
 class SponsorAdsWidget extends StatelessWidget {
   final Ad ad;
   const SponsorAdsWidget({
@@ -39,7 +38,7 @@ class SponsorAdsWidget extends StatelessWidget {
             bottom: 5.0,
             right: 0,
             child: InkWell(
-              onTap: (){
+              onTap: () {
                 Get.to(const CustomerSupportView());
               },
               child: Container(
@@ -59,7 +58,6 @@ class SponsorAdsWidget extends StatelessWidget {
               ),
             ),
           ),
-
         ]),
       ),
     );

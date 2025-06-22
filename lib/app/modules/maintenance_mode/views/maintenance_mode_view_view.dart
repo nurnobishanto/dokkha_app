@@ -14,7 +14,8 @@ class MaintenanceModeView extends GetView<MaintenanceModeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container( height: Get.height,
+      body: Container(
+        height: Get.height,
         width: Get.width,
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -28,7 +29,7 @@ class MaintenanceModeView extends GetView<MaintenanceModeController> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                 const Center(
+                const Center(
                   child: Text(
                     "Our App is currently under maintenance. We apologize for any inconvenience and appreciate your patience. We'll be back soon!",
                     style: TextStyle(
@@ -51,7 +52,6 @@ class MaintenanceModeView extends GetView<MaintenanceModeController> {
                       child: CustomActionButton(
                         text: "Refresh",
                         onPressed: () {
-
                           Get.offAllNamed(Routes.SPLASH);
                         },
                       ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:lokkha/app/modules/lecture_sheet/views/lecture_sheet_details_view.dart';
 import 'package:lokkha/app/modules/lecture_sheet/views/lecture_sheet_list_details_view.dart';
 
 import '../../../services/api_call_status.dart';

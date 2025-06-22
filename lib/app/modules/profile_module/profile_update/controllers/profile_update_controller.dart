@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,7 +13,6 @@ import '../../../navbar/controllers/navbar_controller.dart';
 import '../model/update_profile_model.dart';
 
 class ProfileUpdateController extends GetxController {
-
   RxString gender = 'অন্যান্য'.obs;
 
   String genderSelect() {
@@ -31,15 +29,16 @@ class ProfileUpdateController extends GetxController {
       'male': 'পুরুষ',
       'female': 'মহিলা',
       'other': 'অন্যান্য',
-
     };
 
     gender.value = reverseMap[key.toLowerCase()] ?? 'অন্যান্য';
   }
+
   @override
   void onInit() {
-    setGenderFromEnglishKey(Get.find<NavbarController>().profileDataModel.value!.user?.gender ??
-        'others');
+    setGenderFromEnglishKey(
+        Get.find<NavbarController>().profileDataModel.value!.user?.gender ??
+            'others');
     super.onInit();
   }
 
@@ -55,7 +54,8 @@ class ProfileUpdateController extends GetxController {
       text: Get.find<NavbarController>().profileDataModel.value!.user!.email ??
           '');
   final organizationController = TextEditingController(
-    text: Get.find<NavbarController>().profileDataModel
+    text: Get.find<NavbarController>()
+            .profileDataModel
             .value!
             .user!
             .organization ??
@@ -63,7 +63,7 @@ class ProfileUpdateController extends GetxController {
   );
   final occupationController = TextEditingController(
     text:
-    Get.find<NavbarController>().profileDataModel.value!.user!.occupation ??
+        Get.find<NavbarController>().profileDataModel.value!.user!.occupation ??
             '',
   );
   final pwdController = TextEditingController();
@@ -147,7 +147,8 @@ class ProfileUpdateController extends GetxController {
     if (nameController.text.trim().isEmpty) {
       CustomSnackBar.showCustomErrorSnackBar(
         title: "নাম আবশ্যক",
-        message: "আপনার নাম প্রদান করা বাধ্যতামূলক। অনুগ্রহ করে সঠিকভাবে লিখুন।",
+        message:
+            "আপনার নাম প্রদান করা বাধ্যতামূলক। অনুগ্রহ করে সঠিকভাবে লিখুন।",
       );
       return;
     }
@@ -225,11 +226,6 @@ class ProfileUpdateController extends GetxController {
     }
     //
 
-
-
-
-
-
     dio.MultipartFile? imageMultipart;
 
     if (croppedImage.value != null) {
@@ -240,7 +236,6 @@ class ProfileUpdateController extends GetxController {
       );
     }
     String url = AppConstants.updateProfileInfo;
-
 
     dio.FormData data = dio.FormData.fromMap({
       if (nameController.text.trim().isNotEmpty)
@@ -259,10 +254,8 @@ class ProfileUpdateController extends GetxController {
         'password': pwdController.text.trim(),
       if (confirmPwdController.text.trim().isNotEmpty)
         'password_confirmation': confirmPwdController.text.trim(),
-      if (imageMultipart != null)
-        'image': imageMultipart,
+      if (imageMultipart != null) 'image': imageMultipart,
     });
-
 
     Map<String, dynamic> headers = {
       'Authorization': 'Bearer $token',

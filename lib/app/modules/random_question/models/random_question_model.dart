@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import '../../../models/question.dart';
 
-RandomQuestionModel randomQuestionModelFromJson(String str) => RandomQuestionModel.fromJson(json.decode(str));
+RandomQuestionModel randomQuestionModelFromJson(String str) =>
+    RandomQuestionModel.fromJson(json.decode(str));
 
-String randomQuestionModelToJson(RandomQuestionModel data) => json.encode(data.toJson());
+String randomQuestionModelToJson(RandomQuestionModel data) =>
+    json.encode(data.toJson());
 
 class RandomQuestionModel {
   final bool? status;
@@ -19,19 +21,20 @@ class RandomQuestionModel {
     this.question,
   });
 
-  factory RandomQuestionModel.fromJson(Map<String, dynamic> json) => RandomQuestionModel(
-    status: json["status"],
-    packageRequired: json["package_required"],
-    message: json["message"],
-    question: json["question"] == null ? null : Question.fromJson(json["question"]),
-  );
+  factory RandomQuestionModel.fromJson(Map<String, dynamic> json) =>
+      RandomQuestionModel(
+        status: json["status"],
+        packageRequired: json["package_required"],
+        message: json["message"],
+        question: json["question"] == null
+            ? null
+            : Question.fromJson(json["question"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "status": status,
-    "package_required": packageRequired,
-    "message": message,
-    "question": question?.toJson(),
-  };
+        "status": status,
+        "package_required": packageRequired,
+        "message": message,
+        "question": question?.toJson(),
+      };
 }
-
-

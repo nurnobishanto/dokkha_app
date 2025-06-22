@@ -9,7 +9,6 @@ class LectureSheet {
   final List<LectureSheet>? categories;
   final String? description;
 
-
   LectureSheet({
     this.id,
     this.name,
@@ -23,27 +22,31 @@ class LectureSheet {
   });
 
   factory LectureSheet.fromJson(Map<String, dynamic> json) => LectureSheet(
-    id: json["id"],
-    name: json["name"],
-    slug: json["slug"],
-    details: json["details"],
-    file: json["file"],
-    files: json["files"],
-    status: json["status"],
-    categories: json["categories"] == null ? [] : List<LectureSheet>.from(json["categories"]!.map((x) => LectureSheet.fromJson(x))),
-    description: json["description"],
-
-  );
+        id: json["id"],
+        name: json["name"],
+        slug: json["slug"],
+        details: json["details"],
+        file: json["file"],
+        files: json["files"],
+        status: json["status"],
+        categories: json["categories"] == null
+            ? []
+            : List<LectureSheet>.from(
+                json["categories"]!.map((x) => LectureSheet.fromJson(x))),
+        description: json["description"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "slug": slug,
-    "details": details,
-    "file": file,
-    "files": files,
-    "status": status,
-    "categories": categories == null ? [] : List<dynamic>.from(categories!.map((x) => x.toJson())),
-    "description": description,
-  };
+        "id": id,
+        "name": name,
+        "slug": slug,
+        "details": details,
+        "file": file,
+        "files": files,
+        "status": status,
+        "categories": categories == null
+            ? []
+            : List<dynamic>.from(categories!.map((x) => x.toJson())),
+        "description": description,
+      };
 }

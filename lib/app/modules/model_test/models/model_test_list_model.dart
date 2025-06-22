@@ -1,12 +1,13 @@
 import 'dart:convert';
 
-
 import '../../../models/category.dart';
 import '../../../models/exam.dart';
 
-ModelTestListModel modelTestListModelFromJson(String str) => ModelTestListModel.fromJson(json.decode(str));
+ModelTestListModel modelTestListModelFromJson(String str) =>
+    ModelTestListModel.fromJson(json.decode(str));
 
-String modelTestListModelToJson(ModelTestListModel data) => json.encode(data.toJson());
+String modelTestListModelToJson(ModelTestListModel data) =>
+    json.encode(data.toJson());
 
 class ModelTestListModel {
   final bool? status;
@@ -17,15 +18,16 @@ class ModelTestListModel {
     this.data,
   });
 
-  factory ModelTestListModel.fromJson(Map<String, dynamic> json) => ModelTestListModel(
-    status: json["status"],
-    data: json["data"] == null ? null : Data.fromJson(json["data"]),
-  );
+  factory ModelTestListModel.fromJson(Map<String, dynamic> json) =>
+      ModelTestListModel(
+        status: json["status"],
+        data: json["data"] == null ? null : Data.fromJson(json["data"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "status": status,
-    "data": data?.toJson(),
-  };
+        "status": status,
+        "data": data?.toJson(),
+      };
 }
 
 class Data {
@@ -60,36 +62,45 @@ class Data {
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-    currentPage: json["current_page"],
-    data: json["data"] == null ? [] : List<ModelTest>.from(json["data"]!.map((x) => ModelTest.fromJson(x))),
-    firstPageUrl: json["first_page_url"],
-    from: json["from"],
-    lastPage: json["last_page"],
-    lastPageUrl: json["last_page_url"],
-    links: json["links"] == null ? [] : List<Link>.from(json["links"]!.map((x) => Link.fromJson(x))),
-    nextPageUrl: json["next_page_url"],
-    path: json["path"],
-    perPage: json["per_page"],
-    prevPageUrl: json["prev_page_url"],
-    to: json["to"],
-    total: json["total"],
-  );
+        currentPage: json["current_page"],
+        data: json["data"] == null
+            ? []
+            : List<ModelTest>.from(
+                json["data"]!.map((x) => ModelTest.fromJson(x))),
+        firstPageUrl: json["first_page_url"],
+        from: json["from"],
+        lastPage: json["last_page"],
+        lastPageUrl: json["last_page_url"],
+        links: json["links"] == null
+            ? []
+            : List<Link>.from(json["links"]!.map((x) => Link.fromJson(x))),
+        nextPageUrl: json["next_page_url"],
+        path: json["path"],
+        perPage: json["per_page"],
+        prevPageUrl: json["prev_page_url"],
+        to: json["to"],
+        total: json["total"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "current_page": currentPage,
-    "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x.toJson())),
-    "first_page_url": firstPageUrl,
-    "from": from,
-    "last_page": lastPage,
-    "last_page_url": lastPageUrl,
-    "links": links == null ? [] : List<dynamic>.from(links!.map((x) => x.toJson())),
-    "next_page_url": nextPageUrl,
-    "path": path,
-    "per_page": perPage,
-    "prev_page_url": prevPageUrl,
-    "to": to,
-    "total": total,
-  };
+        "current_page": currentPage,
+        "data": data == null
+            ? []
+            : List<dynamic>.from(data!.map((x) => x.toJson())),
+        "first_page_url": firstPageUrl,
+        "from": from,
+        "last_page": lastPage,
+        "last_page_url": lastPageUrl,
+        "links": links == null
+            ? []
+            : List<dynamic>.from(links!.map((x) => x.toJson())),
+        "next_page_url": nextPageUrl,
+        "path": path,
+        "per_page": perPage,
+        "prev_page_url": prevPageUrl,
+        "to": to,
+        "total": total,
+      };
 }
 
 class ModelTest {
@@ -122,34 +133,44 @@ class ModelTest {
   });
 
   factory ModelTest.fromJson(Map<String, dynamic> json) => ModelTest(
-    id: json["id"],
-    title: json["title"],
-    slug: json["slug"],
-    description: json["description"],
-    categoryId: json["category_id"],
-    image: json["image"],
-    order: json["order"],
-    status: json["status"],
-    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-    exams: json["exams"] == null ? [] : List<Exam>.from(json["exams"]!.map((x) => Exam.fromJson(x))),
-    category: json["category"] == null ? null : Category.fromJson(json["category"]),
-  );
+        id: json["id"],
+        title: json["title"],
+        slug: json["slug"],
+        description: json["description"],
+        categoryId: json["category_id"],
+        image: json["image"],
+        order: json["order"],
+        status: json["status"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
+        exams: json["exams"] == null
+            ? []
+            : List<Exam>.from(json["exams"]!.map((x) => Exam.fromJson(x))),
+        category: json["category"] == null
+            ? null
+            : Category.fromJson(json["category"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "title": title,
-    "slug": slug,
-    "description": description,
-    "category_id": categoryId,
-    "image": image,
-    "order": order,
-    "status": status,
-    "created_at": createdAt?.toIso8601String(),
-    "updated_at": updatedAt?.toIso8601String(),
-    "exams": exams == null ? [] : List<dynamic>.from(exams!.map((x) => x.toJson())),
-    "category": category?.toJson(),
-  };
+        "id": id,
+        "title": title,
+        "slug": slug,
+        "description": description,
+        "category_id": categoryId,
+        "image": image,
+        "order": order,
+        "status": status,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+        "exams": exams == null
+            ? []
+            : List<dynamic>.from(exams!.map((x) => x.toJson())),
+        "category": category?.toJson(),
+      };
 }
 
 class Link {
@@ -164,16 +185,16 @@ class Link {
   });
 
   factory Link.fromJson(Map<String, dynamic> json) => Link(
-    url: json["url"],
-    label: json["label"],
-    active: json["active"],
-  );
+        url: json["url"],
+        label: json["label"],
+        active: json["active"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "url": url,
-    "label": label,
-    "active": active,
-  };
+        "url": url,
+        "label": label,
+        "active": active,
+      };
 }
 
 class EnumValues<T> {

@@ -154,14 +154,15 @@ class CustomDrawer extends StatelessWidget {
           ),
           const Divider(height: 0.5, color: LightThemeColors.primaryColor),
           15.h.height,
-        const  Spacer(),
+          const Spacer(),
+
           /// App Version (standard)
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 0),
             child: Center(
               child: Text(
                 '© 2025 Lokkha. All rights reserved.',
-                style: AppTextStyles.body1.copyWith(fontSize: 11.sp),
+                style: AppTextStyles.body1.copyWith(fontSize: 11),
               ),
             ),
           ),
@@ -171,40 +172,15 @@ class CustomDrawer extends StatelessWidget {
             child: Center(
               child: Text(
                 'অ্যাপ ভার্শন: $appVersion',
-                style: AppTextStyles.body1.copyWith(fontSize: 11.sp),
+                style: AppTextStyles.body1.copyWith(fontSize: 11),
               ),
             ),
           ),
         ],
-      ).paddingSymmetric(horizontal: 10.0.w).paddingOnly(bottom: 20.0.h), // Reduced horizontal padding
+      )
+          .paddingSymmetric(horizontal: 10.0.w)
+          .paddingOnly(bottom: 20.0.h), // Reduced horizontal padding
     );
   }
 }
 
-// Reusable DrawerItem widget
-// class _DrawerItem extends StatelessWidget {
-//   final IconData icon;
-//   final String title;
-//   final VoidCallback onTap;
-//
-//   const _DrawerItem({
-//     required this.icon,
-//     required this.title,
-//     required this.onTap,
-//   });
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       children: [
-//         ListTile(
-//           visualDensity: VisualDensity.standard,
-//           leading: Icon(icon, size: 20, color: LightThemeColors.primaryColor),
-//           title: Text(title, style: const TextStyle(fontSize: 14)),
-//           onTap: onTap,
-//         ),
-//         const Divider(height: 0.5, color: LightThemeColors.primaryColor),
-//       ],
-//     );
-//   }
-// }

@@ -54,8 +54,6 @@ class JobsController extends GetxController {
     );
   }
 
-
-
   // Get jobs list from api method
   Future<void> getSingleJob(int id) async {
     isLoading.value = true;
@@ -140,10 +138,6 @@ class JobsController extends GetxController {
     //   }
     // }
   }
-
-
-
-
 
   @override
   void onReady() {

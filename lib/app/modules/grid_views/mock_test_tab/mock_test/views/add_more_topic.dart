@@ -40,7 +40,8 @@ class AddMoreTopic extends StatelessWidget {
                   mockController.model.value.subjects?.length ?? 0, (index) {
                 final subject = mockController.model.value.subjects![index];
 
-                final isSelected = controller.selectedSubjects.any((s) => s.id == subject.id);
+                final isSelected =
+                    controller.selectedSubjects.any((s) => s.id == subject.id);
 
                 if (isSelected) {
                   return const SizedBox.shrink(); // skip if already selected
@@ -81,7 +82,6 @@ class AddMoreTopic extends StatelessWidget {
               }),
             ),
           ),
-        )
-        );
+        ));
   }
 }

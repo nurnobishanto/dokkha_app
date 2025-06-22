@@ -13,7 +13,6 @@ import '../../helper/api_helper.dart';
 import '../../models/question.dart';
 import '../../models/start_exam_model.dart';
 
-
 class ExamProcessView extends StatefulWidget {
   final StartExamModel examStartModel;
 
@@ -27,7 +26,7 @@ class _ExamProcessViewState extends State<ExamProcessView> {
   @override
   Widget build(BuildContext context) {
     final StartExamController controller =
-    Get.put(StartExamController(widget.examStartModel));
+        Get.put(StartExamController(widget.examStartModel));
     if (kDebugMode) {
       print("Build  Exam Screen");
     }
@@ -40,7 +39,7 @@ class _ExamProcessViewState extends State<ExamProcessView> {
           title: Text(
             "পরীক্ষা",
             style:
-            AppTextStyles.heading4.copyWith(color: LightThemeColors.white),
+                AppTextStyles.heading4.copyWith(color: LightThemeColors.white),
           ),
           centerTitle: true,
           backgroundColor: LightThemeColors.primaryColor,
@@ -76,29 +75,29 @@ class _ExamProcessViewState extends State<ExamProcessView> {
             // Display timer
             controller.timerWork.value == true
                 ? Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 12, vertical: 8),
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const FaIcon(FontAwesomeIcons.clock,
-                        size: 18.0, color: Colors.white),
-                    const SizedBox(width: 8.0),
-                    Text(
-                      "সময় বাকি : ${_formatDuration(controller.duration!.value)} মিনিট",
-                      style: AppTextStyles.heading4
-                          .copyWith(color: LightThemeColors.white),
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 8),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const FaIcon(FontAwesomeIcons.clock,
+                              size: 18.0, color: Colors.white),
+                          const SizedBox(width: 8.0),
+                          Text(
+                            "সময় বাকি : ${_formatDuration(controller.duration!.value)} মিনিট",
+                            style: AppTextStyles.heading4
+                                .copyWith(color: LightThemeColors.white),
+                          ),
+                        ],
+                      ),
                     ),
-                  ],
-                ),
-              ),
-            )
+                  )
                 : const SizedBox(),
 
             // Question choice area
@@ -124,7 +123,7 @@ class _ExamProcessViewState extends State<ExamProcessView> {
                               Image.network(
                                 "${AppConstants.storageUrl}${question.questionImage}",
                                 errorBuilder: (context, error, stackTrace) =>
-                                const Icon(Icons.error, color: Colors.red),
+                                    const Icon(Icons.error, color: Colors.red),
                               ),
                             if (question.questionImage != null)
                               const SizedBox(height: 10.00),
@@ -138,7 +137,7 @@ class _ExamProcessViewState extends State<ExamProcessView> {
 
                             Container(
                               padding:
-                              const EdgeInsets.symmetric(horizontal: 7),
+                                  const EdgeInsets.symmetric(horizontal: 7),
                               width: double.infinity,
                               decoration: const BoxDecoration(
                                 color: LightThemeColors.primaryColor,
@@ -149,7 +148,7 @@ class _ExamProcessViewState extends State<ExamProcessView> {
                               ),
                               child: Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Expanded(
@@ -169,8 +168,8 @@ class _ExamProcessViewState extends State<ExamProcessView> {
                                     child: Obx(() {
                                       // Ensure that the controller has an observable value for the favorite status
                                       bool isFavorite =
-                                      controller.checkQuestionExistInSaved(
-                                          question.id!.toInt());
+                                          controller.checkQuestionExistInSaved(
+                                              question.id!.toInt());
 
                                       return IconButton(
                                         onPressed: () {
@@ -237,19 +236,18 @@ class _ExamProcessViewState extends State<ExamProcessView> {
   Widget customQuestionWidget(
       StartExamController controller, Question question) {
     switch (question.questionType) {
-    // case QuestionType.FILL_IN_THE_BLANK:
-    //   return _buildFillInTheBlank(controller, question);
+      // case QuestionType.FILL_IN_THE_BLANK:
+      //   return _buildFillInTheBlank(controller, question);
       case QuestionType.SINGLE_CHOICE:
         return _buildSingleChoice(controller, question);
-    // case QuestionType.MULTIPLE_CHOICE:
-    //   return _buildMultipleChoice(controller, question);
+      // case QuestionType.MULTIPLE_CHOICE:
+      //   return _buildMultipleChoice(controller, question);
       default:
         return Container();
     }
   }
 
-  Widget _buildSingleChoice(
-      StartExamController controller, Question question) {
+  Widget _buildSingleChoice(StartExamController controller, Question question) {
     return Column(
       children: question.options!.map((option) {
         // Check if the option is already selected
@@ -358,4 +356,3 @@ class _ExamProcessViewState extends State<ExamProcessView> {
 //     ],
 //   );
 }
-

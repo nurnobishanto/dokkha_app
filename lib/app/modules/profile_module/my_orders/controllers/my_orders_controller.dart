@@ -54,5 +54,4 @@ class MyOrdersController extends GetxController {
     fetchMyOrders(refresh: true);
     super.onInit();
   }
-
 }

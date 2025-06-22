@@ -5,7 +5,6 @@ import 'package:lokkha/app/modules/profile_module/my_orders/views/order_details_
 import 'package:lokkha/config/theme/light_theme_colors.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-
 class PaymentWebView extends StatefulWidget {
   const PaymentWebView({super.key, required this.url});
   final String url;
@@ -30,7 +29,7 @@ class _PaymentWebViewState extends State<PaymentWebView> {
           onWebResourceError: (WebResourceError error) {},
           onNavigationRequest: (NavigationRequest request) {
             if (request.url.contains('order-details')) {
-              Get.off( OrderDetailsScreen(url: request.url));
+              Get.off(OrderDetailsScreen(url: request.url));
             } else if (request.url.startsWith("https://youtube.com")) {
               return NavigationDecision.prevent;
             }
@@ -46,7 +45,7 @@ class _PaymentWebViewState extends State<PaymentWebView> {
 
   @override
   Widget build(BuildContext context) {
-    return   Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: const Text(
           "পেমেন্ট করুন",

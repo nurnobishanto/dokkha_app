@@ -56,7 +56,8 @@ class ContestDetailsView extends StatelessWidget {
                       onPressed: () {
                         if (MySharedPref.getUserToken() != '' ||
                             MySharedPref.getUserToken().isNotEmpty) {
-                          Get.find<LatestContestController>().startContest(contest.id!.toInt());
+                          Get.find<LatestContestController>()
+                              .startContest(contest.id!.toInt());
                           Get.back();
                         } else {
                           Get.to(const AuthGatewayView());

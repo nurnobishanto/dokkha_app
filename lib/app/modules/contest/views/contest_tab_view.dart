@@ -22,22 +22,20 @@ class ContestTabView extends StatelessWidget {
             children: [
               Container(
                 color: LightThemeColors.primaryColor,
-                child:  TabBar(
+                child: TabBar(
                   indicatorColor: LightThemeColors.white,
                   labelColor: LightThemeColors.white,
                   unselectedLabelColor: Colors.white70,
                   tabs: [
                     Tab(
-                      child: Text(
-                        "সর্বশেষ কনটেস্ট",
-                  style: AppTextStyles.heading5.copyWith(color: LightThemeColors.white)
-                      ),
+                      child: Text("সর্বশেষ কনটেস্ট",
+                          style: AppTextStyles.heading5
+                              .copyWith(color: LightThemeColors.white)),
                     ),
                     Tab(
-                      child: Text(
-                        "সকল কনটেস্ট",
-                        style: AppTextStyles.heading5.copyWith(color: LightThemeColors.white)
-                      ),
+                      child: Text("সকল কনটেস্ট",
+                          style: AppTextStyles.heading5
+                              .copyWith(color: LightThemeColors.white)),
                     ),
                   ],
                 ),

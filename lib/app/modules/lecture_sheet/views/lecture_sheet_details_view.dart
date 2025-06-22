@@ -100,7 +100,6 @@ class LectureSheetCard extends StatelessWidget {
                 : ClipRRect(
                     borderRadius: BorderRadius.circular(12),
                     child: CustomNetworkImageCard(
-
                       imageUrl: fullFileUrl,
                     ),
                   ),

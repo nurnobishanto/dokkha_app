@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
@@ -161,24 +160,23 @@ class CurrentAffairsContentView extends StatelessWidget {
                                 }).toList() ??
                                 [],
                           ),
-                          Align(
-                            alignment: Alignment.topRight,
-                            child:
-                              InkWell(
-                                onTap: () {
-                                  ExplanationDialog.show(question);
-                                },
-                                child: Text(
-                                  "ব্যাখ্যা দেখুন →",
-                                  style: AppTextStyles.body1.copyWith(
-                                    color: LightThemeColors.primaryColor,
+                          (question.explanation != null)
+                              ? Align(
+                                  alignment: Alignment.topRight,
+                                  child: InkWell(
+                                    onTap: () {
+                                      ExplanationDialog.show(question);
+                                    },
+                                    child: Text(
+                                      "ব্যাখ্যা দেখুন →",
+                                      style: AppTextStyles.body1.copyWith(
+                                        color: LightThemeColors.primaryColor,
+                                      ),
+                                      textAlign: TextAlign.end,
+                                    ),
                                   ),
-                                  textAlign: TextAlign.end,
-                                ),
-                              ),
-
-                          ),
-                          const SizedBox(height: 10.00),
+                                )
+                              : const SizedBox(height: 10.00),
                         ],
                       );
                     },

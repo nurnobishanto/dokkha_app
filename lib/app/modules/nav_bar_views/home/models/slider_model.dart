@@ -4,7 +4,8 @@
 
 import 'dart:convert';
 
-SliderModel sliderModelFromJson(String str) => SliderModel.fromJson(json.decode(str));
+SliderModel sliderModelFromJson(String str) =>
+    SliderModel.fromJson(json.decode(str));
 
 String sliderModelToJson(SliderModel data) => json.encode(data.toJson());
 
@@ -18,14 +19,19 @@ class SliderModel {
   });
 
   factory SliderModel.fromJson(Map<String, dynamic> json) => SliderModel(
-    status: json["status"],
-    sliders: json["sliders"] == null ? [] : List<Slider>.from(json["sliders"]!.map((x) => Slider.fromJson(x))),
-  );
+        status: json["status"],
+        sliders: json["sliders"] == null
+            ? []
+            : List<Slider>.from(
+                json["sliders"]!.map((x) => Slider.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "status": status,
-    "sliders": sliders == null ? [] : List<dynamic>.from(sliders!.map((x) => x.toJson())),
-  };
+        "status": status,
+        "sliders": sliders == null
+            ? []
+            : List<dynamic>.from(sliders!.map((x) => x.toJson())),
+      };
 }
 
 class Slider {
@@ -64,38 +70,42 @@ class Slider {
   });
 
   factory Slider.fromJson(Map<String, dynamic> json) => Slider(
-    id: json["id"],
-    title: json["title"],
-    heading: json["heading"],
-    image: json["image"],
-    type: json["type"],
-    sorting: json["sorting"],
-    status: json["status"],
-    buttonName: json["button_name"],
-    buttonUrl: json["button_url"],
-    link: json["link"],
-    page: json["page"],
-    param: json["param"],
-    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-    deletedAt: json["deleted_at"],
-  );
+        id: json["id"],
+        title: json["title"],
+        heading: json["heading"],
+        image: json["image"],
+        type: json["type"],
+        sorting: json["sorting"],
+        status: json["status"],
+        buttonName: json["button_name"],
+        buttonUrl: json["button_url"],
+        link: json["link"],
+        page: json["page"],
+        param: json["param"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
+        deletedAt: json["deleted_at"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "title": title,
-    "heading": heading,
-    "image": image,
-    "type": type,
-    "sorting": sorting,
-    "status": status,
-    "button_name": buttonName,
-    "button_url": buttonUrl,
-    "link": link,
-    "page": page,
-    "param": param,
-    "created_at": createdAt?.toIso8601String(),
-    "updated_at": updatedAt?.toIso8601String(),
-    "deleted_at": deletedAt,
-  };
+        "id": id,
+        "title": title,
+        "heading": heading,
+        "image": image,
+        "type": type,
+        "sorting": sorting,
+        "status": status,
+        "button_name": buttonName,
+        "button_url": buttonUrl,
+        "link": link,
+        "page": page,
+        "param": param,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+        "deleted_at": deletedAt,
+      };
 }

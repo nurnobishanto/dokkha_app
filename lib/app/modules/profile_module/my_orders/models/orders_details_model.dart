@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import '../../../../models/order.dart';
 
-OrderDetailsModel orderDetailsModelFromJson(String str) => OrderDetailsModel.fromJson(json.decode(str));
-String orderDetailsModelToJson(OrderDetailsModel data) => json.encode(data.toJson());
+OrderDetailsModel orderDetailsModelFromJson(String str) =>
+    OrderDetailsModel.fromJson(json.decode(str));
+String orderDetailsModelToJson(OrderDetailsModel data) =>
+    json.encode(data.toJson());
 
 class OrderDetailsModel {
   final bool? status;
@@ -13,18 +15,14 @@ class OrderDetailsModel {
     this.order,
   });
 
-  factory OrderDetailsModel.fromJson(Map<String, dynamic> json) => OrderDetailsModel(
-    status: json["status"],
-    order: json["order"] == null ? null : Order.fromJson(json["order"]),
-  );
+  factory OrderDetailsModel.fromJson(Map<String, dynamic> json) =>
+      OrderDetailsModel(
+        status: json["status"],
+        order: json["order"] == null ? null : Order.fromJson(json["order"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "status": status,
-    "order": order?.toJson(),
-  };
+        "status": status,
+        "order": order?.toJson(),
+      };
 }
-
-
-
-
-

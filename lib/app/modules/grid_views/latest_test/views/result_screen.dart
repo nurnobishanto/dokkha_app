@@ -18,8 +18,7 @@ class ResultScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final questionList = model.results;
-    final ResultController controller =
-        Get.put(ResultController());
+    final ResultController controller = Get.put(ResultController());
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
@@ -89,7 +88,7 @@ class ResultScreen extends StatelessWidget {
                               Image.network(
                                 "${AppConstants.storageUrl}${question.question!.questionImage}",
                                 errorBuilder: (context, error, stackTrace) =>
-                                const Icon(Icons.error, color: Colors.red),
+                                    const Icon(Icons.error, color: Colors.red),
                               ),
                             question.question!.questionImage != null
                                 ? const SizedBox(height: 10.00)
@@ -114,7 +113,7 @@ class ResultScreen extends StatelessWidget {
                               ),
                               child: Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Expanded(
@@ -134,8 +133,8 @@ class ResultScreen extends StatelessWidget {
                                     child: Obx(() {
                                       // Ensure that the controller has an observable value for the favorite status
                                       bool isFavorite =
-                                      controller.checkQuestionExistInSaved(
-                                          question.question!.id!.toInt());
+                                          controller.checkQuestionExistInSaved(
+                                              question.question!.id!.toInt());
 
                                       return IconButton(
                                         onPressed: () {

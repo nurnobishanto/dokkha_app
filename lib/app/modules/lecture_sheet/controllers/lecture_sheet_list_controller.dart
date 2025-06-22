@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/services/api_call_status.dart';
@@ -18,7 +17,8 @@ class LectureSheetListController extends GetxController {
     if (isLoading.value || isLastPage.value) return;
     isLoading.value = true;
     print("Call Current After Page ${currentPage.value}");
-    final url = "${AppConstants.lectureSheetCategories}?page=${currentPage.value}";
+    final url =
+        "${AppConstants.lectureSheetCategories}?page=${currentPage.value}";
     await BaseClient.safeApiCall(
       url,
       RequestType.get,
@@ -28,7 +28,8 @@ class LectureSheetListController extends GetxController {
           if (model.categories?.data?.isNotEmpty ?? false) {
             categories.addAll(model.categories!.data!);
             currentPage.value++;
-            isLastPage.value = model.categories!.currentPage == model.categories!.lastPage;
+            isLastPage.value =
+                model.categories!.currentPage == model.categories!.lastPage;
           } else {
             isLastPage.value = true;
           }

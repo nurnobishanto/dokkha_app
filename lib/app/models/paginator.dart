@@ -30,9 +30,9 @@ class Paginator<T> {
   });
 
   factory Paginator.fromJson(
-      Map<String, dynamic> json,
-      T Function(Map<String, dynamic>) fromJsonT,
-      ) {
+    Map<String, dynamic> json,
+    T Function(Map<String, dynamic>) fromJsonT,
+  ) {
     return Paginator<T>(
       currentPage: json["current_page"],
       data: json["data"] == null
@@ -55,21 +55,22 @@ class Paginator<T> {
   }
 
   Map<String, dynamic> toJson(Map<String, dynamic> Function(T) toJsonT) => {
-    "current_page": currentPage,
-    "data": data == null ? [] : data!.map((x) => toJsonT(x)).toList(),
-    "first_page_url": firstPageUrl,
-    "from": from,
-    "last_page": lastPage,
-    "last_page_url": lastPageUrl,
-    "links": links == null ? [] : links!.map((x) => x.toJson()).toList(),
-    "next_page_url": nextPageUrl,
-    "path": path,
-    "per_page": perPage,
-    "prev_page_url": prevPageUrl,
-    "to": to,
-    "total": total,
-  };
+        "current_page": currentPage,
+        "data": data == null ? [] : data!.map((x) => toJsonT(x)).toList(),
+        "first_page_url": firstPageUrl,
+        "from": from,
+        "last_page": lastPage,
+        "last_page_url": lastPageUrl,
+        "links": links == null ? [] : links!.map((x) => x.toJson()).toList(),
+        "next_page_url": nextPageUrl,
+        "path": path,
+        "per_page": perPage,
+        "prev_page_url": prevPageUrl,
+        "to": to,
+        "total": total,
+      };
 }
+
 class Link {
   final String? url;
   final String? label;
@@ -82,14 +83,14 @@ class Link {
   });
 
   factory Link.fromJson(Map<String, dynamic> json) => Link(
-    url: json["url"],
-    label: json["label"],
-    active: json["active"],
-  );
+        url: json["url"],
+        label: json["label"],
+        active: json["active"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "url": url,
-    "label": label,
-    "active": active,
-  };
+        "url": url,
+        "label": label,
+        "active": active,
+      };
 }

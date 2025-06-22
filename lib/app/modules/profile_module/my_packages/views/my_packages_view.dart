@@ -41,8 +41,10 @@ class MyPackagesView extends GetView<MyPackagesController> {
               final pkg = packages[index];
               return PackageCard(
                 name: pkg.package?.name ?? '',
-                startDate: DateTime.tryParse(pkg.subscribedAt.toString()) ?? DateTime.now(),
-                endDate: DateTime.tryParse(pkg.cancelledAt.toString()) ?? DateTime.now(),
+                startDate: DateTime.tryParse(pkg.subscribedAt.toString()) ??
+                    DateTime.now(),
+                endDate: DateTime.tryParse(pkg.cancelledAt.toString()) ??
+                    DateTime.now(),
               );
             },
           );
@@ -53,7 +55,6 @@ class MyPackagesView extends GetView<MyPackagesController> {
     );
   }
 }
-
 
 class PackageCard extends StatelessWidget {
   const PackageCard({

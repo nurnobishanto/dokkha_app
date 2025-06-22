@@ -71,5 +71,3 @@ class ModelTestView extends GetView<ModelTestController> {
     );
   }
 }
-
-

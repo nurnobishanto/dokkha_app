@@ -6,9 +6,11 @@ import 'dart:convert';
 
 import '../../../../models/user.dart';
 
-MyPackagesModel myPackagesModelFromJson(String str) => MyPackagesModel.fromJson(json.decode(str));
+MyPackagesModel myPackagesModelFromJson(String str) =>
+    MyPackagesModel.fromJson(json.decode(str));
 
-String myPackagesModelToJson(MyPackagesModel data) => json.encode(data.toJson());
+String myPackagesModelToJson(MyPackagesModel data) =>
+    json.encode(data.toJson());
 
 class MyPackagesModel {
   final bool? status;
@@ -19,15 +21,21 @@ class MyPackagesModel {
     this.packages,
   });
 
-  factory MyPackagesModel.fromJson(Map<String, dynamic> json) => MyPackagesModel(
-    status: json["status"],
-    packages: json["packages"] == null ? [] : List<PackageElement>.from(json["packages"]!.map((x) => PackageElement.fromJson(x))),
-  );
+  factory MyPackagesModel.fromJson(Map<String, dynamic> json) =>
+      MyPackagesModel(
+        status: json["status"],
+        packages: json["packages"] == null
+            ? []
+            : List<PackageElement>.from(
+                json["packages"]!.map((x) => PackageElement.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "status": status,
-    "packages": packages == null ? [] : List<dynamic>.from(packages!.map((x) => x.toJson())),
-  };
+        "status": status,
+        "packages": packages == null
+            ? []
+            : List<dynamic>.from(packages!.map((x) => x.toJson())),
+      };
 }
 
 class PackageElement {
@@ -56,30 +64,40 @@ class PackageElement {
   });
 
   factory PackageElement.fromJson(Map<String, dynamic> json) => PackageElement(
-    id: json["id"],
-    userId: json["user_id"],
-    packageId: json["package_id"],
-    status: json["status"],
-    subscribedAt: json["subscribed_at"] == null ? null : DateTime.parse(json["subscribed_at"]),
-    cancelledAt: json["cancelled_at"] == null ? null : DateTime.parse(json["cancelled_at"]),
-    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-    package: json["package"] == null ? null : PackagePackage.fromJson(json["package"]),
-    user: json["user"] == null ? null : User.fromJson(json["user"]),
-  );
+        id: json["id"],
+        userId: json["user_id"],
+        packageId: json["package_id"],
+        status: json["status"],
+        subscribedAt: json["subscribed_at"] == null
+            ? null
+            : DateTime.parse(json["subscribed_at"]),
+        cancelledAt: json["cancelled_at"] == null
+            ? null
+            : DateTime.parse(json["cancelled_at"]),
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
+        package: json["package"] == null
+            ? null
+            : PackagePackage.fromJson(json["package"]),
+        user: json["user"] == null ? null : User.fromJson(json["user"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "user_id": userId,
-    "package_id": packageId,
-    "status": status,
-    "subscribed_at": subscribedAt?.toIso8601String(),
-    "cancelled_at": cancelledAt?.toIso8601String(),
-    "created_at": createdAt?.toIso8601String(),
-    "updated_at": updatedAt?.toIso8601String(),
-    "package": package?.toJson(),
-    "user": user?.toJson(),
-  };
+        "id": id,
+        "user_id": userId,
+        "package_id": packageId,
+        "status": status,
+        "subscribed_at": subscribedAt?.toIso8601String(),
+        "cancelled_at": cancelledAt?.toIso8601String(),
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+        "package": package?.toJson(),
+        "user": user?.toJson(),
+      };
 }
 
 class PackagePackage {
@@ -138,59 +156,62 @@ class PackagePackage {
   });
 
   factory PackagePackage.fromJson(Map<String, dynamic> json) => PackagePackage(
-    id: json["id"],
-    name: json["name"],
-    description: json["description"],
-    regularPrice: json["regular_price"],
-    duration: json["duration"],
-    discount: json["discount"],
-    discountedPrice: json["discounted_price"],
-    status: json["status"],
-    isFeatured: json["is_featured"],
-    features: json["features"],
-    isTrial: json["is_trial"],
-    trialDuration: json["trial_duration"],
-    termsAndConditions: json["terms_and_conditions"],
-    metaTitle: json["meta_title"],
-    metaDescription: json["meta_description"],
-    metaKeywords: json["meta_keywords"],
-    metaImage: json["meta_image"],
-    metaAuthor: json["meta_author"],
-    metaUrl: json["meta_url"],
-    metaData: json["meta_data"],
-    headerCode: json["header_code"],
-    footerCode: json["footer_code"],
-    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-    deletedAt: json["deleted_at"],
-  );
+        id: json["id"],
+        name: json["name"],
+        description: json["description"],
+        regularPrice: json["regular_price"],
+        duration: json["duration"],
+        discount: json["discount"],
+        discountedPrice: json["discounted_price"],
+        status: json["status"],
+        isFeatured: json["is_featured"],
+        features: json["features"],
+        isTrial: json["is_trial"],
+        trialDuration: json["trial_duration"],
+        termsAndConditions: json["terms_and_conditions"],
+        metaTitle: json["meta_title"],
+        metaDescription: json["meta_description"],
+        metaKeywords: json["meta_keywords"],
+        metaImage: json["meta_image"],
+        metaAuthor: json["meta_author"],
+        metaUrl: json["meta_url"],
+        metaData: json["meta_data"],
+        headerCode: json["header_code"],
+        footerCode: json["footer_code"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
+        deletedAt: json["deleted_at"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "description": description,
-    "regular_price": regularPrice,
-    "duration": duration,
-    "discount": discount,
-    "discounted_price": discountedPrice,
-    "status": status,
-    "is_featured": isFeatured,
-    "features": features,
-    "is_trial": isTrial,
-    "trial_duration": trialDuration,
-    "terms_and_conditions": termsAndConditions,
-    "meta_title": metaTitle,
-    "meta_description": metaDescription,
-    "meta_keywords": metaKeywords,
-    "meta_image": metaImage,
-    "meta_author": metaAuthor,
-    "meta_url": metaUrl,
-    "meta_data": metaData,
-    "header_code": headerCode,
-    "footer_code": footerCode,
-    "created_at": createdAt?.toIso8601String(),
-    "updated_at": updatedAt?.toIso8601String(),
-    "deleted_at": deletedAt,
-  };
+        "id": id,
+        "name": name,
+        "description": description,
+        "regular_price": regularPrice,
+        "duration": duration,
+        "discount": discount,
+        "discounted_price": discountedPrice,
+        "status": status,
+        "is_featured": isFeatured,
+        "features": features,
+        "is_trial": isTrial,
+        "trial_duration": trialDuration,
+        "terms_and_conditions": termsAndConditions,
+        "meta_title": metaTitle,
+        "meta_description": metaDescription,
+        "meta_keywords": metaKeywords,
+        "meta_image": metaImage,
+        "meta_author": metaAuthor,
+        "meta_url": metaUrl,
+        "meta_data": metaData,
+        "header_code": headerCode,
+        "footer_code": footerCode,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+        "deleted_at": deletedAt,
+      };
 }
-

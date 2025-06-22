@@ -4,13 +4,7 @@ import '../../../../utils/constants.dart';
 import '../../../services/base_client.dart';
 import '../models/latest_exam_model.dart';
 
-
-
-
-
-
 import 'package:lokkha/app/services/api_call_status.dart';
-
 
 class LatestExamController extends GetxController {
   RxBool isLoading = true.obs;

@@ -35,13 +35,11 @@ class ForgetPasswordView extends GetView<ForgetPasswordController> {
               "আপনার ফোন নম্বর এ ৬ ডিজিটের OTP পাঠানো ভেরিফাই করুন",
               textAlign: TextAlign.center,
             ),
-
             const CustomTextFormField(
               controller: null,
               prefixIcon: Icon(FontAwesomeIcons.phone),
               hintText: "আপনার ১১ সংখ্যার ফোন নম্বর লিখুন",
             ),
-
             CustomActionButton(
               text: "Verify",
               onPressed: () {

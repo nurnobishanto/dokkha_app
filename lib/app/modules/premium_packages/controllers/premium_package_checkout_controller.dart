@@ -1,4 +1,3 @@
-
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:lokkha/app/components/custom_snackbar.dart';
@@ -16,14 +15,21 @@ class PremiumPackageCheckoutController extends GetxController {
   RxBool isCheckedCondition = false.obs;
   //************************** Text Field Area ******************************* */
   final Rx<TextEditingController> nameController = TextEditingController(
-    text:Get.find<NavbarController>().profileDataModel.value!.user!.name ?? '',
+    text: Get.find<NavbarController>().profileDataModel.value!.user!.name ?? '',
   ).obs;
-  final Rx<TextEditingController> phoneController =
-      TextEditingController(text: Get.find<NavbarController>().profileDataModel.value!.user!.phone?? '')
-          .obs;
+  final Rx<TextEditingController> phoneController = TextEditingController(
+          text: Get.find<NavbarController>()
+                  .profileDataModel
+                  .value!
+                  .user!
+                  .phone ??
+              '')
+      .obs;
 
-  final Rx<TextEditingController> mailController =
-      TextEditingController(text: Get.find<NavbarController>().profileDataModel.value!.user!.email).obs;
+  final Rx<TextEditingController> mailController = TextEditingController(
+          text:
+              Get.find<NavbarController>().profileDataModel.value!.user!.email)
+      .obs;
   RxBool isLoading = false.obs;
 
   //final otp = MySharedPref.getOTPNumber();
@@ -92,15 +98,16 @@ class PremiumPackageCheckoutController extends GetxController {
     }
   }
 
-/// Apply coupon Method...
+  /// Apply coupon Method...
   ApiCallStatus apiCallStatus = ApiCallStatus.holding;
   RxString appliedCouponMessage = "".obs;
   RxInt discountAmount = (-1).obs;
   RxInt totalAmount = (-1).obs;
-  Future<void> couponApply(String couponCode, String price, BuildContext context) async {
+  Future<void> couponApply(
+      String couponCode, String price, BuildContext context) async {
     apiCallStatus = ApiCallStatus.loading;
     update();
-    String ? token = MySharedPref.getUserToken();
+    String? token = MySharedPref.getUserToken();
     String url = AppConstants.couponApply;
     final headers = {
       'Content-Type': 'application/json',
@@ -124,8 +131,10 @@ class PremiumPackageCheckoutController extends GetxController {
         if (status == true) {
           apiCallStatus = ApiCallStatus.success;
           appliedCouponMessage.value = message; // Optional
-          discountAmount.value = int.tryParse(response.data["discount"].toString()) ?? -1;
-          totalAmount.value = int.tryParse(response.data["discount_price"].toString()) ?? -1;
+          discountAmount.value =
+              int.tryParse(response.data["discount"].toString()) ?? -1;
+          totalAmount.value =
+              int.tryParse(response.data["discount_price"].toString()) ?? -1;
           CustomSnackBar.showCustomToast(message: message);
         } else {
           apiCallStatus = ApiCallStatus.error;
@@ -157,11 +166,10 @@ class PremiumPackageCheckoutController extends GetxController {
       totalAmount.value = -1;
     }
   }
+
   @override
   void onInit() {
     Get.find<NavbarController>().getMeProfileInfo();
     super.onInit();
   }
-
-
 }

@@ -114,7 +114,7 @@ class LatestExamCard extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.all( 8.00),
+          padding: const EdgeInsets.all(8.00),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -128,7 +128,6 @@ class LatestExamCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 4.00),
-
               Row(
                 children: [
                   Container(

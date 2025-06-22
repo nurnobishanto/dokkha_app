@@ -149,8 +149,6 @@
 //   }
 // }
 
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/models/start_exam_model.dart';
@@ -176,7 +174,8 @@ class _LatestExamStartDialogState extends State<LatestExamStartDialog> {
   @override
   void initState() {
     super.initState();
-    examTimeController = TextEditingController(text: widget.latestExam.tag!.questions!.length.toString());
+    examTimeController = TextEditingController(
+        text: widget.latestExam.tag!.questions!.length.toString());
     selectedNegativeMark = '0.25';
   }
 
@@ -208,9 +207,11 @@ class _LatestExamStartDialogState extends State<LatestExamStartDialog> {
             const SizedBox(height: 24),
             Row(
               children: [
-                _readOnlyField(label: 'প্রশ্ন', value: questionCount.toString()),
+                _readOnlyField(
+                    label: 'প্রশ্ন', value: questionCount.toString()),
                 const SizedBox(width: 12),
-                _editableField(label: 'পরীক্ষার সময়', controller: examTimeController),
+                _editableField(
+                    label: 'পরীক্ষার সময়', controller: examTimeController),
               ],
             ),
             // const SizedBox(height: 12),
@@ -221,7 +222,7 @@ class _LatestExamStartDialogState extends State<LatestExamStartDialog> {
             //     _buildDropdownField(label: 'নেগেটিভ মার্ক'),
             //   ],
             // ),
-             const SizedBox(height: 12),
+            const SizedBox(height: 12),
             const Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -240,7 +241,6 @@ class _LatestExamStartDialogState extends State<LatestExamStartDialog> {
                 _button('পড়ুন', Colors.green, Colors.white, () {
                   Navigator.pop(context);
                   _navigateToNextPage(context, isStartExam: false);
-
                 }),
                 const SizedBox(width: 8),
                 _button('বাতিল', Colors.grey.shade300, Colors.black87, () {
@@ -257,8 +257,8 @@ class _LatestExamStartDialogState extends State<LatestExamStartDialog> {
   void _navigateToNextPage(BuildContext context, {required bool isStartExam}) {
     final time = int.tryParse(examTimeController.text) ?? 60;
 
-    if(isStartExam){
-      StartExamModel model  = StartExamModel(
+    if (isStartExam) {
+      StartExamModel model = StartExamModel(
         status: true,
         examName: widget.latestExam.title.toString(),
         type: 'random',
@@ -271,8 +271,9 @@ class _LatestExamStartDialogState extends State<LatestExamStartDialog> {
         questions: widget.latestExam.tag!.questions!.toList(),
       );
       Get.to(ExamProcessView(examStartModel: model));
-    }else{
-      Get.to(ReadQuestionView(model: widget.latestExam.tag!.questions!.toList()));
+    } else {
+      Get.to(
+          ReadQuestionView(model: widget.latestExam.tag!.questions!.toList()));
     }
   }
 
@@ -287,8 +288,10 @@ class _LatestExamStartDialogState extends State<LatestExamStartDialog> {
             readOnly: true,
             controller: TextEditingController(text: value),
             decoration: InputDecoration(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
               isDense: true,
             ),
           ),
@@ -297,7 +300,8 @@ class _LatestExamStartDialogState extends State<LatestExamStartDialog> {
     );
   }
 
-  Widget _editableField({required String label, required TextEditingController controller}) {
+  Widget _editableField(
+      {required String label, required TextEditingController controller}) {
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -308,8 +312,10 @@ class _LatestExamStartDialogState extends State<LatestExamStartDialog> {
             controller: controller,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
               isDense: true,
             ),
           ),
@@ -318,13 +324,12 @@ class _LatestExamStartDialogState extends State<LatestExamStartDialog> {
     );
   }
 
-
   Widget _button(
-      String label,
-      Color bgColor,
-      Color textColor,
-      VoidCallback onPressed,
-      ) {
+    String label,
+    Color bgColor,
+    Color textColor,
+    VoidCallback onPressed,
+  ) {
     return Expanded(
       child: ElevatedButton(
         onPressed: onPressed,

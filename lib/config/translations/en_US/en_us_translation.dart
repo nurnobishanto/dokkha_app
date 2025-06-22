@@ -1,11 +1,11 @@
 import '../strings_enum.dart';
 
 const Map<String, String> enUs = {
-  Strings.hello : 'Hello!',
-  Strings.loading : 'Loading',
+  Strings.hello: 'Hello!',
+  Strings.loading: 'Loading',
 
-  Strings.changeTheme : 'Change theme',
-  Strings.changeLanguage : 'Change language',
+  Strings.changeTheme: 'Change theme',
+  Strings.changeLanguage: 'Change language',
 
   // Strings.noInternetConnection : 'No internet connection!',
   // Strings.serverNotResponding : 'Server is not responding!',

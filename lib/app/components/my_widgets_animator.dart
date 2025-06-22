@@ -19,30 +19,32 @@ class MyWidgetsAnimator extends StatelessWidget {
   // if false refresh widget will be shown or empty box if passed (refreshWidget) is null
   final bool hideSuccessWidgetWhileRefreshing;
 
-
-  const MyWidgetsAnimator(
-      {Key? key,
-        required this.apiCallStatus,
-        required this.loadingWidget,
-        required this.errorWidget,
-        required this.successWidget,
-        this.holdingWidget,
-        this.emptyWidget,
-        this.refreshWidget,
-        this.animationDuration,
-        this.transitionBuilder,
-        this.hideSuccessWidgetWhileRefreshing = false,
-      })
-      : super(key: key);
+  const MyWidgetsAnimator({
+    Key? key,
+    required this.apiCallStatus,
+    required this.loadingWidget,
+    required this.errorWidget,
+    required this.successWidget,
+    this.holdingWidget,
+    this.emptyWidget,
+    this.refreshWidget,
+    this.animationDuration,
+    this.transitionBuilder,
+    this.hideSuccessWidgetWhileRefreshing = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AnimatedSwitcher(
       duration: animationDuration ?? const Duration(milliseconds: 300),
       child: _getChild()(),
-      transitionBuilder: transitionBuilder ?? (child, animation) {
-        return FadeTransition(opacity: animation,child: child,);
-      },
+      transitionBuilder: transitionBuilder ??
+          (child, animation) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
     );
   }
 
@@ -52,13 +54,24 @@ class MyWidgetsAnimator extends StatelessWidget {
     } else if (apiCallStatus == ApiCallStatus.error) {
       return errorWidget;
     } else if (apiCallStatus == ApiCallStatus.holding) {
-      return holdingWidget ?? () { return const SizedBox();};
+      return holdingWidget ??
+          () {
+            return const SizedBox();
+          };
     } else if (apiCallStatus == ApiCallStatus.loading) {
       return loadingWidget;
-    }else if (apiCallStatus == ApiCallStatus.empty) {
-      return emptyWidget ?? (){return const SizedBox();};
-    }else if (apiCallStatus == ApiCallStatus.refresh) {
-      return refreshWidget ?? (hideSuccessWidgetWhileRefreshing ? successWidget :  (){return const SizedBox();});
+    } else if (apiCallStatus == ApiCallStatus.empty) {
+      return emptyWidget ??
+          () {
+            return const SizedBox();
+          };
+    } else if (apiCallStatus == ApiCallStatus.refresh) {
+      return refreshWidget ??
+          (hideSuccessWidgetWhileRefreshing
+              ? successWidget
+              : () {
+                  return const SizedBox();
+                });
     } else {
       return successWidget;
     }

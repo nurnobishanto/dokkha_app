@@ -29,10 +29,13 @@ class LastContestResultWidget extends StatelessWidget {
                   child: CircularProgressIndicator(),
                 )
               : InkWell(
-            onTap: (){
-              Get.to(ContestResultView(contestResults: controller.lastContestResultModel.value.contestResults!.toList()));
-            },
-                child: Container(
+                  onTap: () {
+                    Get.to(ContestResultView(
+                        contestResults: controller
+                            .lastContestResultModel.value.contestResults!
+                            .toList()));
+                  },
+                  child: Container(
                     color: Colors.green.shade50,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -47,19 +50,19 @@ class LastContestResultWidget extends StatelessWidget {
                           return Padding(
                             padding: EdgeInsets.only(top: topPadding),
                             child: topRankedUser(
-                              imagePath:
-                                  controller.rankUsers[index].image.toString(),
-                              id: controller.rankUsers[index].userId.toString(),
-                              rank: displayRank,
-                              isFirst: displayRank == 1,
-                              user:  controller.rankUsers[index].user
-                            ),
+                                imagePath: controller.rankUsers[index].image
+                                    .toString(),
+                                id: controller.rankUsers[index].userId
+                                    .toString(),
+                                rank: displayRank,
+                                isFirst: displayRank == 1,
+                                user: controller.rankUsers[index].user),
                           );
                         },
                       ),
                     ),
                   ),
-              ),
+                ),
         ],
       );
     });

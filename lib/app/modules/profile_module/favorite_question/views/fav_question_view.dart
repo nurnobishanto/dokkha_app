@@ -18,8 +18,6 @@ class FavQuestionListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     getFavList();
 
-
-
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
@@ -104,7 +102,8 @@ class FavQuestionListScreen extends StatelessWidget {
                                           padding: const EdgeInsets.all(8.0),
                                           child: Text(
                                             "${index + 1}. ${question.title}",
-                                            style: AppTextStyles.heading5.copyWith(color: Colors.white),
+                                            style: AppTextStyles.heading5
+                                                .copyWith(color: Colors.white),
                                           ),
                                         ),
                                       ),
@@ -116,13 +115,13 @@ class FavQuestionListScreen extends StatelessWidget {
                                             removeFavoriteQuestion(
                                               question.id!.toInt(),
                                             ).then((onValue) {
-                                                getFavList();
+                                              getFavList();
                                             });
                                           },
                                           icon: const FaIcon(
                                             FontAwesomeIcons.trash,
                                             size: 15.0,
-                                            color:Colors.white,
+                                            color: Colors.white,
                                           ),
                                         ),
                                       ),
@@ -236,14 +235,13 @@ class AnswerAndSolutionWidgets extends StatelessWidget {
             ...question.options!.map((option) {
               return option.key != null && option.isCorrect == true
                   ? Padding(
-                padding: const EdgeInsets.only(bottom: 4.0),
-                child: Text(
-                  option.value!,
-                  style:
-                AppTextStyles.heading5,
-                  textAlign: TextAlign.start,
-                ),
-              )
+                      padding: const EdgeInsets.only(bottom: 4.0),
+                      child: Text(
+                        option.value!,
+                        style: AppTextStyles.heading5,
+                        textAlign: TextAlign.start,
+                      ),
+                    )
                   : const SizedBox.shrink();
             }),
           ],
@@ -259,7 +257,7 @@ class AnswerAndSolutionWidgets extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-           'ব্যাখ্যা',
+            'ব্যাখ্যা',
             style: AppTextStyles.heading5,
           ),
           const SizedBox(height: 8),
@@ -273,7 +271,8 @@ class AnswerAndSolutionWidgets extends StatelessWidget {
   }
 
   Widget _buildExplanationImage() {
-    String fileUrl = AppConstants.storageUrl + question.explanationImage.toString();
+    String fileUrl =
+        AppConstants.storageUrl + question.explanationImage.toString();
     bool isPdf = fileUrl.toLowerCase().endsWith('.pdf');
     return SizedBox(
       width: Get.width,
@@ -282,41 +281,42 @@ class AnswerAndSolutionWidgets extends StatelessWidget {
         children: [
           Text(
             'ব্যাখ্যাচিত্র',
-         style: AppTextStyles.heading5,
+            style: AppTextStyles.heading5,
           ),
           const SizedBox(height: 8),
           isPdf
               ? InkWell(
-            onTap: () {
-              Get.to(() => PdfViewerScreen(
-                title: 'ব্যাখ্যা',
-                file: fileUrl,
-              ));
-            },
-            child: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.picture_as_pdf,
-                      color: Colors.red, size: 24),
-                  const SizedBox(width: 8),
-                  Text(
-                    'ব্যাখ্যা',
-                    style: AppTextStyles.heading5,
+                  onTap: () {
+                    Get.to(() => PdfViewerScreen(
+                          title: 'ব্যাখ্যা',
+                          file: fileUrl,
+                        ));
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.picture_as_pdf,
+                            color: Colors.red, size: 24),
+                        const SizedBox(width: 8),
+                        Text(
+                          'ব্যাখ্যা',
+                          style: AppTextStyles.heading5,
+                        ),
+                      ],
+                    ),
                   ),
-                ],
-              ),
-            ),
-          )
+                )
               : Image.network(
-            AppConstants.storageUrl + question.explanationImage.toString(),
-            fit: BoxFit.cover,
-          ),
+                  AppConstants.storageUrl +
+                      question.explanationImage.toString(),
+                  fit: BoxFit.cover,
+                ),
         ],
       ),
     );

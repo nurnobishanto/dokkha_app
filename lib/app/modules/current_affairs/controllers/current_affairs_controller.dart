@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/modules/current_affairs/models/current_affairs_model.dart';
 import 'package:lokkha/app/services/base_client.dart';

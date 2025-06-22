@@ -1,5 +1,3 @@
-
-
 import 'dart:async';
 import 'dart:core';
 import 'dart:developer';
@@ -16,8 +14,7 @@ import '../models/exam_start_model.dart';
 import '../models/exam_submit_model.dart';
 import '../views/exam_submit_view.dart';
 
-class ExamStartController extends GetxController{
-
+class ExamStartController extends GetxController {
   ExamStartModel? exam; // Exam data
   RxInt? duration;
   RxBool timerWork = false.obs;
@@ -26,7 +23,6 @@ class ExamStartController extends GetxController{
   RxBool isLoading = false.obs;
 
   var selectedAnswers = <int, dynamic>{}.obs;
-
 
   Future<void> finalSubmitExam() async {
     isLoading.value = true;
@@ -38,7 +34,7 @@ class ExamStartController extends GetxController{
     final url = "${AppConstants.exam}/${exam!.exam!.id}/submit";
     // Convert userAnswers map to a list of JSON objects
     List<Map<String, dynamic>> userAnswersArray =
-    userAnswers.values.map((userAnswer) => userAnswer.toJson()).toList();
+        userAnswers.values.map((userAnswer) => userAnswer.toJson()).toList();
     Map<String, dynamic> data = {
       'user_answers': userAnswersArray,
     };
@@ -57,8 +53,7 @@ class ExamStartController extends GetxController{
           //     message: response.data['message'].toString());
           await MySharedPref.clearMockSubjects();
           //
-          ExamSubmitModel modelData =
-          ExamSubmitModel.fromJson(response.data);
+          ExamSubmitModel modelData = ExamSubmitModel.fromJson(response.data);
 
           // log("My Data: ${modelData.toString()}");
           Get.snackbar("Exam", "Exam submitted successfully.");
@@ -78,7 +73,8 @@ class ExamStartController extends GetxController{
 
   //MockExamQuestionController(this.exam) : duration = (exam!.duration != null ? exam.duration! * 60 : 0).obs;
   ExamStartController(this.exam)
-      : duration = (exam!.exam!.duration != null ? exam.exam!.duration! : 0).obs,
+      : duration =
+            (exam!.exam!.duration != null ? exam.exam!.duration! : 0).obs,
         timerWork = true.obs;
 
   // For handling answers
@@ -96,7 +92,8 @@ class ExamStartController extends GetxController{
   }
 
   bool checkQuestionExistInSaved(int id) {
-    return favoriteQuestionsListModel.value.favoriteQuestions?.any((q) => q.id == id) ??
+    return favoriteQuestionsListModel.value.favoriteQuestions
+            ?.any((q) => q.id == id) ??
         false;
   }
 
@@ -144,10 +141,6 @@ class ExamStartController extends GetxController{
       isExamSubmitted.value = true;
     }
   }
-
-
-
-
 
   void showExitConfirmationDialog() {
     Get.dialog(
@@ -197,9 +190,6 @@ class ExamStartController extends GetxController{
     );
   }
 }
-
-
-
 
 class UserAnswer {
   final int questionId; // ID of the question

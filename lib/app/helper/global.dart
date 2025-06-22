@@ -103,7 +103,7 @@ void setDeviceInfo({
   required String os,
   required String brand,
   required String model,
- // required Size size,
+  // required Size size,
 }) {
   deviceId = id;
   deviceOS = os;
@@ -147,8 +147,6 @@ Future<void> fetchAppVersion() async {
   appPackage.value = packageInfo.packageName;
   appVersionCode.value = packageInfo.buildNumber;
 }
-
-
 
 Future<String?> getDeviceId() async {
   final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
@@ -267,6 +265,6 @@ Widget buildAvatar(User user, {double radius = 26.0}) {
       backgroundImage: NetworkImage(user.avatar!),
     );
   } else {
-    return NameAvatar(name: user.name.toString(),radius: radius);
+    return NameAvatar(name: user.name.toString(), radius: radius);
   }
 }

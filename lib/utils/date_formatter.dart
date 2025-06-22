@@ -36,13 +36,15 @@ class DateFormatter {
   }
 
   /// Parse a date string to DateTime
-  static DateTime? parseDate(String dateString, {String pattern = 'yyyy-MM-dd'}) {
+  static DateTime? parseDate(String dateString,
+      {String pattern = 'yyyy-MM-dd'}) {
     try {
       return DateFormat(pattern).parse(dateString);
     } catch (e) {
       return null;
     }
   }
+
 // Custom date and time format: 22, Jan, 2024 02:30 PM
   static String formatJobDeadline(DateTime? dateTime) {
     dateTime ??= DateTime.now();
@@ -55,6 +57,7 @@ class DateFormatter {
       return DateFormat("dd, MMM, yyyy hh:mm a").format(dateTime);
     }
   }
+
   /// Format a date to Bengali locale
   static String formatToBengaliDate(DateTime date) {
     return DateFormat.yMMMMd('bn').format(date);

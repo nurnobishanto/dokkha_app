@@ -88,9 +88,6 @@ class LatestContestController extends GetxController {
     }
   }
 
-
-
-
   String checkStatus(
       {required DateTime startDatetime, required DateTime endDatetime}) {
     final now = DateTime.now();
@@ -112,7 +109,6 @@ class LatestContestController extends GetxController {
           if (kDebugMode) {
             print("✅ Event Started. You can now show Ongoing or do something.");
           }
-
         }
         update();
       });
@@ -131,6 +127,7 @@ class LatestContestController extends GetxController {
   });
   RxObjectMixin<LatestContestModel> contestModel = LatestContestModel().obs;
   final isLoading = true.obs;
+
   /// Fetch Contest Method
   Future<void> fetchContest() async {
     isLoading.value = true;
@@ -155,7 +152,6 @@ class LatestContestController extends GetxController {
       },
     );
   }
-
 
   /// Fetch All Contest List Method
   /// All contest timer tracking
@@ -191,8 +187,6 @@ class LatestContestController extends GetxController {
       },
     );
   }
-
-
 
   RxObjectMixin<ContestResultModel> lastContestResultModel =
       ContestResultModel().obs;
@@ -249,6 +243,7 @@ class LatestContestController extends GetxController {
   }
 
   Rx<ContestStartModel> contestStartModel = ContestStartModel().obs;
+
   /// Fetch Contest Start Method
   Future<void> startContest(int id) async {
     String? token = MySharedPref.getUserToken();
@@ -269,9 +264,8 @@ class LatestContestController extends GetxController {
           Get.to(() => ContestExamView(
                 examStartModel: contestStartModel.value,
               ));
-        }
-        else if (response.data["status"] == false) {
-          if(response.data["package_required"] == true){
+        } else if (response.data["status"] == false) {
+          if (response.data["package_required"] == true) {
             Get.to(const PremiumPackagesView());
           }
           CustomSnackBar.showCustomErrorToast(
@@ -316,7 +310,6 @@ class RankCardUser {
     required this.user,
   });
 }
-
 
 class ContestTimerModel {
   RxInt hours = 0.obs;

@@ -11,7 +11,6 @@ import '../modules/grid_views/latest_test/models/result_model.dart';
 import '../models/start_exam_model.dart';
 import '../modules/grid_views/latest_test/views/result_screen.dart';
 
-
 class StartExamController extends GetxController {
   StartExamModel? exam; // Exam data
   RxInt? duration;
@@ -58,10 +57,9 @@ class StartExamController extends GetxController {
           //     message: response.data['message'].toString());
           await MySharedPref.clearMockSubjects();
           //
-         ResultModel modelData =
-             ResultModel.fromJson(response.data);
+          ResultModel modelData = ResultModel.fromJson(response.data);
 
-         // log("My Data: ${modelData.toString()}");
+          // log("My Data: ${modelData.toString()}");
           Get.snackbar("Exam", "Exam submitted successfully.");
           log("My Data: ${response.toString()}");
           isLoading.value = false;
@@ -81,7 +79,7 @@ class StartExamController extends GetxController {
   var userAnswers = <int, UserAnswer>{}.obs;
 
   //MockExamQuestionController(this.exam) : duration = (exam!.duration != null ? exam.duration! * 60 : 0).obs;
- StartExamController(this.exam)
+  StartExamController(this.exam)
       : duration = (exam!.duration != null ? exam.duration! * 60 : 0).obs,
         timerWork = (exam.isSetTime ?? false).obs;
 
@@ -100,7 +98,8 @@ class StartExamController extends GetxController {
   }
 
   bool checkQuestionExistInSaved(int id) {
-    return favoriteQuestionsListModel.value.favoriteQuestions?.any((q) => q.id == id) ??
+    return favoriteQuestionsListModel.value.favoriteQuestions
+            ?.any((q) => q.id == id) ??
         false;
   }
 
@@ -193,7 +192,7 @@ class StartExamController extends GetxController {
           TextButton(
             onPressed: () {
               submitExam(); // Execute submit function
-             Get.back(); // Close dialog
+              Get.back(); // Close dialog
             },
             child: const Text('হ্যাঁ, জমা দিবো'),
           ),

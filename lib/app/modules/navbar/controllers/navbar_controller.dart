@@ -31,8 +31,6 @@ class NavbarController extends GetxController {
     update();
   }
 
-
-
   ///  Rx nullable
   Rxn<ProfileDataModel> profileDataModel = Rxn<ProfileDataModel>();
   Rx<ApiCallStatus> getProfileApiStatus = ApiCallStatus.holding.obs;
@@ -56,7 +54,8 @@ class NavbarController extends GetxController {
         getProfileApiStatus.value = ApiCallStatus.success;
         if (isSuccess) {
           profileDataModel.value = ProfileDataModel.fromJson(response.data);
-          MyGetStorage.writeCacheData(MyGetStorage.meUser, profileDataModel.value!.user);
+          MyGetStorage.writeCacheData(
+              MyGetStorage.meUser, profileDataModel.value!.user);
           myUser = profileDataModel.value!.user!;
           isLoggedIn.value = true;
           debugPrint("✅ Profile Data fetch Success");
@@ -82,10 +81,8 @@ class NavbarController extends GetxController {
     MySharedPref.removeUserToken(); // optional
   }
 
-
   @override
   void onInit() {
-
     // Manually bind dependent controllers
     Get.lazyPut(() => HomeController());
     Get.lazyPut(() => ProfileController());

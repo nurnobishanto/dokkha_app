@@ -7,9 +7,11 @@ import 'dart:convert';
 import '../../../models/order.dart';
 import '../../../models/payment.dart';
 
-PackageCheckoutModel packageCheckoutModelFromJson(String str) => PackageCheckoutModel.fromJson(json.decode(str));
+PackageCheckoutModel packageCheckoutModelFromJson(String str) =>
+    PackageCheckoutModel.fromJson(json.decode(str));
 
-String packageCheckoutModelToJson(PackageCheckoutModel data) => json.encode(data.toJson());
+String packageCheckoutModelToJson(PackageCheckoutModel data) =>
+    json.encode(data.toJson());
 
 class PackageCheckoutModel {
   final bool? status;
@@ -24,19 +26,19 @@ class PackageCheckoutModel {
     this.paymentUrl,
   });
 
-  factory PackageCheckoutModel.fromJson(Map<String, dynamic> json) => PackageCheckoutModel(
-    status: json["status"],
-    order: json["order"] == null ? null : Order.fromJson(json["order"]),
-    payment: json["payment"] == null ? null : Payment.fromJson(json["payment"]),
-    paymentUrl: json["payment_url"],
-  );
+  factory PackageCheckoutModel.fromJson(Map<String, dynamic> json) =>
+      PackageCheckoutModel(
+        status: json["status"],
+        order: json["order"] == null ? null : Order.fromJson(json["order"]),
+        payment:
+            json["payment"] == null ? null : Payment.fromJson(json["payment"]),
+        paymentUrl: json["payment_url"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "status": status,
-    "order": order?.toJson(),
-    "payment": payment?.toJson(),
-    "payment_url": paymentUrl,
-  };
+        "status": status,
+        "order": order?.toJson(),
+        "payment": payment?.toJson(),
+        "payment_url": paymentUrl,
+      };
 }
-
-

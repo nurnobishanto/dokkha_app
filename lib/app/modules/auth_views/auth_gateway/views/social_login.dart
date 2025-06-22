@@ -20,10 +20,8 @@ class _SocialLoginWebViewState extends State<SocialLoginWebView> {
       ..setBackgroundColor(Colors.white)
       ..setNavigationDelegate(
         NavigationDelegate(
-          onProgress: (int progress) {
-          },
-          onPageStarted: (String url) {
-          },
+          onProgress: (int progress) {},
+          onPageStarted: (String url) {},
           onPageFinished: (String url) {
             if (kDebugMode) {
               print("onPageFinished Url  :::$url");

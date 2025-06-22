@@ -51,4 +51,3 @@ class MockSubjectSelect {
     return 'ID: $id, Name: $name, Quantity: $quantity, Max: $max, ParentID: $parentId';
   }
 }
-

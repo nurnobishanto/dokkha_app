@@ -129,11 +129,8 @@ class Contest {
         "sponsor_details": sponsorDetails,
         "prize_details": prizeDetails,
         "status": status,
-
         "subjects": subjects == null
             ? []
             : List<dynamic>.from(subjects!.map((x) => x.toJson())),
       };
 }
-
-

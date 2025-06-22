@@ -33,7 +33,8 @@ class LectureSheetListDetailsController extends GetxController {
     if (isLoading.value || isLastPage.value) return;
 
     isLoading.value = true;
-    final url = "${AppConstants.lectureSheetCategories}/$id?page=${currentPage.value}";
+    final url =
+        "${AppConstants.lectureSheetCategories}/$id?page=${currentPage.value}";
 
     await BaseClient.safeApiCall(
       url,
@@ -48,7 +49,8 @@ class LectureSheetListDetailsController extends GetxController {
           if (sheets.isNotEmpty) {
             lectureSheets.addAll(sheets);
             currentPage.value++;
-            isLastPage.value = model.lecturesheets!.currentPage == model.lecturesheets!.lastPage;
+            isLastPage.value = model.lecturesheets!.currentPage ==
+                model.lecturesheets!.lastPage;
           } else {
             isLastPage.value = true;
           }

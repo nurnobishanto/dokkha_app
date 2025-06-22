@@ -38,7 +38,6 @@ class ModelTestCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(12.r),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-
             children: [
               /// Image Section
               Expanded(

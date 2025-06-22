@@ -13,8 +13,7 @@ import '../../../services/base_client.dart';
 import '../models/contest_submit_model.dart';
 import '../views/contest_submit_view.dart';
 
-class ContestStartController extends GetxController{
-
+class ContestStartController extends GetxController {
   ContestStartModel? exam; // Exam data
   RxInt? duration;
   RxBool timerWork = false.obs;
@@ -24,12 +23,6 @@ class ContestStartController extends GetxController{
   var selectedAnswers = <int, dynamic>{}.obs;
   RxBool isLoading = true.obs;
   ApiCallStatus apiCallStatus = ApiCallStatus.holding;
-
-
-
-
-
-
 
   Future<void> finalSubmitExam() async {
     isLoading.value = true;
@@ -41,7 +34,7 @@ class ContestStartController extends GetxController{
     final url = "${AppConstants.startContest}${exam!.contest!.id}/submit";
     // Convert userAnswers map to a list of JSON objects
     List<Map<String, dynamic>> userAnswersArray =
-    userAnswers.values.map((userAnswer) => userAnswer.toJson()).toList();
+        userAnswers.values.map((userAnswer) => userAnswer.toJson()).toList();
     Map<String, dynamic> data = {
       'user_answers': userAnswersArray,
     };
@@ -61,7 +54,7 @@ class ContestStartController extends GetxController{
           await MySharedPref.clearMockSubjects();
           //
           ContestSubmitModel modelData =
-          ContestSubmitModel.fromJson(response.data);
+              ContestSubmitModel.fromJson(response.data);
 
           // log("My Data: ${modelData.toString()}");
           Get.snackbar("Exam", "Exam submitted successfully.");
@@ -84,7 +77,8 @@ class ContestStartController extends GetxController{
 
   //MockExamQuestionController(this.exam) : duration = (exam!.duration != null ? exam.duration! * 60 : 0).obs;
   ContestStartController(this.exam)
-      : duration = (exam!.contest!.duration != null ? exam.contest!.duration! : 0).obs,
+      : duration =
+            (exam!.contest!.duration != null ? exam.contest!.duration! : 0).obs,
         timerWork = true.obs;
 
   // For handling answers
@@ -102,7 +96,8 @@ class ContestStartController extends GetxController{
   }
 
   bool checkQuestionExistInSaved(int id) {
-    return favoriteQuestionsListModel.value.favoriteQuestions?.any((q) => q.id == id) ??
+    return favoriteQuestionsListModel.value.favoriteQuestions
+            ?.any((q) => q.id == id) ??
         false;
   }
 
@@ -150,10 +145,6 @@ class ContestStartController extends GetxController{
       isExamSubmitted.value = true;
     }
   }
-
-
-
-
 
   void showExitConfirmationDialog() {
     Get.dialog(
@@ -203,9 +194,6 @@ class ContestStartController extends GetxController{
     );
   }
 }
-
-
-
 
 class UserAnswer {
   final int questionId; // ID of the question

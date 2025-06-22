@@ -1,4 +1,3 @@
-
 import 'package:get/get.dart';
 import 'package:lokkha/app/data/local/my_shared_pref.dart';
 import 'package:lokkha/app/modules/model_test/models/model_test_list_model.dart';
@@ -45,8 +44,6 @@ class ModelTestController extends GetxController {
     );
   }
 
-
-
   Future<void> fetchSingleModelTest(int id) async {
     singleModelApiCallStatus.value = ApiCallStatus.loading;
     String? token = MySharedPref.getUserToken();
@@ -73,12 +70,11 @@ class ModelTestController extends GetxController {
     );
   }
 
-
   RxBool isLoading = true.obs;
-
 
   Rx<ExamStartModel> examStartModel = ExamStartModel().obs;
   ApiCallStatus startExamApiCallStatus = ApiCallStatus.holding;
+
   /// Fetch Exam Start Method
   Future<void> startExam(int id) async {
     String? token = MySharedPref.getUserToken();
@@ -96,11 +92,10 @@ class ModelTestController extends GetxController {
           ExamStartModel data = ExamStartModel.fromJson(response.data);
           examStartModel.value = data;
           Get.to(() => RunExamView(
-            examStartModel: examStartModel.value,
-          ));
-        }
-        else if (response.data["status"] == false) {
-          if(response.data["package_required"] == true){
+                examStartModel: examStartModel.value,
+              ));
+        } else if (response.data["status"] == false) {
+          if (response.data["package_required"] == true) {
             Get.to(const PremiumPackagesView());
           }
           CustomSnackBar.showCustomErrorToast(
@@ -110,13 +105,9 @@ class ModelTestController extends GetxController {
     );
   }
 
-
-
-
   @override
   void onInit() {
-   fetchModelTests();
+    fetchModelTests();
     super.onInit();
   }
-
 }

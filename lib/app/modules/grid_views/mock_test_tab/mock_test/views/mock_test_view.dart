@@ -22,10 +22,14 @@ class MockTestView extends GetView<MockTestController> {
           case ApiCallStatus.loading:
             return const Center(child: CircularProgressIndicator());
           case ApiCallStatus.success:
-            return
-              SingleChildScrollView(
+            return SingleChildScrollView(
               child: Padding(
-                padding:  EdgeInsets.only(top:16.0, bottom: 8.0.h, left: 8.0.h, right: 8.0.h,),
+                padding: EdgeInsets.only(
+                  top: 16.0,
+                  bottom: 8.0.h,
+                  left: 8.0.h,
+                  right: 8.0.h,
+                ),
                 child: Center(
                   child: Wrap(
                     spacing: 10,
@@ -52,7 +56,9 @@ class MockTestView extends GetView<MockTestController> {
                           decoration: BoxDecoration(
                             color: LightThemeColors.white,
                             borderRadius: BorderRadius.circular(8),
-                            border: Border.all(color: LightThemeColors.primaryColor,width: .2),
+                            border: Border.all(
+                                color: LightThemeColors.primaryColor,
+                                width: .2),
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black.withValues(alpha: 0.05),

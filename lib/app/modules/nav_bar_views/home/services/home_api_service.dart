@@ -28,7 +28,6 @@ class HomeApiService extends GetxController {
           // Update the slider model here
           sliderModel.value = SliderModel.fromJson(response.data);
           sliderApiStatus.value = ApiCallStatus.success;
-
         } else {
           sliderApiStatus.value = ApiCallStatus.error;
         }
@@ -56,7 +55,8 @@ class HomeApiService extends GetxController {
       RequestType.get,
       onSuccess: (response) {
         if (response.data['status']) {
-          subjectSectionModel.value = SubjectSectionModel.fromJson(response.data);
+          subjectSectionModel.value =
+              SubjectSectionModel.fromJson(response.data);
           subjectSectionApiStatus.value = ApiCallStatus.success;
         } else {
           subjectSectionApiStatus.value = ApiCallStatus.error;

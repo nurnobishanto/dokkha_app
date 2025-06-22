@@ -8,7 +8,6 @@ import 'package:lokkha/app/modules/lecture_sheet/views/lecture_sheet_list_view.d
 import 'package:lokkha/app/modules/nav_bar_views/home/models/subject_sections_model.dart';
 import 'package:lokkha/app/modules/nav_bar_views/home/services/home_api_service.dart';
 import 'package:lokkha/app/modules/vocabulary/views/vocabulary_view.dart';
-import 'package:lokkha/comming_soon_view.dart';
 import '../../../../services/api_call_status.dart';
 import '../../../grid_views/mock_test_tab/views/mock_test_tab_view.dart';
 import '../models/slider_model.dart';
@@ -55,7 +54,9 @@ class HomeController extends GetxController {
     await homeApiService.fetchSubjectSection();
     await Get.find<LatestContestController>().fetchContest();
     await Get.find<LatestContestController>().fetchContestResult();
-    await Get.find<LatestContestController>().fetchAllContest().then((_)=> print("Called fetchAll Contest"));
+    await Get.find<LatestContestController>()
+        .fetchAllContest()
+        .then((_) => print("Called fetchAll Contest"));
     print("Called fetchAll Contest2");
     update(); // for ui update
   }

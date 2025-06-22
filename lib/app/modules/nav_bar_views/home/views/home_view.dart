@@ -33,12 +33,12 @@ class HomeView extends GetView<HomeController> {
           children: [
             Image.asset(
               AssetImagePaths.appIconHorizontal,
-              scale: 5.8,
+              scale: 5,
             ),
-            const SizedBox(width: 8),
+            8.0.w.width,
             Text(
               "সঠিক পথে, স্বল্প সময়ে",
-              style: AppTextStyles.custom(fontSize: 16.00).copyWith(
+              style: AppTextStyles.custom(fontSize: 16.00.sp).copyWith(
                 color: Get.theme.indicatorColor,
               ),
             ),
@@ -56,7 +56,7 @@ class HomeView extends GetView<HomeController> {
               children: [
                 /// Search Bar
                 Container(
-                  height: 40.00,
+                  height: Get.height/20,
                   decoration: BoxDecoration(
                     color: LightThemeColors.primaryColor,
                     borderRadius: BorderRadius.only(
@@ -97,6 +97,7 @@ class HomeView extends GetView<HomeController> {
                     //     context: context, delegate: CustomSearchDelegate());
                   }),
                 ),
+                
                 //10.0.h.height,
                 // Switch(
                 //   value: MySharedPref.getThemeIsLight(),

@@ -3,7 +3,6 @@ import 'package:lokkha/config/theme/light_theme_colors.dart';
 import 'package:lokkha/styles/text_style.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
-
 class PdfViewerScreen extends StatelessWidget {
   const PdfViewerScreen({super.key, required this.title, required this.file});
   final String title;
@@ -44,7 +43,6 @@ class PdfViewerScreen extends StatelessWidget {
             Expanded(
               child: SfPdfViewer.network(file.toString()),
             ),
-
           ],
         ),
       ),

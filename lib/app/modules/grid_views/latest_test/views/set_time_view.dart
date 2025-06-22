@@ -14,8 +14,7 @@ class SetTimeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final SetTimeController controller =
-        Get.put(SetTimeController());
+    final SetTimeController controller = Get.put(SetTimeController());
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,

@@ -4,7 +4,6 @@ import 'package:lokkha/app/modules/current_affairs/models/current_affairs_model.
 import 'package:lokkha/app/services/base_client.dart';
 import 'package:lokkha/utils/constants.dart';
 
-
 class InternationalCurrentAffairsController extends GetxController {
   RxBool isLoading = true.obs;
   RxInt currentPage = 1.obs;
@@ -13,7 +12,7 @@ class InternationalCurrentAffairsController extends GetxController {
   RxObjectMixin<CurrentAffairsModel> model = CurrentAffairsModel().obs;
 
   Future<void> fetchCurrentAffairs(String search,
-      {int page = 1, bool refresh = false,String? date}) async {
+      {int page = 1, bool refresh = false, String? date}) async {
     // if (refresh) {
     //   MyGetStorage.removeCache(MyGetStorage.internationalAffairs);
     // }
@@ -28,7 +27,8 @@ class InternationalCurrentAffairsController extends GetxController {
     // }
 
     isLoading.value = true;
-    String url = "${AppConstants.internationalCA}?search=$search&page=$page&date=$date";
+    String url =
+        "${AppConstants.internationalCA}?search=$search&page=$page&date=$date";
 
     BaseClient.safeApiCall(
       url,

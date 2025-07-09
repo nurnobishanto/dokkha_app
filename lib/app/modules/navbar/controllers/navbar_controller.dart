@@ -84,7 +84,7 @@ class NavbarController extends GetxController {
   @override
   void onInit() {
     // Manually bind dependent controllers
-    Get.lazyPut(() => HomeController());
+    // Get.lazyPut(() => HomeController());
     Get.lazyPut(() => ProfileController());
     Get.lazyPut(() => PremiumPackagesController());
     //Get.lazyPut(() => ProfileController());

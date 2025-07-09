@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:lokkha/app/bindings/initial_bindings.dart';
 import '../../../routes/app_pages.dart';
 import '../../../services/app_update_service.dart';
 
@@ -8,7 +9,7 @@ class SplashController extends GetxController {
   void onInit() {
     super.onInit();
     debugPrint("Splash called initial");
-    Future.delayed(const Duration(seconds: 1), () {
+    Future.delayed(const Duration(seconds: 2), () {
       final AppUpdateService appUpdateService = AppUpdateService();
       appUpdateService.startUpdateService();
 

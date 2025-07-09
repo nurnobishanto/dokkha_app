@@ -56,7 +56,7 @@ class HomeView extends GetView<HomeController> {
               children: [
                 /// Search Bar
                 Container(
-                  height: Get.height/20,
+                  height: Get.height / 20,
                   decoration: BoxDecoration(
                     color: LightThemeColors.primaryColor,
                     borderRadius: BorderRadius.only(
@@ -97,7 +97,7 @@ class HomeView extends GetView<HomeController> {
                     //     context: context, delegate: CustomSearchDelegate());
                   }),
                 ),
-                
+
                 //10.0.h.height,
                 // Switch(
                 //   value: MySharedPref.getThemeIsLight(),
@@ -127,7 +127,7 @@ class HomeView extends GetView<HomeController> {
                                 child: CircularProgressIndicator(),
                               );
                             case ApiCallStatus.error:
-                              return const Text("Slider loading error");
+                              return const Text("Slider loading");
                             case ApiCallStatus.holding:
                               return const SizedBox.shrink();
                             case ApiCallStatus.success:
@@ -247,6 +247,8 @@ class HomeView extends GetView<HomeController> {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
+
+
                         Builder(
                           builder: (context) {
                             switch (controller.subjectSectionApiStatus.value) {
@@ -320,6 +322,9 @@ class HomeView extends GetView<HomeController> {
                             }
                           },
                         ),
+
+
+
                         // spController.dashboardAds.length > 2
                         //     ? SponsorAdsWidget(
                         //   ad: spController.dashboardAds[2],

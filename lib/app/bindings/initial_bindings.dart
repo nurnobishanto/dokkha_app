@@ -8,7 +8,8 @@ class InitialBindings extends Bindings {
   @override
   void dependencies() {
     Get.put(MyAppController(), permanent: true);
-    Get.put(NavbarController(), permanent: true);
     Get.put(HomeController(), permanent: true);
+
+    Get.put(NavbarController(), permanent: true);
   }
 }

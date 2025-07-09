@@ -23,7 +23,7 @@ class BaseClient {
       PrettyDioLogger(
         requestHeader: true,
         requestBody: true,
-        responseBody: true,
+        responseBody: false,
         responseHeader: false,
         error: true,
         compact: true,
@@ -31,9 +31,9 @@ class BaseClient {
       ),
     );
 
+
   /// dio getter (used for testing)
   static get dio => _dio;
-
   /// Perform safe API request
   static safeApiCall(
     String url,

@@ -46,81 +46,87 @@ class SubSecSetTimeController extends GetxController {
 
   ///  method
   Future<void> testExamStart(String type) async {
-    isLoading.value = true;
-    String? token = MySharedPref.getUserToken();
-    if (token == '' || token.isEmpty) return;
+    try{
+      isLoading.value = true;
+      String? token = MySharedPref.getUserToken();
+      if (token == '' || token.isEmpty) return;
 
-    final bool isSetTimeValue = isSetTime.value;
-    final int durationValue = int.tryParse(setTimeCon.text) ?? 0;
-    final int finalDuration =
-        isSetTimeValue ? (durationValue < 1 ? 1 : durationValue) : 0;
+      final bool isSetTimeValue = isSetTime.value;
+      final int durationValue = int.tryParse(setTimeCon.text) ?? 0;
+      final int finalDuration =
+          isSetTimeValue ? (durationValue < 1 ? 1 : durationValue) : 0;
 
-    Map<String, dynamic> data = {
-      'exam_name': 'Question Bank Exam',
-      'is_negative_mark': isNegativeMarkChecked.value,
-      'negative_mark': isNegativeMarkChecked.value ? 0.25 : 0,
+      Map<String, dynamic> data = {
+        'exam_name': 'Question Bank Exam',
+        'is_negative_mark': isNegativeMarkChecked.value,
+        'negative_mark': isNegativeMarkChecked.value ? 0.25 : 0,
 
-      'is_set_time': isSetTime.value,
-      'duration': finalDuration,
-      'type': selectedKey.value,
+        'is_set_time': isSetTime.value,
+        'duration': finalDuration,
+        'type': selectedKey.value,
 
-      'subjects': selectedSubjects
-          .map((subject) => subject.toMap())
-          .toList(), // Convert each subject to map
-    };
+        'subjects': selectedSubjects
+            .map((subject) => subject.toMap())
+            .toList(), // Convert each subject to map
+      };
 
-    await BaseClient.safeApiCall(
-      AppConstants.testExamStart,
-      RequestType.post,
-      data: data,
-      headers: {
-        "Authorization": 'Bearer $token',
-      },
-      onSuccess: (response) {
-        apiCallStatus = ApiCallStatus.success;
-        if (response.data['status']) {
-          StartExamModel data = StartExamModel.fromJson(response.data);
-          model.value = data;
-          isLoading.value = false;
-          log("messages");
-          if (type == 'exam') {
-            Get.to(ExamProcessView(
-              examStartModel: model.value,
-            ));
-          } else {
-            Get.to(ReadQuestionView(
-              model: data.questions!.toList(),
-            ));
+      await BaseClient.safeApiCall(
+        AppConstants.testExamStart,
+        RequestType.post,
+        data: data,
+        headers: {
+          "Authorization": 'Bearer $token',
+        },
+        onSuccess: (response) {
+          apiCallStatus = ApiCallStatus.success;
+          if (response.data['status']) {
+            StartExamModel data = StartExamModel.fromJson(response.data);
+            model.value = data;
+            // isLoading.value = false;
+            // log("messages");
+            if (type == 'exam') {
+              Get.to(ExamProcessView(
+                examStartModel: model.value,
+              ));
+            } else {
+              Get.to(ReadQuestionView(
+                model: data.questions!.toList(),
+              ));
+            }
+
+            log("My EXam Data: ${data.startTime.toString()}");
+          } else if (response.data["status"] == false &&
+              response.data.containsKey('errors')) {
+            response.data['errors'].forEach((key, value) {
+              // isLoading.value = false;
+              if (value is List && value.isNotEmpty) {
+                CustomSnackBar.showCustomToast(
+                  message: value[0].toString(),
+                ); // first error message
+              }
+            });
           }
 
-          log("My EXam Data: ${data.startTime.toString()}");
-        } else if (response.data["status"] == false &&
-            response.data.containsKey('errors')) {
-          response.data['errors'].forEach((key, value) {
-            isLoading.value = false;
-            if (value is List && value.isNotEmpty) {
-              CustomSnackBar.showCustomToast(
-                message: value[0].toString(),
-              ); // first error message
-            }
-          });
-        }
-
-        update();
-        debugPrint(" successfully: ${response.data}");
-      },
-      onError: (error) {
-        apiCallStatus = ApiCallStatus.error;
-        update();
-        isLoading.value = false;
-        debugPrint("Error sub section controller: ${error.message}");
-      },
-      onLoading: () {
-        apiCallStatus = ApiCallStatus.loading;
-        update();
-        debugPrint("Logging...");
-      },
-    );
+          // update();
+          // debugPrint(" successfully: ${response.data}");
+        },
+        onError: (error) {
+          apiCallStatus = ApiCallStatus.error;
+          update();
+          isLoading.value = false;
+          debugPrint("Error sub section controller: ${error.message}");
+        },
+        onLoading: () {
+          apiCallStatus = ApiCallStatus.loading;
+          update();
+          debugPrint("Logging...");
+        },
+      );
+    }catch(e){
+      print(e);
+    }finally{
+      isLoading.value=false;
+    }
   }
 
   @override

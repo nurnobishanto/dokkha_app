@@ -252,7 +252,9 @@ class SubSectionsSetTimeView extends GetView {
                   ),
                 ),
               ),
-
+controller.isLoading.value?
+    CircularProgressIndicator()
+    :
               Row(
                 children: [
                   Expanded(
@@ -260,7 +262,7 @@ class SubSectionsSetTimeView extends GetView {
                       text: "প্রশ্ন পড়ুন",
                       onPressed: () async {
                         if (isLoggedIn.value) {
-                          controller.testExamStart('read');
+                        await  controller.testExamStart('read');
                         } else {
                           Get.toNamed(Routes.AUTH_GATEWAY);
                         }
@@ -272,18 +274,6 @@ class SubSectionsSetTimeView extends GetView {
                     child: CustomActionButton(
                       text: "পরীক্ষা শুরু করুন",
                       onPressed: () async {
-                        // Map<String, dynamic> data = {
-                        //   'duration': controller.setTimeCon.text,
-                        //   'type': controller.selectedKey.value,
-                        //   'negative_mark':
-                        //       controller.isNegativeMarkChecked.value,
-                        //   'subjects': controller.selectedSubjects
-                        //       .map((subject) => subject.toMap())
-                        //       .toList(), // Convert each subject to map
-                        // };
-                        // if (kDebugMode) {
-                        //   print("Question paper Data: $data}");
-                        // }
                         if (isLoggedIn.value) {
                           controller.testExamStart('exam');
                         } else {

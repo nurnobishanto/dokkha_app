@@ -37,9 +37,12 @@ class ProfileUpdateView extends GetView<ProfileUpdateController> {
                               radius: 64.0,
                               backgroundColor: LightThemeColors.primaryColor,
                               child: CircleAvatar(
-                                  radius: 62.0,
-                                  backgroundImage: FileImage(File(
-                                      controller.croppedImage.value!.path))))
+                                radius: 62.0,
+                                backgroundImage: FileImage(
+                                  File(controller.croppedImage.value!.path),
+                                ),
+                              ),
+                            )
                           : buildAvatar(myUser, radius: 64),
                       Positioned(
                         bottom: 0.8,
@@ -61,22 +64,7 @@ class ProfileUpdateView extends GetView<ProfileUpdateController> {
                     ],
                   ),
                 ),
-                // InkWell(
-                //   onTap: () {
-                //     controller.pickImage();
-                //   },
-                //   child: Center(
-                //     child: CircleAvatar(
-                //       radius: 50.0.r,
-                //       backgroundColor: LightThemeColors.primaryColor,
-                //       child: CircleAvatar(
-                //         radius: 48.0.r,
-                //         backgroundColor: Colors.white,
-                //         backgroundImage: AssetImage(AssetImagePaths.appIcon),
-                //       ),
-                //     ),
-                //   ),
-                // ),
+
                 15.h.height,
                 Text(
                   'নাম',

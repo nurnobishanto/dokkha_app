@@ -114,18 +114,25 @@ class VocabularyView extends StatelessWidget {
                                             vocab.details!.isNotEmpty)
                                           Text("Details: ${vocab.details}"),
                                         const SizedBox(height: 10),
-                                        _buildPopupList(
-                                            "Synonyms",
-                                            vocab.synonym,
-                                            LightThemeColors.primaryColor),
-                                        _buildPopupList(
-                                            "Antonyms",
-                                            vocab.antonym,
-                                            LightThemeColors.primaryColor),
-                                        _buildPopupList("Wrong Synonyms",
-                                            vocab.wrongSynonym, Colors.red),
-                                        _buildPopupList("Wrong Antonyms",
-                                            vocab.wrongAntonym, Colors.red),
+                                        if (vocab.synonym != null && vocab.synonym!.isNotEmpty)
+                                          popupList("Synonyms", vocab.synonym, LightThemeColors.primaryColor)
+                                        else
+                                          const Text("No synonyms found"),
+
+                                        if (vocab.antonym != null && vocab.antonym!.isNotEmpty)
+                                          popupList("Antonyms", vocab.antonym, LightThemeColors.primaryColor)
+                                        else
+                                          const Text("No antonyms found"),
+
+                                        if (vocab.wrongSynonym != null && vocab.wrongSynonym!.isNotEmpty)
+                                          popupList("Wrong Synonyms", vocab.wrongSynonym, Colors.red)
+                                        else
+                                          const Text("No wrong synonyms found"),
+
+                                        if (vocab.wrongAntonym != null && vocab.wrongAntonym!.isNotEmpty)
+                                          popupList("Wrong Antonyms", vocab.wrongAntonym, Colors.red)
+                                        else
+                                          const Text("No wrong antonyms found"),
                                       ],
                                     ),
                                   ),
@@ -339,8 +346,12 @@ class FilterRow extends StatelessWidget {
   }
 }
 
-Widget _buildPopupList(String title, List<String?>? items, Color color) {
-  if (items == null || items.isEmpty) return SizedBox();
+Widget popupList(String title, List<String?>? items, Color color) {
+  // Filter out null and empty strings
+  final filteredItems = (items ?? []).where((e) => e != null && e.trim().isNotEmpty).map((e) => e!).toList();
+
+  if (filteredItems.isEmpty) return const SizedBox();
+
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -352,10 +363,10 @@ Widget _buildPopupList(String title, List<String?>? items, Color color) {
       Wrap(
         spacing: 6,
         runSpacing: 4,
-        children: items.asMap().entries.map((entry) {
+        children: filteredItems.asMap().entries.map((entry) {
           int idx = entry.key;
-          String e = entry.value!;
-          bool isLast = idx == items.length - 1;
+          String e = entry.value;
+          bool isLast = idx == filteredItems.length - 1;
           return Text(
             isLast ? e : "$e,",
             style: TextStyle(color: color, fontWeight: FontWeight.w500),

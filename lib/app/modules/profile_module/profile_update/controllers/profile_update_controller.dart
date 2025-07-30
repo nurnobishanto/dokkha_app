@@ -152,22 +152,6 @@ class ProfileUpdateController extends GetxController {
       );
       return;
     }
-
-    // if (emailController.text.trim().isEmpty) {
-    //   CustomSnackBar.showCustomErrorSnackBar(
-    //     title: "ইমেইল প্রয়োজন",
-    //     message: "অনুগ্রহ করে একটি বৈধ ইমেইল ঠিকানা লিখুন।",
-    //   );
-    //   return;
-    // }
-    // else if (!GetUtils.isEmail(emailController.text.trim())) {
-    //   CustomSnackBar.showCustomErrorSnackBar(
-    //     title: "ইমেইল অবৈধ",
-    //     message: "আপনার ইমেইল ঠিকানাটি সঠিক নয়। দয়া করে আবার যাচাই করুন।",
-    //   );
-    //   return;
-    // }
-
     if (dob.value.trim().isEmpty) {
       CustomSnackBar.showCustomErrorSnackBar(
         title: "জন্ম তারিখ প্রয়োজন",

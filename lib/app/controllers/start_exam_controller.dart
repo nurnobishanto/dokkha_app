@@ -66,9 +66,6 @@ class StartExamController extends GetxController {
           Get.off(ResultScreen(model: modelData));
         } else {
           log("Errrrrrrrr");
-          // CustomSnackBar.showCustomToast(
-          //     message: response.data["message"].toString());
-          //Utils.toastMessage(response["message"].toString());
           isLoading.value = false;
         }
       },

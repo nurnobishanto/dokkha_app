@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:lokkha/app/modules/current_affairs/views/current_affairs_content_view.dart';
-import '../../../../styles/text_style.dart';
 import '../controllers/current_affairs_controller.dart';
 import 'international_current_affairs_content_view.dart';
 
@@ -48,11 +47,13 @@ class CurrentAffairsView extends GetView<CurrentAffairsController> {
             ],
           ),
         ),
-        body: const TabBarView(
-          children: [
-            CurrentAffairsContentView(),
-            InternationalCurrentAffairsContentView(),
-          ],
+        body: SafeArea(
+          child: const TabBarView(
+            children: [
+              CurrentAffairsContentView(),
+              InternationalCurrentAffairsContentView(),
+            ],
+          ),
         ),
       ),
     );

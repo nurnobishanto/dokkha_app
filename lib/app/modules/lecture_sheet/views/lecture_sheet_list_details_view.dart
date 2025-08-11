@@ -30,79 +30,81 @@ class LectureSheetListDetailsView extends StatelessWidget {
               return const Center(child: Text("No Data Found"));
             }
 
-            return Padding(
-              padding: const EdgeInsets.all(8),
-              child: ListView(
-                children: [
-                  /// Name
-                  Text(
-                    model.category?.name ?? '',
-                    style: Get.textTheme.titleLarge
-                        ?.copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 12),
-
-                  /// Description
-                  Text(
-                    model.category?.description ?? '',
-                    style: Get.textTheme.bodyMedium?.copyWith(height: 1.5),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 16),
-
-                  /// Sheet Count
-                  Row(
-                    children: [
-                      const Icon(Icons.insert_drive_file_rounded, size: 20),
-                      const SizedBox(width: 8),
-                      Text(
-                        "Total Sheets: ${model.category?.lecturesheetsCount ?? 0}",
-                        style: Get.textTheme.bodyMedium,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 24),
-
-                  /// List of Sheets
-                  ...controller.lectureSheets.map(
-                    (sheet) => GestureDetector(
-                        onTap: () {
-                          Get.toNamed(Routes.SHEET_DETAILS,
-                              arguments: sheet.id);
-                        },
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(vertical: 5),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 13),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withValues(alpha: 0.04),
-                                blurRadius: 7,
-                                spreadRadius: 1,
-                                offset: const Offset(0, 2),
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                            children: [
-                              const FaIcon(FontAwesomeIcons.fileLines,
-                                  size: 21, color: Colors.blue),
-                              const SizedBox(width: 10.0),
-                              Expanded(
-                                child: Text(sheet.name ?? 'No title',
-                                    style: AppTextStyles.heading5),
-                              ),
-                              const FaIcon(FontAwesomeIcons.chevronRight,
-                                  size: 14),
-                            ],
-                          ),
-                        )),
-                  ),
-                ],
+            return SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: ListView(
+                  children: [
+                    /// Name
+                    Text(
+                      model.category?.name ?? '',
+                      style: Get.textTheme.titleLarge
+                          ?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 12),
+              
+                    /// Description
+                    Text(
+                      model.category?.description ?? '',
+                      style: Get.textTheme.bodyMedium?.copyWith(height: 1.5),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 16),
+              
+                    /// Sheet Count
+                    Row(
+                      children: [
+                        const Icon(Icons.insert_drive_file_rounded, size: 20),
+                        const SizedBox(width: 8),
+                        Text(
+                          "Total Sheets: ${model.category?.lecturesheetsCount ?? 0}",
+                          style: Get.textTheme.bodyMedium,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 24),
+              
+                    /// List of Sheets
+                    ...controller.lectureSheets.map(
+                      (sheet) => GestureDetector(
+                          onTap: () {
+                            Get.toNamed(Routes.SHEET_DETAILS,
+                                arguments: sheet.id);
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(vertical: 5),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 13),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(8),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withValues(alpha: 0.04),
+                                  blurRadius: 7,
+                                  spreadRadius: 1,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            child: Row(
+                              children: [
+                                const FaIcon(FontAwesomeIcons.fileLines,
+                                    size: 21, color: Colors.blue),
+                                const SizedBox(width: 10.0),
+                                Expanded(
+                                  child: Text(sheet.name ?? 'No title',
+                                      style: AppTextStyles.heading5),
+                                ),
+                                const FaIcon(FontAwesomeIcons.chevronRight,
+                                    size: 14),
+                              ],
+                            ),
+                          )),
+                    ),
+                  ],
+                ),
               ),
             );
           case ApiCallStatus.error:
@@ -129,7 +131,7 @@ Widget buildSheetTile(LectureSheet sheet) {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 8,
             offset: const Offset(0, 4),
           ),

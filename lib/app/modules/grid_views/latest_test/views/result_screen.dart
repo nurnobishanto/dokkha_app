@@ -30,8 +30,7 @@ class ResultScreen extends StatelessWidget {
         centerTitle: true,
         backgroundColor: LightThemeColors.primaryColor,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.00),
+      body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,

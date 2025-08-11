@@ -33,12 +33,14 @@ class LectureSheetDetailsView extends GetView<SheetDetailsController> {
               return const Center(child: Text("No data available"));
             }
             final sheet = data.lectureSheet!;
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: LectureSheetCard(
-                name: sheet.name ?? '',
-                description: sheet.details ?? '',
-                fileUrl: sheet.file ?? '',
+            return SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: LectureSheetCard(
+                  name: sheet.name ?? '',
+                  description: sheet.details ?? '',
+                  fileUrl: sheet.file ?? '',
+                ),
               ),
             );
           default:

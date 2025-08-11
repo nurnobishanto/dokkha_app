@@ -24,231 +24,235 @@ class VocabularyView extends StatelessWidget {
     return Scaffold(
       appBar: const CustomAppBar(title: 'Vocabulary'),
       body: Obx(() {
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SingleChildScrollView(
-            child: controller.isLoading.value
-                ? Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : Column(
-                    children: [
-                      CustomSearchBar(
-                        onChanged: null,
-                        hintText: 'Search Vocabulary...',
-                      ),
-                      10.0.height,
-                      FilterRow(vocabularyController: controller),
-                      10.0.height,
-                      Center(
-                        child: Wrap(
-                          spacing: 4,
-                          runSpacing: 4,
-                          alignment: WrapAlignment.center,
-                          children:
-                              controller.model.value.alphabets!.map((char) {
-                            return InkWell(
+        return SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SingleChildScrollView(
+              child: controller.isLoading.value
+                  ? Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : Column(
+                      children: [
+                        CustomSearchBar(
+                          onChanged: null,
+                          hintText: 'Search Vocabulary...',
+                        ),
+                        10.0.height,
+                        FilterRow(vocabularyController: controller),
+                        10.0.height,
+                        Center(
+                          child: Wrap(
+                            spacing: 4,
+                            runSpacing: 4,
+                            alignment: WrapAlignment.center,
+                            children:
+                                controller.model.value.alphabets!.map((char) {
+                              return InkWell(
+                                onTap: () {
+                                  controller.selectedAlphabet.value =
+                                      char.toString();
+                                  controller.currentPage.value = 1;
+                                  controller.fetchVocabulary();
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 4.0.r, horizontal: 10),
+                                  decoration: BoxDecoration(
+                                    color:
+                                        char == controller.selectedAlphabet.value
+                                            ? LightThemeColors.primaryColor
+                                            : LightThemeColors.white,
+                                    borderRadius: BorderRadius.circular(8),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color:
+                                            Colors.black.withValues(alpha: 0.05),
+                                        spreadRadius: 1,
+                                        blurRadius: 5,
+                                        offset: const Offset(0, 2),
+                                      )
+                                    ],
+                                  ),
+                                  child: Text(
+                                    char,
+                                    style: TextStyle(
+                                        color: char ==
+                                                controller.selectedAlphabet.value
+                                            ? LightThemeColors.white
+                                            : LightThemeColors.primaryColor),
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                        5.h.height,
+                        Divider(),
+                        5.h.height,
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount:
+                              controller.model.value.vocabularies?.data?.length ??
+                                  0,
+                          itemBuilder: (_, index) {
+                            final vocab =
+                                controller.model.value.vocabularies!.data![index];
+          
+                            return GestureDetector(
                               onTap: () {
-                                controller.selectedAlphabet.value =
-                                    char.toString();
-                                controller.currentPage.value = 1;
-                                controller.fetchVocabulary();
+                                showDialog(
+                                  context: Get.context!,
+                                  builder: (_) => AlertDialog(
+                                    title: Text(vocab.word ?? 'No Word'),
+                                    content: SingleChildScrollView(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          if (vocab.details != null &&
+                                              vocab.details!.isNotEmpty)
+                                            Text("Details: ${vocab.details}"),
+                                          const SizedBox(height: 10),
+                                          if (vocab.synonym != null && vocab.synonym!.isNotEmpty)
+                                            popupList("Synonyms", vocab.synonym, LightThemeColors.primaryColor)
+                                          else
+                                            const Text("No synonyms found"),
+          
+                                          if (vocab.antonym != null && vocab.antonym!.isNotEmpty)
+                                            popupList("Antonyms", vocab.antonym, LightThemeColors.primaryColor)
+                                          else
+                                            const Text("No antonyms found"),
+          
+                                          if (vocab.wrongSynonym != null && vocab.wrongSynonym!.isNotEmpty)
+                                            popupList("Wrong Synonyms", vocab.wrongSynonym, Colors.red)
+                                          else
+                                            const Text("No wrong synonyms found"),
+          
+                                          if (vocab.wrongAntonym != null && vocab.wrongAntonym!.isNotEmpty)
+                                            popupList("Wrong Antonyms", vocab.wrongAntonym, Colors.red)
+                                          else
+                                            const Text("No wrong antonyms found"),
+                                        ],
+                                      ),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Get.back(),
+                                        child: const Text("Close"),
+                                      )
+                                    ],
+                                  ),
+                                );
                               },
                               child: Container(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 4.0.r, horizontal: 10),
+                                width: double.infinity,
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: 12, vertical: 6),
+                                padding: const EdgeInsets.all(14),
                                 decoration: BoxDecoration(
-                                  color:
-                                      char == controller.selectedAlphabet.value
-                                          ? LightThemeColors.primaryColor
-                                          : LightThemeColors.white,
+                                  color: Colors.white,
+                                  border: Border.all(color: Colors.grey.shade300),
                                   borderRadius: BorderRadius.circular(8),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color:
-                                          Colors.black.withValues(alpha: 0.05),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: const Offset(0, 2),
-                                    )
-                                  ],
                                 ),
                                 child: Text(
-                                  char,
-                                  style: TextStyle(
-                                      color: char ==
-                                              controller.selectedAlphabet.value
-                                          ? LightThemeColors.white
-                                          : LightThemeColors.primaryColor),
+                                  vocab.word ?? '',
+                                  style: const TextStyle(
+                                      fontSize: 16, fontWeight: FontWeight.w500),
                                 ),
                               ),
                             );
-                          }).toList(),
+                          },
                         ),
-                      ),
-                      5.h.height,
-                      Divider(),
-                      5.h.height,
-                      ListView.builder(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount:
-                            controller.model.value.vocabularies?.data?.length ??
-                                0,
-                        itemBuilder: (_, index) {
-                          final vocab =
-                              controller.model.value.vocabularies!.data![index];
-
-                          return GestureDetector(
-                            onTap: () {
-                              showDialog(
-                                context: Get.context!,
-                                builder: (_) => AlertDialog(
-                                  title: Text(vocab.word ?? 'No Word'),
-                                  content: SingleChildScrollView(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        if (vocab.details != null &&
-                                            vocab.details!.isNotEmpty)
-                                          Text("Details: ${vocab.details}"),
-                                        const SizedBox(height: 10),
-                                        if (vocab.synonym != null && vocab.synonym!.isNotEmpty)
-                                          popupList("Synonyms", vocab.synonym, LightThemeColors.primaryColor)
-                                        else
-                                          const Text("No synonyms found"),
-
-                                        if (vocab.antonym != null && vocab.antonym!.isNotEmpty)
-                                          popupList("Antonyms", vocab.antonym, LightThemeColors.primaryColor)
-                                        else
-                                          const Text("No antonyms found"),
-
-                                        if (vocab.wrongSynonym != null && vocab.wrongSynonym!.isNotEmpty)
-                                          popupList("Wrong Synonyms", vocab.wrongSynonym, Colors.red)
-                                        else
-                                          const Text("No wrong synonyms found"),
-
-                                        if (vocab.wrongAntonym != null && vocab.wrongAntonym!.isNotEmpty)
-                                          popupList("Wrong Antonyms", vocab.wrongAntonym, Colors.red)
-                                        else
-                                          const Text("No wrong antonyms found"),
-                                      ],
-                                    ),
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () => Get.back(),
-                                      child: const Text("Close"),
-                                    )
-                                  ],
-                                ),
-                              );
-                            },
-                            child: Container(
-                              width: double.infinity,
-                              margin: const EdgeInsets.symmetric(
-                                  horizontal: 12, vertical: 6),
-                              padding: const EdgeInsets.all(14),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                border: Border.all(color: Colors.grey.shade300),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Text(
-                                vocab.word ?? '',
-                                style: const TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                      10.0.height,
-                      Divider(),
-                      10.0.height,
-                    ],
-                  ),
+                        10.0.height,
+                        Divider(),
+                        10.0.height,
+                      ],
+                    ),
+            ),
           ),
         );
       }),
       bottomNavigationBar: Obx(() {
         if (controller.totalPages.value <= 1) return SizedBox.shrink();
 
-        return SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 20, left: 25),
-            child: Row(
-              children: [
-                // First Page
-                IconButton(
-                  icon: Icon(Icons.first_page),
-                  onPressed: controller.currentPage.value > 1
-                      ? controller.firstPage
-                      : null,
-                ),
-
-                // Previous
-                IconButton(
-                  icon: Icon(Icons.navigate_before),
-                  onPressed: controller.currentPage.value > 1
-                      ? controller.previousPage
-                      : null,
-                ),
-
-                // Page Numbers
-                ...List.generate(
-                        controller.totalPages.value, (index) => index + 1)
-                    .where((page) {
-                  int current = controller.currentPage.value;
-                  return (page >= current - 2 && page <= current + 2) ||
-                      page == 1 ||
-                      page == controller.totalPages.value;
-                }).map((page) {
-                  bool isActive = page == controller.currentPage.value;
-                  return InkWell(
-                    onTap: () => controller.goToPage(page),
-                    child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 4),
-                      padding:
-                          EdgeInsets.symmetric(vertical: 6, horizontal: 10),
-                      decoration: BoxDecoration(
-                        color: isActive
-                            ? LightThemeColors.primaryColor
-                            : Colors.grey.shade200,
-                        borderRadius: BorderRadius.circular(8),
-                        border:
-                            Border.all(color: LightThemeColors.primaryColor),
-                      ),
-                      child: Text(
-                        page.toString(),
-                        style: TextStyle(
-                          color: isActive ? Colors.white : Colors.black87,
+        return SafeArea(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 20, left: 25),
+              child: Row(
+                children: [
+                  // First Page
+                  IconButton(
+                    icon: Icon(Icons.first_page),
+                    onPressed: controller.currentPage.value > 1
+                        ? controller.firstPage
+                        : null,
+                  ),
+          
+                  // Previous
+                  IconButton(
+                    icon: Icon(Icons.navigate_before),
+                    onPressed: controller.currentPage.value > 1
+                        ? controller.previousPage
+                        : null,
+                  ),
+          
+                  // Page Numbers
+                  ...List.generate(
+                          controller.totalPages.value, (index) => index + 1)
+                      .where((page) {
+                    int current = controller.currentPage.value;
+                    return (page >= current - 2 && page <= current + 2) ||
+                        page == 1 ||
+                        page == controller.totalPages.value;
+                  }).map((page) {
+                    bool isActive = page == controller.currentPage.value;
+                    return InkWell(
+                      onTap: () => controller.goToPage(page),
+                      child: Container(
+                        margin: EdgeInsets.symmetric(horizontal: 4),
+                        padding:
+                            EdgeInsets.symmetric(vertical: 6, horizontal: 10),
+                        decoration: BoxDecoration(
+                          color: isActive
+                              ? LightThemeColors.primaryColor
+                              : Colors.grey.shade200,
+                          borderRadius: BorderRadius.circular(8),
+                          border:
+                              Border.all(color: LightThemeColors.primaryColor),
+                        ),
+                        child: Text(
+                          page.toString(),
+                          style: TextStyle(
+                            color: isActive ? Colors.white : Colors.black87,
+                          ),
                         ),
                       ),
-                    ),
-                  );
-                }),
-
-                // Next
-                IconButton(
-                  icon: Icon(Icons.navigate_next),
-                  onPressed:
-                      controller.currentPage.value < controller.totalPages.value
-                          ? controller.nextPage
-                          : null,
-                ),
-
-                // Last
-                IconButton(
-                  icon: Icon(Icons.last_page),
-                  onPressed:
-                      controller.currentPage.value < controller.totalPages.value
-                          ? controller.lastPage
-                          : null,
-                ),
-              ],
+                    );
+                  }),
+          
+                  // Next
+                  IconButton(
+                    icon: Icon(Icons.navigate_next),
+                    onPressed:
+                        controller.currentPage.value < controller.totalPages.value
+                            ? controller.nextPage
+                            : null,
+                  ),
+          
+                  // Last
+                  IconButton(
+                    icon: Icon(Icons.last_page),
+                    onPressed:
+                        controller.currentPage.value < controller.totalPages.value
+                            ? controller.lastPage
+                            : null,
+                  ),
+                ],
+              ),
             ),
           ),
         );

@@ -10,7 +10,6 @@ import '../../../helper/global.dart';
 import '../../../models/user.dart';
 import '../../../services/api_call_status.dart';
 import '../../../services/base_client.dart';
-import '../../nav_bar_views/home/controllers/home_controller.dart';
 import '../../nav_bar_views/home/views/home_view.dart';
 import '../../premium_packages/controllers/premium_packages_controller.dart';
 import '../../profile_module/profile/controllers/profile_controller.dart';

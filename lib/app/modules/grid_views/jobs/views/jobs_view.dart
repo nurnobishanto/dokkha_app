@@ -18,121 +18,123 @@ class JobsView extends GetView<JobsController> {
           style: AppTextStyles.heading4.copyWith(color: Colors.white),
         ),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: Obx(() {
-              return Padding(
-                padding: const EdgeInsets.all(8.00),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // CustomSearchBar(
-                    //   prefixIcon: Icons.search,
-                    //   onChanged: (value) {
-                    //     controller.search.value = value.toString();
-                    //     controller.getGovJobs(value.toString());
-                    //     if (kDebugMode) {
-                    //       print("Search JOBs ${value.toString()}");
-                    //     }
-                    //   },
-                    // ),
-
-                    controller.isLoading.value
-                        ? const Center(child: CircularProgressIndicator())
-                        // Expanded(
-                        //         child: ListView.builder(
-                        //           itemCount: 6,
-                        //           itemBuilder: (_, index) =>
-                        //               const ShimmerPlaceholder(),
-                        //         ),
-                        //       )
-                        : controller.model.value.jobs!.data!.isEmpty
-                            ? const Center(
-                                child: Text('তথ্য পাওয়া যায়নি'),
-                              )
-                            : Expanded(
-                                child: ListView.separated(
-                                  itemCount: controller
-                                          .model.value.jobs!.data!.length +
-                                      1,
-                                  shrinkWrap: true,
-                                  itemBuilder: (_, index) {
-                                    if (index ==
-                                        controller
-                                            .model.value.jobs!.data!.length) {
-                                      return (controller
-                                                  .model.value.jobs!.lastPage! >
-                                              controller.currentPage.value)
-                                          ? Column(
-                                              children: [
-                                                const SizedBox(height: 5.0),
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    controller.fetchJobs("",
-                                                        page: controller
-                                                                .currentPage
-                                                                .value +
-                                                            1);
-                                                  },
-                                                  child: Container(
-                                                    height: 30,
-                                                    width: Get.width / 2,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              15.0),
-                                                      border: Border.all(
-                                                        color: LightThemeColors
-                                                            .primaryColor,
-                                                        width: 1,
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: Obx(() {
+                return Padding(
+                  padding: const EdgeInsets.all(8.00),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // CustomSearchBar(
+                      //   prefixIcon: Icons.search,
+                      //   onChanged: (value) {
+                      //     controller.search.value = value.toString();
+                      //     controller.getGovJobs(value.toString());
+                      //     if (kDebugMode) {
+                      //       print("Search JOBs ${value.toString()}");
+                      //     }
+                      //   },
+                      // ),
+        
+                      controller.isLoading.value
+                          ? const Center(child: CircularProgressIndicator())
+                          // Expanded(
+                          //         child: ListView.builder(
+                          //           itemCount: 6,
+                          //           itemBuilder: (_, index) =>
+                          //               const ShimmerPlaceholder(),
+                          //         ),
+                          //       )
+                          : controller.model.value.jobs!.data!.isEmpty
+                              ? const Center(
+                                  child: Text('তথ্য পাওয়া যায়নি'),
+                                )
+                              : Expanded(
+                                  child: ListView.separated(
+                                    itemCount: controller
+                                            .model.value.jobs!.data!.length +
+                                        1,
+                                    shrinkWrap: true,
+                                    itemBuilder: (_, index) {
+                                      if (index ==
+                                          controller
+                                              .model.value.jobs!.data!.length) {
+                                        return (controller
+                                                    .model.value.jobs!.lastPage! >
+                                                controller.currentPage.value)
+                                            ? Column(
+                                                children: [
+                                                  const SizedBox(height: 5.0),
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      controller.fetchJobs("",
+                                                          page: controller
+                                                                  .currentPage
+                                                                  .value +
+                                                              1);
+                                                    },
+                                                    child: Container(
+                                                      height: 30,
+                                                      width: Get.width / 2,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                15.0),
+                                                        border: Border.all(
+                                                          color: LightThemeColors
+                                                              .primaryColor,
+                                                          width: 1,
+                                                        ),
                                                       ),
-                                                    ),
-                                                    child: const Center(
-                                                      child: Text(
-                                                        'আরও দেখুন',
-                                                        style: TextStyle(
-                                                          color:
-                                                              LightThemeColors
-                                                                  .primaryColor,
-                                                          fontWeight:
-                                                              FontWeight.bold,
+                                                      child: const Center(
+                                                        child: Text(
+                                                          'আরও দেখুন',
+                                                          style: TextStyle(
+                                                            color:
+                                                                LightThemeColors
+                                                                    .primaryColor,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
-                                            )
-                                          : const SizedBox.shrink();
-                                    }
-
-                                    var data = controller
-                                        .model.value.jobs!.data![index];
-                                    return GovJobCard(
-                                      title: data.companyName!.isEmpty
-                                          ? ""
-                                          : data.companyName.toString(),
-                                      onTap: () {
-                                        Get.to(
-                                          JobDetailsScreen(
-                                            id: data.id!.toInt(),
-                                          ),
-                                        );
-                                      },
-                                      deadline: data.deadline,
-                                    );
-                                  },
-                                  separatorBuilder: (x, i) =>
-                                      const SizedBox(height: 5.0),
+                                                ],
+                                              )
+                                            : const SizedBox.shrink();
+                                      }
+        
+                                      var data = controller
+                                          .model.value.jobs!.data![index];
+                                      return GovJobCard(
+                                        title: data.companyName!.isEmpty
+                                            ? ""
+                                            : data.companyName.toString(),
+                                        onTap: () {
+                                          Get.to(
+                                            JobDetailsScreen(
+                                              id: data.id!.toInt(),
+                                            ),
+                                          );
+                                        },
+                                        deadline: data.deadline,
+                                      );
+                                    },
+                                    separatorBuilder: (x, i) =>
+                                        const SizedBox(height: 5.0),
+                                  ),
                                 ),
-                              ),
-                  ],
-                ),
-              );
-            }),
-          ),
-        ],
+                    ],
+                  ),
+                );
+              }),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -19,70 +19,74 @@ class LatestExamView extends GetView<LatestExamController> {
     return Scaffold(
       appBar: const CustomAppBar(title: 'সর্বশেষ নিয়োগ পরীক্ষা'),
       body: Obx(() {
-        return controller.isLoading.value
-            ? const Center(
+        if (controller.isLoading.value) {
+          return const Center(
                 child: CircularProgressIndicator(),
-              )
-            : Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ListView.separated(
-                  itemCount:
-                      controller.model.value.latestExams!.data!.length + 1,
-                  itemBuilder: (c, index) {
-                    if (index ==
-                        controller.model.value.latestExams!.data!.length) {
-                      return (controller.model.value.latestExams!.lastPage! >
-                              controller.currentPage.value)
-                          ? Column(
-                              children: [
-                                const SizedBox(height: 5.0),
-                                GestureDetector(
-                                  onTap: () {
-                                    controller.fetchLatestExam(
-                                        page: controller.currentPage.value + 1);
-                                  },
-                                  child: Container(
-                                    height: 30,
-                                    width: Get.width / 2,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15.0),
-                                      border: Border.all(
-                                        color: LightThemeColors.primaryColor,
-                                        width: 1,
-                                      ),
-                                    ),
-                                    child: const Center(
-                                      child: Text(
-                                        'আরও দেখুন',
-                                        style: TextStyle(
+              );
+        } else {
+          return SafeArea(
+            child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListView.separated(
+                    itemCount:
+                        controller.model.value.latestExams!.data!.length + 1,
+                    itemBuilder: (c, index) {
+                      if (index ==
+                          controller.model.value.latestExams!.data!.length) {
+                        return (controller.model.value.latestExams!.lastPage! >
+                                controller.currentPage.value)
+                            ? Column(
+                                children: [
+                                  const SizedBox(height: 5.0),
+                                  GestureDetector(
+                                    onTap: () {
+                                      controller.fetchLatestExam(
+                                          page: controller.currentPage.value + 1);
+                                    },
+                                    child: Container(
+                                      height: 30,
+                                      width: Get.width / 2,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15.0),
+                                        border: Border.all(
                                           color: LightThemeColors.primaryColor,
-                                          fontWeight: FontWeight.bold,
+                                          width: 1,
+                                        ),
+                                      ),
+                                      child: const Center(
+                                        child: Text(
+                                          'আরও দেখুন',
+                                          style: TextStyle(
+                                            color: LightThemeColors.primaryColor,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            )
-                          : const SizedBox.shrink();
-                    }
-                    final data =
-                        controller.model.value.latestExams?.data![index];
-                    return LatestExamCard(
-                      title: data?.title ?? '',
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (x) =>
-                              LatestExamStartDialog(latestExam: data),
-                        );
-                      },
-                      date: data!.date,
-                    );
-                  },
-                  separatorBuilder: (x, index) => 8.h.height,
+                                ],
+                              )
+                            : const SizedBox.shrink();
+                      }
+                      final data =
+                          controller.model.value.latestExams?.data![index];
+                      return LatestExamCard(
+                        title: data?.title ?? '',
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (x) =>
+                                LatestExamStartDialog(latestExam: data),
+                          );
+                        },
+                        date: data!.date,
+                      );
+                    },
+                    separatorBuilder: (x, index) => 8.h.height,
+                  ),
                 ),
-              );
+          );
+        }
       }),
     );
   }

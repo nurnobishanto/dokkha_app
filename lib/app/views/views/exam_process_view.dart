@@ -70,151 +70,156 @@ class _ExamProcessViewState extends State<ExamProcessView> {
         ),
       ),
       body: Obx(() {
-        return Column(
-          children: [
-            // Display timer
-            controller.timerWork.value == true
-                ? Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 8),
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const FaIcon(FontAwesomeIcons.clock,
-                              size: 18.0, color: Colors.white),
-                          const SizedBox(width: 8.0),
-                          Text(
-                            "সময় বাকি : ${_formatDuration(controller.duration!.value)} মিনিট",
-                            style: AppTextStyles.heading4
-                                .copyWith(color: LightThemeColors.white),
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
-                : const SizedBox(),
-
-            // Question choice area
-            Expanded(
-              child: ListView.builder(
-                itemCount: questionList.length,
-                itemBuilder: (context, index) {
-                  final question = questionList[index];
-                  return Card(
-                    margin: const EdgeInsets.all(8.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                            color: LightThemeColors.primaryColor, width: 1.5),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+        return SafeArea(
+          child: Column(
+            children: [
+              // Display timer
+              controller.timerWork.value == true
+                  ? Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 8),
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            if (question.questionImage != null)
-                              Image.network(
-                                "${AppConstants.storageUrl}${question.questionImage}",
-                                errorBuilder: (context, error, stackTrace) =>
-                                    const Icon(Icons.error, color: Colors.red),
-                              ),
-                            if (question.questionImage != null)
-                              const SizedBox(height: 10.00),
-
-                            /// Description
-                            question.description != null
-                                ? HtmlWidget(question.description.toString())
-                                : const SizedBox(),
-                            if (question.description != null)
-                              const SizedBox(height: 10.00),
-
-                            Container(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 7),
-                              width: double.infinity,
-                              decoration: const BoxDecoration(
-                                color: LightThemeColors.primaryColor,
-                                borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(8.0),
-                                  topLeft: Radius.circular(8.0),
-                                ),
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    flex: 10,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: HtmlWidget(
-                                        "${index + 1}. ${question.title}",
-                                        textStyle: AppTextStyles.body1
-                                            .copyWith(color: Colors.white),
-                                      ),
-                                    ),
-                                  ),
-
-                                  /// popup menu items area
-                                  Expanded(
-                                    child: Obx(() {
-                                      // Ensure that the controller has an observable value for the favorite status
-                                      bool isFavorite =
-                                          controller.checkQuestionExistInSaved(
-                                              question.id!.toInt());
-
-                                      return IconButton(
-                                        onPressed: () {
-                                          if (isFavorite) {
-                                            removeFavoriteQuestion(
-                                                question.id!.toInt());
-                                            isFavorite = false;
-                                          } else {
-                                            questionFavAdd(
-                                                question.id!.toInt());
-                                            isFavorite = true;
-                                          }
-
-                                          // This will trigger the UI update when the state changes
-                                          controller.update();
-                                        },
-                                        icon: Icon(
-                                          isFavorite
-                                              ? Icons.favorite
-                                              : Icons.favorite_border,
-                                          color: LightThemeColors.white,
-                                        ),
-                                      );
-                                    }),
-                                  ),
-                                ],
-                              ),
+                            const FaIcon(FontAwesomeIcons.clock,
+                                size: 18.0, color: Colors.white),
+                            const SizedBox(width: 8.0),
+                            Text(
+                              "সময় বাকি : ${_formatDuration(controller.duration!.value)} মিনিট",
+                              style: AppTextStyles.heading4
+                                  .copyWith(color: LightThemeColors.white),
                             ),
-                            customQuestionWidget(controller, question),
                           ],
                         ),
                       ),
-                    ),
-                  );
-                },
+                    )
+                  : const SizedBox(),
+          
+              // Question choice area
+              Expanded(
+                child: ListView.builder(
+                  itemCount: questionList.length,
+                  itemBuilder: (context, index) {
+                    final question = questionList[index];
+                    return Card(
+                      margin: const EdgeInsets.all(8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              color: LightThemeColors.primaryColor, width: 1.5),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (question.questionImage != null)
+                                Image.network(
+                                  "${AppConstants.storageUrl}${question.questionImage}",
+                                  errorBuilder: (context, error, stackTrace) =>
+                                      const Icon(Icons.error, color: Colors.red),
+                                ),
+                              if (question.questionImage != null)
+                                const SizedBox(height: 10.00),
+          
+                              /// Description
+                              question.description != null
+                                  ? HtmlWidget(question.description.toString())
+                                  : const SizedBox(),
+                              if (question.description != null)
+                                const SizedBox(height: 10.00),
+          
+                              Container(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 7),
+                                width: double.infinity,
+                                decoration: const BoxDecoration(
+                                  color: LightThemeColors.primaryColor,
+                                  borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(8.0),
+                                    topLeft: Radius.circular(8.0),
+                                  ),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      flex: 10,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: HtmlWidget(
+                                          "${index + 1}. ${question.title}",
+                                          textStyle: AppTextStyles.body1
+                                              .copyWith(color: Colors.white),
+                                        ),
+                                      ),
+                                    ),
+          
+                                    /// popup menu items area
+                                    Expanded(
+                                      child: Obx(() {
+                                        // Ensure that the controller has an observable value for the favorite status
+                                        bool isFavorite =
+                                            controller.checkQuestionExistInSaved(
+                                                question.id!.toInt());
+          
+                                        return IconButton(
+                                          onPressed: () {
+                                            if (isFavorite) {
+                                              removeFavoriteQuestion(
+                                                  question.id!.toInt());
+                                              isFavorite = false;
+                                            } else {
+                                              questionFavAdd(
+                                                  question.id!.toInt());
+                                              isFavorite = true;
+                                            }
+          
+                                            // This will trigger the UI update when the state changes
+                                            controller.update();
+                                          },
+                                          icon: Icon(
+                                            isFavorite
+                                                ? Icons.favorite
+                                                : Icons.favorite_border,
+                                            color: LightThemeColors.white,
+                                          ),
+                                        );
+                                      }),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              customQuestionWidget(controller, question),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
               ),
-            ),
-
-            CustomActionButton(
-              text: "সাবমিট এক্সাম",
-              onPressed: () {
-                controller.showSubmitConfirmationDialog();
-              },
-            ),
-          ],
+          
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8,vertical: 4.00),
+                child: CustomActionButton(
+                  text: "সাবমিট এক্সাম",
+                  onPressed: () {
+                    controller.showSubmitConfirmationDialog();
+                  },
+                ),
+              ),
+            ],
+          ),
         );
       }),
     );

@@ -33,89 +33,91 @@ class SubjectSectionView extends GetView<SubjectSectionController> {
         centerTitle: true,
         backgroundColor: LightThemeColors.primaryColor,
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
-        child: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    CustomExpandSubject(
-                      subject: subject!,
-                      topic: subject!,
-                      padding: 0,
-                      initialExpand: true,
-                    ),
-                  ],
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
+          child: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      CustomExpandSubject(
+                        subject: subject!,
+                        topic: subject!,
+                        padding: 0,
+                        initialExpand: true,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 8.00),
-            CustomActionButton(
-              text: "এগিয়ে যান",
-              onPressed: () async {
-                List<SubjectSectionSelect> selectSubjects =
-                    await MySharedPref.getSubjectSection();
-                if (selectSubjects.isNotEmpty) {
-                  controller.getSubjects();
-                  Get.to(const SubSectionsSetTimeView());
-                } else {
-                  CustomSnackBar.showCustomErrorSnackBar(
-                    title: "বিষয় নির্বাচন করা হয়নি",
-                    message: "অনুগ্রহ করে অন্তত একটি টপিক নির্বাচন করুন।",
-                  );
-                }
-              },
-            ),
-            // Row(
-            //   children: [
-            //     Expanded(
-            //       child: CustomTextField(
-            //         controller: setNumberController,
-            //         hintText: "প্রশ্ন সংখ্যা সেট করুন",
-            //         validator: (val) {
-            //           if (val == null || val.isEmpty) {
-            //             return "This field is required";
-            //           }
-            //           final parsedValue = int.tryParse(val);
-            //           if (parsedValue == null) {
-            //             return "please enter valid number";
-            //           } else if (parsedValue < 5) {
-            //             return "Must be at least 10";
-            //           }
-            //           return null;
-            //         },
-            //       ),
-            //     ),
-            //     const SizedBox(width: 8.00),
-            //     Expanded(
-            //       child: CustomActionButton(
-            //         text: "এগিয়ে যান",
-            //         onPressed: () async {
-            //           if (setNumberController.text.isNotEmpty) {
-            //             SubjectSectionSelect newSubject = SubjectSectionSelect(
-            //               id: subject?.id ?? 0,
-            //               name: subject?.name ?? '',
-            //               quantity: min(
-            //                 int.tryParse(setNumberController.text)!.toInt(),
-            //                 subject!.questionCount!.toInt(),
-            //               ),
-            //             );
-            //             await MySharedPref.addOrUpdateSubjectSectionSelect(
-            //                 newSubject);
-            //             controller.getSubjects();
-            //             Get.to(const SubSectionsSetTimeView());
-            //           } else {
-            //             CustomSnackBar.showCustomErrorToast(
-            //                 message: "please enter number of question!");
-            //           }
-            //         },
-            //       ),
-            //     ),
-            //   ],
-            // ),
-          ],
+              const SizedBox(height: 8.00),
+              CustomActionButton(
+                text: "এগিয়ে যান",
+                onPressed: () async {
+                  List<SubjectSectionSelect> selectSubjects =
+                      await MySharedPref.getSubjectSection();
+                  if (selectSubjects.isNotEmpty) {
+                    controller.getSubjects();
+                    Get.to(const SubSectionsSetTimeView());
+                  } else {
+                    CustomSnackBar.showCustomErrorSnackBar(
+                      title: "বিষয় নির্বাচন করা হয়নি",
+                      message: "অনুগ্রহ করে অন্তত একটি টপিক নির্বাচন করুন।",
+                    );
+                  }
+                },
+              ),
+              // Row(
+              //   children: [
+              //     Expanded(
+              //       child: CustomTextField(
+              //         controller: setNumberController,
+              //         hintText: "প্রশ্ন সংখ্যা সেট করুন",
+              //         validator: (val) {
+              //           if (val == null || val.isEmpty) {
+              //             return "This field is required";
+              //           }
+              //           final parsedValue = int.tryParse(val);
+              //           if (parsedValue == null) {
+              //             return "please enter valid number";
+              //           } else if (parsedValue < 5) {
+              //             return "Must be at least 10";
+              //           }
+              //           return null;
+              //         },
+              //       ),
+              //     ),
+              //     const SizedBox(width: 8.00),
+              //     Expanded(
+              //       child: CustomActionButton(
+              //         text: "এগিয়ে যান",
+              //         onPressed: () async {
+              //           if (setNumberController.text.isNotEmpty) {
+              //             SubjectSectionSelect newSubject = SubjectSectionSelect(
+              //               id: subject?.id ?? 0,
+              //               name: subject?.name ?? '',
+              //               quantity: min(
+              //                 int.tryParse(setNumberController.text)!.toInt(),
+              //                 subject!.questionCount!.toInt(),
+              //               ),
+              //             );
+              //             await MySharedPref.addOrUpdateSubjectSectionSelect(
+              //                 newSubject);
+              //             controller.getSubjects();
+              //             Get.to(const SubSectionsSetTimeView());
+              //           } else {
+              //             CustomSnackBar.showCustomErrorToast(
+              //                 message: "please enter number of question!");
+              //           }
+              //         },
+              //       ),
+              //     ),
+              //   ],
+              // ),
+            ],
+          ),
         ),
       ),
     );
@@ -140,116 +142,248 @@ class CustomExpandSubject extends StatefulWidget {
   State<CustomExpandSubject> createState() => _CustomExpandSubjectState();
 }
 
-class _CustomExpandSubjectState extends State<CustomExpandSubject> {
+class _CustomExpandSubjectState extends State<CustomExpandSubject>
+    with SingleTickerProviderStateMixin {
   late final RxBool isExpanded;
-  late final RxBool isChecked = false.obs;
+  final RxBool isChecked = false.obs;
+  late final AnimationController _controller;
+  late final Animation<double> _arrowRotation;
 
   @override
   void initState() {
     super.initState();
     isExpanded = widget.initialExpand.obs;
+
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 200),
+    );
+
+    _arrowRotation = Tween<double>(begin: 0, end: 0.5).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
+
+    if (widget.initialExpand) _controller.forward();
+
     _loadCheckedState();
   }
 
-  void _loadCheckedState() async {
-    final checked =
-        await MySharedPref.isSubjectSectionExist(widget.topic.id!.toInt());
-    isChecked.value = checked;
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  Future<void> _loadCheckedState() async {
+    isChecked.value =
+    await MySharedPref.isSubjectSectionExist(widget.topic.id!.toInt());
+  }
+
+  void _toggleExpansion(bool expand) {
+    isExpanded.value = expand;
+    expand ? _controller.forward() : _controller.reverse();
+  }
+
+  void _handleCheckboxChange(bool? value) {
+    if (value == null) return;
+    isChecked.value = value;
+
+    final subjectSelect = SubjectSectionSelect(
+      id: widget.topic.id,
+      name: widget.topic.name,
+      parentId: null,
+      quantity: widget.topic.questionCount?.toInt(),
+      max: widget.topic.questionCount?.toInt(),
+    );
+
+    if (value) {
+      MySharedPref.addOrUpdateSubjectSectionSelect(subjectSelect);
+    } else {
+      MySharedPref.removeSubjectSectionSelect(subjectSelect);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final hasChildren = widget.topic.children?.isNotEmpty ?? false;
+    final theme = Theme.of(context);
+
     return Container(
-      margin: EdgeInsets.only(left: widget.padding),
-      decoration: const BoxDecoration(
-        border: Border(
-          left: BorderSide(
-            color: Colors.grey,
-            width: 0.2,
-          ),
-        ),
+      margin: EdgeInsets.only(left: widget.padding, bottom: 2),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          _tile(theme, hasChildren),
+          if (hasChildren) _children(),
+        ],
       ),
-      child: Theme(
-        data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-        child: ExpansionTile(
-          minTileHeight: 0.00,
-          showTrailingIcon: false,
-          visualDensity: const VisualDensity(horizontal: 0, vertical: 0),
-          initiallyExpanded: widget.initialExpand,
-          tilePadding: EdgeInsets.zero,
-          childrenPadding: EdgeInsets.zero,
-          onExpansionChanged: (expanded) => isExpanded.value = expanded,
-          title: Container(
-            decoration: BoxDecoration(
-              color: LightThemeColors.white,
-              borderRadius: BorderRadius.circular(7.r),
-              boxShadow: const [
-                BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 10,
-                  spreadRadius: 1,
-                  offset: Offset(0, 2),
-                ),
-              ],
-            ),
-            child: widget.topic.parentId != null
-                ? Row(
-                    children: [
-                      Obx(() => Checkbox(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(4.r),
-                            ),
-                            value: isChecked.value,
-                            onChanged: (value) {
-                              isChecked.value = value!;
-                              SubjectSectionSelect newSubject =
-                                  SubjectSectionSelect(
-                                id: widget.topic.id,
-                                name: widget.topic.name,
-                                parentId: null,
-                                quantity: widget.topic.questionCount!.toInt(),
-                                max: widget.topic.questionCount!.toInt(),
-                              );
-                              if (value) {
-                                MySharedPref.addOrUpdateSubjectSectionSelect(
-                                    newSubject);
-                              } else {
-                                MySharedPref.removeSubjectSectionSelect(
-                                    newSubject);
-                              }
-                            },
-                            visualDensity: VisualDensity.compact,
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                          )),
-                      2.0.w.width,
-                      Expanded(
-                        child: Text(
-                          widget.topic.name.toString(),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 2,
-                          style: AppTextStyles.body2,
-                        ),
-                      ),
-                      AnimatedRotation(
-                        turns: isExpanded.value ? 0.5 : 0.0,
-                        duration: const Duration(milliseconds: 200),
-                        child: const Icon(Icons.keyboard_arrow_down),
-                      ),
-                    ],
-                  )
-                : const SizedBox(),
+    );
+  }
+
+  Widget _tile(ThemeData theme, bool hasChildren) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.grey.shade200, width: 1),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.04),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
           ),
-          children: widget.topic.children!
-              .map((child) => CustomExpandSubject(
-                    subject: widget.subject,
-                    topic: child,
-                    padding: 10,
-                    initialExpand: true,
-                  ))
-              .toList(),
+        ],
+      ),
+      child: Stack(
+        children: [
+          // Amber vertical accent strip on the left
+          Positioned(
+            left: 0,
+            top: 8,
+            bottom: 8,
+            child: Container(
+              width: 4,
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  bottomLeft: Radius.circular(8),
+                ),
+              ),
+            ),
+          ),
+
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+              borderRadius: BorderRadius.circular(8),
+              onTap: hasChildren ? () => _toggleExpansion(!isExpanded.value) : null,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                child: widget.topic.parentId != null
+                    ? Obx(() => _tileContent(theme, hasChildren))
+                    : const SizedBox.shrink(),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _tileContent(ThemeData theme, bool hasChildren) {
+    return Row(
+      children: [
+        // Checkbox
+        SizedBox(
+          width: 20,
+          height: 20,
+          child: Checkbox(
+            value: isChecked.value,
+            onChanged: _handleCheckboxChange,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(4),
+            ),
+            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            visualDensity: VisualDensity.compact,
+            activeColor: theme.primaryColor,
+            checkColor: Colors.white,
+            side: BorderSide(
+              color: isChecked.value
+                  ? theme.primaryColor
+                  : Colors.grey.shade400,
+              width: 1.5,
+            ),
+          ),
         ),
+
+        const SizedBox(width: 12),
+
+        // Subject name
+        Expanded(
+          child: Text(
+            widget.topic.name ?? '',
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+            style: theme.textTheme.bodyMedium?.copyWith(
+              fontWeight: FontWeight.w500,
+              fontSize: 14,
+              color: Colors.grey.shade800,
+              height: 1.2,
+            ),
+          ),
+        ),
+
+        // Question count badge (if any)
+        // if (widget.topic.questionCount != null)
+        //   Container(
+        //     margin: const EdgeInsets.only(right: 8),
+        //     padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+        //     decoration: BoxDecoration(
+        //       color: theme.primaryColor.withValues(alpha: 0.1),
+        //       borderRadius: BorderRadius.circular(12),
+        //     ),
+        //     child: Text(
+        //       '${widget.topic.questionCount}',
+        //       style: theme.textTheme.bodySmall?.copyWith(
+        //         color: theme.primaryColor,
+        //         fontWeight: FontWeight.w600,
+        //         fontSize: 11,
+        //       ),
+        //     ),
+        //   ),
+
+        // Expand/collapse arrow
+        if (hasChildren)
+          AnimatedBuilder(
+            animation: _arrowRotation,
+            builder: (_, __) => Transform.rotate(
+              angle: _arrowRotation.value * 3.14159,
+              child: Icon(
+                Icons.keyboard_arrow_down,
+                size: 18,
+                color: Colors.grey.shade600,
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+
+  Widget _children() {
+    return Obx(
+          () => AnimatedContainer(
+        duration: const Duration(milliseconds: 250),
+        curve: Curves.easeInOut,
+        height: isExpanded.value ? null : 0,
+        child: isExpanded.value
+            ? Container(
+          margin: const EdgeInsets.only(top: 6, left: 16),
+          padding: const EdgeInsets.only(left: 12),
+          decoration: BoxDecoration(
+            border: Border(
+              left: BorderSide(color: Colors.grey.shade300, width: 2),
+            ),
+          ),
+          child: Column(
+            children: widget.topic.children!
+                .map(
+                  (child) => Padding(
+                padding: const EdgeInsets.only(bottom: 4),
+                child: CustomExpandSubject(
+                  subject: widget.subject,
+                  topic: child,
+                  padding: 0,
+                  initialExpand: false,
+                ),
+              ),
+            )
+                .toList(),
+          ),
+        )
+            : const SizedBox.shrink(),
       ),
     );
   }
 }
+

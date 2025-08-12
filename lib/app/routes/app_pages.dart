@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:lokkha/app/modules/lecture_sheet/bindings/sheet_details_binding.dart';
 
 import '../modules/auth_views/auth_gateway/bindings/auth_gateway_binding.dart';
 import '../modules/auth_views/auth_gateway/views/auth_gateway_view.dart';
@@ -27,12 +26,15 @@ import '../modules/grid_views/mock_test_tab/views/mock_test_tab_view.dart';
 import '../modules/latest_exam/bindings/latest_exam_binding.dart';
 import '../modules/latest_exam/views/latest_exam_view.dart';
 import '../modules/lecture_sheet/bindings/lecture_sheet_binding.dart';
+import '../modules/lecture_sheet/bindings/sheet_details_binding.dart';
 import '../modules/lecture_sheet/views/lecture_sheet_details_view.dart';
 import '../modules/lecture_sheet/views/lecture_sheet_list_view.dart';
 import '../modules/maintenance_mode/bindings/maintenance_mode_view_binding.dart';
 import '../modules/maintenance_mode/views/maintenance_mode_view_view.dart';
-import '../modules/model_test/bindings/model_test_binding.dart';
-import '../modules/model_test/views/model_test_view.dart';
+import '../modules/model_test_module/bindings/model_test_binding.dart';
+import '../modules/model_test_module/model_test_categories/bindings/model_test_categories_binding.dart';
+import '../modules/model_test_module/model_test_categories/views/model_test_categories_view.dart';
+import '../modules/model_test_module/views/model_test_view.dart';
 import '../modules/nav_bar_views/blog/bindings/blog_binding.dart';
 import '../modules/nav_bar_views/blog/views/blog_view.dart';
 import '../modules/nav_bar_views/contest/all_contest/bindings/all_contest_binding.dart';
@@ -259,6 +261,11 @@ class AppPages {
       name: _Paths.SHEET_DETAILS,
       page: () => const LectureSheetDetailsView(),
       binding: SheetDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.MODEL_TEST_CATEGORIES,
+      page: () => const ModelTestCategoriesView(),
+      binding: ModelTestCategoriesBinding(),
     ),
   ];
 }

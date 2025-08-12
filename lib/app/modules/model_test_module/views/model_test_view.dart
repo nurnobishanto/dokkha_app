@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:lokkha/app/modules/model_test/components/model_test_card.dart';
-import 'package:lokkha/app/modules/model_test/views/model_test_details_view.dart';
+
 import 'package:lokkha/utils/constants.dart';
 import '../../../services/api_call_status.dart';
+import '../components/model_test_card.dart';
 import '../controllers/model_test_controller.dart';
+import 'model_test_details_view.dart';
 
 class ModelTestView extends GetView<ModelTestController> {
   const ModelTestView({super.key});

@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:lokkha/app/data/local/my_shared_pref.dart';
-import 'package:lokkha/app/modules/model_test/models/model_test_list_model.dart';
 import 'package:lokkha/app/services/api_call_status.dart';
 import 'package:lokkha/app/services/base_client.dart';
 import 'package:lokkha/utils/constants.dart';
@@ -9,6 +8,7 @@ import '../../../components/custom_snackbar.dart';
 import '../../auth_views/auth_gateway/views/auth_gateway_view.dart';
 import '../../premium_packages/views/premium_packages_view.dart';
 import '../models/exam_start_model.dart';
+import '../models/model_test_list_model.dart';
 import '../models/single_model_test_model.dart';
 import '../views/exam_run_view.dart';
 

@@ -44,31 +44,31 @@ class ModelTestController extends GetxController {
     );
   }
 
-  Future<void> fetchSingleModelTest(int id) async {
-    singleModelApiCallStatus.value = ApiCallStatus.loading;
-    String? token = MySharedPref.getUserToken();
-    final String url = "${AppConstants.modelTest}/$id";
-    await BaseClient.safeApiCall(
-      url,
-      RequestType.get,
-      headers: {'Authorization': 'Bearer $token'},
-      onLoading: () {
-        singleModelApiCallStatus.value = ApiCallStatus.loading;
-      },
-      onSuccess: (response) {
-        final data = response.data;
-        if (data['status'] == true) {
-          singleModelTest.value = SingleModelTestModel.fromJson(data);
-          singleModelApiCallStatus.value = ApiCallStatus.success;
-        } else {
-          singleModelApiCallStatus.value = ApiCallStatus.error;
-        }
-      },
-      onError: (error) {
-        singleModelApiCallStatus.value = ApiCallStatus.error;
-      },
-    );
-  }
+  // Future<void> fetchSingleModelTest(int id) async {
+  //   singleModelApiCallStatus.value = ApiCallStatus.loading;
+  //   String? token = MySharedPref.getUserToken();
+  //   final String url = "${AppConstants.modelTest}/$id";
+  //   await BaseClient.safeApiCall(
+  //     url,
+  //     RequestType.get,
+  //     headers: {'Authorization': 'Bearer $token'},
+  //     onLoading: () {
+  //       singleModelApiCallStatus.value = ApiCallStatus.loading;
+  //     },
+  //     onSuccess: (response) {
+  //       final data = response.data;
+  //       if (data['status'] == true) {
+  //         singleModelTest.value = SingleModelTestModel.fromJson(data);
+  //         singleModelApiCallStatus.value = ApiCallStatus.success;
+  //       } else {
+  //         singleModelApiCallStatus.value = ApiCallStatus.error;
+  //       }
+  //     },
+  //     onError: (error) {
+  //       singleModelApiCallStatus.value = ApiCallStatus.error;
+  //     },
+  //   );
+  // }
 
   RxBool isLoading = true.obs;
 

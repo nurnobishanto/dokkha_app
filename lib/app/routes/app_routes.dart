@@ -46,6 +46,7 @@ abstract class Routes {
   static const LECTURE_SHEET = _Paths.LECTURE_SHEET;
   static const SHEET_DETAILS = _Paths.SHEET_DETAILS;
   static const MODEL_TEST_CATEGORIES = _Paths.MODEL_TEST_CATEGORIES;
+  static const MODEL_TEST_DETAILS = _Paths.MODEL_TEST_DETAILS;
 }
 
 abstract class _Paths {
@@ -93,4 +94,5 @@ abstract class _Paths {
   static const LECTURE_SHEET = '/lecture-sheet';
   static const SHEET_DETAILS = '/sheet-details';
   static const MODEL_TEST_CATEGORIES = '/model-test-categories';
+  static const MODEL_TEST_DETAILS = '/model-test-details';
 }

@@ -15,91 +15,92 @@ class VocabularyView extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(VocabularyController());
     final scrollController = ScrollController();
+
+    // Infinite scroll
     scrollController.addListener(() {
       if (scrollController.position.pixels >=
           scrollController.position.maxScrollExtent - 200) {
-        controller.fetchVocabulary(); // Safe fetch handled in controller
+        controller.fetchVocabulary();
       }
     });
+
     return Scaffold(
       appBar: const CustomAppBar(title: 'Vocabulary'),
       body: Obx(() {
+        final vocabList = controller.filteredVocab;
         return SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: SingleChildScrollView(
+              controller: scrollController,
               child: controller.isLoading.value
-                  ? Center(
-                      child: CircularProgressIndicator(),
-                    )
+                  ? const Center(child: CircularProgressIndicator())
                   : Column(
                       children: [
+                        // Search bar
                         CustomSearchBar(
-                          onChanged: null,
+                          controller: controller.searchTextController.value,
+                          onChanged: (value) {
+                            controller.search.value = value;
+                          },
                           hintText: 'Search Vocabulary...',
                         ),
                         10.0.height,
                         FilterRow(vocabularyController: controller),
                         10.0.height,
+                        // Alphabets
                         Center(
                           child: Wrap(
                             spacing: 4,
                             runSpacing: 4,
                             alignment: WrapAlignment.center,
-                            children:
-                                controller.model.value.alphabets!.map((char) {
-                              return InkWell(
-                                onTap: () {
-                                  controller.selectedAlphabet.value =
-                                      char.toString();
-                                  controller.currentPage.value = 1;
-                                  controller.fetchVocabulary();
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 4.0.r, horizontal: 10),
-                                  decoration: BoxDecoration(
-                                    color:
-                                        char == controller.selectedAlphabet.value
+                            children: controller.model.value.alphabets
+                                    ?.map((char) {
+                                  return InkWell(
+                                    onTap: () {
+                                      controller.selectedAlphabet.value =
+                                          char.toString();
+                                      controller.currentPage.value = 1;
+                                      controller.fetchVocabulary();
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 4.0.r, horizontal: 10),
+                                      decoration: BoxDecoration(
+                                        color: char ==
+                                                controller
+                                                    .selectedAlphabet.value
                                             ? LightThemeColors.primaryColor
                                             : LightThemeColors.white,
-                                    borderRadius: BorderRadius.circular(8),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color:
-                                            Colors.black.withValues(alpha: 0.05),
-                                        spreadRadius: 1,
-                                        blurRadius: 5,
-                                        offset: const Offset(0, 2),
-                                      )
-                                    ],
-                                  ),
-                                  child: Text(
-                                    char,
-                                    style: TextStyle(
-                                        color: char ==
-                                                controller.selectedAlphabet.value
-                                            ? LightThemeColors.white
-                                            : LightThemeColors.primaryColor),
-                                  ),
-                                ),
-                              );
-                            }).toList(),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: Text(
+                                        char,
+                                        style: TextStyle(
+                                            color: char ==
+                                                    controller
+                                                        .selectedAlphabet.value
+                                                ? LightThemeColors.white
+                                                : LightThemeColors
+                                                    .primaryColor),
+                                      ),
+                                    ),
+                                  );
+                                }).toList() ??
+                                [],
                           ),
                         ),
                         5.h.height,
-                        Divider(),
+                        const Divider(),
                         5.h.height,
+                        if (vocabList.isEmpty)
+                          const Center(child: Text('Data not found')),
                         ListView.builder(
                           shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          itemCount:
-                              controller.model.value.vocabularies?.data?.length ??
-                                  0,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: vocabList.length,
                           itemBuilder: (_, index) {
-                            final vocab =
-                                controller.model.value.vocabularies!.data![index];
-          
+                            final vocab = vocabList[index];
                             return GestureDetector(
                               onTap: () {
                                 showDialog(
@@ -115,25 +116,32 @@ class VocabularyView extends StatelessWidget {
                                               vocab.details!.isNotEmpty)
                                             Text("Details: ${vocab.details}"),
                                           const SizedBox(height: 10),
-                                          if (vocab.synonym != null && vocab.synonym!.isNotEmpty)
-                                            popupList("Synonyms", vocab.synonym, LightThemeColors.primaryColor)
+                                          if (vocab.synonym != null &&
+                                              vocab.synonym!.isNotEmpty)
+                                            popupList("Synonyms", vocab.synonym,
+                                                LightThemeColors.primaryColor)
                                           else
                                             const Text("No synonyms found"),
-          
-                                          if (vocab.antonym != null && vocab.antonym!.isNotEmpty)
-                                            popupList("Antonyms", vocab.antonym, LightThemeColors.primaryColor)
+                                          if (vocab.antonym != null &&
+                                              vocab.antonym!.isNotEmpty)
+                                            popupList("Antonyms", vocab.antonym,
+                                                LightThemeColors.primaryColor)
                                           else
                                             const Text("No antonyms found"),
-          
-                                          if (vocab.wrongSynonym != null && vocab.wrongSynonym!.isNotEmpty)
-                                            popupList("Wrong Synonyms", vocab.wrongSynonym, Colors.red)
+                                          if (vocab.wrongSynonym != null &&
+                                              vocab.wrongSynonym!.isNotEmpty)
+                                            popupList("Wrong Synonyms",
+                                                vocab.wrongSynonym, Colors.red)
                                           else
-                                            const Text("No wrong synonyms found"),
-          
-                                          if (vocab.wrongAntonym != null && vocab.wrongAntonym!.isNotEmpty)
-                                            popupList("Wrong Antonyms", vocab.wrongAntonym, Colors.red)
+                                            const Text(
+                                                "No wrong synonyms found"),
+                                          if (vocab.wrongAntonym != null &&
+                                              vocab.wrongAntonym!.isNotEmpty)
+                                            popupList("Wrong Antonyms",
+                                                vocab.wrongAntonym, Colors.red)
                                           else
-                                            const Text("No wrong antonyms found"),
+                                            const Text(
+                                                "No wrong antonyms found"),
                                         ],
                                       ),
                                     ),
@@ -153,20 +161,22 @@ class VocabularyView extends StatelessWidget {
                                 padding: const EdgeInsets.all(14),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
-                                  border: Border.all(color: Colors.grey.shade300),
+                                  border:
+                                      Border.all(color: Colors.grey.shade300),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: Text(
                                   vocab.word ?? '',
                                   style: const TextStyle(
-                                      fontSize: 16, fontWeight: FontWeight.w500),
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500),
                                 ),
                               ),
                             );
                           },
                         ),
                         10.0.height,
-                        Divider(),
+                        const Divider(),
                         10.0.height,
                       ],
                     ),
@@ -174,6 +184,77 @@ class VocabularyView extends StatelessWidget {
           ),
         );
       }),
+      // bottomNavigationBar: Obx(() {
+      //   if (controller.totalPages.value <= 1) return const SizedBox.shrink();
+      //   return SafeArea(
+      //     child: SingleChildScrollView(
+      //       scrollDirection: Axis.horizontal,
+      //       child: Row(
+      //         children: [
+      //           IconButton(
+      //             icon: const Icon(Icons.first_page),
+      //             onPressed: controller.currentPage.value > 1
+      //                 ? controller.firstPage
+      //                 : null,
+      //           ),
+      //           IconButton(
+      //             icon: const Icon(Icons.navigate_before),
+      //             onPressed: controller.currentPage.value > 1
+      //                 ? controller.previousPage
+      //                 : null,
+      //           ),
+      //           ...List.generate(
+      //                   controller.totalPages.value, (index) => index + 1)
+      //               .where((page) {
+      //             int current = controller.currentPage.value;
+      //             return (page >= current - 2 && page <= current + 2) ||
+      //                 page == 1 ||
+      //                 page == controller.totalPages.value;
+      //           }).map((page) {
+      //             bool isActive = page == controller.currentPage.value;
+      //             return InkWell(
+      //               onTap: () => controller.goToPage(page),
+      //               child: Container(
+      //                 margin: const EdgeInsets.symmetric(horizontal: 4),
+      //                 padding: const EdgeInsets.symmetric(
+      //                     vertical: 6, horizontal: 10),
+      //                 decoration: BoxDecoration(
+      //                   color: isActive
+      //                       ? LightThemeColors.primaryColor
+      //                       : Colors.grey.shade200,
+      //                   borderRadius: BorderRadius.circular(8),
+      //                   border:
+      //                       Border.all(color: LightThemeColors.primaryColor),
+      //                 ),
+      //                 child: Text(
+      //                   page.toString(),
+      //                   style: TextStyle(
+      //                     color: isActive ? Colors.white : Colors.black87,
+      //                   ),
+      //                 ),
+      //               ),
+      //             );
+      //           }),
+      //           IconButton(
+      //             icon: const Icon(Icons.navigate_next),
+      //             onPressed:
+      //                 controller.currentPage.value < controller.totalPages.value
+      //                     ? controller.nextPage
+      //                     : null,
+      //           ),
+      //           IconButton(
+      //             icon: const Icon(Icons.last_page),
+      //             onPressed:
+      //                 controller.currentPage.value < controller.totalPages.value
+      //                     ? controller.lastPage
+      //                     : null,
+      //           ),
+      //         ],
+      //       ),
+      //     ),
+      //   );
+      // }),
+
       bottomNavigationBar: Obx(() {
         if (controller.totalPages.value <= 1) return SizedBox.shrink();
 
@@ -191,7 +272,7 @@ class VocabularyView extends StatelessWidget {
                         ? controller.firstPage
                         : null,
                   ),
-          
+
                   // Previous
                   IconButton(
                     icon: Icon(Icons.navigate_before),
@@ -199,7 +280,7 @@ class VocabularyView extends StatelessWidget {
                         ? controller.previousPage
                         : null,
                   ),
-          
+
                   // Page Numbers
                   ...List.generate(
                           controller.totalPages.value, (index) => index + 1)
@@ -233,23 +314,23 @@ class VocabularyView extends StatelessWidget {
                       ),
                     );
                   }),
-          
+
                   // Next
                   IconButton(
                     icon: Icon(Icons.navigate_next),
-                    onPressed:
-                        controller.currentPage.value < controller.totalPages.value
-                            ? controller.nextPage
-                            : null,
+                    onPressed: controller.currentPage.value <
+                            controller.totalPages.value
+                        ? controller.nextPage
+                        : null,
                   ),
-          
+
                   // Last
                   IconButton(
                     icon: Icon(Icons.last_page),
-                    onPressed:
-                        controller.currentPage.value < controller.totalPages.value
-                            ? controller.lastPage
-                            : null,
+                    onPressed: controller.currentPage.value <
+                            controller.totalPages.value
+                        ? controller.lastPage
+                        : null,
                   ),
                 ],
               ),
@@ -267,14 +348,19 @@ class FilterRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Obx(
-          () => SizedBox(
-            height: 35.0.h,
-            width: Get.width * 0.45,
-            child: Container(
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal, // prevent overflow
+      child: Row(
+        children: [
+          Obx(() {
+            final types = vocabularyController.model.value.types ?? [];
+            final selectedType = vocabularyController.selectedType.value;
+            final safeType = types.contains(selectedType) ? selectedType : null;
+
+            return SizedBox(
+              height: 35.0.h,
+              width: Get.width * 0.45,
+              child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -283,12 +369,11 @@ class FilterRow extends StatelessWidget {
                 ),
                 child: DropdownButton<Category>(
                   isExpanded: true,
-                  value: vocabularyController.selectedType.value,
-                  hint: Text('Select Type'),
-                  underline: SizedBox(),
-                  icon: Icon(Icons.arrow_drop_down),
-                  items: (vocabularyController.model.value.types ?? [])
-                      .map((type) {
+                  value: safeType,
+                  hint: const Text('Select Type'),
+                  underline: const SizedBox(),
+                  icon: const Icon(Icons.arrow_drop_down),
+                  items: types.map((type) {
                     return DropdownMenuItem<Category>(
                       value: type,
                       child: Text(type.name ?? ''),
@@ -302,19 +387,23 @@ class FilterRow extends StatelessWidget {
                       vocabularyController.fetchVocabulary();
                     }
                   },
-                )),
-          ),
-        ),
+                ),
+              ),
+            );
+          }),
+          const SizedBox(width: 10),
+          Obx(() {
+            final categories =
+                vocabularyController.model.value.categories ?? [];
+            final selectedCategory =
+                vocabularyController.selectedCategory.value;
+            final safeCategory =
+                categories.contains(selectedCategory) ? selectedCategory : null;
 
-        const SizedBox(width: 10),
-
-        /// Category Dropdown
-        Obx(() => SizedBox(
+            return SizedBox(
               height: 35.0.h,
               width: Get.width * 0.45,
               child: Container(
-                width: double.infinity,
-                height: 35.0.h,
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -323,12 +412,11 @@ class FilterRow extends StatelessWidget {
                 ),
                 child: DropdownButton<Category>(
                   isExpanded: true,
-                  value: vocabularyController.selectedCategory.value,
+                  value: safeCategory,
+                  hint: const Text('Select Category'),
                   underline: const SizedBox(),
-                  hint: Text('Select Category'),
                   icon: const Icon(Icons.arrow_drop_down),
-                  items: (vocabularyController.model.value.categories ?? [])
-                      .map((category) {
+                  items: categories.map((category) {
                     return DropdownMenuItem<Category>(
                       value: category,
                       child: Text(category.name ?? ''),
@@ -344,15 +432,20 @@ class FilterRow extends StatelessWidget {
                   },
                 ),
               ),
-            )),
-      ],
+            );
+          }),
+        ],
+      ),
     );
   }
 }
 
 Widget popupList(String title, List<String?>? items, Color color) {
   // Filter out null and empty strings
-  final filteredItems = (items ?? []).where((e) => e != null && e.trim().isNotEmpty).map((e) => e!).toList();
+  final filteredItems = (items ?? [])
+      .where((e) => e != null && e.trim().isNotEmpty)
+      .map((e) => e!)
+      .toList();
 
   if (filteredItems.isEmpty) return const SizedBox();
 

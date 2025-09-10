@@ -8,8 +8,8 @@ class MyAppController extends GetxController {
   RxString appVersion = ''.obs;
 
   @override
-  void onInit() {
-    super.onInit();
+  void onReady() {
+    super.onReady();
     debugPrint("MyApp Controller Called");
     _initializeApp();
   }

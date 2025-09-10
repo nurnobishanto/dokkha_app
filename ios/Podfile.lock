@@ -150,7 +150,7 @@ SPEC CHECKSUMS:
   FBAudienceNetwork: eb3ffbf2b35df25e21e163657044ffef66616a40
   FBSDKCoreKit: d3f479a69127acebb1c6aad91c1a33907bcf6c2f
   FBSDKCoreKit_Basics: 017b6dc2a1862024815a8229e75661e627ac1e29
-  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   flutter_meta_sdk: 7d4dfb3061e9135ab022e49a9fccf666d3c47fbe
   image_cropper: c4326ea50132b1e1564499e5d32a84f01fb03537
   image_picker_ios: 7fe1ff8e34c1790d6fff70a32484959f563a928a

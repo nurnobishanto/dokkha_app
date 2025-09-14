@@ -37,7 +37,6 @@ class JobDetailsScreen extends StatelessWidget {
           }
 
           final jobData = controller.detailsModel.value;
-
           // Check if deadline is over
           final isDeadlineOver = jobData.deadline != null &&
               DateTime.now().isAfter(jobData.deadline!);
@@ -65,7 +64,6 @@ class JobDetailsScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            ////////////////
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -78,65 +76,8 @@ class JobDetailsScreen extends StatelessWidget {
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
-                                // const SizedBox(width: 5.0),
-                                // GestureDetector(
-                                //   onTap: () async {
-                                //     try {
-                                //       if (controller.isFavourite.value) {
-                                //         // debugPrint("Called removeFavJob");
-                                //         // await controller
-                                //         //     .removeFavJob(id);
-                                //         // await Get.find<
-                                //         //         FavoriteJobsListController>()
-                                //         //     .getFavJobsList();
-                                //         // Get.back();
-                                //       } else {
-                                //         debugPrint("Called addFavJob");
-                                //         await controller.addFavJob(id);
-                                //       }
-                                //     } catch (error) {
-                                //       debugPrint(
-                                //           "Error processing favorite job: $error");
-                                //     }
-                                //   },
-                                //   child: Obx(
-                                //     () => CircleAvatar(
-                                //       radius: controller.isFavourite.value
-                                //           ? 13
-                                //           : 17,
-                                //       backgroundColor:
-                                //           controller.isFavourite.value
-                                //               ? Colors.red
-                                //               : Colors.grey.shade200,
-                                //       child: Icon(
-                                //         controller.isFavourite.value
-                                //             ? Icons.favorite
-                                //             : Icons.bookmark_border,
-                                //         color:
-                                //             controller.isFavourite.value
-                                //                 ? Colors.white
-                                //                 : Colors.black,
-                                //         size: controller.isFavourite.value
-                                //             ? 19
-                                //             : 20,
-                                //       ),
-                                //     ),
-                                //   ),
-                                // ),
-                                // const SizedBox(width: 5.0),
                               ],
                             ),
-                            // const SizedBox(height: 5.0),
-                            // Text(
-                            //   jobData.jobTitle.toString(),
-                            //   style: kHeadingTextStyle.copyWith(
-                            //     color: AppColors.black,
-                            //     fontWeight: FontWeight.bold,
-                            //     fontSize: 14.5,
-                            //   ),
-                            //   maxLines: 2,
-                            //   overflow: TextOverflow.ellipsis,
-                            // ),
                             const SizedBox(height: 2.0),
                             Text(
                               "প্রকাশিত: ${DateFormatter.formatJobDeadline(jobData.createdAt)}",
@@ -172,9 +113,6 @@ class JobDetailsScreen extends StatelessWidget {
                                   )
                                 : SizedBox(
                                     width: double.infinity,
-                                    // height:
-                                    //     MediaQuery.of(context).size.height *
-                                    //         0.6,
                                     child: InteractiveViewer(
                                       panEnabled: true,
                                       minScale: 0.5,

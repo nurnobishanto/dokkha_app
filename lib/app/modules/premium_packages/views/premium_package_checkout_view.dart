@@ -37,351 +37,327 @@ class PremiumPackageCheckoutView
         iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Obx(() {
-        return isLoggedIn.value
-            ? SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 5.0),
-                      Text(
-                        "পূর্ণ নাম",
-                        style: AppTextStyles.heading5,
-                      ),
-                      const SizedBox(height: 5.0),
-                      CustomTextField(
-                        controller: controller.nameController.value,
-                        hintText: 'No update Name',
-                        readOnly: true,
-                      ),
-                      const SizedBox(height: 10.0),
-                      Text(
-                        "ফোন নম্বর",
-                        style: AppTextStyles.heading5,
-                      ),
-                      const SizedBox(height: 5.0),
-                      CustomTextField(
-                        controller: controller.phoneController.value,
-                        hintText: 'No update Phone',
-                        readOnly: true,
-                      ),
-                      SizedBox(height: 10.0.h),
-                      Text(
-                        'ইমেইল',
-                        style: AppTextStyles.heading5,
-                      ),
-                      const SizedBox(height: 5.0),
-                      CustomTextField(
-                        controller: controller.mailController.value,
-                        hintText: 'No update Mail',
-                      ),
-                      const SizedBox(height: 10.0),
-                      Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                "অর্ডার",
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              const Divider(),
-                              const SizedBox(height: 16.0),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                      "${packagesModel.name.toString()}\n${convertDaysToHumanReadable(int.parse(packagesModel.duration.toString()))}"),
-                                  Text(
-                                    '৳${packagesModel.regularPrice.toString()}',
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                              const Divider(),
+        if (isLoggedIn.value) {
+          return SafeArea(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 5.0),
+                    Text(
+                      "পূর্ণ নাম",
+                      style: AppTextStyles.heading5,
+                    ),
+                    const SizedBox(height: 5.0),
+                    CustomTextField(
+                      controller: controller.nameController.value,
+                      hintText: 'No update Name',
+                      readOnly: true,
+                    ),
+                    const SizedBox(height: 10.0),
+                    Text(
+                      "ফোন নম্বর",
+                      style: AppTextStyles.heading5,
+                    ),
+                    const SizedBox(height: 5.0),
+                    CustomTextField(
+                      controller: controller.phoneController.value,
+                      hintText: 'No update Phone',
+                      readOnly: true,
+                    ),
+                    SizedBox(height: 10.0.h),
+                    Text(
+                      'ইমেইল',
+                      style: AppTextStyles.heading5,
+                    ),
+                    const SizedBox(height: 5.0),
+                    CustomTextField(
+                      controller: controller.mailController.value,
+                      hintText: 'No update Mail',
+                    ),
+                    const SizedBox(height: 10.0),
+                    Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "অর্ডার",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            const Divider(),
+                            const SizedBox(height: 16.0),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                    "${packagesModel.name.toString()}\n${convertDaysToHumanReadable(int.parse(packagesModel.duration.toString()))}"),
+                                Text(
+                                  '৳${packagesModel.regularPrice.toString()}',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                            const Divider(),
 
-                              /// coupon
-                              Row(
-                                children: [
-                                  const Text(
-                                    "কুপন কোড",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  Checkbox.adaptive(
-                                    activeColor: LightThemeColors.primaryColor,
-                                    value: controller.isChecked.value,
-                                    onChanged: (value) {
-                                      controller.isChecked.value = value!;
-                                      controller.updateCoupon();
-                                    },
-                                  ),
-                                ],
-                              ),
-                              controller.isChecked.value
-                                  ? Column(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Expanded(
-                                              flex: 3,
-                                              child: CustomTextField(
-                                                controller:
-                                                    controller.couponController,
-                                                hintText: "কুপন কোড",
-                                              ),
-                                            ),
-                                            const SizedBox(width: 8),
-                                            Expanded(
-                                              child: controller.apiCallStatus ==
-                                                      ApiCallStatus.loading
-                                                  ? const Center(
-                                                      child:
-                                                          CircularProgressIndicator())
-                                                  : CustomActionButton(
-                                                      text: "প্রয়োগ করুন",
-                                                      onPressed: () {
-                                                        final code = controller
-                                                            .couponController
-                                                            .text
-                                                            .trim();
-                                                        if (code.isNotEmpty) {
-                                                          controller
-                                                              .couponApply(
-                                                            code,
-                                                            packagesModel
-                                                                .regularPrice
-                                                                .toString(),
-                                                            context,
-                                                          );
-                                                        } else {
-                                                          CustomSnackBar
-                                                              .showCustomErrorToast(
-                                                                  message:
-                                                                      "কুপন কোড লিখুন");
-                                                        }
-                                                      },
-                                                    ),
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(height: 10),
-                                      ],
-                                    )
-                                  : const SizedBox.shrink(),
-
-                              const Divider(),
-                              const SizedBox(height: 10.00),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Text(
-                                    "সাব টোটাল",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16.0),
-                                  ),
-                                  Text(
-                                    "৳${packagesModel.regularPrice.toString()}",
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16.0),
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const SizedBox(height: 10.00),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                            /// coupon
+                            Row(
+                              children: [
+                                const Text(
+                                  "কুপন কোড",
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                Checkbox.adaptive(
+                                  activeColor: LightThemeColors.primaryColor,
+                                  value: controller.isChecked.value,
+                                  onChanged: (value) {
+                                    controller.isChecked.value = value!;
+                                    controller.updateCoupon();
+                                  },
+                                ),
+                              ],
+                            ),
+                            controller.isChecked.value
+                                ? Column(
                                     children: [
-                                      Text(
-                                        "ডিসকাউন্ট",
-                                        style: AppTextStyles.body1
-                                            .copyWith(color: Colors.redAccent),
-                                      ),
-                                      Text(
-                                        "৳${controller.discountAmount > -1 ? controller.discountAmount.toString() : packagesModel.discount.toString()}",
-                                        style: AppTextStyles.body1
-                                            .copyWith(color: Colors.redAccent),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 10.00),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      const Text(
-                                        "মোট",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16.0),
-                                      ),
-                                      Text(
-                                        "৳${controller.totalAmount > -1 ? controller.totalAmount.toString() : packagesModel.discountedPrice.toString()}",
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16.0),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-
-                              const Divider(),
-                              const SizedBox(height: 10.0),
-                              const CustomPaymentCardButton(
-                                  'https://lokkha.com/uploads/files/shares/app/bkash.png',
-                                  0),
-                              const SizedBox(height: 10.0),
-                              const CustomPaymentCardButton(
-                                  'https://lokkha.com/uploads/files/shares/app/nagad.png',
-                                  1),
-                              const SizedBox(height: 10.0),
-                              const CustomPaymentCardButton(
-                                  'https://lokkha.com/uploads/files/shares/app/master_visa_card.png',
-                                  2),
-                              const SizedBox(height: 20.0),
-
-                              //
-                              // RichText(
-                              //   text: TextSpan(
-                              //     children: [
-                              //       TextSpan(
-                              //         text:
-                              //             AppConstant.packagesCheckoutDetailsText.tr,
-                              //         style: const TextStyle(color: Colors.black),
-                              //       ),
-                              //       TextSpan(
-                              //         text: AppConstant.termsConditions.tr,
-                              //         style:
-                              //             const TextStyle(color: AppColors.primary),
-                              //         recognizer: TapGestureRecognizer()
-                              //           ..onTap = () {
-                              //             Get.to(TermsOfServicesPage());
-                              //           },
-                              //       ),
-                              //     ],
-                              //   ),
-                              // ),
-
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Checkbox(
-                                    value: controller.isCheckedCondition.value,
-                                    onChanged: (value) {
-                                      controller.isCheckedCondition.value =
-                                          value!;
-                                    },
-                                  ),
-                                  Expanded(
-                                    child: RichText(
-                                      text: TextSpan(
-                                        style: const TextStyle(
-                                            color: Colors.black),
+                                      Row(
                                         children: [
-                                          const TextSpan(
-                                              text:
-                                                  "By proceeding, you agree to our "),
-                                          TextSpan(
-                                            text: "Privacy Policy",
-                                            style: const TextStyle(
-                                              color:
-                                                  LightThemeColors.primaryColor,
-                                              decoration:
-                                                  TextDecoration.underline,
+                                          Expanded(
+                                            flex: 3,
+                                            child: CustomTextField(
+                                              controller:
+                                                  controller.couponController,
+                                              hintText: "কুপন কোড",
                                             ),
-                                            recognizer: TapGestureRecognizer()
-                                              ..onTap = () {
-                                                Get.to(
-                                                  BaseWebView(
-                                                    title: 'Privacy Policy',
-                                                    url: AppConstants
-                                                        .privacyPolicy,
-                                                  ),
-                                                );
-                                              },
                                           ),
-                                          const TextSpan(text: ", "),
-                                          TextSpan(
-                                            text: "Terms & Conditions",
-                                            style: const TextStyle(
-                                              color:
-                                                  LightThemeColors.primaryColor,
-                                              decoration:
-                                                  TextDecoration.underline,
-                                            ),
-                                            recognizer: TapGestureRecognizer()
-                                              ..onTap = () {
-                                                Get.to(
-                                                  BaseWebView(
-                                                    title: 'Terms & Conditions',
-                                                    url: AppConstants
-                                                        .termsPolicy,
+                                          const SizedBox(width: 8),
+                                          Expanded(
+                                            child: controller.apiCallStatus ==
+                                                    ApiCallStatus.loading
+                                                ? const Center(
+                                                    child:
+                                                        CircularProgressIndicator())
+                                                : CustomActionButton(
+                                                    text: "প্রয়োগ করুন",
+                                                    onPressed: () {
+                                                      final code = controller
+                                                          .couponController.text
+                                                          .trim();
+                                                      if (code.isNotEmpty) {
+                                                        controller.couponApply(
+                                                          code,
+                                                          packagesModel
+                                                              .regularPrice
+                                                              .toString(),
+                                                          context,
+                                                        );
+                                                      } else {
+                                                        CustomSnackBar
+                                                            .showCustomErrorToast(
+                                                                message:
+                                                                    "কুপন কোড লিখুন");
+                                                      }
+                                                    },
                                                   ),
-                                                );
-                                              },
                                           ),
-                                          const TextSpan(text: ", and "),
-                                          TextSpan(
-                                            text: "Refund Policy",
-                                            style: const TextStyle(
-                                              color:
-                                                  LightThemeColors.primaryColor,
-                                              decoration:
-                                                  TextDecoration.underline,
-                                            ),
-                                            recognizer: TapGestureRecognizer()
-                                              ..onTap = () {
-                                                Get.to(
-                                                  BaseWebView(
-                                                    title: 'Refund Policy',
-                                                    url: AppConstants
-                                                        .refundPolicy,
-                                                  ),
-                                                );
-                                              },
-                                          ),
-                                          const TextSpan(text: "."),
                                         ],
                                       ),
+                                      const SizedBox(height: 10),
+                                    ],
+                                  )
+                                : const SizedBox.shrink(),
+
+                            const Divider(),
+                            const SizedBox(height: 10.00),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  "সাব টোটাল",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16.0),
+                                ),
+                                Text(
+                                  "৳${packagesModel.regularPrice.toString()}",
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16.0),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(height: 10.00),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "ডিসকাউন্ট",
+                                      style: AppTextStyles.body1
+                                          .copyWith(color: Colors.redAccent),
+                                    ),
+                                    Text(
+                                      "৳${controller.discountAmount > -1 ? controller.discountAmount.toString() : packagesModel.discount.toString()}",
+                                      style: AppTextStyles.body1
+                                          .copyWith(color: Colors.redAccent),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 10.00),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text(
+                                      "মোট",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16.0),
+                                    ),
+                                    Text(
+                                      "৳${controller.totalAmount > -1 ? controller.totalAmount.toString() : packagesModel.discountedPrice.toString()}",
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16.0),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+
+                            const Divider(),
+                            const SizedBox(height: 10.0),
+                            const CustomPaymentCardButton(
+                                'https://lokkha.com/uploads/files/shares/app/bkash.png',
+                                0),
+                            const SizedBox(height: 10.0),
+                            const CustomPaymentCardButton(
+                                'https://lokkha.com/uploads/files/shares/app/nagad.png',
+                                1),
+                            const SizedBox(height: 10.0),
+                            const CustomPaymentCardButton(
+                                'https://lokkha.com/uploads/files/shares/app/master_visa_card.png',
+                                2),
+                            const SizedBox(height: 20.0),
+
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Checkbox(
+                                  value: controller.isCheckedCondition.value,
+                                  onChanged: (value) {
+                                    controller.isCheckedCondition.value =
+                                        value!;
+                                  },
+                                ),
+                                Expanded(
+                                  child: RichText(
+                                    text: TextSpan(
+                                      style:
+                                          const TextStyle(color: Colors.black),
+                                      children: [
+                                        const TextSpan(
+                                            text:
+                                                "By proceeding, you agree to our "),
+                                        TextSpan(
+                                          text: "Privacy Policy",
+                                          style: const TextStyle(
+                                            color:
+                                                LightThemeColors.primaryColor,
+                                            decoration:
+                                                TextDecoration.underline,
+                                          ),
+                                          recognizer: TapGestureRecognizer()
+                                            ..onTap = () {
+                                              Get.to(
+                                                BaseWebView(
+                                                  title: 'Privacy Policy',
+                                                  url: AppConstants
+                                                      .privacyPolicy,
+                                                ),
+                                              );
+                                            },
+                                        ),
+                                        const TextSpan(text: ", "),
+                                        TextSpan(
+                                          text: "Terms & Conditions",
+                                          style: const TextStyle(
+                                            color:
+                                                LightThemeColors.primaryColor,
+                                            decoration:
+                                                TextDecoration.underline,
+                                          ),
+                                          recognizer: TapGestureRecognizer()
+                                            ..onTap = () {
+                                              Get.to(
+                                                BaseWebView(
+                                                  title: 'Terms & Conditions',
+                                                  url: AppConstants.termsPolicy,
+                                                ),
+                                              );
+                                            },
+                                        ),
+                                        const TextSpan(text: ", and "),
+                                        TextSpan(
+                                          text: "Refund Policy",
+                                          style: const TextStyle(
+                                            color:
+                                                LightThemeColors.primaryColor,
+                                            decoration:
+                                                TextDecoration.underline,
+                                          ),
+                                          recognizer: TapGestureRecognizer()
+                                            ..onTap = () {
+                                              Get.to(
+                                                BaseWebView(
+                                                  title: 'Refund Policy',
+                                                  url:
+                                                      AppConstants.refundPolicy,
+                                                ),
+                                              );
+                                            },
+                                        ),
+                                        const TextSpan(text: "."),
+                                      ],
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
+                            ),
 
-                              const SizedBox(height: 20.0),
-                              CustomActionButton(
-                                onPressed: () {
-                                  if (controller.isCheckedCondition.value) {
-                                    controller.makePayment(
-                                        int.parse(packagesModel.id.toString()));
-                                  } else {
-                                    CustomSnackBar.showCustomErrorToast(
-                                        message:
-                                            'Please accept the terms and conditions to proceed.');
-                                  }
-                                },
-                                text: "পেমেন্ট করুন",
-                              ),
-                            ],
-                          ),
+                            const SizedBox(height: 20.0),
+                            CustomActionButton(
+                              onPressed: () {
+                                if (controller.isCheckedCondition.value) {
+                                  controller.makePayment(
+                                      int.parse(packagesModel.id.toString()));
+                                } else {
+                                  CustomSnackBar.showCustomErrorToast(
+                                      message:
+                                          'Please accept the terms and conditions to proceed.');
+                                }
+                              },
+                              text: "পেমেন্ট করুন",
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              )
-            : const AuthGatewayView();
+              ),
+            ),
+          );
+        } else {
+          return const AuthGatewayView();
+        }
       }),
     );
   }

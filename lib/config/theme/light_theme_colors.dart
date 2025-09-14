@@ -22,6 +22,7 @@ class LightThemeColors {
   static const Color dividerColor = Color(0xff686868);
   static const Color cardColor = Color(0xfffafafa);
   static const Color focusColor = Color(0xfffafafa);
+  static const Color red = Colors.red;
 
   //ICONS
   static const Color appBarIconsColor = Colors.white;

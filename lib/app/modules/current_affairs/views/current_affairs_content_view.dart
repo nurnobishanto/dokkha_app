@@ -160,6 +160,22 @@ class CurrentAffairsContentView extends StatelessWidget {
                                 }).toList() ??
                                 [],
                           ),
+                          // Row(
+                          //   crossAxisAlignment: CrossAxisAlignment.start,
+                          //   children: correctOptions.map((option) {
+                          //     final correctOptions = options?.where((o) => o.isCorrect) ?? [];
+                          //     return Flexible(
+                          //       child: Padding(
+                          //         padding: const EdgeInsets.only(right: 8.0, bottom: 4.0),
+                          //         child: HtmlWidget(
+                          //           '<b>উত্তর:</b> ${option.value ?? ""}',
+                          //           textStyle: AppTextStyles.body1,
+                          //         ),
+                          //       ),
+                          //     );
+                          //   }).toList(),
+                          // )
+
                           (question.explanation != null)
                               ? Align(
                                   alignment: Alignment.topRight,

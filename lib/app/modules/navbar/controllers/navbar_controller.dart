@@ -22,7 +22,6 @@ class NavbarController extends GetxController {
   final List<Widget> nabBarBody = [
     const HomeView(),
     const ModelTestCategoriesView(),
-    //const ModelTestView(),
     const PremiumPackagesView(),
     const ProfileView(),
   ];
@@ -85,10 +84,8 @@ class NavbarController extends GetxController {
   @override
   void onInit() {
     // Manually bind dependent controllers
-    // Get.lazyPut(() => HomeController());
     Get.lazyPut(() => ProfileController());
     Get.lazyPut(() => PremiumPackagesController());
-    //Get.lazyPut(() => ProfileController());
     getMeProfileInfo();
     super.onInit();
   }

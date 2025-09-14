@@ -37,7 +37,7 @@ class AppConstants {
   static final String jobsList = '$appUrl/jobs';
   static final String job = '$appUrl/job';
 
-  // ✅ Current Affairs
+  // Current Affairs
   static final String internationalCA = '$appUrl/current-affairs/international';
   static final String nationalCA = '$appUrl/current-affairs/national';
 
@@ -72,6 +72,7 @@ class AppConstants {
 
   /// Latest Exams
   static final String latestExam = '$appUrl/latest-exams';
+  static final String tag = '$appUrl/tag';
   static final String vocabularies = '$appUrl/vocabularies';
 
   /// Model test

@@ -115,7 +115,7 @@ class JobsView extends GetView<JobsController> {
                                             ? ""
                                             : data.companyName.toString(),
                                         onTap: () {
-                                          Get.to(
+                                          Get.to(()=>
                                             JobDetailsScreen(
                                               id: data.id!.toInt(),
                                             ),

@@ -66,7 +66,7 @@ class JobsController extends GetxController {
           if (kDebugMode) {
             print("GobJobs Model Data $response");
           }
-          Job modelData = Job.fromJson(response.data['jobs']);
+          Job modelData = Job.fromJson(response.data['job']);
           detailsModel.value = modelData;
           //isFavourite.value = model.value.isSaved!;
           isLoading.value = false;

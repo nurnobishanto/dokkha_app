@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:get/get.dart';
 import 'package:lokkha/app/components/custom_app_bar.dart';
+import 'package:lokkha/app/data/local/my_shared_pref.dart';
+import 'package:lokkha/app/helper/global.dart';
 import 'package:lokkha/app/modules/latest_exam/views/latest_exam_start_view.dart';
 import 'package:lokkha/config/extensions/common_extension.dart';
 import 'package:lokkha/styles/text_style.dart';
 import 'package:lokkha/utils/date_formatter.dart';
-
 import '../../../../config/theme/light_theme_colors.dart';
+import '../../../components/login_required_dialog.dart';
 import '../controllers/latest_exam_controller.dart';
 
 class LatestExamView extends GetView<LatestExamController> {
@@ -21,70 +22,80 @@ class LatestExamView extends GetView<LatestExamController> {
       body: Obx(() {
         if (controller.isLoading.value) {
           return const Center(
-                child: CircularProgressIndicator(),
-              );
+            child: CircularProgressIndicator(),
+          );
         } else {
           return SafeArea(
             child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListView.separated(
-                    itemCount:
-                        controller.model.value.latestExams!.data!.length + 1,
-                    itemBuilder: (c, index) {
-                      if (index ==
-                          controller.model.value.latestExams!.data!.length) {
-                        return (controller.model.value.latestExams!.lastPage! >
-                                controller.currentPage.value)
-                            ? Column(
-                                children: [
-                                  const SizedBox(height: 5.0),
-                                  GestureDetector(
-                                    onTap: () {
-                                      controller.fetchLatestExam(
-                                          page: controller.currentPage.value + 1);
-                                    },
-                                    child: Container(
-                                      height: 30,
-                                      width: Get.width / 2,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15.0),
-                                        border: Border.all(
-                                          color: LightThemeColors.primaryColor,
-                                          width: 1,
-                                        ),
-                                      ),
-                                      child: const Center(
-                                        child: Text(
-                                          'আরও দেখুন',
-                                          style: TextStyle(
-                                            color: LightThemeColors.primaryColor,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
+              padding: const EdgeInsets.all(8.0),
+              child: ListView.separated(
+                itemCount: controller.model.value.latestExams!.data!.length + 1,
+                itemBuilder: (c, index) {
+                  if (index ==
+                      controller.model.value.latestExams!.data!.length) {
+                    return (controller.model.value.latestExams!.lastPage! >
+                            controller.currentPage.value)
+                        ? Column(
+                            children: [
+                              const SizedBox(height: 5.0),
+                              GestureDetector(
+                                onTap: () {
+                                  controller.fetchLatestExam(
+                                      page: controller.currentPage.value + 1);
+                                },
+                                child: Container(
+                                  height: 30,
+                                  width: Get.width / 2,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15.0),
+                                    border: Border.all(
+                                      color: LightThemeColors.primaryColor,
+                                      width: 1,
+                                    ),
+                                  ),
+                                  child: const Center(
+                                    child: Text(
+                                      'আরও দেখুন',
+                                      style: TextStyle(
+                                        color: LightThemeColors.primaryColor,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                   ),
-                                ],
-                              )
-                            : const SizedBox.shrink();
-                      }
-                      final data =
-                          controller.model.value.latestExams?.data![index];
-                      return LatestExamCard(
-                        title: data?.title ?? '',
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (x) =>
-                                LatestExamStartDialog(latestExam: data),
-                          );
+                                ),
+                              ),
+                            ],
+                          )
+                        : const SizedBox.shrink();
+                  }
+                  final data = controller.model.value.latestExams?.data![index];
+                  return LatestExamCard(
+                    title: data?.title ?? '',
+                    date: data!.date,
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (ctx) {
+                          if (isLoggedIn.value &&
+                              MySharedPref.getUserToken().isNotEmpty) {
+                            return LatestExamStartDialog(latestExam: data);
+                          } else {
+                            return LoginRequiredDialog(
+                              title: 'লগইন প্রয়োজন',
+                              message:
+                                  'সর্বশেষ পরীক্ষা অ্যাক্সেস করতে লগইন করুন।',
+                              cancelText: 'বাতিল',
+                              signInText: 'সাইন-ইন',
+                            );
+                          }
                         },
-                        date: data!.date,
                       );
                     },
-                    separatorBuilder: (x, index) => 8.h.height,
-                  ),
-                ),
+                  );
+                },
+                separatorBuilder: (x, index) => 8.h.height,
+              ),
+            ),
           );
         }
       }),

@@ -1,4 +1,5 @@
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lokkha/app/data/local/my_shared_pref.dart';
 import 'package:lokkha/app/modules/auth_views/auth_gateway/views/auth_gateway_view.dart';
 import 'package:lokkha/app/routes/app_pages.dart';
 import 'package:lokkha/config/extensions/common_extension.dart';
@@ -24,7 +25,9 @@ class ProfileView extends GetView<ProfileController> {
       final status = controller.profileApiStatus.value;
       final profileData = myUser;
 
-      if (!isLoggedIn.value) return const AuthGatewayView();
+      if (!isLoggedIn.value || MySharedPref.getUserToken().isEmpty) {
+        return const AuthGatewayView();
+      }
 
       switch (status) {
         case ApiCallStatus.loading:
@@ -89,11 +92,12 @@ class ProfileView extends GetView<ProfileController> {
                     onTap: () {
                       Get.defaultDialog(
                         title: "অ্যাকাউন্ট ডিলিট",
-                        middleText: "অনুগ্রহ করে আমাদের কাস্টমার সার্ভিস টিমের সাথে যোগাযোগ করুন। বিস্তারিত জানতে পরবর্তী পৃষ্ঠায় যান।",
+                        middleText:
+                            "অনুগ্রহ করে আমাদের কাস্টমার সার্ভিস টিমের সাথে যোগাযোগ করুন। বিস্তারিত জানতে পরবর্তী পৃষ্ঠায় যান।",
                         textCancel: "বাতিল করুন",
                         textConfirm: "ঠিক আছে",
                         confirmTextColor: Colors.white,
-                        buttonColor: LightThemeColors.primaryColor,
+                        buttonColor: LightThemeColors.red,
                         cancelTextColor: Colors.black,
                         onConfirm: () {
                           Get.back();
@@ -104,9 +108,6 @@ class ProfileView extends GetView<ProfileController> {
                     text: 'অ্যাকাউন্ট ডিলিট',
                     icon: FontAwesomeIcons.trashCan,
                   ),
-
-
-
                   CustomProfileButton(
                     onTap: controller.logout,
                     text: 'লগ আউট',

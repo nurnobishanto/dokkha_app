@@ -109,7 +109,7 @@ class Job {
   final String? companyName;
   final String? source;
   final String? sourceFile;
-  final dynamic details;
+  final String? details;
   final DateTime? deadline;
   final DateTime? publishedDate;
   final bool? isFeatured;

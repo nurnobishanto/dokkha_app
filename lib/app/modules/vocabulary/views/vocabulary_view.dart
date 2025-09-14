@@ -17,12 +17,12 @@ class VocabularyView extends StatelessWidget {
     final scrollController = ScrollController();
 
     // Infinite scroll
-    scrollController.addListener(() {
-      if (scrollController.position.pixels >=
-          scrollController.position.maxScrollExtent - 200) {
-        controller.fetchVocabulary();
-      }
-    });
+    // scrollController.addListener(() {
+    //   if (scrollController.position.pixels >=
+    //       scrollController.position.maxScrollExtent - 200) {
+    //     controller.fetchVocabulary();
+    //   }
+    // });
 
     return Scaffold(
       appBar: const CustomAppBar(title: 'Vocabulary'),
@@ -32,7 +32,7 @@ class VocabularyView extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: SingleChildScrollView(
-              controller: scrollController,
+             // controller: scrollController,
               child: controller.isLoading.value
                   ? const Center(child: CircularProgressIndicator())
                   : Column(

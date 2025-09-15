@@ -54,7 +54,6 @@ class LoginRequiredDialog extends StatelessWidget {
             style: TextStyle(color: LightThemeColors.red),
           ),
         ),
-        Spacer(),
         ElevatedButton.icon(
           icon: const Icon(
             Icons.login,

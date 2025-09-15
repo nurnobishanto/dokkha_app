@@ -150,11 +150,14 @@ class CurrentAffairsContentView extends StatelessWidget {
                                     ?.where(
                                         (option) => option.isCorrect == true)
                                     .map((option) {
-                                  return Padding(
-                                    padding: const EdgeInsets.only(bottom: 4.0),
-                                    child: HtmlWidget(
-                                      '<b>উত্তর:</b> ${option.value ?? ""}',
-                                      textStyle: AppTextStyles.body1,
+                                  return Expanded(
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(bottom: 4.0),
+                                      child: HtmlWidget(
+                                        '<b>উত্তর:</b> ${option.value ?? ""}',
+                                        textStyle: AppTextStyles.body1,
+                                      ),
                                     ),
                                   );
                                 }).toList() ??

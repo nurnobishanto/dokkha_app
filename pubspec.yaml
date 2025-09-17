@@ -81,6 +81,7 @@ dependencies:
   flutter_dotenv: ^5.2.1
 
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -111,26 +112,18 @@ flutter:
 
   # To add custom fonts to your application, add a fonts section here.
   fonts:
-    - family: Poppins
+    - family: BalooDa2
       fonts:
-        - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/BalooDa2-Regular.ttf
           weight: 400
-        - asset: assets/fonts/Poppins-Medium.ttf
+        - asset: assets/fonts/BalooDa2-Medium.ttf
           weight: 500
-        - asset: assets/fonts/Poppins-SemiBold.ttf
+        - asset: assets/fonts/BalooDa2-SemiBold.ttf
           weight: 600
-
-    - family: HindSiliguri
-      fonts:
-        - asset: assets/fonts/HindSiliguri-Light.ttf
-          weight: 300
-        - asset: assets/fonts/HindSiliguri-Regular.ttf
-          weight: 400
-        - asset: assets/fonts/HindSiliguri-Medium.ttf
-          weight: 500
-          style: italic
-        - asset: assets/fonts/HindSiliguri-Bold.ttf
+        - asset: assets/fonts/BalooDa2-Bold.ttf
           weight: 700
+        - asset: assets/fonts/BalooDa2-ExtraBold.ttf
+          weight: 800
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

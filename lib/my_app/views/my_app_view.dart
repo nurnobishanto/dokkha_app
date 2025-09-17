@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       useInheritedMediaQuery: true,
       builder: (context, child) {
-        printAppInfo(); // printing app info
+        printAppInfo();
         final isLight = MySharedPref.getThemeIsLight();
         return GetMaterialApp(
           title: AppStrings.appName,

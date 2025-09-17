@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:lokkha/app/components/custom_app_bar.dart';
 import 'package:lokkha/app/modules/grid_views/mock_test_tab/mock_test/views/mock_test_view.dart';
 import '../../../../../config/theme/light_theme_colors.dart';
 import '../../../fast_practice/views/fast_practice_view.dart';
@@ -14,6 +15,11 @@ class MockTestTabView extends GetView<MockTestTabController> {
       length: 2,
       child: Scaffold(
         backgroundColor: LightThemeColors.primaryColor,
+        appBar: CustomAppBar(
+          title: "বিষয়ভিত্তিক পরীক্ষা",
+          centerTitle: true,
+          fontSize: 18.0,
+        ),
         body: SafeArea(
           maintainBottomViewPadding: true,
           child: Column(
@@ -49,7 +55,7 @@ class MockTestTabView extends GetView<MockTestTabController> {
               const Expanded(
                 child: TabBarView(
                   children: [
-                    MockTestView(),
+                   MockTestView(),
                     FastPracticeView(),
                   ],
                 ),

@@ -14,6 +14,8 @@ import '../modules/auth_views/verify_otp/bindings/verify_otp_binding.dart';
 import '../modules/auth_views/verify_otp/views/verify_otp_view.dart';
 import '../modules/current_affairs/bindings/current_affairs_binding.dart';
 import '../modules/current_affairs/views/current_affairs_view.dart';
+import '../modules/exam_category/bindings/exam_category_binding.dart';
+import '../modules/exam_category/views/exam_category_view.dart';
 import '../modules/fast_practice/bindings/fast_practice_binding.dart';
 import '../modules/fast_practice/views/fast_practice_view.dart';
 import '../modules/grid_views/jobs/bindings/jobs_binding.dart';
@@ -31,11 +33,11 @@ import '../modules/lecture_sheet/views/lecture_sheet_details_view.dart';
 import '../modules/lecture_sheet/views/lecture_sheet_list_view.dart';
 import '../modules/maintenance_mode/bindings/maintenance_mode_view_binding.dart';
 import '../modules/maintenance_mode/views/maintenance_mode_view_view.dart';
-import '../modules/model_test_module/model_test_details/bindings/model_test_details_binding.dart';
-import '../modules/model_test_module/model_test_details/views/model_test_details_view.dart';
 import '../modules/model_test_module/bindings/model_test_binding.dart';
 import '../modules/model_test_module/model_test_categories/bindings/model_test_categories_binding.dart';
 import '../modules/model_test_module/model_test_categories/views/model_test_categories_view.dart';
+import '../modules/model_test_module/model_test_details/bindings/model_test_details_binding.dart';
+import '../modules/model_test_module/model_test_details/views/model_test_details_view.dart';
 import '../modules/model_test_module/views/model_test_view.dart';
 import '../modules/nav_bar_views/blog/bindings/blog_binding.dart';
 import '../modules/nav_bar_views/blog/views/blog_view.dart';
@@ -273,6 +275,11 @@ class AppPages {
       name: _Paths.MODEL_TEST_DETAILS,
       page: () => const ModelTestDetailsView(),
       binding: ModelTestDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.EXAM_CATEGORY,
+      page: () => const ExamCategoryView(),
+      binding: ExamCategoryBinding(),
     ),
   ];
 }

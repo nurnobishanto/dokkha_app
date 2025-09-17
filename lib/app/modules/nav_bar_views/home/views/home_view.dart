@@ -16,7 +16,10 @@ import 'package:get/get.dart';
 import 'package:lokkha/utils/constants.dart';
 import '../../../../../config/constants/app_images.dart';
 import '../../../../../styles/text_style.dart';
+import '../../../../components/custom_transparent_divider.dart';
+import '../../../exam_category/widgets/exam_category_card.dart';
 import '../../../subject_sections/views/subject_sections_view.dart';
+import '../components/Premium_courses_section.dart';
 import '../components/social_links_widget.dart';
 import '../controllers/home_controller.dart';
 
@@ -231,23 +234,62 @@ class HomeView extends GetView<HomeController> {
                         ),
                         2.h.height,
 
+                        /// RandomQuestion area
+                        RandomQuestionSelector(),
+                        // 2.h.height,
+
+                        /// Premium course area
+
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            5.h.height,
+
+                            // Centered Title with dividers
+                            SectionTitleWithDivider(
+                                title: "প্রিমিয়াম পরীক্ষা সমূহ"),
+
+                            8.h.height,
+
+                            // Horizontal Scroll of Cards
+                            SizedBox(
+                              height: Get.height / 16,
+                              child: ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                physics: const BouncingScrollPhysics(),
+                                itemCount: 5,
+                                separatorBuilder: (_, __) => 12.w.width,
+                                itemBuilder: (_, x) {
+                                  return ExamCategoryCard(
+                                    title: "Exam Category ${x + 1}",
+                                    onTap: () =>
+                                        print("Tapped category ${x + 1}"),
+                                    // optional custom colors per card
+                                    borderColor: LightThemeColors.primaryColor
+                                        .withValues(alpha: 0.4),
+                                    iconColor: LightThemeColors.primaryColor,
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                        10.h.height,
+
                         /// Contest Area
                         const LatestContestWidget(),
 
                         /// Leader Board
                         const LastContestResultWidget(),
 
-                        /// RandomQuestion area
-                        RandomQuestionSelector(),
                         // Question Bank
                         Text(
-                          "প্রশ্নব্যাংক",
+                          "জনপ্রিয় প্রশ্নব্যাংক",
                           style: AppTextStyles.custom(
                             fontSize: 17.00.sp,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-
 
                         Builder(
                           builder: (context) {
@@ -323,8 +365,6 @@ class HomeView extends GetView<HomeController> {
                           },
                         ),
 
-
-
                         // spController.dashboardAds.length > 2
                         //     ? SponsorAdsWidget(
                         //   ad: spController.dashboardAds[2],
@@ -343,4 +383,20 @@ class HomeView extends GetView<HomeController> {
       ),
     );
   }
+}
+
+class CourseCategory {
+  final String title;
+  final String subtitle;
+  final IconData icon;
+  final String studentCount;
+  final String courseCount;
+
+  CourseCategory({
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+    required this.studentCount,
+    required this.courseCount,
+  });
 }

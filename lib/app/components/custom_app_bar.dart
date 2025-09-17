@@ -7,6 +7,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final List<Widget>? actions;
   final bool centerTitle;
   final Color backgroundColor;
+  final double? fontSize;
 
   const CustomAppBar({
     super.key,
@@ -14,6 +15,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.actions,
     this.centerTitle = false,
     this.backgroundColor = LightThemeColors.primaryColor,
+    this.fontSize,
   });
 
   @override
@@ -27,7 +29,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: actions,
       title: Text(
         title,
-        style: AppTextStyles.heading4.copyWith(color: Colors.white),
+        style: AppTextStyles.heading4
+            .copyWith(color: Colors.white, fontSize: fontSize),
       ),
     );
   }

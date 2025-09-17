@@ -25,7 +25,8 @@ class TopicSelectionView extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: true,
         title: Text(
-          "নির্বাচিত বিষয়গুলি",
+          //"নির্বাচিত বিষয়গুলি",
+          subject.name.toString(),
           style: AppTextStyles.heading4.copyWith(color: Colors.white),
         ),
         iconTheme: const IconThemeData(color: LightThemeColors.white),
@@ -195,7 +196,7 @@ class _CustomExpandSubjectState extends State<CustomExpandSubject>
 
   Future<void> _loadCheckedState() async {
     isChecked.value =
-    await MySharedPref.isMockSubjectExist(widget.topic.id!.toInt());
+        await MySharedPref.isMockSubjectExist(widget.topic.id!.toInt());
   }
 
   void _toggleExpansion(bool expand) {
@@ -273,9 +274,12 @@ class _CustomExpandSubjectState extends State<CustomExpandSubject>
             color: Colors.transparent,
             child: InkWell(
               borderRadius: BorderRadius.circular(8),
-              onTap: hasChildren ? () => _toggleExpansion(!isExpanded.value) : null,
+              onTap: hasChildren
+                  ? () => _toggleExpansion(!isExpanded.value)
+                  : null,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 child: widget.topic.parentId != null
                     ? Obx(() => _tileContent(theme, hasChildren))
                     : const SizedBox.shrink(),
@@ -305,9 +309,8 @@ class _CustomExpandSubjectState extends State<CustomExpandSubject>
             activeColor: theme.primaryColor,
             checkColor: Colors.white,
             side: BorderSide(
-              color: isChecked.value
-                  ? theme.primaryColor
-                  : Colors.grey.shade400,
+              color:
+                  isChecked.value ? theme.primaryColor : Colors.grey.shade400,
               width: 1.5,
             ),
           ),
@@ -367,40 +370,38 @@ class _CustomExpandSubjectState extends State<CustomExpandSubject>
   }
 
   Widget _children() {
-    return
-      Obx(
-          () => AnimatedContainer(
+    return Obx(
+      () => AnimatedContainer(
         duration: const Duration(milliseconds: 250),
         curve: Curves.easeInOut,
         height: isExpanded.value ? null : 0,
         child: isExpanded.value
             ? Container(
-          margin: const EdgeInsets.only(top: 6, left: 16),
-          padding: const EdgeInsets.only(left: 12),
-          decoration: BoxDecoration(
-            border: Border(
-              left: BorderSide(color: Colors.grey.shade300, width: 2),
-            ),
-          ),
-          child: Column(
-            children: widget.topic.children!
-                .map(
-                  (child) => Padding(
-                padding: const EdgeInsets.only(bottom: 4),
-                child: CustomExpandSubject(
-                  subject: widget.subject,
-                  topic: child,
-                  padding: 0,
-                  initialExpand: false,
+                margin: const EdgeInsets.only(top: 6, left: 16),
+                padding: const EdgeInsets.only(left: 12),
+                decoration: BoxDecoration(
+                  border: Border(
+                    left: BorderSide(color: Colors.grey.shade300, width: 2),
+                  ),
                 ),
-              ),
-            )
-                .toList(),
-          ),
-        )
+                child: Column(
+                  children: widget.topic.children!
+                      .map(
+                        (child) => Padding(
+                          padding: const EdgeInsets.only(bottom: 4),
+                          child: CustomExpandSubject(
+                            subject: widget.subject,
+                            topic: child,
+                            padding: 0,
+                            initialExpand: false,
+                          ),
+                        ),
+                      )
+                      .toList(),
+                ),
+              )
             : const SizedBox.shrink(),
       ),
     );
   }
 }
-

@@ -1,177 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/modules/random_question/controller/random_question_controller.dart';
 import 'package:lokkha/app/views/widgets/explanation_dialog.dart';
+import 'package:lokkha/config/extensions/common_extension.dart';
+import 'package:lokkha/config/theme/light_theme_colors.dart';
 import 'package:lokkha/styles/text_style.dart';
 
 import '../../../components/custom_action_button.dart';
+import '../../../components/custom_transparent_divider.dart';
 import '../../../data/local/my_shared_pref.dart';
 import '../../../helper/global.dart';
-
-// class RandomQuestionSelector extends StatelessWidget {
-//   final RxInt selectedOptionIndex = RxInt(-1);
-//
-//   RandomQuestionSelector({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     final controller = Get.put(RandomQuestionController());
-//     var question = controller.randomQuestionModel.value.question;
-//     return Obx(() {
-//       return controller.isLoading.value
-//           ? const Center(
-//               child: CircularProgressIndicator(),
-//             )
-//           : Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Center(
-//                   child: Text(
-//                     'এখনি উত্তর দিন',
-//                     textAlign: TextAlign.center,
-//                     style: AppTextStyles.heading5,
-//                   ),
-//                 ),
-//                 const SizedBox(height: 2.00),
-//                 HtmlWidget(
-//                   question?.title ?? '',
-//                   textStyle: AppTextStyles.body1,
-//                 ),
-//                 const SizedBox(height: 2.00),
-//                 if (question?.options != null && question!.options!.isNotEmpty)
-//                   ...List.generate(question.options!.length, (index) {
-//                     final option = question.options![index];
-//                     return Obx(() => Column(
-//                       children: [
-//                         GestureDetector(
-//                           onTap: () {
-//                             controller.isAnswerSelected.value = true;
-//                             selectedOptionIndex.value = index;
-//                           },
-//                           child: Container(
-//                             margin: const EdgeInsets.symmetric(vertical: 3.4),
-//                             padding: const EdgeInsets.all(6.0),
-//                             decoration: BoxDecoration(
-//                               color: selectedOptionIndex.value == index
-//                                   ? (option.isCorrect == true
-//                                   ? Colors.greenAccent.shade100
-//                                   : Colors.red.shade100)
-//                                   : Colors.white,
-//                               boxShadow: [
-//                                 BoxShadow(
-//                                   color: Colors.grey.withOpacity(0.1), // ঠিক করলাম
-//                                   spreadRadius: 0,
-//                                   blurRadius: 1,
-//                                   offset: const Offset(0, 4),
-//                                 ),
-//                               ],
-//                               borderRadius: BorderRadius.circular(5),
-//                             ),
-//                             child: Row(
-//                               children: [
-//                                 Expanded(
-//                                   child: HtmlWidget(
-//                                     "${option.value}",
-//                                     textStyle: AppTextStyles.body1,
-//                                   ),
-//                                 ),
-//                               ],
-//                             ),
-//                           ),
-//                         ),
-//                       ],
-//                     ));
-//                   }),
-//
-//                 // ...List.generate(question!.options?.length ?? 0, (index) {
-//                 //   final option = question.options![index];
-//                 //   return Obx(() => Column(
-//                 //         children: [
-//                 //           GestureDetector(
-//                 //             onTap: () {
-//                 //               controller.isAnswerSelected.value = true;
-//                 //               selectedOptionIndex.value = index;
-//                 //             },
-//                 //             child: Container(
-//                 //               margin: const EdgeInsets.symmetric(vertical: 3.4),
-//                 //               padding: const EdgeInsets.all(6.0),
-//                 //               decoration: BoxDecoration(
-//                 //                 color: selectedOptionIndex.value == index
-//                 //                     ? (option.isCorrect == true
-//                 //                         ? Colors.greenAccent.shade100
-//                 //                         : Colors.red.shade100)
-//                 //                     : Colors.white,
-//                 //                 boxShadow: [
-//                 //                   BoxShadow(
-//                 //                     color: Colors.grey
-//                 //                         .withValues(alpha: 0.1), // shadow color
-//                 //                     spreadRadius: 0, // spread of shadow
-//                 //                     blurRadius: 1, // blur effect
-//                 //                     offset: const Offset(
-//                 //                         0, 4), // position of shadow
-//                 //                   ),
-//                 //                 ],
-//                 //                 borderRadius: BorderRadius.circular(5),
-//                 //               ),
-//                 //               child: Row(
-//                 //                 children: [
-//                 //                   Expanded(
-//                 //                     child: HtmlWidget(
-//                 //                       "${option.value}",
-//                 //                       textStyle: AppTextStyles.body1,
-//                 //                     ),
-//                 //                   ),
-//                 //                 ],
-//                 //               ),
-//                 //             ),
-//                 //           ),
-//                 //         ],
-//                 //       ));
-//                 // }),
-//                 const SizedBox(height: 5.00),
-//                 Obx(() {
-//                   // Display to Text if the selected option is correct
-//                   if (selectedOptionIndex.value != -1) {
-//                     final selectedOption =
-//                         question?.options![selectedOptionIndex.value];
-//                     if (selectedOption?.isCorrect == true) {
-//                       MySharedPref.incrementRandomQuestionCheck();
-//                       return Column(
-//                         children: [
-//                           (controller.randomQuestionModel.value.question?.explanation?.isNotEmpty ?? false)
-//                               ? HtmlWidget(
-//                             controller.randomQuestionModel.value.question!.explanation!,
-//                           )
-//                               : const SizedBox.shrink(),
-//
-//                           const SizedBox(height: 10.00),
-//                           CustomActionButton(
-//                             text: "নতুন প্রশ্ন →",
-//                             onPressed: () async {
-//                               controller.getRandomQuestion(forceNew: true);
-//                               int check =
-//                                   await MySharedPref.getRandomQuestionCheck();
-//                               if (!isLoggedIn.value) {
-//                                 controller.getRandomQuestion(forceNew: true);
-//                               } else if (check <= 3) {
-//                                 controller.getRandomQuestion(forceNew: true);
-//                               } else {
-//                                 //Get.to(const AllPackages());
-//                               }
-//                             },
-//                           ),
-//                         ],
-//                       );
-//                     }
-//                   }
-//                   return const SizedBox.shrink();
-//                 }),
-//               ],
-//             );
-//     });
-//   }
-// }
 
 class RandomQuestionSelector extends StatelessWidget {
   final RxInt selectedOptionIndex = RxInt(-1);
@@ -195,70 +35,81 @@ class RandomQuestionSelector extends StatelessWidget {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Center(
-            child: Text(
-              'এখনি উত্তর দিন',
-              textAlign: TextAlign.center,
-              style: AppTextStyles.heading4,
-            ),
-          ),
-          const SizedBox(height: 2),
-          HtmlWidget(
-            question.title ?? '',
-            textStyle: AppTextStyles.body1,
-          ),
-          const SizedBox(height: 2),
-          if (question.options != null && question.options!.isNotEmpty)
-            ...List.generate(question.options!.length, (index) {
-              final option = question.options![index];
-              return Obx(() => Column(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          controller.isAnswerSelected.value = true;
-                          selectedOptionIndex.value = index;
-                        },
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(vertical: 3.4),
-                          padding: const EdgeInsets.all(6.0),
-                          decoration: BoxDecoration(
-                            color: selectedOptionIndex.value == index
-                                ? (option.isCorrect == true
-                                    ? Colors.greenAccent.shade100
-                                    : Colors.red)
-                                : Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.1),
-                                spreadRadius: 0,
-                                blurRadius: 1,
-                                offset: const Offset(0, 4),
-                              ),
-                            ],
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: Row(
+          SectionTitleWithDivider(title: 'এখনি উত্তর দিন'),
+          10.h.height,
+          Container(
+              padding: EdgeInsets.all(7),
+              decoration: BoxDecoration(
+                  // border: Border.all(color: Colors.amber, width: 3),
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                  color: LightThemeColors.primaryColor.withValues(alpha: .2)),
+              child: Column(
+                children: [
+                  HtmlWidget(
+                    question.title ?? '',
+                    textStyle: AppTextStyles.heading4.copyWith(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 15.sp,
+                    ),
+                  ),
+                  const SizedBox(height: 7),
+                  if (question.options != null && question.options!.isNotEmpty)
+                    ...List.generate(question.options!.length, (index) {
+                      final option = question.options![index];
+                      return Obx(() => Column(
                             children: [
-                              Expanded(
-                                child: HtmlWidget(
-                                  option.value ?? '',
-                                  textStyle: AppTextStyles.body1.copyWith(
+                              GestureDetector(
+                                onTap: () {
+                                  controller.isAnswerSelected.value = true;
+                                  selectedOptionIndex.value = index;
+                                },
+                                child: Container(
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 3.4),
+                                  padding: const EdgeInsets.all(8.0),
+                                  decoration: BoxDecoration(
                                     color: selectedOptionIndex.value == index
                                         ? (option.isCorrect == true
-                                            ? Colors.black
-                                            : Colors.white)
-                                        : Colors.black,
+                                            ? Colors.greenAccent.shade100
+                                            : Colors.red)
+                                        : Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color:
+                                            Colors.grey.withValues(alpha: 0.1),
+                                        spreadRadius: 0,
+                                        blurRadius: 1,
+                                        offset: const Offset(0, 4),
+                                      ),
+                                    ],
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: HtmlWidget(
+                                          option.value ?? '',
+                                          textStyle:
+                                              AppTextStyles.body1.copyWith(
+                                            color: selectedOptionIndex.value ==
+                                                    index
+                                                ? (option.isCorrect == true
+                                                    ? Colors.black
+                                                    : Colors.white)
+                                                : Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
                             ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ));
-            }),
-          const SizedBox(height: 5),
+                          ));
+                    }),
+                ],
+              )),
+          8.h.height,
           Obx(() {
             if (selectedOptionIndex.value != -1) {
               final selectedOption =
@@ -278,7 +129,7 @@ class RandomQuestionSelector extends StatelessWidget {
                       )
                     else
                       const SizedBox.shrink(),
-                    const SizedBox(width: 10),
+
                     Expanded(
                       child: CustomActionButton(
                         text: "নতুন প্রশ্ন →",
@@ -297,6 +148,9 @@ class RandomQuestionSelector extends StatelessWidget {
                         },
                       ),
                     ),
+
+
+
                   ],
                 );
               }

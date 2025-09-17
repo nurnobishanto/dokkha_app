@@ -8,8 +8,6 @@ import 'my_app/views/my_app_view.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  // Load .env safely
   try {
     await dotenv.load(fileName: ".env");
   } catch (e) {

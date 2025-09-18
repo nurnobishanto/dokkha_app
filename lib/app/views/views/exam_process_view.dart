@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -159,7 +160,10 @@ class _ExamProcessViewState extends State<ExamProcessView> {
                                         child: HtmlWidget(
                                           "${index + 1}. ${question.title}",
                                           textStyle: AppTextStyles.body1
-                                              .copyWith(color: Colors.white),
+                                              .copyWith(color: Colors.white,
+                                          fontSize: 14.00.sp,
+                                            fontWeight: FontWeight.w500
+                                          ),
                                         ),
                                       ),
                                     ),

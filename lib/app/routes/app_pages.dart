@@ -16,6 +16,10 @@ import '../modules/current_affairs/bindings/current_affairs_binding.dart';
 import '../modules/current_affairs/views/current_affairs_view.dart';
 import '../modules/exam_category/bindings/exam_category_binding.dart';
 import '../modules/exam_category/views/exam_category_view.dart';
+import '../modules/exam_category_details/bindings/exam_category_details_binding.dart';
+import '../modules/exam_category_details/bindings/exam_category_details_binding.dart';
+import '../modules/exam_category_details/views/exam_category_details_view.dart';
+import '../modules/exam_category_details/views/exam_category_details_view.dart';
 import '../modules/fast_practice/bindings/fast_practice_binding.dart';
 import '../modules/fast_practice/views/fast_practice_view.dart';
 import '../modules/grid_views/jobs/bindings/jobs_binding.dart';
@@ -280,6 +284,11 @@ class AppPages {
       name: _Paths.EXAM_CATEGORY,
       page: () => const ExamCategoryView(),
       binding: ExamCategoryBinding(),
+    ),
+    GetPage(
+      name: _Paths.EXAM_CATEGORY_DETAILS,
+      page: () => const ExamCategoryDetailsView(),
+      binding: ExamCategoryDetailsBinding(),
     ),
   ];
 }

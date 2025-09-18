@@ -19,7 +19,6 @@ import '../../../../../styles/text_style.dart';
 import '../../../../components/custom_transparent_divider.dart';
 import '../../../exam_category/widgets/exam_category_card.dart';
 import '../../../subject_sections/views/subject_sections_view.dart';
-import '../components/Premium_courses_section.dart';
 import '../components/social_links_widget.dart';
 import '../controllers/home_controller.dart';
 
@@ -27,7 +26,6 @@ class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
   @override
   Widget build(BuildContext context) {
-    //final spController = Get.put(SponsorAdsController());
     debugPrint("Build Home view");
     return Scaffold(
       drawer: const CustomDrawer(),
@@ -118,9 +116,9 @@ class HomeView extends GetView<HomeController> {
                 Expanded(
                   child: SingleChildScrollView(
                     child: Column(
-                      spacing: 5.0.h,
+                     spacing: 5.0.h,
                       children: [
-                        .0.h.height,
+                        0.h.height,
 
                         /// Carousel Slider
                         Builder(builder: (context) {
@@ -239,12 +237,10 @@ class HomeView extends GetView<HomeController> {
                         // 2.h.height,
 
                         /// Premium course area
-
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             5.h.height,
-
                             // Centered Title with dividers
                             SectionTitleWithDivider(
                                 title: "প্রিমিয়াম পরীক্ষা সমূহ"),
@@ -264,7 +260,6 @@ class HomeView extends GetView<HomeController> {
                                     title: "Exam Category ${x + 1}",
                                     onTap: () =>
                                         print("Tapped category ${x + 1}"),
-                                    // optional custom colors per card
                                     borderColor: LightThemeColors.primaryColor
                                         .withValues(alpha: 0.4),
                                     iconColor: LightThemeColors.primaryColor,
@@ -383,20 +378,4 @@ class HomeView extends GetView<HomeController> {
       ),
     );
   }
-}
-
-class CourseCategory {
-  final String title;
-  final String subtitle;
-  final IconData icon;
-  final String studentCount;
-  final String courseCount;
-
-  CourseCategory({
-    required this.title,
-    required this.subtitle,
-    required this.icon,
-    required this.studentCount,
-    required this.courseCount,
-  });
 }

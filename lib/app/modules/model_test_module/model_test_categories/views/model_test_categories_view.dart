@@ -5,8 +5,6 @@ import '../../../../../utils/constants.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../services/api_call_status.dart';
 import '../../components/model_test_categories_card.dart';
-
-import '../../model_test_details/views/model_test_details_view.dart';
 import '../controllers/model_test_categories_controller.dart';
 
 class ModelTestCategoriesView extends GetView<ModelTestCategoriesController> {
@@ -51,10 +49,10 @@ class ModelTestCategoriesView extends GetView<ModelTestCategoriesController> {
                             ? data.id
                             : int.tryParse(data.id.toString());
                         if (id != null) {
-                          //Get.to(() => ModelTestDetailsView(id: id));
-
-                          Get.toNamed(Routes.MODEL_TEST_DETAILS,
-                              arguments: {"id": id});
+                          Get.toNamed(
+                            Routes.MODEL_TEST_DETAILS,
+                            arguments: {"id": id},
+                          );
                         } else {
                           Get.snackbar("Error", "Invalid exam ID");
                         }

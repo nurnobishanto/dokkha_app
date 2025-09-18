@@ -266,7 +266,7 @@ class LatestContestController extends GetxController {
               ));
         } else if (response.data["status"] == false) {
           if (response.data["package_required"] == true) {
-            Get.to(const PremiumPackagesView());
+            Get.to(() =>const PremiumPackagesView());
           }
           CustomSnackBar.showCustomErrorToast(
               message: response.data["message"].toString());

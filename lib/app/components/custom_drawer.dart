@@ -112,7 +112,7 @@ class CustomDrawer extends StatelessWidget {
                 color: LightThemeColors.primaryColor, size: 20),
             title:
                 const Text('প্রাইভেসি পলিসি', style: TextStyle(fontSize: 14)),
-            onTap: () => Get.to(
+            onTap: () => Get.to(() =>
               BaseWebView(
                   title: "প্রাইভেসি পলিসি", url: AppConstants.privacyPolicy),
             ),
@@ -124,7 +124,7 @@ class CustomDrawer extends StatelessWidget {
             leading: const FaIcon(FontAwesomeIcons.moneyBillWave,
                 color: LightThemeColors.primaryColor, size: 20),
             title: const Text('রিফান্ড পলিসি', style: TextStyle(fontSize: 14)),
-            onTap: () => Get.to(
+            onTap: () => Get.to(() =>
               BaseWebView(
                   title: "রিফান্ড পলিসি", url: AppConstants.refundPolicy),
             ),
@@ -135,7 +135,7 @@ class CustomDrawer extends StatelessWidget {
             leading: const FaIcon(FontAwesomeIcons.award,
                 color: LightThemeColors.primaryColor, size: 20),
             title: const Text('কন্টেস্ট পলিসি', style: TextStyle(fontSize: 14)),
-            onTap: () => Get.to(
+            onTap: () => Get.to(() =>
               BaseWebView(
                   title: "কন্টেস্ট পলিসি", url: AppConstants.contestPolicy),
             ),
@@ -147,7 +147,7 @@ class CustomDrawer extends StatelessWidget {
                 color: LightThemeColors.primaryColor, size: 20),
             title: const Text('টার্মস এন্ড কন্ডিশন',
                 style: TextStyle(fontSize: 14)),
-            onTap: () => Get.to(
+            onTap: () => Get.to(() =>
               BaseWebView(
                   title: "টার্মস এন্ড কন্ডিশন", url: AppConstants.termsPolicy),
             ),

@@ -25,7 +25,7 @@ class ExamCategoryCard extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 16.w),
+        padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 6.w),
         decoration: BoxDecoration(
           color: LightThemeColors.white,
           borderRadius: BorderRadius.circular(12.r),
@@ -43,21 +43,26 @@ class ExamCategoryCard extends StatelessWidget {
           ],
         ),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center, // center horizontally
+          crossAxisAlignment: CrossAxisAlignment.center, //  center vertically
           mainAxisSize: MainAxisSize.min,
           children: [
             FaIcon(
               FontAwesomeIcons.graduationCap,
               color: iconColor ?? LightThemeColors.primaryColor,
-              size: 22.sp,
+              size: 20.sp,
             ),
-            10.w.width,
+            3.w.width,
             Flexible(
               child: Text(
                 title,
+                maxLines: 2,
+                textAlign: TextAlign.center,
+                //softWrap: true,       // allow wrapping
+                overflow: TextOverflow.ellipsis,
                 style: AppTextStyles.heading5.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
-                overflow: TextOverflow.ellipsis,
               ),
             ),
           ],

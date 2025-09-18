@@ -85,4 +85,9 @@ class AppConstants {
   static final String lectureSheetCategories =
       '$appUrl/lecturesheet-categories';
   static final String lectureSheet = '$appUrl/lecturesheets';
+  /// Exams Categories
+static final String examsCategories = '$appUrl/exam-categories';
+static final String examsCategory = '$appUrl/exam-category';
+
+
 }

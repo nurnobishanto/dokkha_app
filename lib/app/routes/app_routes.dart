@@ -48,6 +48,7 @@ abstract class Routes {
   static const MODEL_TEST_CATEGORIES = _Paths.MODEL_TEST_CATEGORIES;
   static const MODEL_TEST_DETAILS = _Paths.MODEL_TEST_DETAILS;
   static const EXAM_CATEGORY = _Paths.EXAM_CATEGORY;
+  static const EXAM_CATEGORY_DETAILS = _Paths.EXAM_CATEGORY_DETAILS;
 }
 
 abstract class _Paths {
@@ -97,4 +98,5 @@ abstract class _Paths {
   static const MODEL_TEST_CATEGORIES = '/model-test-categories';
   static const MODEL_TEST_DETAILS = '/model-test-details';
   static const EXAM_CATEGORY = '/exam-category';
+  static const EXAM_CATEGORY_DETAILS = '/exam-category-details';
 }

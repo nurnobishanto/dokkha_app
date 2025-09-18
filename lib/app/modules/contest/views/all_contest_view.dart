@@ -39,7 +39,7 @@ class AllContestView extends StatelessWidget {
                                 controller.contestTimers[contest.id];
                             return InkWell(
                               onTap: () {
-                                Get.to(ContestDetailsView(contest: contest));
+                                Get.to(() =>ContestDetailsView(contest: contest));
                               },
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(7.0.r),

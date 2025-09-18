@@ -22,7 +22,7 @@ class HomeController extends GetxController {
     'সর্বশেষ নিয়োগ বিজ্ঞপ্তি',
     'সর্বশেষ নিয়োগ পরীক্ষা',
     'Vocabulary',
-    'এক্সাম',
+    'পরীক্ষা সমূহ',
   ];
 
   final List gridViewRoutePage = [

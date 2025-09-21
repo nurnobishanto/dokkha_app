@@ -19,67 +19,119 @@ class ExamCategoryView extends GetView<ExamCategoryController> {
     final controller = Get.put(ExamCategoryController());
     return Scaffold(
       appBar: AppBar(
-        title: const Text('পরীক্ষার সমস্ত ক্যাটাগরি'),
+        title: const Text('পরীক্ষার ক্যাটাগরি'),
         centerTitle: true,
       ),
       body: Obx(() {
-        if (controller.apiCallStatus.value == ApiCallStatus.loading) {
+        if (controller.apiCallStatus.value == ApiCallStatus.loading ||
+            controller.apiCallCourseCategoriesStatus.value ==
+                ApiCallStatus.loading) {
           return const Center(child: CircularProgressIndicator());
         }
-        if (controller.model.value.examCategories!.isEmpty) {
+
+        if (controller.model.value.examCategories!.isEmpty &&
+            controller.courseCategoriesModel.value.courseCategories!.isEmpty) {
           return const Center(child: Text("Data not found"));
         }
+
         return SafeArea(
           child: SingleChildScrollView(
             child: Column(
               children: [
-                // 5.h.height,
-                // Center(
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.center,
-                //     children: [
-                //       Expanded(
-                //         child: Divider(
-                //           color: LightThemeColors.primaryColor,
-                //           thickness: 2,
-                //           endIndent: 8,
-                //         ),
-                //       ),
-                //       Text(
-                //         "প্রিমিয়াম কোর্স সূমহ",
-                //         textAlign: TextAlign.center,
-                //         style: AppTextStyles.heading4,
-                //       ),
-                //       Expanded(
-                //         child: Divider(
-                //           color: LightThemeColors.primaryColor,
-                //           thickness: 2,
-                //           indent: 8,
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                // Obx(() {
-                //   if (controller.apiCallStatus.value == ApiCallStatus.loading) {
-                //     return CircularProgressIndicator();
-                //   }
-                //   return ListView.separated(
-                //     padding: EdgeInsets.all(8),
-                //     physics: NeverScrollableScrollPhysics(),
-                //     shrinkWrap: true,
-                //     itemCount: 3,
-                //     itemBuilder: (_, x) {
-                //       return ExamCategoryCard(
-                //         title: "Exam Category ${x + 1}",
-                //         onTap: () {
-                //           print("Tapped category ${x + 1}");
-                //         },
-                //       );
-                //     },
-                //     separatorBuilder: (x, i) => 8.h.height,
-                //   );
-                // }),
+                /// Premium Courses/Exams
+                5.h.height,
+                Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Divider(
+                          color: LightThemeColors.primaryColor,
+                          thickness: 2,
+                          endIndent: 8,
+                        ),
+                      ),
+                      Text(
+                        "প্রিমিয়াম পরীক্ষার ক্যাটাগরি",
+                        textAlign: TextAlign.center,
+                        style: AppTextStyles.heading4,
+                      ),
+                      Expanded(
+                        child: Divider(
+                          color: LightThemeColors.primaryColor,
+                          thickness: 2,
+                          indent: 8,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                5.h.height,
+                Obx(() {
+                  final courses =
+                      controller.courseCategoriesModel.value.courseCategories ??
+                          [];
+                  if (controller.apiCallCourseCategoriesStatus.value ==
+                      ApiCallStatus.loading) {
+                    return const CircularProgressIndicator();
+                  }
+
+                  return GridView.builder(
+                    padding: const EdgeInsets.all(8),
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: courses.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 8.00,
+                      crossAxisSpacing: 8.00,
+                      childAspectRatio: 3.0,
+                    ),
+                    itemBuilder: (_, x) {
+                      final course = courses[x];
+                      //courses.forEach((data)=> print(data.id));
+
+                      return ExamCategoryCard(
+                        title: course.title ?? "",
+                        onTap: () {
+
+                          Get.toNamed(Routes.COURSES,
+                              arguments: {"course_category_id": course.id});
+                        },
+                      );
+                    },
+                  );
+                }),
+
+                /// Free Courses/Exams
+
+                5.h.height,
+                Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Divider(
+                          color: LightThemeColors.primaryColor,
+                          thickness: 2,
+                          endIndent: 8,
+                        ),
+                      ),
+                      Text(
+                        "ফ্রি পরীক্ষার ক্যাটাগরি",
+                        textAlign: TextAlign.center,
+                        style: AppTextStyles.heading4,
+                      ),
+                      Expanded(
+                        child: Divider(
+                          color: LightThemeColors.primaryColor,
+                          thickness: 2,
+                          indent: 8,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 5.h.height,
                 Obx(() {
                   final exams = controller.model.value.examCategories ?? [];
@@ -93,17 +145,19 @@ class ExamCategoryView extends GetView<ExamCategoryController> {
                     itemCount: exams.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
-                      mainAxisSpacing: 5,
-                      crossAxisSpacing: 5,
-                      childAspectRatio: 2.5,
+                      mainAxisSpacing: 8.00,
+                      crossAxisSpacing: 8.00,
+                      childAspectRatio: 3.0,
                     ),
                     itemBuilder: (_, x) {
                       final exam = exams[x];
                       return ExamCategoryCard(
                         title: exam.name ?? "",
                         onTap: () {
-                          Get.toNamed(Routes.EXAM_CATEGORY_DETAILS,
-                              arguments: {"category_id": exam.id});
+                          if (exam.id != null) {
+                            Get.toNamed(Routes.EXAM_CATEGORY_DETAILS,
+                                arguments: {"category_id": exam.id});
+                          }
                         },
                       );
                     },

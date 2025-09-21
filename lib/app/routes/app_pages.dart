@@ -12,6 +12,8 @@ import '../modules/auth_views/terms_condition/bindings/terms_condition_binding.d
 import '../modules/auth_views/terms_condition/views/terms_condition_view.dart';
 import '../modules/auth_views/verify_otp/bindings/verify_otp_binding.dart';
 import '../modules/auth_views/verify_otp/views/verify_otp_view.dart';
+import '../modules/courses/bindings/courses_binding.dart';
+import '../modules/courses/views/courses_view.dart';
 import '../modules/current_affairs/bindings/current_affairs_binding.dart';
 import '../modules/current_affairs/views/current_affairs_view.dart';
 import '../modules/exam_category/bindings/exam_category_binding.dart';
@@ -289,6 +291,11 @@ class AppPages {
       name: _Paths.EXAM_CATEGORY_DETAILS,
       page: () => const ExamCategoryDetailsView(),
       binding: ExamCategoryDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.COURSES,
+      page: () => const CoursesView(),
+      binding: CoursesBinding(),
     ),
   ];
 }

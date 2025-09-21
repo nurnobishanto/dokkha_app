@@ -17,6 +17,9 @@ import 'package:lokkha/utils/constants.dart';
 import '../../../../../config/constants/app_images.dart';
 import '../../../../../styles/text_style.dart';
 import '../../../../components/custom_transparent_divider.dart';
+import '../../../../routes/app_pages.dart';
+import '../../../courses/controllers/courses_controller.dart';
+import '../../../exam_category/controllers/exam_category_controller.dart';
 import '../../../exam_category/widgets/exam_category_card.dart';
 import '../../../subject_sections/views/subject_sections_view.dart';
 import '../components/social_links_widget.dart';
@@ -27,6 +30,10 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     debugPrint("Build Home view");
+    // final ExamCategoryController examCategoryController =
+    //     Get.put(ExamCategoryController());
+    // final ExamCategoryController examCategoryController = Get.find();
+
     return Scaffold(
       drawer: const CustomDrawer(),
       appBar: AppBar(
@@ -116,7 +123,7 @@ class HomeView extends GetView<HomeController> {
                 Expanded(
                   child: SingleChildScrollView(
                     child: Column(
-                     spacing: 5.0.h,
+                      spacing: 5.0.h,
                       children: [
                         0.h.height,
 
@@ -246,27 +253,39 @@ class HomeView extends GetView<HomeController> {
                                 title: "প্রিমিয়াম পরীক্ষা সমূহ"),
 
                             8.h.height,
-
                             // Horizontal Scroll of Cards
-                            SizedBox(
-                              height: Get.height / 16,
-                              child: ListView.separated(
-                                scrollDirection: Axis.horizontal,
-                                physics: const BouncingScrollPhysics(),
-                                itemCount: 5,
-                                separatorBuilder: (_, __) => 12.w.width,
-                                itemBuilder: (_, x) {
-                                  return ExamCategoryCard(
-                                    title: "Exam Category ${x + 1}",
-                                    onTap: () =>
-                                        print("Tapped category ${x + 1}"),
-                                    borderColor: LightThemeColors.primaryColor
-                                        .withValues(alpha: 0.4),
-                                    iconColor: LightThemeColors.primaryColor,
-                                  );
-                                },
-                              ),
-                            ),
+                            Obx(() {
+                              final categories =
+                                  Get.find<ExamCategoryController>()
+                                          .courseCategoriesModel
+                                          .value
+                                          .courseCategories ??
+                                      [];
+
+                              return SizedBox(
+                                height: Get.height / 15,
+                                child: ListView.separated(
+                                  scrollDirection: Axis.horizontal,
+                                  physics: const BouncingScrollPhysics(),
+                                  itemCount: categories.length,
+                                  separatorBuilder: (_, __) =>
+                                      SizedBox(width: 12.w),
+                                  itemBuilder: (_, x) {
+                                    return ExamCategoryCard(
+                                      title: categories[x].title ?? '',
+                                      onTap: () {
+                                        Get.toNamed(Routes.COURSES, arguments: {
+                                          "course_category_id": categories[x].id
+                                        });
+                                      },
+                                      borderColor: LightThemeColors.primaryColor
+                                          .withValues(alpha: 0.4),
+                                      iconColor: LightThemeColors.primaryColor,
+                                    );
+                                  },
+                                ),
+                              );
+                            }),
                           ],
                         ),
                         10.h.height,

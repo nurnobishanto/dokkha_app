@@ -1,14 +1,25 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:lokkha/app/models/course_category.dart';
+import 'package:lokkha/app/modules/exam_category/models/course_categories_model.dart';
 import 'package:lokkha/app/modules/exam_category/models/exam_categories_model.dart';
 import 'package:lokkha/app/services/api_call_status.dart';
 import '../../../services/base_client.dart';
 import '../../../../utils/constants.dart';
+import '../models/courses_model.dart';
 
 class ExamCategoryController extends GetxController {
   final model = ExamCategoriesModel().obs;
-  final apiCallStatus = ApiCallStatus.holding.obs;
+  final courseCategoriesModel = CourseCategoriesModel().obs;
 
+
+
+
+  final apiCallStatus = ApiCallStatus.holding.obs;
+  final apiCallCourseCategoriesStatus = ApiCallStatus.holding.obs;
+
+
+  /// Fetch Free Exam Categories Method
   Future<void> fetchExamCategories() async {
     apiCallStatus.value = ApiCallStatus.loading;
     try {
@@ -34,9 +45,38 @@ class ExamCategoryController extends GetxController {
     }
   }
 
+  /// Fetch Course Categories Method
+  Future<void> fetchCourseCategories() async {
+    apiCallCourseCategoriesStatus.value = ApiCallStatus.loading;
+    try {
+      final url = AppConstants.courseCategories;
+      await BaseClient.safeApiCall(
+        url,
+        RequestType.get,
+        onSuccess: (response) {
+          if (response.data['status']) {
+            courseCategoriesModel.value =
+                CourseCategoriesModel.fromJson(response.data);
+            apiCallCourseCategoriesStatus.value = ApiCallStatus.success;
+          } else {
+            apiCallCourseCategoriesStatus.value = ApiCallStatus.error;
+          }
+        },
+        onError: (err) {
+          apiCallCourseCategoriesStatus.value = ApiCallStatus.error;
+          debugPrint("error from fetchCourseCategories $err");
+        },
+      );
+    } catch (e) {
+      apiCallCourseCategoriesStatus.value = ApiCallStatus.error;
+    }
+  }
+
+
   @override
   void onInit() {
     super.onInit();
+    fetchCourseCategories();
     fetchExamCategories();
   }
 }

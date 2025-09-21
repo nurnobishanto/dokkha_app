@@ -25,10 +25,10 @@ class ExamCategoryCard extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 6.w),
+        padding: EdgeInsets.all(8),
         decoration: BoxDecoration(
           color: LightThemeColors.white,
-          borderRadius: BorderRadius.circular(12.r),
+          borderRadius: BorderRadius.circular(5.r),
           border: Border.all(
             color: borderColor ??
                 LightThemeColors.primaryColor.withValues(alpha: 0.5),
@@ -43,21 +43,28 @@ class ExamCategoryCard extends StatelessWidget {
           ],
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center, // center horizontally
+          mainAxisAlignment: MainAxisAlignment.start, // center horizontally
           crossAxisAlignment: CrossAxisAlignment.center, //  center vertically
           mainAxisSize: MainAxisSize.min,
           children: [
-            FaIcon(
-              FontAwesomeIcons.graduationCap,
-              color: iconColor ?? LightThemeColors.primaryColor,
-              size: 20.sp,
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 6.5,vertical: 10.0),
+              decoration: BoxDecoration(
+                color: LightThemeColors.primaryColor.withValues(alpha: .1),
+                borderRadius: BorderRadius.all(Radius.circular(7.0)),
+              ),
+              child: FaIcon(
+                FontAwesomeIcons.graduationCap,
+                color: iconColor ?? LightThemeColors.primaryColor,
+                size: 25.sp,
+              ),
             ),
-            3.w.width,
+            7.w.width,
             Flexible(
               child: Text(
                 title,
                 maxLines: 2,
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.start,
                 //softWrap: true,       // allow wrapping
                 overflow: TextOverflow.ellipsis,
                 style: AppTextStyles.heading5.copyWith(

@@ -29,7 +29,7 @@ class NavbarView extends GetView<NavbarController> {
               ),
               const BottomNavigationBarItem(
                 icon: FaIcon(FontAwesomeIcons.penToSquare, size: 18),
-                label: "মডেল টেস্ট",
+                label: "পরীক্ষা",
                 backgroundColor: LightThemeColors.primaryColor,
               ),
               const BottomNavigationBarItem(

@@ -23,7 +23,8 @@ class ExamCategoryDetailsView extends GetView<ExamCategoryDetailsController> {
         if (controller.apiCallStatus.value == ApiCallStatus.loading) {
           return const Center(child: CircularProgressIndicator());
         }
-        if ((controller.examCategoriesModel.value.examCategories?.isEmpty ?? true) &&
+        if ((controller.examCategoriesModel.value.examCategories?.isEmpty ??
+                true) &&
             (controller.model.value.freeExams?.isEmpty ?? true)) {
           return const Center(child: Text("Data not found"));
         }
@@ -31,8 +32,8 @@ class ExamCategoryDetailsView extends GetView<ExamCategoryDetailsController> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                if (controller
-                    .examCategoriesModel.value.examCategories!.isNotEmpty) ...[
+                if ((controller.examCategoriesModel.value.examCategories ?? [])
+                    .isNotEmpty) ...[
                   8.h.height,
                   Obx(() {
                     final categories =

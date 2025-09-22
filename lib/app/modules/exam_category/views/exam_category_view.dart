@@ -94,9 +94,13 @@ class ExamCategoryView extends GetView<ExamCategoryController> {
                       return ExamCategoryCard(
                         title: course.title ?? "",
                         onTap: () {
-
-                          Get.toNamed(Routes.COURSES,
-                              arguments: {"course_category_id": course.id});
+                          Get.toNamed(
+                            Routes.COURSES,
+                            arguments: {
+                              "course_category_id": course.id,
+                              'category_name': course.title,
+                            },
+                          );
                         },
                       );
                     },

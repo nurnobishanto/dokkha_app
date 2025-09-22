@@ -41,8 +41,8 @@ class ExamOverview extends GetView {
               // Exam Title
               Text(
                 exam.name ?? '',
-                style:
-                    AppTextStyles.heading3.copyWith(fontWeight: FontWeight.bold),
+                style: AppTextStyles.heading3
+                    .copyWith(fontWeight: FontWeight.bold),
               ),
               const Divider(),
               // Exam Image with rounded border and shadow
@@ -60,10 +60,11 @@ class ExamOverview extends GetView {
                 exam.description ?? '',
                 textStyle: AppTextStyles.body1.copyWith(height: 1.6),
               ),
-        
+
               15.h.height,
               Container(
-                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
                 decoration: BoxDecoration(
                   color: Colors.grey[100],
                   borderRadius: BorderRadius.circular(12),
@@ -90,7 +91,8 @@ class ExamOverview extends GetView {
               ),
               5.h.height,
               Container(
-                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
                 decoration: BoxDecoration(
                   color: Colors.grey[100],
                   borderRadius: BorderRadius.circular(12),
@@ -115,7 +117,7 @@ class ExamOverview extends GetView {
                   ],
                 ),
               ),
-        
+
               const Spacer(),
               // Action Buttons (unchanged)
               Row(
@@ -126,7 +128,8 @@ class ExamOverview extends GetView {
                       onPressed: () async {
                         if (isLoggedIn.value) {
                           Get.to(
-                              ReadQuestionView(model: exam.questions!.toList()));
+                            ReadQuestionView(model: exam.questions!.toList()),
+                          );
                         } else {
                           Get.toNamed(Routes.AUTH_GATEWAY);
                         }
@@ -148,7 +151,6 @@ class ExamOverview extends GetView {
                   ),
                 ],
               ),
-
             ],
           ),
         ),

@@ -5,17 +5,18 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+
 import '../../../../utils/constants.dart';
 import '../../../data/local/my_shared_pref.dart';
 import '../../../helper/api_helper.dart';
 import '../../../services/api_call_status.dart';
 import '../../../services/base_client.dart';
-import '../models/exam_start_model.dart';
+import '../../exam/models/start_exam_model.dart';
 import '../models/exam_submit_model.dart';
 import '../views/exam_submit_view.dart';
 
 class ExamStartController extends GetxController {
-  ExamStartModel? exam; // Exam data
+  ExamStartModel? examStartModel; // Exam data
   RxInt? duration;
   RxBool timerWork = false.obs;
   Timer? timer;
@@ -31,7 +32,7 @@ class ExamStartController extends GetxController {
       'Authorization': 'Bearer $token',
       'Content-Type': 'application/json'
     };
-    final url = "${AppConstants.exam}/${exam!.exam!.id}/submit";
+    final url = "${AppConstants.exam}/${examStartModel!.exam!.id}/submit";
     // Convert userAnswers map to a list of JSON objects
     List<Map<String, dynamic>> userAnswersArray =
         userAnswers.values.map((userAnswer) => userAnswer.toJson()).toList();
@@ -49,9 +50,7 @@ class ExamStartController extends GetxController {
         apiCallStatus = ApiCallStatus.success;
         if (response.data['status']) {
           log("Success Submit");
-          // CustomSnackBar.showCustomToast(
-          //     message: response.data['message'].toString());
-          await MySharedPref.clearMockSubjects();
+
           //
           ExamSubmitModel modelData = ExamSubmitModel.fromJson(response.data);
 
@@ -72,9 +71,9 @@ class ExamStartController extends GetxController {
   var userAnswers = <int, UserAnswer>{}.obs;
 
   //MockExamQuestionController(this.exam) : duration = (exam!.duration != null ? exam.duration! * 60 : 0).obs;
-  ExamStartController(this.exam)
+  ExamStartController(this.examStartModel)
       : duration =
-            (exam!.exam!.duration != null ? exam.exam!.duration! : 0).obs,
+            (examStartModel!.exam!.duration != null ? examStartModel.exam!.duration! *60 : 0).obs,
         timerWork = true.obs;
 
   // For handling answers
@@ -107,9 +106,9 @@ class ExamStartController extends GetxController {
   }
 
   void _initializeUserAnswers() {
-    for (int i = 0; i < exam!.questions!.length; i++) {
+    for (int i = 0; i < examStartModel!.questions!.length; i++) {
       // Get the selected answer for the current question
-      var selectedAnswer = selectedAnswers[exam!.questions![i].id];
+      var selectedAnswer = selectedAnswers[examStartModel!.questions![i].id];
 
       // Ensure the answer is always a list (if it's not null)
       var answerAsList = (selectedAnswer != null)
@@ -118,7 +117,7 @@ class ExamStartController extends GetxController {
 
       // Initialize userAnswers for the current question with questionId and answer as a list
       userAnswers[i] = UserAnswer(
-        questionId: exam!.questions![i].id!.toInt(),
+        questionId: examStartModel!.questions![i].id!.toInt(),
         answers: answerAsList, // Store as list or null if no answer
       );
     }

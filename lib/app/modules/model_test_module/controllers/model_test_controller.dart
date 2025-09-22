@@ -6,8 +6,8 @@ import 'package:lokkha/utils/constants.dart';
 
 import '../../../components/custom_snackbar.dart';
 import '../../auth_views/auth_gateway/views/auth_gateway_view.dart';
+import '../../exam/models/start_exam_model.dart';
 import '../../premium_packages/views/premium_packages_view.dart';
-import '../models/exam_start_model.dart';
 import '../models/model_test_list_model.dart';
 import '../models/single_model_test_model.dart';
 import '../views/exam_run_view.dart';

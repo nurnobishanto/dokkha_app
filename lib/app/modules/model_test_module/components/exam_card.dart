@@ -36,40 +36,11 @@ class ExamCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             /// Exam title
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Text(
-                    exam?.name ?? '',
-                    style: Get.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: Colors.green.shade100,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: exam!.examModelTestPivot!.isFree == 1
-                      ? Text(
-                          "Free",
-                          style: TextStyle(
-                            color: Colors.green.shade800,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        )
-                      : Icon(
-                          Icons.lock_outline,
-                          color: Colors.grey.shade600,
-                          size: 18,
-                        ),
-                ),
-              ],
+            Text(
+              exam?.name ?? '',
+              style: Get.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 6),
 

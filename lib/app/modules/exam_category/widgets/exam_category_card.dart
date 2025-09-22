@@ -10,6 +10,7 @@ class ExamCategoryCard extends StatelessWidget {
   final String title;
   final Color? borderColor;
   final Color? iconColor;
+  final bool? isIcon;
   final VoidCallback? onTap;
 
   const ExamCategoryCard({
@@ -17,6 +18,7 @@ class ExamCategoryCard extends StatelessWidget {
     required this.title,
     this.borderColor,
     this.iconColor,
+    this.isIcon = true,
     this.onTap,
   });
 
@@ -47,18 +49,21 @@ class ExamCategoryCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center, //  center vertically
           mainAxisSize: MainAxisSize.min,
           children: [
+            isIcon == true ?
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 6.5,vertical: 10.0),
+              padding: EdgeInsets.symmetric(horizontal: 6.5),
               decoration: BoxDecoration(
                 color: LightThemeColors.primaryColor.withValues(alpha: .1),
                 borderRadius: BorderRadius.all(Radius.circular(7.0)),
               ),
-              child: FaIcon(
-                FontAwesomeIcons.graduationCap,
-                color: iconColor ?? LightThemeColors.primaryColor,
-                size: 25.sp,
+              child: Center(
+                child: FaIcon(
+                  FontAwesomeIcons.graduationCap,
+                  color: iconColor ?? LightThemeColors.primaryColor,
+                  size: 25.sp,
+                ),
               ),
-            ),
+            ):const SizedBox.shrink(),
             7.w.width,
             Flexible(
               child: Text(

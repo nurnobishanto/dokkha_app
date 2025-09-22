@@ -16,6 +16,8 @@ import '../modules/courses/bindings/courses_binding.dart';
 import '../modules/courses/views/courses_view.dart';
 import '../modules/current_affairs/bindings/current_affairs_binding.dart';
 import '../modules/current_affairs/views/current_affairs_view.dart';
+import '../modules/exam/bindings/exam_binding.dart';
+import '../modules/exam/views/exam_view.dart';
 import '../modules/exam_category/bindings/exam_category_binding.dart';
 import '../modules/exam_category/views/exam_category_view.dart';
 import '../modules/exam_category_details/bindings/exam_category_details_binding.dart';
@@ -294,8 +296,13 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.COURSES,
-      page: () => const CoursesView(),
+      page: () => CoursesView(),
       binding: CoursesBinding(),
+    ),
+    GetPage(
+      name: _Paths.EXAM,
+      page: () => const ExamView(),
+      binding: ExamBinding(),
     ),
   ];
 }

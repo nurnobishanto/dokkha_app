@@ -25,17 +25,13 @@ class CustomCourseCard extends StatelessWidget {
     required this.onPressed,
   });
 
+  String formatPrice(String price) =>
+      price.contains('.') ? price.replaceAll('.00', '') : price;
+
   @override
   Widget build(BuildContext context) {
-    String formatPrice(String priceString) {
-      if (priceString.contains('.')) {
-        return priceString.replaceAll('.00', '');
-      }
-      return priceString;
-    }
-
     return Container(
-      width: 0.45.sw, // 45% of screen width
+      //width: 0.45.sw,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8.r),
@@ -48,7 +44,8 @@ class CustomCourseCard extends StatelessWidget {
         ],
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           ClipRRect(
             borderRadius: BorderRadius.vertical(top: Radius.circular(8.r)),
@@ -58,12 +55,10 @@ class CustomCourseCard extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(8.w),
+            padding: EdgeInsets.all(5.w),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                // Title
                 Text(
                   title,
                   maxLines: 2,
@@ -75,9 +70,7 @@ class CustomCourseCard extends StatelessWidget {
                     color: Colors.black87,
                   ),
                 ),
-                SizedBox(height: 2.h),
-
-                //Price + duration
+                SizedBox(height: 4.h),
                 Row(
                   children: [
                     Text(
@@ -88,7 +81,7 @@ class CustomCourseCard extends StatelessWidget {
                         decoration: TextDecoration.lineThrough,
                       ),
                     ),
-                    SizedBox(width: 8.h),
+                    SizedBox(width: 8.w),
                     Text(
                       '৳${formatPrice(salePrice)}',
                       style: TextStyle(
@@ -97,30 +90,25 @@ class CustomCourseCard extends StatelessWidget {
                         color: Colors.black,
                       ),
                     ),
-                    Spacer(),
-                    Row(
-                      children: [
-                        Icon(Icons.star_rounded,
-                            color: Colors.amber, size: 18.sp),
-                        SizedBox(width: 1.w),
-                        Text(
-                          rating.padRight(2),
-                          style: TextStyle(
-                            fontSize: 13.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey.shade700,
-                          ),
-                        ),
-                      ],
+                    const Spacer(),
+                    Icon(Icons.star_rounded, color: Colors.amber, size: 18.sp),
+                    SizedBox(width: 2.w),
+                    Text(
+                      rating.padRight(2),
+                      style: TextStyle(
+                        fontSize: 13.sp,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey.shade700,
+                      ),
                     ),
                   ],
                 ),
-                SizedBox(height: 9.h),
-                // Button
+                SizedBox(height: 2.h),
                 CustomActionButton(
                   text: "কিনুন",
                   onPressed: onPressed,
                 ),
+                SizedBox(height: 1.h),
               ],
             ),
           ),

@@ -255,9 +255,9 @@ class HomeView extends GetView<HomeController> {
                             8.h.height,
                             // Horizontal Scroll of Cards
                             Obx(() {
+                              final examController = Get.put(ExamCategoryController());
                               final categories =
-                                  Get.find<ExamCategoryController>()
-                                          .courseCategoriesModel
+                                  examController.courseCategoriesModel
                                           .value
                                           .courseCategories ??
                                       [];

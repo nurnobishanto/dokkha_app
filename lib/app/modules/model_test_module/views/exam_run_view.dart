@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
+import 'package:lokkha/app/modules/exam/models/start_exam_model.dart';
 import '../../../../config/theme/light_theme_colors.dart';
 import '../../../../styles/text_style.dart';
 import '../../../../utils/constants.dart';
@@ -10,7 +11,7 @@ import '../../../enums/question_type.dart';
 import '../../../helper/api_helper.dart';
 import '../../../models/question.dart';
 import '../controllers/exam_controller.dart';
-import '../models/exam_start_model.dart';
+
 
 class RunExamView extends StatefulWidget {
   final ExamStartModel examStartModel;

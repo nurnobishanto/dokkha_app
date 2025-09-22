@@ -32,7 +32,7 @@ class ExamCategoryDetailsController extends GetxController {
         }
       }, onError: (err) {
         apiCallStatus.value = ApiCallStatus.error;
-        debugPrint("error from fetchExamCategories $err");
+        debugPrint("error from fetchExamCategoryDetails $err");
       });
     } catch (e) {
       apiCallStatus.value = ApiCallStatus.error;
@@ -62,5 +62,11 @@ class ExamCategoryDetailsController extends GetxController {
       apiCallStatus.value = ApiCallStatus.error;
     }
   }
+
+
+
+
+
+
 
 }

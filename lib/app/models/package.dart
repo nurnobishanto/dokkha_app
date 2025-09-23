@@ -7,6 +7,8 @@ class Package {
   final String? discount;
   final String? discountedPrice;
   final int? status;
+  final int? isMega;
+  final int? isFemale;
   final int? isFeatured;
   final String? features;
   final int? isTrial;
@@ -34,6 +36,8 @@ class Package {
     this.discount,
     this.discountedPrice,
     this.status,
+    this.isMega,
+    this.isFemale,
     this.isFeatured,
     this.features,
     this.isTrial,
@@ -62,6 +66,8 @@ class Package {
         discount: json["discount"],
         discountedPrice: json["discounted_price"],
         status: json["status"],
+        isMega: json["is_mega"],
+        isFemale: json["is_female"],
         isFeatured: json["is_featured"],
         features: json["features"],
         isTrial: json["is_trial"],
@@ -94,6 +100,8 @@ class Package {
         "discount": discount,
         "discounted_price": discountedPrice,
         "status": status,
+        "is_mega": isMega,
+        "is_female": isFemale,
         "is_featured": isFeatured,
         "features": features,
         "is_trial": isTrial,

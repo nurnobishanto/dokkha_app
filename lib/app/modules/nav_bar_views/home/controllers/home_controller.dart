@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/modules/contest/controller/latest_contest_controller.dart';
 import 'package:lokkha/app/modules/current_affairs/views/current_affairs_view.dart';
+import 'package:lokkha/app/modules/exam_category/controllers/exam_category_controller.dart';
 import 'package:lokkha/app/modules/grid_views/jobs/views/jobs_view.dart';
 import 'package:lokkha/app/modules/latest_exam/views/latest_exam_view.dart';
 import 'package:lokkha/app/modules/lecture_sheet/views/lecture_sheet_list_view.dart';
@@ -58,8 +59,9 @@ class HomeController extends GetxController {
     await Get.find<LatestContestController>().fetchContestResult();
     await Get.find<LatestContestController>()
         .fetchAllContest()
-        .then((_) => print("Called fetchAll Contest"));
-    print("Called fetchAll Contest2");
+        .then((_) => debugPrint("Called fetchAll Contest"));
+    debugPrint("Called fetchAll Contest2");
+    await Get.find<ExamCategoryController>().fetchCourseCategories();
     update(); // for ui update
   }
 }

@@ -172,6 +172,8 @@ class ExamCategoryView extends GetView<ExamCategoryController> {
           ),
         );
       }),
+
+
     );
   }
 }

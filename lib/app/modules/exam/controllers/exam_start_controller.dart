@@ -11,7 +11,7 @@ import '../../../data/local/my_shared_pref.dart';
 import '../../../helper/api_helper.dart';
 import '../../../services/api_call_status.dart';
 import '../../../services/base_client.dart';
-import '../../exam/models/start_exam_model.dart';
+import '../models/start_exam_model.dart';
 import '../models/exam_submit_model.dart';
 import '../views/exam_submit_view.dart';
 
@@ -32,7 +32,7 @@ class ExamStartController extends GetxController {
       'Authorization': 'Bearer $token',
       'Content-Type': 'application/json'
     };
-    final url = "${AppConstants.exam}/${examStartModel!.exam!.id}/submit";
+    final url = "${AppConstants.submitExam}/${examStartModel!.exam!.id}";
     // Convert userAnswers map to a list of JSON objects
     List<Map<String, dynamic>> userAnswersArray =
         userAnswers.values.map((userAnswer) => userAnswer.toJson()).toList();
@@ -73,7 +73,7 @@ class ExamStartController extends GetxController {
   //MockExamQuestionController(this.exam) : duration = (exam!.duration != null ? exam.duration! * 60 : 0).obs;
   ExamStartController(this.examStartModel)
       : duration =
-            (examStartModel!.exam!.duration != null ? examStartModel.exam!.duration! *60 : 0).obs,
+            (examStartModel!.remaining != null ? examStartModel.remaining! : 0).obs,
         timerWork = true.obs;
 
   // For handling answers
@@ -105,6 +105,15 @@ class ExamStartController extends GetxController {
     _initializeUserAnswers();
   }
 
+  @override
+  void onClose() {
+    // only cancel if timer is not null and active
+    if (timer != null && timer!.isActive) {
+      timer!.cancel();
+    }
+    super.onClose();
+  }
+
   void _initializeUserAnswers() {
     for (int i = 0; i < examStartModel!.questions!.length; i++) {
       // Get the selected answer for the current question
@@ -133,6 +142,8 @@ class ExamStartController extends GetxController {
       }
     });
   }
+
+
 
   void submitExam() {
     finalSubmitExam();

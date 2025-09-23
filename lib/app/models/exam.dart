@@ -20,6 +20,8 @@ class Exam {
   final int? questionsCount;
   final bool? attempted;
   final List<Question>? questions;
+  final int? possibleMark;
+  final int? examResultsCount;
 
   Exam({
     this.id,
@@ -40,6 +42,8 @@ class Exam {
     this.questionsCount,
     this.attempted,
     this.questions,
+    this.possibleMark,
+    this.examResultsCount,
   });
 
   factory Exam.fromJson(Map<String, dynamic> json) => Exam(
@@ -63,6 +67,8 @@ class Exam {
     questionsCount: json["questions_count"],
     attempted: json["attempted"],
     questions: json["questions"] == null ? [] : List<Question>.from(json["questions"]!.map((x) => Question.fromJson(x))),
+    possibleMark: json["possible_mark"],
+    examResultsCount: json["exam_results_count"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -84,6 +90,8 @@ class Exam {
     "questions_count": questionsCount,
     "attempted": attempted,
     "questions": questions == null ? [] : List<dynamic>.from(questions!.map((x) => x.toJson())),
+    "exam_results_count": examResultsCount,
+    "possible_mark": possibleMark,
   };
 }
 

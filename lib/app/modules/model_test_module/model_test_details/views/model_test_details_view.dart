@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../components/custom_app_bar.dart';
 import '../../../../services/api_call_status.dart';
-import '../../components/exam_card.dart';
+import '../../../exam_category_details/widgets/exam_card.dart';
 import '../../views/exam_overview.dart';
 import '../controllers/model_test_details_controller.dart';
 

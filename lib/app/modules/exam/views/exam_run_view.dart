@@ -10,7 +10,7 @@ import '../../../components/custom_action_button.dart';
 import '../../../enums/question_type.dart';
 import '../../../helper/api_helper.dart';
 import '../../../models/question.dart';
-import '../controllers/exam_controller.dart';
+import '../controllers/exam_start_controller.dart';
 
 
 class RunExamView extends StatefulWidget {

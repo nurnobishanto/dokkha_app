@@ -1,10 +1,12 @@
 import 'dart:ui';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/modules/exam/controllers/exam_controller.dart';
 import 'package:lokkha/app/modules/subject_sections/views/read_question.dart';
 import '../../../models/exam.dart';
+import '../../../routes/app_pages.dart';
 
 const Color primaryColor = Color(0xFF006A4E);
 
@@ -74,17 +76,71 @@ class ExamDetailsDialog extends StatelessWidget {
                     Column(
                       children: [
                         _infoCard(
-                            Icons.timer, 'সময়কাল', '${exam.duration} মিনিট'),
-                        _infoCard(Icons.check_circle, 'সঠিক নম্বর',
+                            Icons.timer, 'সময়', '${exam.duration} মিনিট'),
+                        _infoCard(Icons.check_circle, 'পজিটিভ মার্ক',
                             '${exam.positiveMark}'),
                         _infoCard(
-                            Icons.cancel, 'ভুল নম্বর', '${exam.negativeMark}'),
+                            Icons.cancel, 'নেগেটিভ মার্ক', '${exam.negativeMark}'),
                         _infoCard(Icons.help_outline, 'মোট প্রশ্ন',
                             '${exam.questionsCount}'),
                       ],
                     ),
 
-                    const SizedBox(height: 28),
+                    const SizedBox(height: 5),
+
+                    Obx(() {
+                      if (examController.errorMessage.value.isEmpty) {
+                        return const SizedBox.shrink();
+                      }
+
+                      return Container(
+                        width: double.infinity,
+                        margin: const EdgeInsets.symmetric(vertical: 8.0),
+                        padding: const EdgeInsets.all(12.0),
+                        decoration: BoxDecoration(
+                          color: Colors.redAccent.withOpacity(0.1),
+                          border: Border.all(color: Colors.redAccent),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Icon(Icons.error_outline,
+                                color: Colors.redAccent),
+                            const SizedBox(width: 8.0),
+                            Expanded(
+                              child: RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: '${examController.errorMessage.value} ',
+                                      style: const TextStyle(
+                                        color: Colors.redAccent,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: 'প্যাকেজ কিনুন',
+                                      style: const TextStyle(
+                                        color: Colors.blue,
+                                        fontWeight: FontWeight.bold,
+                                        //decoration: TextDecoration.underline,
+                                      ),
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () {
+                                          Get.toNamed(Routes.PREMIUM_PACKAGES);
+                                        },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }),
+
+                    const SizedBox(height: 10),
 
                     // Action Buttons
                     Obx(() {
@@ -117,7 +173,6 @@ class ExamDetailsDialog extends StatelessWidget {
                               ),
                               onPressed: () {
                                 // Handle read question
-
                                 examController
                                     .fetchExamDetails(exam.id!.toInt());
                               },
@@ -150,7 +205,6 @@ class ExamDetailsDialog extends StatelessWidget {
                                 elevation: 4,
                               ),
                               onPressed: () {
-
                                 examController.startExam(exam.id!.toInt());
                               },
                             ),
@@ -169,7 +223,7 @@ class ExamDetailsDialog extends StatelessWidget {
   }
 
   Widget _infoCard(IconData icon, String label, String value) {
-    final bool isNegative = label.contains('ভুল নম্বর');
+    final bool isNegative = label.contains('নেগেটিভ মার্ক');
 
     return Container(
       margin: const EdgeInsets.only(bottom: 12),

@@ -6,18 +6,20 @@ class DateFormatter {
   DateFormatter._(); // Private constructor to prevent instance creation
 
   /// Format a DateTime to 'dd/MM/yyyy'
-  static String formatToDMY(DateTime date) {
+  static String formatToDMY(DateTime? date) {
+    if (date == null) return ''; // or 'N/A'
     return DateFormat('dd/MM/yyyy').format(date);
+  }
+
+  /// Format a DateTime? to 'd MMM yyyy' e.g. 20 Sept 2025
+  static String formatToReadable(DateTime? date) {
+    if (date == null) return '';
+    return DateFormat('MMM d, yyyy').format(date);
   }
 
   /// Format a DateTime to 'yyyy-MM-dd'
   static String formatToYMD(DateTime date) {
     return DateFormat('yyyy-MM-dd').format(date);
-  }
-
-  /// Format a DateTime to a human-readable format like 'April 28, 2025'
-  static String formatToReadable(DateTime date) {
-    return DateFormat('MMMM d, yyyy').format(date);
   }
 
   /// Format a DateTime to 'dd-MM-yyyy HH:mm'

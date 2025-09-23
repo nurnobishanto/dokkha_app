@@ -17,15 +17,50 @@ class ExamCategoryDetailsController extends GetxController {
     fetchExamCategoriesWithParentID(categoryId);
   }
 
+  // Pagination
+  RxInt currentPage = 1.obs;
+  RxInt totalPages = 1.obs;
+  final isLastPage = false.obs;
+  void firstPage() => goToPage(1);
+  void lastPage() => goToPage(totalPages.value);
+
+  // Pagination helpers
+  void goToPage(int page) {
+    if (page >= 1 && page <= totalPages.value) {
+      currentPage.value = page;
+      fetchExamCategoryDetails(categoryId);
+    }
+  }
+
+  void nextPage() {
+    if (currentPage.value < totalPages.value) {
+      currentPage.value++;
+      fetchExamCategoryDetails(categoryId);
+    }
+  }
+
+  void previousPage() {
+    if (currentPage.value > 1) {
+      currentPage.value--;
+      fetchExamCategoryDetails(categoryId);
+    }
+  }
   final model = ExamCategoryDetailsModel().obs;
   final apiCallStatus = ApiCallStatus.holding.obs;
+
   Future<void> fetchExamCategoryDetails(int categoryId) async {
     apiCallStatus.value = ApiCallStatus.loading;
     try {
-      final url = "${AppConstants.examsCategory}/$categoryId";
-      await BaseClient.safeApiCall(url, RequestType.get, onSuccess: (response) {
+      final url = "${AppConstants.examsCategory}/$categoryId?page=${currentPage.value}";
+      await BaseClient.safeApiCall(url, RequestType.get,
+
+          onSuccess: (response) {
         if (response.data['status']) {
           model.value = ExamCategoryDetailsModel.fromJson(response.data);
+          totalPages.value = model.value.freeExams?.lastPage ?? 1;
+          isLastPage.value = model.value.freeExams?.currentPage ==
+              model.value.freeExams?.lastPage;
+
           apiCallStatus.value = ApiCallStatus.success;
         } else {
           apiCallStatus.value = ApiCallStatus.error;

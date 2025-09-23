@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 import 'package:lokkha/app/components/custom_transparent_divider.dart';
 import 'package:lokkha/config/extensions/common_extension.dart';
 import '../../../../config/theme/light_theme_colors.dart';
-import '../../../../styles/text_style.dart';
 import '../../../services/api_call_status.dart';
 import '../../exam_category/widgets/exam_category_card.dart';
 import '../controllers/exam_category_details_controller.dart';
+import '../widgets/exam_card.dart';
 import '../widgets/exam_details_dialog.dart';
 
 class ExamCategoryDetailsView extends GetView<ExamCategoryDetailsController> {
@@ -89,11 +89,9 @@ class ExamCategoryDetailsView extends GetView<ExamCategoryDetailsController> {
                       itemCount: exams.length,
                       itemBuilder: (_, x) {
                         final exam = exams[x];
-                        return ExamCategoryCard(
-                          title: exam.name ?? "",
-                          isIcon: false,
+                        return ExamCard(
+                          exam: exam,
                           onTap: () {
-                            print("Clicked");
                             showDialog(
                               context: context,
                               builder: (context) => ExamDetailsDialog(
@@ -106,6 +104,90 @@ class ExamCategoryDetailsView extends GetView<ExamCategoryDetailsController> {
                       separatorBuilder: (_, int index) => 5.h.height,
                     );
                   }),
+                ],
+              ),
+            ),
+          ),
+        );
+      }),
+
+      bottomNavigationBar: Obx(() {
+        if (controller.totalPages.value <= 1) return SizedBox.shrink();
+
+        return SafeArea(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 20, left: 25),
+              child: Row(
+                children: [
+                  // First Page
+                  IconButton(
+                    icon: Icon(Icons.first_page),
+                    onPressed: controller.currentPage.value > 1
+                        ? controller.firstPage
+                        : null,
+                  ),
+
+                  // Previous
+                  IconButton(
+                    icon: Icon(Icons.navigate_before),
+                    onPressed: controller.currentPage.value > 1
+                        ? controller.previousPage
+                        : null,
+                  ),
+
+                  // Page Numbers
+                  ...List.generate(
+                      controller.totalPages.value, (index) => index + 1)
+                      .where((page) {
+                    int current = controller.currentPage.value;
+                    return (page >= current - 2 && page <= current + 2) ||
+                        page == 1 ||
+                        page == controller.totalPages.value;
+                  }).map((page) {
+                    bool isActive = page == controller.currentPage.value;
+                    return InkWell(
+                      onTap: () => controller.goToPage(page),
+                      child: Container(
+                        margin: EdgeInsets.symmetric(horizontal: 4),
+                        padding:
+                        EdgeInsets.symmetric(vertical: 6, horizontal: 10),
+                        decoration: BoxDecoration(
+                          color: isActive
+                              ? LightThemeColors.primaryColor
+                              : Colors.grey.shade200,
+                          borderRadius: BorderRadius.circular(8),
+                          border:
+                          Border.all(color: LightThemeColors.primaryColor),
+                        ),
+                        child: Text(
+                          page.toString(),
+                          style: TextStyle(
+                            color: isActive ? Colors.white : Colors.black87,
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+
+                  // Next
+                  IconButton(
+                    icon: Icon(Icons.navigate_next),
+                    onPressed: controller.currentPage.value <
+                        controller.totalPages.value
+                        ? controller.nextPage
+                        : null,
+                  ),
+
+                  // Last
+                  IconButton(
+                    icon: Icon(Icons.last_page),
+                    onPressed: controller.currentPage.value <
+                        controller.totalPages.value
+                        ? controller.lastPage
+                        : null,
+                  ),
                 ],
               ),
             ),

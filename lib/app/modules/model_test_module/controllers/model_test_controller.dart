@@ -10,7 +10,7 @@ import '../../exam/models/start_exam_model.dart';
 import '../../premium_packages/views/premium_packages_view.dart';
 import '../models/model_test_list_model.dart';
 import '../models/single_model_test_model.dart';
-import '../views/exam_run_view.dart';
+import '../../exam/views/exam_run_view.dart';
 
 class ModelTestController extends GetxController {
   Rx<ModelTestListModel?> modelTestList = Rx<ModelTestListModel?>(null);

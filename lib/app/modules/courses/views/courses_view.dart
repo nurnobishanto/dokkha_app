@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/config/extensions/common_extension.dart';
 import 'package:lokkha/utils/constants.dart';
+import '../../../routes/app_pages.dart';
 import '../../../services/api_call_status.dart';
 import '../controllers/courses_controller.dart';
 import '../widgets/custom_course_card.dart';
@@ -67,6 +68,7 @@ class CoursesView extends GetView<CoursesController> {
                         rating: '5',
                         onPressed: () {
                           // Handle buy button tap
+                          Get.toNamed(Routes.COURSE_DETAILS,arguments: {'course_id':course.id});
                         },
                       );
                     },

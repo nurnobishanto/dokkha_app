@@ -2,12 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/src/snackbar/snackbar.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
-
 import '../../../../styles/text_style.dart';
-import '../../../../utils/constants.dart';
-import '../model_test_categories/controllers/model_test_categories_controller.dart';
 
 
 class ModelTestCategoryCard extends StatelessWidget {

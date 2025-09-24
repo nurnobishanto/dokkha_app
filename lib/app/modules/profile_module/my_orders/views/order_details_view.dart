@@ -58,21 +58,16 @@ class OrderDetailsScreen extends GetView<OrdersDetailsController> {
                               const SizedBox(height: 10),
                               ProductItem(
                                 name: () {
-                                  if (model.order!.modelType.toString() ==
-                                      'App\\Models\\Package') {
-                                    return model.order!.package?.name
-                                            ?.toString() ??
-                                        '';
-                                  } else {
-                                    return model.order!.package?.name
-                                            ?.toString() ??
-                                        '';
-                                  }
+                                  return model.order!.displayName.toString();
                                 }(),
                                 price: () {
                                   if (model.order!.modelType.toString() ==
                                       'App\\Models\\Package') {
                                     return '৳ ${model.order!.package?.discountedPrice?.toString() ?? '0'}';
+                                  }
+                                  else if (model.order!.modelType.toString() ==
+                                      'App\\Models\\Course') {
+                                    return '৳ ${model.order!.course?.salePrice?.toString() ?? '0'}';
                                   } else {
                                     return '৳ ${model.order!.package?.discountedPrice?.toString() ?? '0'}';
                                   }

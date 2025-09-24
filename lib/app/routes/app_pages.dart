@@ -12,6 +12,12 @@ import '../modules/auth_views/terms_condition/bindings/terms_condition_binding.d
 import '../modules/auth_views/terms_condition/views/terms_condition_view.dart';
 import '../modules/auth_views/verify_otp/bindings/verify_otp_binding.dart';
 import '../modules/auth_views/verify_otp/views/verify_otp_view.dart';
+import '../modules/course_checkout/bindings/course_checkout_binding.dart';
+import '../modules/course_checkout/views/course_checkout_view.dart';
+import '../modules/course_details/bindings/course_details_binding.dart';
+import '../modules/course_details/views/course_details_view.dart';
+import '../modules/course_learn/bindings/course_learn_binding.dart';
+import '../modules/course_learn/views/course_learn_view.dart';
 import '../modules/courses/bindings/courses_binding.dart';
 import '../modules/courses/views/courses_view.dart';
 import '../modules/current_affairs/bindings/current_affairs_binding.dart';
@@ -304,5 +310,20 @@ class AppPages {
       page: () => const ExamView(),
       binding: ExamBinding(),
     ),
+    GetPage(
+      name: _Paths.COURSE_DETAILS,
+      page: () => const CourseDetailsView(),
+      binding: CourseDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.COURSE_LEARN,
+      page: () => const CourseLearnView(),
+      binding: CourseLearnBinding(),
+    ),
+    // GetPage(
+    //   name: _Paths.COURSE_CHECKOUT,
+    //   page: () => const CourseCheckoutView(course: null,),
+    //   binding: CourseCheckoutBinding(),
+    // ),
   ];
 }

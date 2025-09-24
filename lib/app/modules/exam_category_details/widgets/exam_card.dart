@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
 import 'package:lokkha/utils/date_formatter.dart';
 
@@ -31,6 +30,7 @@ class ExamCard extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w700,
+
                 ),
               ),
               const SizedBox(height: 12),

@@ -36,11 +36,11 @@ class ExamController extends GetxController {
               ExamDetailsModel.fromJson(response.data);
           apiCallStatus.value = ApiCallStatus.success;
           isReadLoading.value = false;
+          Get.back();
           Get.to(() => ReadQuestionView(
               model: examDetailsModel.exam!.questions!.toList()));
         } else {
           isReadLoading.value = false;
-
           apiCallStatus.value = ApiCallStatus.error;
         }
       }, onError: (err) {

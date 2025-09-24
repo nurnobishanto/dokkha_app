@@ -57,7 +57,7 @@ class CustomCourseCard extends StatelessWidget {
           Padding(
             padding: EdgeInsets.all(5.w),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   title,

@@ -48,7 +48,6 @@ class CourseLearnController extends GetxController {
     }
 
     try {
-
       isControllerReady.value = false;
       hasVideoEnded.value = false;
       String fetchUrl = "${AppConstants.courseLearn}/$courseId";
@@ -79,8 +78,8 @@ class CourseLearnController extends GetxController {
           }
         } else if (response.data["status"] == false) {
           Get.snackbar(
-            "Enrollment Required",
-            "Please enroll in the course.",
+            "Sometimes went wrong!",
+            response.data['message'].toString(),
             backgroundColor: Colors.red,
             colorText: Colors.white,
           );

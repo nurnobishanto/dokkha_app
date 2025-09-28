@@ -38,17 +38,17 @@ class CourseCheckoutView extends GetView<PremiumPackageCheckoutController> {
         iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Obx(() {
-// parse controller discountAmount safely
+        // parse controller discountAmount safely
         final double parsedDiscount =
             double.tryParse(controller.discountAmount.toString()) ?? -1;
 
-// parse prices safely
+        // parse prices safely
         final double regularPrice =
             double.tryParse(course.regularPrice.toString()) ?? 0;
         final double salePrice =
             double.tryParse(course.salePrice.toString()) ?? 0;
 
-// compute discount amount
+        // compute discount amount
         final double discountAmount = parsedDiscount > -1
             ? parsedDiscount
             : (regularPrice - salePrice)
@@ -97,7 +97,7 @@ class CourseCheckoutView extends GetView<PremiumPackageCheckoutController> {
                     const SizedBox(height: 10.0),
                     Card(
                       child: Padding(
-                        padding: const EdgeInsets.all(15.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -106,12 +106,12 @@ class CourseCheckoutView extends GetView<PremiumPackageCheckoutController> {
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             const Divider(),
-                            const SizedBox(height: 16.0),
+                            const SizedBox(height: 8.0),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                    "${course.title.toString()}\n${course.duration.toString()}"),
+                                    "${course.title ?? ''}\n${course.duration ?? ""}"),
                                 Text(
                                   '৳${course.regularPrice.toString()}',
                                   style: const TextStyle(
@@ -188,7 +188,7 @@ class CourseCheckoutView extends GetView<PremiumPackageCheckoutController> {
                                 : const SizedBox.shrink(),
 
                             const Divider(),
-                            const SizedBox(height: 10.00),
+                            const SizedBox(height: 8.00),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -249,19 +249,19 @@ class CourseCheckoutView extends GetView<PremiumPackageCheckoutController> {
                             ),
 
                             const Divider(),
-                            const SizedBox(height: 10.0),
+                            const SizedBox(height: 8.0),
                             const CustomPaymentCardButton(
                                 'https://lokkha.com/uploads/files/shares/app/bkash.png',
                                 0),
-                            const SizedBox(height: 10.0),
+                            const SizedBox(height: 8.0),
                             const CustomPaymentCardButton(
                                 'https://lokkha.com/uploads/files/shares/app/nagad.png',
                                 1),
-                            const SizedBox(height: 10.0),
+                            const SizedBox(height: 8.0),
                             const CustomPaymentCardButton(
                                 'https://lokkha.com/uploads/files/shares/app/master_visa_card.png',
                                 2),
-                            const SizedBox(height: 20.0),
+                            const SizedBox(height: 8.0),
 
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -348,7 +348,7 @@ class CourseCheckoutView extends GetView<PremiumPackageCheckoutController> {
                               ],
                             ),
 
-                            const SizedBox(height: 20.0),
+                            const SizedBox(height: 8.0),
                             CustomActionButton(
                               onPressed: () {
                                 if (controller.isCheckedCondition.value) {
@@ -387,8 +387,7 @@ class CustomPaymentCardButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final paymentSelectionController =
-        Get.find<CourseCheckoutController>();
+    final paymentSelectionController = Get.find<CourseCheckoutController>();
 
     return Obx(() {
       return OutlinedButton(

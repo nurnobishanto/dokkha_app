@@ -19,7 +19,8 @@ class PremiumPackagesView extends GetView<PremiumPackagesController> {
     final controller = Get.put(PremiumPackagesController());
     //   final packages=controller.model.value.packages;
     return Scaffold(
-      appBar: const CustomAppBar(title: 'প্রিমিয়াম প্যাকেজ'),
+      appBar:
+          const CustomAppBar(title: 'প্রিমিয়াম প্যাকেজ', centerTitle: true),
       body: Obx(() {
         return controller.isLoading.value
             ? const Center(
@@ -102,98 +103,106 @@ class PremiumPackagesView extends GetView<PremiumPackagesController> {
     void Function()? onTapCheckout,
     required List<String> features,
   }) {
-    return Container(
-      color: isFemale == 1 ? LightThemeColors.red.withValues(alpha: .2) : Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 3, bottom: 1, left: 8, right: 8),
-        child: Table(
-          columnWidths: const {
-            0: FlexColumnWidth(3),
-            1: FixedColumnWidth(6),
-            2: FlexColumnWidth(2),
-          },
-          children: [
-            TableRow(
-              children: [
-                // Title + Features
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                      ),
-                    ),
-                    Text(
-                      duration,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 14),
-                    ),
-                    const SizedBox(height: 4),
-                    ...features.map(
-                      (f) => Padding(
-                        padding: const EdgeInsets.only(bottom: 2),
-                        child: Text(f, style: const TextStyle(fontSize: 12)),
-                      ),
-                    ),
-                  ],
-                ),
-
-                // Divider
-                Center(
-                  child: Container(
-                    height: 90,
-                    width: 1,
-                    color: Colors.green,
-                  ),
-                ),
-
-                // Price + Button
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(price,
+    return InkWell(
+      onTap: onTapCheckout,
+      child: Container(
+        color: isFemale == 1
+            ? LightThemeColors.red.withValues(alpha: .2)
+            : Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 3, bottom: 1, left: 8, right: 8),
+          child: Table(
+            columnWidths: const {
+              0: FlexColumnWidth(3),
+              1: FixedColumnWidth(6),
+              2: FlexColumnWidth(2),
+            },
+            children: [
+              TableRow(
+                children: [
+                  // Title + Features
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
                         style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14)),
-                    Text(
-                      oldPrice,
-                      style: const TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey,
-                        decoration: TextDecoration.lineThrough,
-                      ),
-                    ),
-                    Text(
-                      discount,
-                      style: const TextStyle(fontSize: 12, color: Colors.green),
-                    ),
-                    const SizedBox(height: 6),
-                    ElevatedButton(
-                      onPressed: onTapCheckout,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:isFemale == 1 ? LightThemeColors.red : Colors.blueAccent,
-                        minimumSize: const Size(90, 30),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 6),
-                      ),
-                      child: Text(
-                        'প্যাকেজ কিনুন',
-                        style: AppTextStyles.body1.copyWith(
-                          color: Colors.white,
-                          fontSize: 12.0.sp,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
                         ),
                       ),
+                      Text(
+                        duration,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 14),
+                      ),
+                      const SizedBox(height: 4),
+                      ...features.map(
+                        (f) => Padding(
+                          padding: const EdgeInsets.only(bottom: 2),
+                          child: Text(f, style: const TextStyle(fontSize: 12)),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  // Divider
+                  Center(
+                    child: Container(
+                      height: 90,
+                      width: 1,
+                      color: Colors.green,
                     ),
-                  ],
-                ),
-              ],
-            ),
-          ],
+                  ),
+
+                  // Price + Button
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(price,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 14)),
+                      Text(
+                        oldPrice,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey,
+                          decoration: TextDecoration.lineThrough,
+                        ),
+                      ),
+                      Text(
+                        discount,
+                        style:
+                            const TextStyle(fontSize: 12, color: Colors.green),
+                      ),
+                      const SizedBox(height: 6),
+                      ElevatedButton(
+                        onPressed: onTapCheckout,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: isFemale == 1
+                              ? LightThemeColors.red
+                              : Colors.blueAccent,
+                          minimumSize: const Size(90, 30),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 6),
+                        ),
+                        child: Text(
+                          'প্যাকেজ কিনুন',
+                          style: AppTextStyles.body1.copyWith(
+                            color: Colors.white,
+                            fontSize: 12.0.sp,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

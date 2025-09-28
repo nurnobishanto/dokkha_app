@@ -108,7 +108,6 @@ class ExamCategoryView extends GetView<ExamCategoryController> {
                 }),
 
                 /// Free Courses/Exams
-
                 5.h.height,
                 Center(
                   child: Row(

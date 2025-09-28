@@ -43,10 +43,26 @@ class SignInController extends GetxController {
           Get.offAllNamed(Routes.NAVBAR);
           // AuthService().authCheck();
         } else {
-          authService.authCheck();
+          //authService.authCheck();
+          final rawMessage = response.data['message'];
+
+          String message;
+          if (rawMessage is String) {
+            message = rawMessage;
+          } else if (rawMessage is Map && rawMessage['value'] is List) {
+            message = rawMessage['value'].first.toString();
+          } else {
+            message = 'Something went wrong. Please try again.';
+          }
+
           CustomSnackBar.showCustomErrorSnackBar(
-            title: 'Invalid Credential',
-            message: response.data["message"],
+            title: 'Login Failed',
+            message: message,
+          );
+
+          CustomSnackBar.showCustomErrorSnackBar(
+            title: 'Login Failed',
+            message: message,
           );
         }
         update();
@@ -55,7 +71,7 @@ class SignInController extends GetxController {
       onError: (error) {
         _setLoadingState(false);
         apiCallStatus = ApiCallStatus.error;
-        authService.authCheck();
+        //authService.authCheck();
         update();
         debugPrint("Error login: ${error.message}");
       },

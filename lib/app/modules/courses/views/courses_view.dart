@@ -55,7 +55,7 @@ class CoursesView extends GetView<CoursesController> {
                       mainAxisSpacing: 8.w,
                       crossAxisSpacing: 8.w,
                       childAspectRatio:
-                          MediaQuery.sizeOf(context).width > 600 ? 1.5 : 0.8,
+                          MediaQuery.sizeOf(context).width > 600 ? 1.5 : 1.0,
                     ),
                     itemBuilder: (_, index) {
                       final course = courses[index];

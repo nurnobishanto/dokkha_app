@@ -247,20 +247,20 @@ class HomeView extends GetView<HomeController> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            5.h.height,
+                            2.h.height,
                             // Centered Title with dividers
                             SectionTitleWithDivider(
                                 title: "প্রিমিয়াম পরীক্ষা সমূহ"),
-
-                            8.h.height,
+                            5.h.height,
                             // Horizontal Scroll of Cards
                             Obx(() {
-                              final examController = Get.put(ExamCategoryController());
-                              final categories =
-                                  examController.courseCategoriesModel
-                                          .value
-                                          .courseCategories ??
-                                      [];
+                              final examController =
+                                  Get.put(ExamCategoryController());
+                              final categories = examController
+                                      .courseCategoriesModel
+                                      .value
+                                      .courseCategories ??
+                                  [];
 
                               return SizedBox(
                                 height: Get.height / 15,
@@ -277,6 +277,54 @@ class HomeView extends GetView<HomeController> {
                                         Get.toNamed(Routes.COURSES, arguments: {
                                           "course_category_id": categories[x].id
                                         });
+                                      },
+                                      borderColor: LightThemeColors.primaryColor
+                                          .withValues(alpha: 0.4),
+                                      iconColor: LightThemeColors.primaryColor,
+                                    );
+                                  },
+                                ),
+                              );
+                            }),
+                          ],
+                        ),
+
+                        /// Free course area
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            5.h.height,
+                            // Centered Title with dividers
+                            SectionTitleWithDivider(title: "ফ্রি পরীক্ষা সমূহ"),
+                            5.h.height,
+                            // Horizontal Scroll of Cards
+                            Obx(() {
+                              final examController =
+                                  Get.put(ExamCategoryController());
+                              final exams =
+                                  examController.model.value.examCategories ??
+                                      [];
+
+                              return SizedBox(
+                                height: Get.height / 15,
+                                child: ListView.separated(
+                                  scrollDirection: Axis.horizontal,
+                                  physics: const BouncingScrollPhysics(),
+                                  itemCount: exams.length,
+                                  separatorBuilder: (_, __) =>
+                                      SizedBox(width: 12.w),
+                                  itemBuilder: (_, x) {
+                                    final exam = exams[x];
+                                    return ExamCategoryCard(
+                                      title: exam.name ?? '',
+                                      onTap: () {
+                                        if (exam.id != null) {
+                                          Get.toNamed(
+                                              Routes.EXAM_CATEGORY_DETAILS,
+                                              arguments: {
+                                                "category_id": exam.id
+                                              });
+                                        }
                                       },
                                       borderColor: LightThemeColors.primaryColor
                                           .withValues(alpha: 0.4),

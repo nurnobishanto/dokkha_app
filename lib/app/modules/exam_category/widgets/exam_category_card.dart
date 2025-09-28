@@ -49,21 +49,23 @@ class ExamCategoryCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center, //  center vertically
           mainAxisSize: MainAxisSize.min,
           children: [
-            isIcon == true ?
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 6.5),
-              decoration: BoxDecoration(
-                color: LightThemeColors.primaryColor.withValues(alpha: .1),
-                borderRadius: BorderRadius.all(Radius.circular(7.0)),
-              ),
-              child: Center(
-                child: FaIcon(
-                  FontAwesomeIcons.graduationCap,
-                  color: iconColor ?? LightThemeColors.primaryColor,
-                  size: 25.sp,
-                ),
-              ),
-            ):const SizedBox.shrink(),
+            isIcon == true
+                ? Container(
+                    padding: EdgeInsets.symmetric(horizontal: 6.5),
+                    decoration: BoxDecoration(
+                      color:
+                          LightThemeColors.primaryColor.withValues(alpha: .1),
+                      borderRadius: BorderRadius.all(Radius.circular(7.0)),
+                    ),
+                    child: Center(
+                      child: FaIcon(
+                        FontAwesomeIcons.graduationCap,
+                        color: iconColor ?? LightThemeColors.primaryColor,
+                        size: 25.sp,
+                      ),
+                    ),
+                  )
+                : const SizedBox.shrink(),
             7.w.width,
             Flexible(
               child: Text(

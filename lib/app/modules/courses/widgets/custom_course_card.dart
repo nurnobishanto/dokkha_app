@@ -65,13 +65,13 @@ class CustomCourseCard extends StatelessWidget {
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      fontSize: 14.sp,
+                      fontSize: 14.7.sp,
                       fontWeight: FontWeight.w700,
-                      height: 1.3,
+                      height: 1.1,
                       color: Colors.black87,
                     ),
                   ),
-                  SizedBox(height: 4.h),
+                  SizedBox(height: 2.h),
                   Row(
                     children: [
                       Text(

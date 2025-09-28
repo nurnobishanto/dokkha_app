@@ -68,7 +68,8 @@ class CoursesView extends GetView<CoursesController> {
                         rating: '5',
                         onPressed: () {
                           // Handle buy button tap
-                          Get.toNamed(Routes.COURSE_DETAILS,arguments: {'course_id':course.id});
+                          Get.toNamed(Routes.COURSE_DETAILS,
+                              arguments: {'course_id': course.id});
                         },
                       );
                     },

@@ -12,13 +12,7 @@ class SplashController extends GetxController {
     Future.delayed(const Duration(seconds: 2), () {
       final AppUpdateService appUpdateService = AppUpdateService();
       appUpdateService.startUpdateService();
-
       Get.offAllNamed(Routes.NAVBAR);
-      // if (MySharedPref.getUserToken().isNotEmpty && MySharedPref.getUserToken() != ''&& isLoggedIn.value) {
-      //   Get.offAllNamed(Routes.NAVBAR);
-      // } else {
-      //   Get.offAllNamed(Routes.AUTH_GATEWAY);
-      // }
     });
   }
 }

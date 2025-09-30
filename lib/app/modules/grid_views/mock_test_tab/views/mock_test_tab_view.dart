@@ -55,7 +55,7 @@ class MockTestTabView extends GetView<MockTestTabController> {
               const Expanded(
                 child: TabBarView(
                   children: [
-                   MockTestView(),
+                    MockTestView(),
                     FastPracticeView(),
                   ],
                 ),

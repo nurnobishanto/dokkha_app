@@ -101,7 +101,7 @@ class _ExamProcessViewState extends State<ExamProcessView> {
                       ),
                     )
                   : const SizedBox(),
-          
+
               // Question choice area
               Expanded(
                 child: ListView.builder(
@@ -125,18 +125,19 @@ class _ExamProcessViewState extends State<ExamProcessView> {
                                 Image.network(
                                   "${AppConstants.storageUrl}${question.questionImage}",
                                   errorBuilder: (context, error, stackTrace) =>
-                                      const Icon(Icons.error, color: Colors.red),
+                                      const Icon(Icons.error,
+                                          color: Colors.red),
                                 ),
                               if (question.questionImage != null)
                                 const SizedBox(height: 10.00),
-          
+
                               /// Description
                               question.description != null
                                   ? HtmlWidget(question.description.toString())
                                   : const SizedBox(),
                               if (question.description != null)
                                 const SizedBox(height: 10.00),
-          
+
                               Container(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 7),
@@ -160,22 +161,22 @@ class _ExamProcessViewState extends State<ExamProcessView> {
                                         child: HtmlWidget(
                                           "${index + 1}. ${question.title}",
                                           textStyle: AppTextStyles.body1
-                                              .copyWith(color: Colors.white,
-                                          fontSize: 14.00.sp,
-                                            fontWeight: FontWeight.w500
-                                          ),
+                                              .copyWith(
+                                                  color: Colors.white,
+                                                  fontSize: 14.00.sp,
+                                                  fontWeight: FontWeight.w500),
                                         ),
                                       ),
                                     ),
-          
+
                                     /// popup menu items area
                                     Expanded(
                                       child: Obx(() {
                                         // Ensure that the controller has an observable value for the favorite status
-                                        bool isFavorite =
-                                            controller.checkQuestionExistInSaved(
+                                        bool isFavorite = controller
+                                            .checkQuestionExistInSaved(
                                                 question.id!.toInt());
-          
+
                                         return IconButton(
                                           onPressed: () {
                                             if (isFavorite) {
@@ -187,7 +188,7 @@ class _ExamProcessViewState extends State<ExamProcessView> {
                                                   question.id!.toInt());
                                               isFavorite = true;
                                             }
-          
+
                                             // This will trigger the UI update when the state changes
                                             controller.update();
                                           },
@@ -212,9 +213,9 @@ class _ExamProcessViewState extends State<ExamProcessView> {
                   },
                 ),
               ),
-          
+
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8,vertical: 4.00),
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4.00),
                 child: CustomActionButton(
                   text: "সাবমিট এক্সাম",
                   onPressed: () {

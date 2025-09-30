@@ -275,9 +275,9 @@ class HomeView extends GetView<HomeController> {
                                       title: categories[x].title ?? '',
                                       onTap: () {
                                         Get.toNamed(Routes.COURSES, arguments: {
-                                          "course_category_id": categories[x].id,
+                                          "course_category_id":
+                                              categories[x].id,
                                           "category_name": categories[x].title,
-
                                         });
                                       },
                                       borderColor: LightThemeColors.primaryColor

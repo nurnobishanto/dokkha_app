@@ -147,4 +147,3 @@ class SimpleCategoryCard extends StatelessWidget {
     );
   }
 }
-

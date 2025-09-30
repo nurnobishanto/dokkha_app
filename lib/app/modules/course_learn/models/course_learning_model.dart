@@ -1,11 +1,13 @@
-
 import 'dart:convert';
 
 import 'package:lokkha/app/models/course_item.dart';
 
 import '../../../models/course.dart';
-CourseLearningModel courseLearningModelFromJson(String str) => CourseLearningModel.fromJson(json.decode(str));
-String courseLearningModelToJson(CourseLearningModel data) => json.encode(data.toJson());
+
+CourseLearningModel courseLearningModelFromJson(String str) =>
+    CourseLearningModel.fromJson(json.decode(str));
+String courseLearningModelToJson(CourseLearningModel data) =>
+    json.encode(data.toJson());
 
 class CourseLearningModel {
   final bool? status;
@@ -18,17 +20,18 @@ class CourseLearningModel {
     this.data,
   });
 
-  factory CourseLearningModel.fromJson(Map<String, dynamic> json) => CourseLearningModel(
-    status: json["status"],
-    message: json["message"],
-    data: json["data"] == null ? null : Data.fromJson(json["data"]),
-  );
+  factory CourseLearningModel.fromJson(Map<String, dynamic> json) =>
+      CourseLearningModel(
+        status: json["status"],
+        message: json["message"],
+        data: json["data"] == null ? null : Data.fromJson(json["data"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "status": status,
-    "message": message,
-    "data": data?.toJson(),
-  };
+        "status": status,
+        "message": message,
+        "data": data?.toJson(),
+      };
 }
 
 class Data {
@@ -47,20 +50,20 @@ class Data {
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-    course: json["course"] == null ? null : Course.fromJson(json["course"]),
-    currentItem: json["current_item"] == null ? null : CourseItem.fromJson(json["current_item"]),
-    nextItemId: json["next_item_id"],
-    prevItemId: json["prev_item_id"],
-    progressPercent: json["progress_percent"],
-  );
+        course: json["course"] == null ? null : Course.fromJson(json["course"]),
+        currentItem: json["current_item"] == null
+            ? null
+            : CourseItem.fromJson(json["current_item"]),
+        nextItemId: json["next_item_id"],
+        prevItemId: json["prev_item_id"],
+        progressPercent: json["progress_percent"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "course": course?.toJson(),
-    "current_item": currentItem?.toJson(),
-    "next_item_id": nextItemId,
-    "prev_item_id": prevItemId,
-    "progress_percent": progressPercent,
-  };
+        "course": course?.toJson(),
+        "current_item": currentItem?.toJson(),
+        "next_item_id": nextItemId,
+        "prev_item_id": prevItemId,
+        "progress_percent": progressPercent,
+      };
 }
-
-

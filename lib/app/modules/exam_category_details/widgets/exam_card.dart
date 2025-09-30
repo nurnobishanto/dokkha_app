@@ -16,9 +16,10 @@ class ExamCard extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        decoration: BoxDecoration(border: Border.all(color: LightThemeColors.primaryColor.withValues(alpha: .5)),
-        borderRadius: BorderRadius.circular(5)
-        ),
+        decoration: BoxDecoration(
+            border: Border.all(
+                color: LightThemeColors.primaryColor.withValues(alpha: .5)),
+            borderRadius: BorderRadius.circular(5)),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -30,7 +31,6 @@ class ExamCard extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w700,
-
                 ),
               ),
               const SizedBox(height: 12),

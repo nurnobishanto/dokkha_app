@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
 import '../../../../styles/text_style.dart';
 
-
 class ModelTestCategoryCard extends StatelessWidget {
   final String categoryTitle;
   final String imageUrl;

@@ -77,7 +77,7 @@ class SetTimeView extends StatelessWidget {
                             ),
                           ],
                         ),
-          
+
                         controller.isSetTime.value
                             ? Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -156,7 +156,7 @@ class SetTimeView extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 15.00),
-          
+
                         Text(
                           "প্রশ্নের ধরন নির্বাচন করুন",
                           style: AppTextStyles.body1,
@@ -170,7 +170,8 @@ class SetTimeView extends StatelessWidget {
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2, // Number of columns
-                            crossAxisSpacing: 2, // Horizontal space between items
+                            crossAxisSpacing:
+                                2, // Horizontal space between items
                             mainAxisSpacing: 2, // Vertical space between items
                             childAspectRatio: 6.5,
                           ),
@@ -190,7 +191,8 @@ class SetTimeView extends StatelessWidget {
                                             MaterialTapTargetSize.shrinkWrap,
                                         visualDensity: VisualDensity.compact,
                                         value: item['key'] ?? '',
-                                        groupValue: controller.selectedKey.value,
+                                        groupValue:
+                                            controller.selectedKey.value,
                                         onChanged: (String? newValue) {
                                           if (newValue != null) {
                                             controller.selectedKey.value =
@@ -206,7 +208,7 @@ class SetTimeView extends StatelessWidget {
                                 ));
                           },
                         ),
-          
+
                         const SizedBox(height: 00),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -226,7 +228,7 @@ class SetTimeView extends StatelessWidget {
                             const Text("দিনের প্রশ্ন"),
                           ],
                         ),
-          
+
                         const SizedBox(height: 20.00),
                         Row(
                           children: [
@@ -245,13 +247,14 @@ class SetTimeView extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 16),
-          
+
                         Center(
                           child: Wrap(
                             spacing: 12,
                             runSpacing: 12,
                             alignment: WrapAlignment.center,
-                            children: controller.selectedSubjects.map((subject) {
+                            children:
+                                controller.selectedSubjects.map((subject) {
                               return Container(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 16, vertical: 10),
@@ -260,7 +263,8 @@ class SetTimeView extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(8),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: Colors.black.withValues(alpha: 0.05),
+                                      color:
+                                          Colors.black.withValues(alpha: 0.05),
                                       spreadRadius: 1,
                                       blurRadius: 5,
                                       offset: const Offset(0, 2),

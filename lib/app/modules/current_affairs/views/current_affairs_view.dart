@@ -12,9 +12,9 @@ class CurrentAffairsView extends GetView<CurrentAffairsController> {
     final screenWidth = MediaQuery.of(context).size.width;
 
     if (screenWidth >= 1024) return 20; // iPad Pro, etc.
-    if (screenWidth >= 768) return 18;  // Regular iPad
-    if (screenWidth >= 480) return 16;  // Large phones
-    return 14;                          // Small phones
+    if (screenWidth >= 768) return 18; // Regular iPad
+    if (screenWidth >= 480) return 16; // Large phones
+    return 14; // Small phones
   }
 
   @override

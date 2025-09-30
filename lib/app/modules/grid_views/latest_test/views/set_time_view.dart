@@ -163,7 +163,8 @@ class SetTimeView extends StatelessWidget {
                         Wrap(
                           spacing: 5,
                           runSpacing: 5,
-                          children: dropdownItems.map((Map<String, String> item) {
+                          children:
+                              dropdownItems.map((Map<String, String> item) {
                             return Obx(() => InkWell(
                                   onTap: () {
                                     controller.selectedKey.value =
@@ -177,7 +178,8 @@ class SetTimeView extends StatelessWidget {
                                             MaterialTapTargetSize.shrinkWrap,
                                         visualDensity: VisualDensity.compact,
                                         value: item['key'] ?? '',
-                                        groupValue: controller.selectedKey.value,
+                                        groupValue:
+                                            controller.selectedKey.value,
                                         onChanged: (String? newValue) {
                                           if (newValue != null) {
                                             controller.selectedKey.value =
@@ -218,7 +220,8 @@ class SetTimeView extends StatelessWidget {
                             spacing: 12,
                             runSpacing: 12,
                             alignment: WrapAlignment.center,
-                            children: controller.selectedSubjects.map((subject) {
+                            children:
+                                controller.selectedSubjects.map((subject) {
                               return Container(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 16, vertical: 10),
@@ -227,7 +230,8 @@ class SetTimeView extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(8),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: Colors.black.withValues(alpha: 0.05),
+                                      color:
+                                          Colors.black.withValues(alpha: 0.05),
                                       spreadRadius: 1,
                                       blurRadius: 5,
                                       offset: const Offset(0, 2),

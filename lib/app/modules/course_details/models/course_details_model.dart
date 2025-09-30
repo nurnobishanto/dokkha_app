@@ -1,8 +1,11 @@
 import 'dart:convert';
 import '../../../models/course.dart';
-CourseDetailsModel courseDetailsModelFromJson(String str) => CourseDetailsModel.fromJson(json.decode(str));
 
-String courseDetailsModelToJson(CourseDetailsModel data) => json.encode(data.toJson());
+CourseDetailsModel courseDetailsModelFromJson(String str) =>
+    CourseDetailsModel.fromJson(json.decode(str));
+
+String courseDetailsModelToJson(CourseDetailsModel data) =>
+    json.encode(data.toJson());
 
 class CourseDetailsModel {
   final bool? status;
@@ -13,19 +16,14 @@ class CourseDetailsModel {
     this.course,
   });
 
-  factory CourseDetailsModel.fromJson(Map<String, dynamic> json) => CourseDetailsModel(
-    status: json["status"],
-    course: json["course"] == null ? null : Course.fromJson(json["course"]),
-  );
+  factory CourseDetailsModel.fromJson(Map<String, dynamic> json) =>
+      CourseDetailsModel(
+        status: json["status"],
+        course: json["course"] == null ? null : Course.fromJson(json["course"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "status": status,
-    "course": course?.toJson(),
-  };
+        "status": status,
+        "course": course?.toJson(),
+      };
 }
-
-
-
-
-
-

@@ -12,4 +12,3 @@ class CourseLearnBinding extends Bindings {
     ));
   }
 }
-

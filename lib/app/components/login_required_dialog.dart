@@ -42,7 +42,7 @@ class LoginRequiredDialog extends StatelessWidget {
         style: const TextStyle(fontSize: 16),
       ),
       actionsAlignment: MainAxisAlignment.end,
-      actionsPadding: const EdgeInsets.fromLTRB(14,0,14,18),
+      actionsPadding: const EdgeInsets.fromLTRB(14, 0, 14, 18),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),

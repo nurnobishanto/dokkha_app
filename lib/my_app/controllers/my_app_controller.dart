@@ -4,7 +4,7 @@ import '../../app/helper/global.dart';
 import '../../app/services/auth_service.dart';
 
 class MyAppController extends GetxController {
- // final AuthService _authService = AuthService();
+  // final AuthService _authService = AuthService();
   RxString appVersion = ''.obs;
 
   @override
@@ -15,7 +15,7 @@ class MyAppController extends GetxController {
   }
 
   void _initializeApp() async {
-   // await _authService.authCheck();
+    // await _authService.authCheck();
     await fetchAppVersion();
   }
 }

@@ -29,12 +29,11 @@ class InstructorCard extends StatelessWidget {
             CircleAvatar(
               radius: 30,
               backgroundImage: NetworkImage(
-               ( imageUrl.isNotEmpty || imageUrl == null)
+                (imageUrl.isNotEmpty || imageUrl == null)
                     ? imageUrl
                     : 'https://api.dicebear.com/6.x/initials/svg?seed=$name}',
               ),
             ),
-
             const SizedBox(width: 16),
             Expanded(
               child: Column(
@@ -70,4 +69,3 @@ class InstructorCard extends StatelessWidget {
     );
   }
 }
-

@@ -65,7 +65,6 @@ class ProfileUpdateView extends GetView<ProfileUpdateController> {
                       ],
                     ),
                   ),
-          
                   15.h.height,
                   Text(
                     'নাম',

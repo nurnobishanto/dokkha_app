@@ -81,86 +81,104 @@ class Course {
   });
 
   factory Course.fromJson(Map<String, dynamic> json) => Course(
-    id: json["id"],
-    accessDuration: json["access_duration"],
-    title: json["title"],
-    slug: json["slug"],
-    details: json["details"],
-    duration: json["duration"],
-    courseCategoryId: json["course_category_id"],
-    image: json["image"],
-    regularPrice: json["regular_price"],
-    salePrice: json["sale_price"],
-    meetLink: json["meet_link"],
-    whatsappGroupLink: json["whatsapp_group_link"],
-    facebookGroup: json["facebook_group"],
-    zoomLink: json["zoom_link"],
-    youtubePlaylist: json["youtube_playlist"],
-    telegramGroup: json["telegram_group"],
-    order: json["order"],
-    publishDate: json["publish_date"] == null ? null : DateTime.parse(json["publish_date"]),
-    status: json["status"],
-    promotionVideo: json["promotion_video"],
-    isExamBatch: json["is_exam_batch"],
-    lifetimeAccess: json["lifetime_access"],
-    featured: json["featured"],
-    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-    deletedAt: json["deleted_at"],
-    modulesCount: json["modules_count"],
-    itemsCount: json["items_count"],
-    teachersCount: json["teachers_count"],
-    reviewsCount: json["reviews_count"],
-    usersCount: json["users_count"],
-    isEnrolled: json["is_enrolled"],
-    modules: json["modules"] == null ? [] : List<CourseModule>.from(json["modules"]!.map((x) => CourseModule.fromJson(x))),
-    teachers: json["teachers"] == null ? [] : List<Teacher>.from(json["teachers"]!.map((x) => Teacher.fromJson(x))),
-    reviews: json["reviews"] == null ? [] : List<Review>.from(json["reviews"]!.map((x) => Review.fromJson(x))),
-    users: json["user"] == null ? [] : List<User>.from(json["users"]!.map((x) => User.fromJson(x))),
-  );
+        id: json["id"],
+        accessDuration: json["access_duration"],
+        title: json["title"],
+        slug: json["slug"],
+        details: json["details"],
+        duration: json["duration"],
+        courseCategoryId: json["course_category_id"],
+        image: json["image"],
+        regularPrice: json["regular_price"],
+        salePrice: json["sale_price"],
+        meetLink: json["meet_link"],
+        whatsappGroupLink: json["whatsapp_group_link"],
+        facebookGroup: json["facebook_group"],
+        zoomLink: json["zoom_link"],
+        youtubePlaylist: json["youtube_playlist"],
+        telegramGroup: json["telegram_group"],
+        order: json["order"],
+        publishDate: json["publish_date"] == null
+            ? null
+            : DateTime.parse(json["publish_date"]),
+        status: json["status"],
+        promotionVideo: json["promotion_video"],
+        isExamBatch: json["is_exam_batch"],
+        lifetimeAccess: json["lifetime_access"],
+        featured: json["featured"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
+        deletedAt: json["deleted_at"],
+        modulesCount: json["modules_count"],
+        itemsCount: json["items_count"],
+        teachersCount: json["teachers_count"],
+        reviewsCount: json["reviews_count"],
+        usersCount: json["users_count"],
+        isEnrolled: json["is_enrolled"],
+        modules: json["modules"] == null
+            ? []
+            : List<CourseModule>.from(
+                json["modules"]!.map((x) => CourseModule.fromJson(x))),
+        teachers: json["teachers"] == null
+            ? []
+            : List<Teacher>.from(
+                json["teachers"]!.map((x) => Teacher.fromJson(x))),
+        reviews: json["reviews"] == null
+            ? []
+            : List<Review>.from(
+                json["reviews"]!.map((x) => Review.fromJson(x))),
+        users: json["user"] == null
+            ? []
+            : List<User>.from(json["users"]!.map((x) => User.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "access_duration": accessDuration,
-    "title": title,
-    "slug": slug,
-    "details": details,
-    "duration": duration,
-    "course_category_id": courseCategoryId,
-    "image": image,
-    "regular_price": regularPrice,
-    "sale_price": salePrice,
-    "meet_link": meetLink,
-    "whatsapp_group_link": whatsappGroupLink,
-    "facebook_group": facebookGroup,
-    "zoom_link": zoomLink,
-    "youtube_playlist": youtubePlaylist,
-    "telegram_group": telegramGroup,
-    "order": order,
-    "publish_date": "${publishDate!.year.toString().padLeft(4, '0')}-${publishDate!.month.toString().padLeft(2, '0')}-${publishDate!.day.toString().padLeft(2, '0')}",
-    "status": status,
-    "promotion_video": promotionVideo,
-    "is_exam_batch": isExamBatch,
-    "lifetime_access": lifetimeAccess,
-    "featured": featured,
-    "created_at": createdAt?.toIso8601String(),
-    "updated_at": updatedAt?.toIso8601String(),
-    "deleted_at": deletedAt,
-    "modules_count": modulesCount,
-    "items_count": itemsCount,
-    "teachers_count": teachersCount,
-    "reviews_count": reviewsCount,
-    "users_count": usersCount,
-    "is_enrolled": isEnrolled,
-    "modules": modules == null ? [] : List<dynamic>.from(modules!.map((x) => x.toJson())),
-    "teachers": teachers == null ? [] : List<dynamic>.from(teachers!.map((x) => x.toJson())),
-    "reviews": reviews == null ? [] : List<dynamic>.from(reviews!.map((x) => x.toJson())),
-    "users": users == null ? [] : List<dynamic>.from(users!.map((x) => x)),
-  };
+        "id": id,
+        "access_duration": accessDuration,
+        "title": title,
+        "slug": slug,
+        "details": details,
+        "duration": duration,
+        "course_category_id": courseCategoryId,
+        "image": image,
+        "regular_price": regularPrice,
+        "sale_price": salePrice,
+        "meet_link": meetLink,
+        "whatsapp_group_link": whatsappGroupLink,
+        "facebook_group": facebookGroup,
+        "zoom_link": zoomLink,
+        "youtube_playlist": youtubePlaylist,
+        "telegram_group": telegramGroup,
+        "order": order,
+        "publish_date":
+            "${publishDate!.year.toString().padLeft(4, '0')}-${publishDate!.month.toString().padLeft(2, '0')}-${publishDate!.day.toString().padLeft(2, '0')}",
+        "status": status,
+        "promotion_video": promotionVideo,
+        "is_exam_batch": isExamBatch,
+        "lifetime_access": lifetimeAccess,
+        "featured": featured,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+        "deleted_at": deletedAt,
+        "modules_count": modulesCount,
+        "items_count": itemsCount,
+        "teachers_count": teachersCount,
+        "reviews_count": reviewsCount,
+        "users_count": usersCount,
+        "is_enrolled": isEnrolled,
+        "modules": modules == null
+            ? []
+            : List<dynamic>.from(modules!.map((x) => x.toJson())),
+        "teachers": teachers == null
+            ? []
+            : List<dynamic>.from(teachers!.map((x) => x.toJson())),
+        "reviews": reviews == null
+            ? []
+            : List<dynamic>.from(reviews!.map((x) => x.toJson())),
+        "users": users == null ? [] : List<dynamic>.from(users!.map((x) => x)),
+      };
 }
-
-
-
-
-
-

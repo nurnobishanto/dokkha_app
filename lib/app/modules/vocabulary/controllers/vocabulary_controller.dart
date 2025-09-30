@@ -236,9 +236,9 @@ class VocabularyController extends GetxController {
         filteredVocab.value = model.value.vocabularies?.data ?? [];
       } else {
         filteredVocab.value = model.value.vocabularies?.data
-            ?.where((v) =>
-            v.word!.toLowerCase().contains(search.value.toLowerCase()))
-            .toList() ??
+                ?.where((v) =>
+                    v.word!.toLowerCase().contains(search.value.toLowerCase()))
+                .toList() ??
             [];
       }
     }, time: const Duration(milliseconds: 200));

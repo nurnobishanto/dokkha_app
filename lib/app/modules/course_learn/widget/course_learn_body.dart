@@ -71,16 +71,16 @@ class CourseLearnBody extends StatelessWidget {
           ] else if (currentItem.examId != null) ...[
             SizedBox(
                 width: double.infinity,
-                child: ExamCard(exam: currentItem.exam!,
-                onTap: (){
-                  showDialog(
-                    context: context,
-                    builder: (context) => ExamDetailsDialog(
-                      exam: currentItem.exam!,
-                    ),
-                  );
-                },
-
+                child: ExamCard(
+                  exam: currentItem.exam!,
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => ExamDetailsDialog(
+                        exam: currentItem.exam!,
+                      ),
+                    );
+                  },
                 )),
             const SizedBox(height: 8),
           ] else if (currentItem.image != null &&

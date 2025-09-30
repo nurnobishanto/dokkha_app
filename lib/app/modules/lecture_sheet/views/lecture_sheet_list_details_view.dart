@@ -42,7 +42,7 @@ class LectureSheetListDetailsView extends StatelessWidget {
                           ?.copyWith(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 12),
-              
+
                     /// Description
                     Text(
                       model.category?.description ?? '',
@@ -51,7 +51,7 @@ class LectureSheetListDetailsView extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 16),
-              
+
                     /// Sheet Count
                     Row(
                       children: [
@@ -64,7 +64,7 @@ class LectureSheetListDetailsView extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 24),
-              
+
                     /// List of Sheets
                     ...controller.lectureSheets.map(
                       (sheet) => GestureDetector(

@@ -105,34 +105,35 @@ class CourseDetailsView extends GetView<CourseDetailsController> {
                     const SizedBox(height: 25),
                     Text(
                       "Course Details",
-                      style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                      style: textTheme.titleMedium
+                          ?.copyWith(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 3),
-
                     Obx(() => AnimatedCrossFade(
-                      duration: const Duration(milliseconds: 300),
-                      crossFadeState: controller.showFullDetails.value
-                          ? CrossFadeState.showSecond
-                          : CrossFadeState.showFirst,
-                      firstChild: SizedBox(
-                        height: 30, // Approx. 2–3 lines
-                        child: SingleChildScrollView(
-                          physics: const NeverScrollableScrollPhysics(),
-                          child: HtmlWidget(course.details!),
-                        ),
-                      ),
-                      secondChild: HtmlWidget(course.details!),
-                    )),
-
+                          duration: const Duration(milliseconds: 300),
+                          crossFadeState: controller.showFullDetails.value
+                              ? CrossFadeState.showSecond
+                              : CrossFadeState.showFirst,
+                          firstChild: SizedBox(
+                            height: 30, // Approx. 2–3 lines
+                            child: SingleChildScrollView(
+                              physics: const NeverScrollableScrollPhysics(),
+                              child: HtmlWidget(course.details!),
+                            ),
+                          ),
+                          secondChild: HtmlWidget(course.details!),
+                        )),
                     GestureDetector(
                       onTap: controller.toggleDetails,
                       child: Obx(() => Text(
-                        controller.showFullDetails.value ? " See Less" : " See More",
-                        style: textTheme.bodyMedium?.copyWith(
-                          color: LightThemeColors.primaryColor,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      )),
+                            controller.showFullDetails.value
+                                ? " See Less"
+                                : " See More",
+                            style: textTheme.bodyMedium?.copyWith(
+                              color: LightThemeColors.primaryColor,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          )),
                     ),
                   ],
 
@@ -206,7 +207,8 @@ class CourseDetailsView extends GetView<CourseDetailsController> {
                   height: 50,
                   text: "Start Learning",
                   onPressed: () {
-                   Get.toNamed(Routes.COURSE_LEARN, arguments: {'id': controller.model.course!.id});
+                    Get.toNamed(Routes.COURSE_LEARN,
+                        arguments: {'id': controller.model.course!.id});
                   },
                 ),
               );

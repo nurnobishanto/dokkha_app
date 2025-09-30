@@ -1,9 +1,10 @@
-
 import 'dart:convert';
 
-ModelTestCategoriesModel modelTestCategoriesModelFromJson(String str) => ModelTestCategoriesModel.fromJson(json.decode(str));
+ModelTestCategoriesModel modelTestCategoriesModelFromJson(String str) =>
+    ModelTestCategoriesModel.fromJson(json.decode(str));
 
-String modelTestCategoriesModelToJson(ModelTestCategoriesModel data) => json.encode(data.toJson());
+String modelTestCategoriesModelToJson(ModelTestCategoriesModel data) =>
+    json.encode(data.toJson());
 
 class ModelTestCategoriesModel {
   final bool? status;
@@ -14,15 +15,20 @@ class ModelTestCategoriesModel {
     this.data,
   });
 
-  factory ModelTestCategoriesModel.fromJson(Map<String, dynamic> json) => ModelTestCategoriesModel(
-    status: json["status"],
-    data: json["data"] == null ? [] : List<Data>.from(json["data"]!.map((x) => Data.fromJson(x))),
-  );
+  factory ModelTestCategoriesModel.fromJson(Map<String, dynamic> json) =>
+      ModelTestCategoriesModel(
+        status: json["status"],
+        data: json["data"] == null
+            ? []
+            : List<Data>.from(json["data"]!.map((x) => Data.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "status": status,
-    "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x.toJson())),
-  };
+        "status": status,
+        "data": data == null
+            ? []
+            : List<dynamic>.from(data!.map((x) => x.toJson())),
+      };
 }
 
 class Data {
@@ -69,46 +75,50 @@ class Data {
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-    id: json["id"],
-    name: json["name"],
-    slug: json["slug"],
-    parentId: json["parent_id"],
-    image: json["image"],
-    description: json["description"],
-    status: json["status"],
-    metaTitle: json["meta_title"],
-    metaDescription: json["meta_description"],
-    metaKeywords: json["meta_keywords"],
-    metaImage: json["meta_image"],
-    metaAuthor: json["meta_author"],
-    metaUrl: json["meta_url"],
-    metaData: json["meta_data"],
-    headerCode: json["header_code"],
-    footerCode: json["footer_code"],
-    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-    deletedAt: json["deleted_at"],
-  );
+        id: json["id"],
+        name: json["name"],
+        slug: json["slug"],
+        parentId: json["parent_id"],
+        image: json["image"],
+        description: json["description"],
+        status: json["status"],
+        metaTitle: json["meta_title"],
+        metaDescription: json["meta_description"],
+        metaKeywords: json["meta_keywords"],
+        metaImage: json["meta_image"],
+        metaAuthor: json["meta_author"],
+        metaUrl: json["meta_url"],
+        metaData: json["meta_data"],
+        headerCode: json["header_code"],
+        footerCode: json["footer_code"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
+        deletedAt: json["deleted_at"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "slug": slug,
-    "parent_id": parentId,
-    "image": image,
-    "description": description,
-    "status": status,
-    "meta_title": metaTitle,
-    "meta_description": metaDescription,
-    "meta_keywords": metaKeywords,
-    "meta_image": metaImage,
-    "meta_author": metaAuthor,
-    "meta_url": metaUrl,
-    "meta_data": metaData,
-    "header_code": headerCode,
-    "footer_code": footerCode,
-    "created_at": createdAt?.toIso8601String(),
-    "updated_at": updatedAt?.toIso8601String(),
-    "deleted_at": deletedAt,
-  };
+        "id": id,
+        "name": name,
+        "slug": slug,
+        "parent_id": parentId,
+        "image": image,
+        "description": description,
+        "status": status,
+        "meta_title": metaTitle,
+        "meta_description": metaDescription,
+        "meta_keywords": metaKeywords,
+        "meta_image": metaImage,
+        "meta_author": metaAuthor,
+        "meta_url": metaUrl,
+        "meta_data": metaData,
+        "header_code": headerCode,
+        "footer_code": footerCode,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+        "deleted_at": deletedAt,
+      };
 }

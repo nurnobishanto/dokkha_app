@@ -25,8 +25,10 @@ class CourseImageViewer extends StatelessWidget {
             alignment: Alignment.center,
             child: Icon(Icons.broken_image, size: 40.sp, color: Colors.grey),
           ),
-          memCacheWidth: (MediaQuery.of(context).size.width * 2).toInt(), // reduce memory usage
-          memCacheHeight: (MediaQuery.of(context).size.width * 9 ~/ 16 * 2).toInt(),
+          memCacheWidth: (MediaQuery.of(context).size.width * 2)
+              .toInt(), // reduce memory usage
+          memCacheHeight:
+              (MediaQuery.of(context).size.width * 9 ~/ 16 * 2).toInt(),
         ),
       ),
     );

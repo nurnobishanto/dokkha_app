@@ -35,7 +35,7 @@ class ReadQuestionView extends StatelessWidget {
               child: Text(AppStrings.noDataFound),
             )
           : SafeArea(
-            child: Padding(
+              child: Padding(
                 padding: const EdgeInsets.all(8.00),
                 child: SingleChildScrollView(
                   child: Column(
@@ -71,7 +71,7 @@ class ReadQuestionView extends StatelessWidget {
                                     question.questionImage != null
                                         ? const SizedBox(height: 10.00)
                                         : const SizedBox.shrink(),
-            
+
                                     /// des
                                     if (question.description != null)
                                       HtmlWidget(
@@ -98,7 +98,8 @@ class ReadQuestionView extends StatelessWidget {
                                           Expanded(
                                             flex: 10,
                                             child: Padding(
-                                              padding: const EdgeInsets.all(8.0),
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
                                               child: HtmlWidget(
                                                 "${index + 1}. ${question.title}",
                                                 textStyle: AppTextStyles.body1
@@ -107,7 +108,7 @@ class ReadQuestionView extends StatelessWidget {
                                               ),
                                             ),
                                           ),
-            
+
                                           /// popup menu items area
                                           Expanded(
                                             child: Obx(() {
@@ -115,7 +116,7 @@ class ReadQuestionView extends StatelessWidget {
                                               bool isFavorite = controller
                                                   .checkQuestionExistInSaved(
                                                       question.id!.toInt());
-            
+
                                               return IconButton(
                                                 onPressed: () {
                                                   if (isFavorite) {
@@ -141,7 +142,7 @@ class ReadQuestionView extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-            
+
                                     customSingleChoice(question)
                                   ],
                                 ),
@@ -154,7 +155,7 @@ class ReadQuestionView extends StatelessWidget {
                   ),
                 ),
               ),
-          ),
+            ),
     );
   }
 

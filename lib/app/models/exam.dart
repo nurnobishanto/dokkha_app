@@ -1,4 +1,3 @@
-
 import 'package:lokkha/app/models/question.dart';
 
 class Exam {
@@ -47,51 +46,55 @@ class Exam {
   });
 
   factory Exam.fromJson(Map<String, dynamic> json) => Exam(
-    id: json["id"],
-    publishedAt: json["published_at"] == null
-        ? null
-        : DateTime.parse(json["published_at"]),
-    isPaid: json["is_paid"],
-    name: json["name"],
-    image: json["image"],
-    slug: json["slug"],
-    description: json["description"],
-    duration: json["duration"],
-    positiveMark: json["positive_mark"],
-    negativeMark: json["negative_mark"]?.toDouble(),
-    examPolicy: json["exam_policy"],
-    status: json["status"],
-    createdBy: json["created_by"],
-    updatedBy: json["updated_by"],
-    examCategoryId: json["exam_category_id"],
-    questionsCount: json["questions_count"],
-    attempted: json["attempted"],
-    questions: json["questions"] == null ? [] : List<Question>.from(json["questions"]!.map((x) => Question.fromJson(x))),
-    possibleMark: json["possible_mark"],
-    examResultsCount: json["exam_results_count"],
-  );
+        id: json["id"],
+        publishedAt: json["published_at"] == null
+            ? null
+            : DateTime.parse(json["published_at"]),
+        isPaid: json["is_paid"],
+        name: json["name"],
+        image: json["image"],
+        slug: json["slug"],
+        description: json["description"],
+        duration: json["duration"],
+        positiveMark: json["positive_mark"],
+        negativeMark: json["negative_mark"]?.toDouble(),
+        examPolicy: json["exam_policy"],
+        status: json["status"],
+        createdBy: json["created_by"],
+        updatedBy: json["updated_by"],
+        examCategoryId: json["exam_category_id"],
+        questionsCount: json["questions_count"],
+        attempted: json["attempted"],
+        questions: json["questions"] == null
+            ? []
+            : List<Question>.from(
+                json["questions"]!.map((x) => Question.fromJson(x))),
+        possibleMark: json["possible_mark"],
+        examResultsCount: json["exam_results_count"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "published_at": publishedAt?.toIso8601String(),
-    "is_paid": isPaid,
-    "name": name,
-    "image": image,
-    "slug": slug,
-    "description": description,
-    "duration": duration,
-    "positive_mark": positiveMark,
-    "negative_mark": negativeMark,
-    "exam_policy": examPolicy,
-    "status": status,
-    "created_by": createdBy,
-    "updated_by": updatedBy,
-    "exam_category_id": examCategoryId,
-    "questions_count": questionsCount,
-    "attempted": attempted,
-    "questions": questions == null ? [] : List<dynamic>.from(questions!.map((x) => x.toJson())),
-    "exam_results_count": examResultsCount,
-    "possible_mark": possibleMark,
-  };
+        "id": id,
+        "published_at": publishedAt?.toIso8601String(),
+        "is_paid": isPaid,
+        "name": name,
+        "image": image,
+        "slug": slug,
+        "description": description,
+        "duration": duration,
+        "positive_mark": positiveMark,
+        "negative_mark": negativeMark,
+        "exam_policy": examPolicy,
+        "status": status,
+        "created_by": createdBy,
+        "updated_by": updatedBy,
+        "exam_category_id": examCategoryId,
+        "questions_count": questionsCount,
+        "attempted": attempted,
+        "questions": questions == null
+            ? []
+            : List<dynamic>.from(questions!.map((x) => x.toJson())),
+        "exam_results_count": examResultsCount,
+        "possible_mark": possibleMark,
+      };
 }
-

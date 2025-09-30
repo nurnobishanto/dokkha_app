@@ -32,7 +32,7 @@ class VocabularyView extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: SingleChildScrollView(
-             // controller: scrollController,
+              // controller: scrollController,
               child: controller.isLoading.value
                   ? const Center(child: CircularProgressIndicator())
                   : Column(

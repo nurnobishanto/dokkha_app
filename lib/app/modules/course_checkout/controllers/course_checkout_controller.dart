@@ -9,7 +9,6 @@ import 'package:lokkha/utils/constants.dart';
 import '../../../data/local/my_shared_pref.dart';
 import '../../premium_packages/views/payment_webview.dart';
 
-
 class CourseCheckoutController extends GetxController {
   final RxBool isChecked = false.obs;
   final TextEditingController couponController = TextEditingController();
@@ -19,17 +18,17 @@ class CourseCheckoutController extends GetxController {
     text: Get.find<NavbarController>().profileDataModel.value!.user!.name ?? '',
   ).obs;
   final Rx<TextEditingController> phoneController = TextEditingController(
-      text: Get.find<NavbarController>()
-          .profileDataModel
-          .value!
-          .user!
-          .phone ??
-          '')
+          text: Get.find<NavbarController>()
+                  .profileDataModel
+                  .value!
+                  .user!
+                  .phone ??
+              '')
       .obs;
 
   final Rx<TextEditingController> mailController = TextEditingController(
-      text:
-      Get.find<NavbarController>().profileDataModel.value!.user!.email)
+          text:
+              Get.find<NavbarController>().profileDataModel.value!.user!.email)
       .obs;
   RxBool isLoading = false.obs;
 
@@ -60,10 +59,9 @@ class CourseCheckoutController extends GetxController {
       headers: headers,
       onSuccess: (response) {
         if (response.data["status"]) {
-
           isLoading.value = false;
           CourseCheckoutModel data =
-          CourseCheckoutModel.fromJson(response.data);
+              CourseCheckoutModel.fromJson(response.data);
           dataModel.value = data;
           Get.to(PaymentWebView(url: data.paymentUrl.toString()));
         } else {

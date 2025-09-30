@@ -2,7 +2,8 @@ import 'dart:convert';
 import '../../../models/exam.dart';
 import '../../../models/question.dart';
 
-ExamStartModel examStartModelFromJson(String str) => ExamStartModel.fromJson(json.decode(str));
+ExamStartModel examStartModelFromJson(String str) =>
+    ExamStartModel.fromJson(json.decode(str));
 String examStartModelToJson(ExamStartModel data) => json.encode(data.toJson());
 
 class ExamStartModel {
@@ -21,21 +22,23 @@ class ExamStartModel {
   });
 
   factory ExamStartModel.fromJson(Map<String, dynamic> json) => ExamStartModel(
-    status: json["status"],
-    exam: json["exam"] == null ? null : Exam.fromJson(json["exam"]),
-    questions: json["questions"] == null ? [] : List<Question>.from(json["questions"]!.map((x) => Question.fromJson(x))),
-    remaining: json["remaining"],
-    examResultId: json["exam_result_id"],
-  );
+        status: json["status"],
+        exam: json["exam"] == null ? null : Exam.fromJson(json["exam"]),
+        questions: json["questions"] == null
+            ? []
+            : List<Question>.from(
+                json["questions"]!.map((x) => Question.fromJson(x))),
+        remaining: json["remaining"],
+        examResultId: json["exam_result_id"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "status": status,
-    "exam": exam?.toJson(),
-    "questions": questions == null ? [] : List<dynamic>.from(questions!.map((x) => x.toJson())),
-    "remaining": remaining,
-    "exam_result_id": examResultId,
-  };
+        "status": status,
+        "exam": exam?.toJson(),
+        "questions": questions == null
+            ? []
+            : List<dynamic>.from(questions!.map((x) => x.toJson())),
+        "remaining": remaining,
+        "exam_result_id": examResultId,
+      };
 }
-
-
-

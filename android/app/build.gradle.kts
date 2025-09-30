@@ -15,7 +15,7 @@ val keystoreProperties = Properties().apply {
 
 android {
     namespace = "com.techyfo.lokkha"
-    compileSdk = flutter.compileSdkVersion //33
+    compileSdk = flutter.compileSdkVersion
     ndkVersion = "27.3.13750724"
 
     compileOptions {

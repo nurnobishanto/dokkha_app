@@ -79,8 +79,8 @@ class ExamDetailsDialog extends StatelessWidget {
                             Icons.timer, 'সময়', '${exam.duration} মিনিট'),
                         _infoCard(Icons.check_circle, 'পজিটিভ মার্ক',
                             '${exam.positiveMark}'),
-                        _infoCard(
-                            Icons.cancel, 'নেগেটিভ মার্ক', '${exam.negativeMark}'),
+                        _infoCard(Icons.cancel, 'নেগেটিভ মার্ক',
+                            '${exam.negativeMark}'),
                         _infoCard(Icons.help_outline, 'মোট প্রশ্ন',
                             '${exam.questionsCount}'),
                       ],
@@ -113,7 +113,8 @@ class ExamDetailsDialog extends StatelessWidget {
                                 text: TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: '${examController.errorMessage.value} ',
+                                      text:
+                                          '${examController.errorMessage.value} ',
                                       style: const TextStyle(
                                         color: Colors.redAccent,
                                         fontWeight: FontWeight.w600,

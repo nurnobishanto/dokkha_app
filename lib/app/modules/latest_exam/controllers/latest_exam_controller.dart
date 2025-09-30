@@ -46,15 +46,16 @@ class LatestExamController extends GetxController {
     });
   }
 
-  Future<void> fetchTagQuestions(int id,bool isStartExam, int duration, String selectedNegativeMark, BuildContext context) async {
+  Future<void> fetchTagQuestions(int id, bool isStartExam, int duration,
+      String selectedNegativeMark, BuildContext context) async {
     apiCallStatus = ApiCallStatus.loading;
     isLoadingQuestion.value = true;
-    String url =
-        "${AppConstants.tag}/$id";
+    String url = "${AppConstants.tag}/$id";
 
     BaseClient.safeApiCall(url, RequestType.get, onSuccess: (response) {
       if (response.data["status"]) {
-        TagQuestionsModel tagQuestionsModel = TagQuestionsModel.fromJson(response.data);
+        TagQuestionsModel tagQuestionsModel =
+            TagQuestionsModel.fromJson(response.data);
         isLoadingQuestion.value = false;
         if (isStartExam) {
           StartExamModel model = StartExamModel(
@@ -71,12 +72,10 @@ class LatestExamController extends GetxController {
           );
           Navigator.pop(context);
           Get.to(ExamProcessView(examStartModel: model));
-
         } else {
           Navigator.pop(context);
           Get.to(
               ReadQuestionView(model: tagQuestionsModel.questions!.toList()));
-
         }
       }
     }, onError: (err) {

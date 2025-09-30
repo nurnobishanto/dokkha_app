@@ -28,30 +28,39 @@ class CourseModule {
   });
 
   factory CourseModule.fromJson(Map<String, dynamic> json) => CourseModule(
-    id: json["id"],
-    parentId: json["parent_id"],
-    type: json["type"],
-    courseId: json["course_id"],
-    title: json["title"],
-    order: json["order"],
-    description: json["description"],
-    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-    deletedAt: json["deleted_at"],
-    items: json["items"] == null ? [] : List<CourseItem>.from(json["items"]!.map((x) => CourseItem.fromJson(x))),
-  );
+        id: json["id"],
+        parentId: json["parent_id"],
+        type: json["type"],
+        courseId: json["course_id"],
+        title: json["title"],
+        order: json["order"],
+        description: json["description"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
+        deletedAt: json["deleted_at"],
+        items: json["items"] == null
+            ? []
+            : List<CourseItem>.from(
+                json["items"]!.map((x) => CourseItem.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "parent_id": parentId,
-    "type": type,
-    "course_id": courseId,
-    "title": title,
-    "order": order,
-    "description": description,
-    "created_at": createdAt?.toIso8601String(),
-    "updated_at": updatedAt?.toIso8601String(),
-    "deleted_at": deletedAt,
-    "items": items == null ? [] : List<dynamic>.from(items!.map((x) => x.toJson())),
-  };
+        "id": id,
+        "parent_id": parentId,
+        "type": type,
+        "course_id": courseId,
+        "title": title,
+        "order": order,
+        "description": description,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+        "deleted_at": deletedAt,
+        "items": items == null
+            ? []
+            : List<dynamic>.from(items!.map((x) => x.toJson())),
+      };
 }

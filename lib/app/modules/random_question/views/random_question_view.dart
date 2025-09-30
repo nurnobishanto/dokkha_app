@@ -129,7 +129,6 @@ class RandomQuestionSelector extends StatelessWidget {
                       )
                     else
                       const SizedBox.shrink(),
-
                     Expanded(
                       child: CustomActionButton(
                         text: "নতুন প্রশ্ন →",
@@ -148,9 +147,6 @@ class RandomQuestionSelector extends StatelessWidget {
                         },
                       ),
                     ),
-
-
-
                   ],
                 );
               }

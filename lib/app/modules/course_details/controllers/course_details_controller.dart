@@ -39,7 +39,8 @@ class CourseDetailsController extends GetxController {
     final url = "${AppConstants.courseDetails}/$courseId";
 
     try {
-      BaseClient.safeApiCall(url, RequestType.get,headers: headers, onSuccess: (response) {
+      BaseClient.safeApiCall(url, RequestType.get, headers: headers,
+          onSuccess: (response) {
         if (response.data['status']) {
           apiCallStatus = ApiCallStatus.success;
           isLoading = false;

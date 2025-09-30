@@ -5,7 +5,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
 import '../../../../utils/constants.dart';
 import '../../../data/local/my_shared_pref.dart';
 import '../../../helper/api_helper.dart';
@@ -73,7 +72,8 @@ class ExamStartController extends GetxController {
   //MockExamQuestionController(this.exam) : duration = (exam!.duration != null ? exam.duration! * 60 : 0).obs;
   ExamStartController(this.examStartModel)
       : duration =
-            (examStartModel!.remaining != null ? examStartModel.remaining! : 0).obs,
+            (examStartModel!.remaining != null ? examStartModel.remaining! : 0)
+                .obs,
         timerWork = true.obs;
 
   // For handling answers
@@ -142,8 +142,6 @@ class ExamStartController extends GetxController {
       }
     });
   }
-
-
 
   void submitExam() {
     finalSubmitExam();

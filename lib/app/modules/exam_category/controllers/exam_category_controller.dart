@@ -12,12 +12,8 @@ class ExamCategoryController extends GetxController {
   final model = ExamCategoriesModel().obs;
   final courseCategoriesModel = CourseCategoriesModel().obs;
 
-
-
-
   final apiCallStatus = ApiCallStatus.holding.obs;
   final apiCallCourseCategoriesStatus = ApiCallStatus.holding.obs;
-
 
   /// Fetch Free Exam Categories Method
   Future<void> fetchExamCategories() async {
@@ -71,7 +67,6 @@ class ExamCategoryController extends GetxController {
       apiCallCourseCategoriesStatus.value = ApiCallStatus.error;
     }
   }
-
 
   @override
   void onInit() {

@@ -28,4 +28,3 @@ class ExamDetailsModel {
         "exam": exam?.toJson(),
       };
 }
-

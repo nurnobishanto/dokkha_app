@@ -20,24 +20,24 @@ class ExamCategory {
   });
 
   factory ExamCategory.fromJson(Map<String, dynamic> json) => ExamCategory(
-    id: json["id"],
-    name: json["name"],
-    slug: json["slug"],
-    parentId: json["parent_id"],
-    image: json["image"],
-    description: json["description"],
-    status: json["status"],
-    freeExamsCount: json["free_exams_count"],
-  );
+        id: json["id"],
+        name: json["name"],
+        slug: json["slug"],
+        parentId: json["parent_id"],
+        image: json["image"],
+        description: json["description"],
+        status: json["status"],
+        freeExamsCount: json["free_exams_count"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "slug": slug,
-    "parent_id": parentId,
-    "image": image,
-    "description": description,
-    "status": status,
-    "free_exams_count": freeExamsCount,
-  };
+        "id": id,
+        "name": name,
+        "slug": slug,
+        "parent_id": parentId,
+        "image": image,
+        "description": description,
+        "status": status,
+        "free_exams_count": freeExamsCount,
+      };
 }

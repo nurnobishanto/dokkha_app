@@ -3,8 +3,7 @@ import 'package:get/get.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
 import '../controllers/course_learn_controller.dart';
 
-class CourseLearnAppBar extends StatelessWidget
-    implements PreferredSizeWidget {
+class CourseLearnAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CourseLearnAppBar({super.key});
 
   @override

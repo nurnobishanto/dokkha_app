@@ -6,7 +6,7 @@ import 'package:lokkha/utils/constants.dart';
 import '../../models/single_model_test_model.dart';
 
 class ModelTestDetailsController extends GetxController {
- late final int id;
+  late final int id;
   @override
   void onInit() {
     id = Get.arguments['id'] as int;
@@ -45,6 +45,4 @@ class ModelTestDetailsController extends GetxController {
       },
     );
   }
-
-
 }

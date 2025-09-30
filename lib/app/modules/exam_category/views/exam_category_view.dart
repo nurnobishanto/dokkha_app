@@ -159,7 +159,10 @@ class ExamCategoryView extends GetView<ExamCategoryController> {
                         onTap: () {
                           if (exam.id != null) {
                             Get.toNamed(Routes.EXAM_CATEGORY_DETAILS,
-                                arguments: {"category_id": exam.id , "category_name": exam.name});
+                                arguments: {
+                                  "category_id": exam.id,
+                                  "category_name": exam.name
+                                });
                           }
                         },
                       );
@@ -171,8 +174,6 @@ class ExamCategoryView extends GetView<ExamCategoryController> {
           ),
         );
       }),
-
-
     );
   }
 }

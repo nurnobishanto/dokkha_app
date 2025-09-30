@@ -46,7 +46,7 @@ class SubSecSetTimeController extends GetxController {
 
   ///  method
   Future<void> testExamStart(String type) async {
-    try{
+    try {
       isLoading.value = true;
       String? token = MySharedPref.getUserToken();
       if (token == '' || token.isEmpty) return;
@@ -122,10 +122,10 @@ class SubSecSetTimeController extends GetxController {
           debugPrint("Logging...");
         },
       );
-    }catch(e){
+    } catch (e) {
       print(e);
-    }finally{
-      isLoading.value=false;
+    } finally {
+      isLoading.value = false;
     }
   }
 

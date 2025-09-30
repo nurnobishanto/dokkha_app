@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import '../../../models/order.dart';
@@ -28,14 +27,14 @@ class CourseCheckoutModel {
         status: json["status"],
         order: json["order"] == null ? null : Order.fromJson(json["order"]),
         payment:
-        json["payment"] == null ? null : Payment.fromJson(json["payment"]),
+            json["payment"] == null ? null : Payment.fromJson(json["payment"]),
         paymentUrl: json["payment_url"],
       );
 
   Map<String, dynamic> toJson() => {
-    "status": status,
-    "order": order?.toJson(),
-    "payment": payment?.toJson(),
-    "payment_url": paymentUrl,
-  };
+        "status": status,
+        "order": order?.toJson(),
+        "payment": payment?.toJson(),
+        "payment_url": paymentUrl,
+      };
 }

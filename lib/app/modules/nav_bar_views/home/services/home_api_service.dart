@@ -49,34 +49,31 @@ class HomeApiService extends GetxController {
   Future<void> fetchSubjectSection() async {
     var url = AppConstants.subjectSections;
     subjectSectionApiStatus.value = ApiCallStatus.loading;
-try{
-  await BaseClient.safeApiCall(
-    url,
-    RequestType.get,
-    onSuccess: (response) {
-      if (response.data['status']) {
-        subjectSectionModel.value =
-            SubjectSectionModel.fromJson(response.data);
-        subjectSectionApiStatus.value = ApiCallStatus.success;
-      } else {
-        subjectSectionApiStatus.value = ApiCallStatus.error;
-      }
-      update(); // UI update using GetBuilder
-    },
-    onError: (_) {
-      subjectSectionApiStatus.value = ApiCallStatus.error;
-      update(); // UI update using GetBuilder
-    },
-    onLoading: () {
-      subjectSectionApiStatus.value = ApiCallStatus.loading;
-      update(); // UI update using GetBuilder
-    },
-  );
-}catch(e){
-  print(e.toString());
-}finally{
-
-}
-
+    try {
+      await BaseClient.safeApiCall(
+        url,
+        RequestType.get,
+        onSuccess: (response) {
+          if (response.data['status']) {
+            subjectSectionModel.value =
+                SubjectSectionModel.fromJson(response.data);
+            subjectSectionApiStatus.value = ApiCallStatus.success;
+          } else {
+            subjectSectionApiStatus.value = ApiCallStatus.error;
+          }
+          update(); // UI update using GetBuilder
+        },
+        onError: (_) {
+          subjectSectionApiStatus.value = ApiCallStatus.error;
+          update(); // UI update using GetBuilder
+        },
+        onLoading: () {
+          subjectSectionApiStatus.value = ApiCallStatus.loading;
+          update(); // UI update using GetBuilder
+        },
+      );
+    } catch (e) {
+      print(e.toString());
+    } finally {}
   }
 }

@@ -31,9 +31,9 @@ class BaseClient {
       ),
     );
 
-
   /// dio getter (used for testing)
   static get dio => _dio;
+
   /// Perform safe API request
   static safeApiCall(
     String url,

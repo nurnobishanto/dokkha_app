@@ -38,7 +38,7 @@ class JobsView extends GetView<JobsController> {
                       //     }
                       //   },
                       // ),
-        
+
                       controller.isLoading.value
                           ? const Center(child: CircularProgressIndicator())
                           // Expanded(
@@ -62,8 +62,8 @@ class JobsView extends GetView<JobsController> {
                                       if (index ==
                                           controller
                                               .model.value.jobs!.data!.length) {
-                                        return (controller
-                                                    .model.value.jobs!.lastPage! >
+                                        return (controller.model.value.jobs!
+                                                    .lastPage! >
                                                 controller.currentPage.value)
                                             ? Column(
                                                 children: [
@@ -81,11 +81,12 @@ class JobsView extends GetView<JobsController> {
                                                       width: Get.width / 2,
                                                       decoration: BoxDecoration(
                                                         borderRadius:
-                                                            BorderRadius.circular(
-                                                                15.0),
+                                                            BorderRadius
+                                                                .circular(15.0),
                                                         border: Border.all(
-                                                          color: LightThemeColors
-                                                              .primaryColor,
+                                                          color:
+                                                              LightThemeColors
+                                                                  .primaryColor,
                                                           width: 1,
                                                         ),
                                                       ),
@@ -107,7 +108,7 @@ class JobsView extends GetView<JobsController> {
                                               )
                                             : const SizedBox.shrink();
                                       }
-        
+
                                       var data = controller
                                           .model.value.jobs!.data![index];
                                       return GovJobCard(
@@ -115,8 +116,8 @@ class JobsView extends GetView<JobsController> {
                                             ? ""
                                             : data.companyName.toString(),
                                         onTap: () {
-                                          Get.to(()=>
-                                            JobDetailsScreen(
+                                          Get.to(
+                                            () => JobDetailsScreen(
                                               id: data.id!.toInt(),
                                             ),
                                           );

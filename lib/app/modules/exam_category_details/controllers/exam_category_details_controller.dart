@@ -45,16 +45,16 @@ class ExamCategoryDetailsController extends GetxController {
       fetchExamCategoryDetails(categoryId);
     }
   }
+
   final model = ExamCategoryDetailsModel().obs;
   final apiCallStatus = ApiCallStatus.holding.obs;
 
   Future<void> fetchExamCategoryDetails(int categoryId) async {
     apiCallStatus.value = ApiCallStatus.loading;
     try {
-      final url = "${AppConstants.examsCategory}/$categoryId?page=${currentPage.value}";
-      await BaseClient.safeApiCall(url, RequestType.get,
-
-          onSuccess: (response) {
+      final url =
+          "${AppConstants.examsCategory}/$categoryId?page=${currentPage.value}";
+      await BaseClient.safeApiCall(url, RequestType.get, onSuccess: (response) {
         if (response.data['status']) {
           model.value = ExamCategoryDetailsModel.fromJson(response.data);
           totalPages.value = model.value.freeExams?.lastPage ?? 1;
@@ -97,11 +97,4 @@ class ExamCategoryDetailsController extends GetxController {
       apiCallStatus.value = ApiCallStatus.error;
     }
   }
-
-
-
-
-
-
-
 }

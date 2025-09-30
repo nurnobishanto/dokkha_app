@@ -12,7 +12,6 @@ import '../../../helper/api_helper.dart';
 import '../../../models/question.dart';
 import '../controllers/exam_start_controller.dart';
 
-
 class RunExamView extends StatefulWidget {
   final ExamStartModel examStartModel;
 
@@ -94,7 +93,7 @@ class _RunExamViewState extends State<RunExamView> {
                       ),
                     )
                   : const SizedBox(),
-          
+
               // Question choice area
               Expanded(
                 child: ListView.builder(
@@ -118,18 +117,19 @@ class _RunExamViewState extends State<RunExamView> {
                                 Image.network(
                                   "${AppConstants.storageUrl}${question.questionImage}",
                                   errorBuilder: (context, error, stackTrace) =>
-                                      const Icon(Icons.error, color: Colors.red),
+                                      const Icon(Icons.error,
+                                          color: Colors.red),
                                 ),
                               if (question.questionImage != null)
                                 const SizedBox(height: 10.00),
-          
+
                               /// Description
                               question.description != null
                                   ? HtmlWidget(question.description.toString())
                                   : const SizedBox(),
                               if (question.description != null)
                                 const SizedBox(height: 10.00),
-          
+
                               Container(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 7),
@@ -157,15 +157,15 @@ class _RunExamViewState extends State<RunExamView> {
                                         ),
                                       ),
                                     ),
-          
+
                                     /// popup menu items area
                                     Expanded(
                                       child: Obx(() {
                                         // Ensure that the controller has an observable value for the favorite status
-                                        bool isFavorite =
-                                            controller.checkQuestionExistInSaved(
+                                        bool isFavorite = controller
+                                            .checkQuestionExistInSaved(
                                                 question.id!.toInt());
-          
+
                                         return IconButton(
                                           onPressed: () {
                                             if (isFavorite) {
@@ -177,7 +177,7 @@ class _RunExamViewState extends State<RunExamView> {
                                                   question.id!.toInt());
                                               isFavorite = true;
                                             }
-          
+
                                             // This will trigger the UI update when the state changes
                                             controller.update();
                                           },
@@ -202,7 +202,7 @@ class _RunExamViewState extends State<RunExamView> {
                   },
                 ),
               ),
-          
+
               CustomActionButton(
                 text: "সাবমিট এক্সাম",
                 onPressed: () {

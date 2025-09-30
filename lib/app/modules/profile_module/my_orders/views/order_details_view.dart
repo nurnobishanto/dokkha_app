@@ -64,8 +64,8 @@ class OrderDetailsScreen extends GetView<OrdersDetailsController> {
                                   if (model.order!.modelType.toString() ==
                                       'App\\Models\\Package') {
                                     return '৳ ${model.order!.package?.discountedPrice?.toString() ?? '0'}';
-                                  }
-                                  else if (model.order!.modelType.toString() ==
+                                  } else if (model.order!.modelType
+                                          .toString() ==
                                       'App\\Models\\Course') {
                                     return '৳ ${model.order!.course?.salePrice?.toString() ?? '0'}';
                                   } else {

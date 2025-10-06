@@ -11,6 +11,7 @@ import '../../../models/user.dart';
 import '../../../services/api_call_status.dart';
 import '../../../services/base_client.dart';
 import '../../exam_category/controllers/exam_category_controller.dart';
+import '../../messanger_redirect/messenger_redirect.dart';
 import '../../nav_bar_views/home/views/home_view.dart';
 import '../../premium_packages/controllers/premium_packages_controller.dart';
 import '../../profile_module/profile/controllers/profile_controller.dart';
@@ -22,6 +23,7 @@ class NavbarController extends GetxController {
   final List<Widget> nabBarBody = [
     const HomeView(),
     const ExamCategoryView(),
+    const MessengerRedirectScreen(),
     const PremiumPackagesView(),
     const ProfileView(),
   ];

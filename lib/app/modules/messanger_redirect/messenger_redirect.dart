@@ -4,7 +4,6 @@ import 'package:lokkha/app/modules/auth_views/auth_gateway/views/auth_gateway_vi
 import 'package:lokkha/config/theme/light_theme_colors.dart';
 import 'package:lottie/lottie.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../helper/global.dart';
 import '../../routes/app_pages.dart';
 

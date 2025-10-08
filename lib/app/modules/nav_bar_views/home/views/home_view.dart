@@ -1,451 +1,394 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:lokkha/app/components/custom_drawer.dart';
 import 'package:lokkha/app/data/local/my_shared_pref.dart';
-import 'package:lokkha/app/helper/global.dart';
 import 'package:lokkha/app/modules/contest/widgets/last_contest_result_widget.dart';
 import 'package:lokkha/app/modules/contest/widgets/latest_contest_widget.dart';
 import 'package:lokkha/app/modules/random_question/views/random_question_view.dart';
 import 'package:lokkha/app/services/api_call_status.dart';
 import 'package:lokkha/comming_soon_view.dart';
 import 'package:lokkha/config/extensions/common_extension.dart';
-import 'package:lokkha/config/extensions/widget_extensions.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:lokkha/utils/constants.dart';
-import '../../../../../config/constants/app_images.dart';
-import '../../../../../styles/text_style.dart';
+import 'package:lokkha/config/constants/app_images.dart';
+import 'package:lokkha/styles/text_style.dart';
 import '../../../../components/custom_transparent_divider.dart';
 import '../../../../routes/app_pages.dart';
-import '../../../courses/controllers/courses_controller.dart';
 import '../../../exam_category/controllers/exam_category_controller.dart';
 import '../../../exam_category/widgets/exam_category_card.dart';
 import '../../../subject_sections/views/subject_sections_view.dart';
 import '../components/social_links_widget.dart';
 import '../controllers/home_controller.dart';
 
-class HomeView extends GetView<HomeController> {
+class HomeView extends StatelessWidget {
   const HomeView({super.key});
+
   @override
   Widget build(BuildContext context) {
-    debugPrint("Build Home view");
-    // final ExamCategoryController examCategoryController =
-    //     Get.put(ExamCategoryController());
-    // final ExamCategoryController examCategoryController = Get.find();
+    final HomeController controller = Get.find();
+    final ExamCategoryController examController = Get.find();
+    Future<void> onRefresh() => controller.refreshHomeViewData();
 
     return Scaffold(
       drawer: const CustomDrawer(),
       appBar: AppBar(
         title: Row(
           children: [
-            Image.asset(
-              AssetImagePaths.appIconHorizontal,
-              scale: 5,
-            ),
-            8.0.w.width,
+            Image.asset(AssetImagePaths.appIconHorizontal, scale: 5),
+            SizedBox(width: 8.w),
             Text(
               "সঠিক পথে, স্বল্প সময়ে",
-              style: AppTextStyles.custom(fontSize: 16.00.sp).copyWith(
-                color: Get.theme.indicatorColor,
-              ),
+              style: AppTextStyles.custom(fontSize: 16.00.sp)
+                  .copyWith(color: Get.theme.indicatorColor),
             ),
           ],
         ),
         centerTitle: false,
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(Get.height / 20 + 5),
+          child: _SearchBar(onTap: () => Get.to(const ComingSoonPage()))
+              .paddingOnly(bottom: 5),
+        ),
       ),
-      body: GetBuilder<HomeController>(
-        builder: (controller) {
-          return RefreshIndicator(
-            onRefresh: () {
-              return controller.refreshHomeViewData();
-            },
-            child: Column(
-              children: [
-                /// Search Bar
-                Container(
-                  height: Get.height / 20,
-                  decoration: BoxDecoration(
-                    color: LightThemeColors.primaryColor,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(10.0.r),
-                      bottomRight: Radius.circular(10.0.r),
-                    ),
-                  ),
-                  child: TextFormField(
-                    enabled: false, // This makes the field non-editable
-                    controller: null,
-                    textAlign: TextAlign.start,
-                    decoration: const InputDecoration(
-                      hintText: "অনুসন্ধান করুন",
-                      prefixIcon: Icon(Icons.search),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                        borderSide: BorderSide(color: Colors.grey),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                        borderSide: BorderSide(color: Colors.blue),
-                      ),
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 0.0, horizontal: 12.0),
-                      filled: true,
-                      fillColor: Colors.white,
-                    ),
-                    // onChanged: controller.onSearchChanged,
-                  )
-                      .paddingOnly(
-                          bottom: 10.00.h, left: 15.00.w, right: 15.00.w)
-                      .onTap(() {
-                    Get.to(const ComingSoonPage());
-                    // showSearch(
-                    //     context: context, delegate: CustomSearchDelegate());
-                  }),
+      body: RefreshIndicator(
+        onRefresh: onRefresh,
+        child: ListView(
+          padding: EdgeInsets.symmetric(horizontal: 8.r, vertical: 2.h),
+          children: [
+            3.h.height,
+            _SliderSection(controller: controller),
+            8.h.height,
+            _ShortcutGrid(controller: controller),
+            8.h.height,
+            RandomQuestionSelector(),
+            8.h.height,
+            SectionTitleWithDivider(title: "প্রিমিয়াম পরীক্ষা সমূহ"),
+            SizedBox(height: 8.h),
+            _PremiumExamSection(examController: examController),
+            8.h.height,
+            SectionTitleWithDivider(title: "ফ্রি পরীক্ষা সমূহ"),
+            SizedBox(height: 8.h),
+            _FreeExamSection(examController: examController),
+            8.h.height,
+            const LatestContestWidget(),
+            const LastContestResultWidget(),
+            8.h.height,
+            Center(
+              child: Text(
+                "জনপ্রিয় প্রশ্নব্যাংক",
+                style: AppTextStyles.custom(
+                  fontSize: 17.00.sp,
+                  fontWeight: FontWeight.w600,
                 ),
-
-                //10.0.h.height,
-                // Switch(
-                //   value: MySharedPref.getThemeIsLight(),
-                //   onChanged: (value) {
-                //     MyTheme.changeTheme();
-                //   },
-                // ),
-                // 10.0.h.height,
-                // CustomActionButton(
-                //     text: "text",
-                //     onPressed: () {
-                //       Get.toNamed(Routes.PREMIUM_PACKAGES);
-                //     }),
-                /// Second Column with others Widget
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      spacing: 5.0.h,
-                      children: [
-                        0.h.height,
-
-                        /// Carousel Slider
-                        Builder(builder: (context) {
-                          switch (controller.sliderApiStatus.value) {
-                            case ApiCallStatus.loading:
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            case ApiCallStatus.error:
-                              return const Text("Slider loading");
-                            case ApiCallStatus.holding:
-                              return const SizedBox.shrink();
-                            case ApiCallStatus.success:
-                              return CarouselSlider(
-                                options: CarouselOptions(
-                                  aspectRatio: 14 / 4,
-                                  enlargeCenterPage: true,
-                                  enlargeStrategy:
-                                      CenterPageEnlargeStrategy.height,
-                                  autoPlay: true,
-                                  viewportFraction: 1.0,
-                                  onPageChanged: (currentIndex,
-                                      carouselPageChangedReason) {
-                                    controller.dotsCount = currentIndex;
-                                  },
-                                ),
-                                items: controller.sliderModel.value.sliders!
-                                    .map((sliderItem) {
-                                  debugPrint(
-                                      "URL IMAGE : ${AppConstants.storageUrl + sliderItem.image.toString()}");
-                                  return ClipRRect(
-                                    borderRadius: BorderRadius.circular(7.0),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey.shade200,
-                                      ),
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                        child: isCheckedGifImage(
-                                            AppConstants.storageUrl +
-                                                sliderItem.image.toString()),
-                                      ),
-                                    ),
-                                  );
-                                }).toList(),
-                              );
-                            default:
-                              return const SizedBox();
-                          }
-                        }),
-
-                        /// Dots Indicator Area
-                        // DotsIndicator(
-                        //   dotsCount: controller
-                        //       .sliderImages.length, // Total number of dots
-                        //   position: controller
-                        //       .currentPosition, // Current active dot position
-                        //   decorator: const DotsDecorator(
-                        //     color: LightThemeColors.accentColor,
-                        //     activeColor: LightThemeColors.primaryColor,
-                        //     size: Size(8.0, 8.0), // Dot size
-                        //     activeSize: Size(
-                        //         10.0, 10.0), // Optional: active dot size (larger)
-                        //     spacing: EdgeInsets.symmetric(
-                        //         horizontal:
-                        //             4.0), // Optional: spacing between dots
-                        //   ),
-                        // ),
-                        2.0.h.height,
-
-                        /// GridView for Exam
-                        GridView.builder(
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10.0,
-                            childAspectRatio: 4,
-                          ),
-                          itemCount: controller.gridViewTitle.length,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (x, i) {
-                            //final color = controller.gridColors[i];
-                            //final image = controller.gridImages[i];
-                            final title = controller.gridViewTitle[i];
-                            final route = controller.gridViewRoutePage[i];
-                            return GestureDetector(
-                              onTap: () => Get.to(route),
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 8.00, horizontal: 4.00),
-                                decoration: BoxDecoration(
-                                  color: LightThemeColors.white,
-                                  borderRadius: BorderRadius.circular(7.0),
-                                  border: Border.all(
-                                      color: LightThemeColors.primaryColor,
-                                      width: 1),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    title,
-                                    style: AppTextStyles.heading5,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                        2.h.height,
-
-                        /// RandomQuestion area
-                        RandomQuestionSelector(),
-                        // 2.h.height,
-
-                        /// Premium course area
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            2.h.height,
-                            // Centered Title with dividers
-                            SectionTitleWithDivider(
-                                title: "প্রিমিয়াম পরীক্ষা সমূহ"),
-                            5.h.height,
-                            // Horizontal Scroll of Cards
-                            Obx(() {
-                              final examController =
-                                  Get.put(ExamCategoryController());
-                              final categories = examController
-                                      .courseCategoriesModel
-                                      .value
-                                      .courseCategories ??
-                                  [];
-
-                              return SizedBox(
-                                height: Get.height / 15,
-                                child: ListView.separated(
-                                  scrollDirection: Axis.horizontal,
-                                  physics: const BouncingScrollPhysics(),
-                                  itemCount: categories.length,
-                                  separatorBuilder: (_, __) =>
-                                      SizedBox(width: 12.w),
-                                  itemBuilder: (_, x) {
-                                    return ExamCategoryCard(
-                                      title: categories[x].title ?? '',
-                                      onTap: () {
-                                        Get.toNamed(Routes.COURSES, arguments: {
-                                          "course_category_id":
-                                              categories[x].id,
-                                          "category_name": categories[x].title,
-                                        });
-                                      },
-                                      borderColor: LightThemeColors.primaryColor
-                                          .withValues(alpha: 0.4),
-                                      iconColor: LightThemeColors.primaryColor,
-                                    );
-                                  },
-                                ),
-                              );
-                            }),
-                          ],
-                        ),
-
-                        /// Free course area
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            5.h.height,
-                            // Centered Title with dividers
-                            SectionTitleWithDivider(title: "ফ্রি পরীক্ষা সমূহ"),
-                            5.h.height,
-                            // Horizontal Scroll of Cards
-                            Obx(() {
-                              final examController =
-                                  Get.put(ExamCategoryController());
-                              final exams =
-                                  examController.model.value.examCategories ??
-                                      [];
-
-                              return SizedBox(
-                                height: Get.height / 15,
-                                child: ListView.separated(
-                                  scrollDirection: Axis.horizontal,
-                                  physics: const BouncingScrollPhysics(),
-                                  itemCount: exams.length,
-                                  separatorBuilder: (_, __) =>
-                                      SizedBox(width: 12.w),
-                                  itemBuilder: (_, x) {
-                                    final exam = exams[x];
-                                    return ExamCategoryCard(
-                                      title: exam.name ?? '',
-                                      onTap: () {
-                                        if (exam.id != null) {
-                                          Get.toNamed(
-                                              Routes.EXAM_CATEGORY_DETAILS,
-                                              arguments: {
-                                                "category_id": exam.id,
-                                                'category_name': exam.name
-                                              });
-                                        }
-                                      },
-                                      borderColor: LightThemeColors.primaryColor
-                                          .withValues(alpha: 0.4),
-                                      iconColor: LightThemeColors.primaryColor,
-                                    );
-                                  },
-                                ),
-                              );
-                            }),
-                          ],
-                        ),
-                        10.h.height,
-
-                        /// Contest Area
-                        const LatestContestWidget(),
-
-                        /// Leader Board
-                        const LastContestResultWidget(),
-
-                        // Question Bank
-                        Text(
-                          "জনপ্রিয় প্রশ্নব্যাংক",
-                          style: AppTextStyles.custom(
-                            fontSize: 17.00.sp,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-
-                        Builder(
-                          builder: (context) {
-                            switch (controller.subjectSectionApiStatus.value) {
-                              case ApiCallStatus.loading:
-                                return const Center(
-                                    child: CircularProgressIndicator());
-
-                              case ApiCallStatus.success:
-                                return GridView.builder(
-                                  gridDelegate:
-                                      const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
-                                    crossAxisSpacing: 10,
-                                    mainAxisSpacing: 10,
-                                    childAspectRatio: 4,
-                                  ),
-                                  itemCount: controller.subjectSectionModel
-                                          .value.subjectSections?.length ??
-                                      0,
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemBuilder: (context, index) {
-                                    final data = controller.subjectSectionModel
-                                        .value.subjectSections![index];
-                                    return GestureDetector(
-                                      onTap: () async {
-                                        MySharedPref.clearSubjectSection();
-                                        Get.to(
-                                          SubjectSectionView(
-                                            subject: controller
-                                                .subjectSectionModel
-                                                .value
-                                                .subjectSections![index]
-                                                .subject,
-                                          ),
-                                        );
-                                      },
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(7.0),
-                                          border: Border.all(
-                                              color: Colors.grey, width: 0.5.w),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            data.name.toString(),
-                                            style: AppTextStyles.body2.copyWith(
-                                              height: 1.1.h,
-                                              fontSize: 12.sp,
-                                            ),
-                                            maxLines: 2,
-                                            textAlign: TextAlign.center,
-                                            overflow: TextOverflow.ellipsis,
-                                          ).paddingSymmetric(
-                                              horizontal: 2.00.w,
-                                              vertical: 5.00.h),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                );
-                              case ApiCallStatus.error:
-                                return const Center(
-                                    child: Text(
-                                        "কিছু ভুল হয়েছে, আবার চেষ্টা করুন"));
-
-                              default:
-                                return const SizedBox();
-                            }
-                          },
-                        ),
-
-                        // spController.dashboardAds.length > 2
-                        //     ? SponsorAdsWidget(
-                        //   ad: spController.dashboardAds[2],
-                        // )
-                        //     : const SizedBox.shrink(),
-                        const Divider(color: LightThemeColors.primaryColor),
-                        SocialLinksScreen(),
-                      ],
-                    ).paddingOnly(left: 8.00.r, right: 8.00.r, bottom: 8.00.r),
-                  ),
-                ),
-              ],
+              ),
             ),
-          );
-        },
+            SizedBox(height: 8.h),
+            _SubjectSection(controller: controller),
+            const Divider(color: LightThemeColors.primaryColor),
+            SocialLinksScreen(),
+            8.h.height,
+          ],
+        ),
       ),
     );
+  }
+}
+
+/// ------------------------- Small extracted widgets -------------------------
+
+class _SearchBar extends StatelessWidget {
+  final VoidCallback onTap;
+  const _SearchBar({required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: Get.height / 20,
+        decoration: BoxDecoration(
+          color: LightThemeColors.primaryColor,
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(10.r),
+            bottomRight: Radius.circular(10.r),
+          ),
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.5.h),
+        child: TextFormField(
+          enabled: false,
+          decoration: InputDecoration(
+            hintText: "অনুসন্ধান করুন",
+            prefixIcon: Icon(Icons.search),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(12.0)),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(12.0)),
+              borderSide: BorderSide(color: Colors.grey),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(12.0)),
+              borderSide: BorderSide(color: Colors.blue),
+            ),
+            contentPadding:
+                EdgeInsets.symmetric(vertical: 0.0, horizontal: 12.0),
+            filled: true,
+            fillColor: Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _SliderSection extends StatelessWidget {
+  final HomeController controller;
+  const _SliderSection({required this.controller});
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() {
+      switch (controller.sliderApiStatus.value) {
+        case ApiCallStatus.loading:
+          return const Center(child: CircularProgressIndicator());
+        case ApiCallStatus.error:
+          return const Center(child: Text("Slider loading failed"));
+        case ApiCallStatus.holding:
+          return const SizedBox.shrink();
+        case ApiCallStatus.success:
+          final sliders = controller.sliderModel.value.sliders ?? [];
+          if (sliders.isEmpty) return const SizedBox.shrink();
+
+          return CarouselSlider(
+            options: CarouselOptions(
+              aspectRatio: 14 / 4,
+              enlargeCenterPage: true,
+              enlargeStrategy: CenterPageEnlargeStrategy.height,
+              autoPlay: true,
+              viewportFraction: 1.0,
+              onPageChanged: (currentIndex, reason) {
+                controller.dotsCount = currentIndex;
+              },
+            ),
+            items: sliders.map((sliderItem) {
+              final imageUrl =
+                  AppConstants.storageUrl + (sliderItem.image ?? '');
+              if (kDebugMode) debugPrint('URL IMAGE : $imageUrl');
+              return ClipRRect(
+                borderRadius: BorderRadius.circular(7.0),
+                child: Container(
+                  height: 120.h,
+                  decoration: BoxDecoration(color: Colors.grey.shade200),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: CachedNetworkImage(
+                      imageUrl: imageUrl,
+                      fit: BoxFit.cover,
+                      placeholder: (c, u) =>
+                          const Center(child: CircularProgressIndicator()),
+                      errorWidget: (c, u, e) =>
+                          const Center(child: Icon(Icons.broken_image)),
+                    ),
+                  ),
+                ),
+              );
+            }).toList(),
+          );
+        case ApiCallStatus.empty:
+          // TODO: Handle this case.
+          throw UnimplementedError();
+        case ApiCallStatus.cache:
+          // TODO: Handle this case.
+          throw UnimplementedError();
+        case ApiCallStatus.refresh:
+          // TODO: Handle this case.
+          throw UnimplementedError();
+      }
+    });
+  }
+}
+
+class _ShortcutGrid extends StatelessWidget {
+  final HomeController controller;
+  const _ShortcutGrid({required this.controller});
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      itemCount: controller.gridViewTitle.length,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10.0,
+        childAspectRatio: 4,
+      ),
+      itemBuilder: (_, i) {
+        final title = controller.gridViewTitle[i];
+        final route = controller.gridViewRoutePage[i];
+        return GestureDetector(
+          onTap: () => Get.to(route),
+          child: Container(
+            padding:
+                const EdgeInsets.symmetric(vertical: 8.00, horizontal: 4.00),
+            decoration: BoxDecoration(
+              color: LightThemeColors.white,
+              borderRadius: BorderRadius.circular(7.0),
+              border:
+                  Border.all(color: LightThemeColors.primaryColor, width: 1),
+            ),
+            child: Center(
+              child: Text(
+                title,
+                style: AppTextStyles.heading5,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _PremiumExamSection extends StatelessWidget {
+  final ExamCategoryController examController;
+  const _PremiumExamSection({required this.examController});
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() {
+      final categories =
+          examController.courseCategoriesModel.value.courseCategories ?? [];
+      if (categories.isEmpty) return const SizedBox.shrink();
+      return SizedBox(
+        height: Get.height / 15,
+        child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          physics: const BouncingScrollPhysics(),
+          itemCount: categories.length,
+          separatorBuilder: (_, __) => SizedBox(width: 12.w),
+          itemBuilder: (_, x) {
+            final cat = categories[x];
+            return ExamCategoryCard(
+              title: cat.title ?? '',
+              onTap: () {
+                Get.toNamed(Routes.COURSES, arguments: {
+                  "course_category_id": cat.id,
+                  "category_name": cat.title,
+                });
+              },
+              borderColor: LightThemeColors.primaryColor.withOpacity(0.4),
+              iconColor: LightThemeColors.primaryColor,
+            );
+          },
+        ),
+      );
+    });
+  }
+}
+
+class _FreeExamSection extends StatelessWidget {
+  final ExamCategoryController examController;
+  const _FreeExamSection({required this.examController});
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() {
+      final exams = examController.model.value.examCategories ?? [];
+      if (exams.isEmpty) return const SizedBox.shrink();
+      return SizedBox(
+        height: Get.height / 15,
+        child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          physics: const BouncingScrollPhysics(),
+          itemCount: exams.length,
+          separatorBuilder: (_, __) => SizedBox(width: 12.w),
+          itemBuilder: (_, x) {
+            final exam = exams[x];
+            return ExamCategoryCard(
+              title: exam.name ?? '',
+              onTap: () {
+                if (exam.id != null) {
+                  Get.toNamed(Routes.EXAM_CATEGORY_DETAILS, arguments: {
+                    "category_id": exam.id,
+                    "category_name": exam.name,
+                  });
+                }
+              },
+              borderColor: LightThemeColors.primaryColor.withOpacity(0.4),
+              iconColor: LightThemeColors.primaryColor,
+            );
+          },
+        ),
+      );
+    });
+  }
+}
+
+class _SubjectSection extends StatelessWidget {
+  final HomeController controller;
+  const _SubjectSection({required this.controller});
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() {
+      switch (controller.subjectSectionApiStatus.value) {
+        case ApiCallStatus.loading:
+          return const Center(child: CircularProgressIndicator());
+        case ApiCallStatus.error:
+          return const Center(child: Text("কিছু ভুল হয়েছে, আবার চেষ্টা করুন"));
+        case ApiCallStatus.success:
+          final list =
+              controller.subjectSectionModel.value.subjectSections ?? [];
+          if (list.isEmpty) return const SizedBox.shrink();
+          return GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              childAspectRatio: 4,
+            ),
+            itemCount: list.length,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              final data = list[index];
+              return GestureDetector(
+                onTap: () {
+                  MySharedPref.clearSubjectSection();
+                  Get.to(SubjectSectionView(subject: data.subject));
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(7.0),
+                    border: Border.all(color: Colors.grey, width: 0.5.w),
+                  ),
+                  child: Center(
+                    child: Text(
+                      data.name.toString(),
+                      style: AppTextStyles.body2.copyWith(
+                        height: 1.1.h,
+                        fontSize: 12.sp,
+                      ),
+                      maxLines: 2,
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                    ).paddingSymmetric(horizontal: 2.00.w, vertical: 5.00.h),
+                  ),
+                ),
+              );
+            },
+          );
+        default:
+          return const SizedBox.shrink();
+      }
+    });
   }
 }

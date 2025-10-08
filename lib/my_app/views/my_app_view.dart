@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
         printAppInfo();
         final isLight = MySharedPref.getThemeIsLight();
         return GetMaterialApp(
+          // showPerformanceOverlay: true,
           title: AppStrings.appName,
           debugShowCheckedModeBanner: false,
           initialBinding: InitialBindings(),

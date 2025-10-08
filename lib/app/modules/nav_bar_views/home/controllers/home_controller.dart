@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lokkha/app/modules/contest/controller/latest_contest_controller.dart';
-import 'package:lokkha/app/modules/current_affairs/views/current_affairs_view.dart';
-import 'package:lokkha/app/modules/exam_category/controllers/exam_category_controller.dart';
-import 'package:lokkha/app/modules/grid_views/jobs/views/jobs_view.dart';
-import 'package:lokkha/app/modules/latest_exam/views/latest_exam_view.dart';
-import 'package:lokkha/app/modules/lecture_sheet/views/lecture_sheet_list_view.dart';
-import 'package:lokkha/app/modules/nav_bar_views/home/models/subject_sections_model.dart';
-import 'package:lokkha/app/modules/nav_bar_views/home/services/home_api_service.dart';
-import 'package:lokkha/app/modules/vocabulary/views/vocabulary_view.dart';
 import '../../../../services/api_call_status.dart';
+import '../../../contest/controller/latest_contest_controller.dart';
+import '../../../current_affairs/views/current_affairs_view.dart';
+import '../../../exam_category/controllers/exam_category_controller.dart';
 import '../../../exam_category/views/exam_category_view.dart';
+import '../../../grid_views/jobs/views/jobs_view.dart';
 import '../../../grid_views/mock_test_tab/views/mock_test_tab_view.dart';
+import '../../../latest_exam/views/latest_exam_view.dart';
+import '../../../vocabulary/views/vocabulary_view.dart';
 import '../models/slider_model.dart';
+import '../models/subject_sections_model.dart';
+import '../services/home_api_service.dart';
+
 
 class HomeController extends GetxController {
   int dotsCount = 0;
@@ -26,42 +26,69 @@ class HomeController extends GetxController {
     'পরীক্ষা সমূহ',
   ];
 
-  final List gridViewRoutePage = [
+  final List<Widget> gridViewRoutePage = [
     const MockTestTabView(),
     const CurrentAffairsView(),
     const JobsView(),
     const LatestExamView(),
     const VocabularyView(),
     const ExamCategoryView(),
-    //const LectureSheetListView(),
   ];
 
   final HomeApiService homeApiService = HomeApiService();
+
+  // Reactive API statuses & models
   Rx<ApiCallStatus> get sliderApiStatus => homeApiService.sliderApiStatus;
   Rx<ApiCallStatus> get subjectSectionApiStatus =>
       homeApiService.subjectSectionApiStatus;
+
   Rx<SliderModel> get sliderModel => homeApiService.sliderModel;
   Rx<SubjectSectionModel> get subjectSectionModel =>
       homeApiService.subjectSectionModel;
+
+  late final LatestContestController contestController;
+  late final ExamCategoryController examController;
 
   @override
   void onInit() {
     super.onInit();
     debugPrint("HomeController Initialized");
-    homeApiService.fetchSliders();
-    homeApiService.fetchSubjectSection();
+
+    // Controllers safely injected
+    contestController = Get.put(LatestContestController(), permanent: true);
+    examController = Get.put(ExamCategoryController(), permanent: true);
+
+    // Initial API fetch
+    _fetchInitialData();
+  }
+
+  Future<void> _fetchInitialData() async {
+    try {
+      await Future.wait([
+        homeApiService.fetchSliders(),
+        homeApiService.fetchSubjectSection(),
+        contestController.fetchContest(),
+        contestController.fetchContestResult(),
+        contestController.fetchAllContest(),
+        examController.fetchCourseCategories(),
+      ]);
+      debugPrint("Initial Home data fetched successfully");
+    } catch (e) {
+      debugPrint("Error fetching initial Home data: $e");
+    }
   }
 
   Future<void> refreshHomeViewData() async {
-    await homeApiService.fetchSliders();
-    await homeApiService.fetchSubjectSection();
-    await Get.find<LatestContestController>().fetchContest();
-    await Get.find<LatestContestController>().fetchContestResult();
-    await Get.find<LatestContestController>()
-        .fetchAllContest()
-        .then((_) => debugPrint("Called fetchAll Contest"));
-    debugPrint("Called fetchAll Contest2");
-    await Get.find<ExamCategoryController>().fetchCourseCategories();
-    update(); // for ui update
+    try {
+      await _fetchInitialData();
+    } catch (e) {
+      debugPrint("Error refreshing Home data: $e");
+    }
+  }
+
+  @override
+  void onClose() {
+    debugPrint("HomeController disposed");
+    super.onClose();
   }
 }

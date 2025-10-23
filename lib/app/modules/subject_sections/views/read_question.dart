@@ -183,7 +183,6 @@ class ReadQuestionView extends StatelessWidget {
           }).toList(),
         ),
         Row(
-          spacing: 10.0,
           children: [
             Expanded(
               child: ExamCustomButton(
@@ -191,9 +190,11 @@ class ReadQuestionView extends StatelessWidget {
                 onPressed: () {
                   Get.defaultDialog(
                     title: "উত্তর ও সমাধান",
-                    content: SizedBox(
-                      height: Get.height * 0.6, // Screen 60% Height
-                      width: Get.width * 0.9,
+                    content: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxHeight: Get.height * 0.6, // Max 60% of screen height
+                        maxWidth: Get.width * 0.9,
+                      ),
                       child: SingleChildScrollView(
                         child: AnswerAndSolutionWidgets(question: question),
                       ),

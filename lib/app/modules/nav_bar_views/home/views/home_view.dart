@@ -66,7 +66,10 @@ class HomeView extends StatelessWidget {
             8.h.height,
             RandomQuestionSelector(),
             8.h.height,
-            SectionTitleWithDivider(title: "প্রিমিয়াম পরীক্ষা সমূহ"),
+            SectionTitleWithSeeAll(
+              title: "প্রিমিয়াম পরীক্ষা সমূহ",
+              onSeeAllPressed: () => Get.toNamed(Routes.SEE_ALL_ITEMS),
+            ),
             SizedBox(height: 8.h),
             _PremiumExamSection(examController: examController),
             8.h.height,
@@ -93,6 +96,72 @@ class HomeView extends StatelessWidget {
             8.h.height,
           ],
         ),
+      ),
+    );
+  }
+}
+
+class SectionTitleWithSeeAll extends StatelessWidget {
+  final String title;
+  final VoidCallback? onSeeAllPressed;
+  final Color color;
+  final double fontSize;
+  final double dividerHeight;
+  final EdgeInsetsGeometry padding;
+
+  const SectionTitleWithSeeAll({
+    super.key,
+    required this.title,
+    this.onSeeAllPressed,
+    this.color = LightThemeColors.primaryColor,
+    this.fontSize = 18,
+    this.dividerHeight = 1.5,
+    this.padding = const EdgeInsets.symmetric(horizontal: 2),
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: padding,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            children: [
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: fontSize,
+                  fontWeight: FontWeight.bold,
+                  color: color,
+                  letterSpacing: 0.5,
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: transparentDivider(
+                  beginTransparent: false,
+                  height: dividerHeight,
+                ),
+              ),
+              TextButton(
+                onPressed: onSeeAllPressed,
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.zero,
+                  minimumSize: const Size(50, 30),
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                ),
+                child: Text(
+                  'See All',
+                  style: TextStyle(
+                    fontSize: fontSize * 0.85,
+                    color: color,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

@@ -1,10 +1,13 @@
 import 'dart:ui';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
+import 'package:lokkha/app/components/custom_action_button.dart';
 import 'package:lokkha/app/modules/exam/controllers/exam_controller.dart';
 import 'package:lokkha/app/modules/subject_sections/views/read_question.dart';
+import 'package:lokkha/config/extensions/common_extension.dart';
 import '../../../models/exam.dart';
 import '../../../routes/app_pages.dart';
 
@@ -213,6 +216,49 @@ class ExamDetailsDialog extends StatelessWidget {
                         ],
                       );
                     }),
+                    10.h.height,
+
+                    Container(
+                      margin: const EdgeInsets.only(top: 10),
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: primaryColor.withOpacity(0.05),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: primaryColor.withOpacity(0.2)),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Icon(Icons.card_giftcard, color: primaryColor, size: 20),
+                              const SizedBox(width: 8),
+                              Expanded(
+                                child: Text(
+                                  "প্রতিদিন একটি পরীক্ষা ফ্রি দিন। একাধিক পরীক্ষায় অংশ নিতে একটি প্যাকেজ গ্রহণ করুন।",
+                                  style: const TextStyle(
+                                    fontSize: 14.5,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 12),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: CustomActionButton(
+                              text: "প্যাকেজ কিনুন",
+                              onPressed: () {
+                                Get.toNamed(Routes.PREMIUM_PACKAGES);
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
                   ],
                 ),
               ),

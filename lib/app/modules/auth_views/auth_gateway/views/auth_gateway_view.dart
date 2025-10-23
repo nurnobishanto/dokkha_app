@@ -35,13 +35,13 @@ class AuthGatewayView extends GetView<AuthGatewayController> {
               style: AppTextStyles.body1,
             ),
             50.h.height,
-            DecisionButton(
-              text: "Sign in with google",
-              leadingWidget: const FaIcon(FontAwesomeIcons.google, size: 20),
-              onPressed: () {
-
-              },
-            ),
+            // DecisionButton(
+            //   text: "Sign in with google",
+            //   leadingWidget: const FaIcon(FontAwesomeIcons.google, size: 20),
+            //   onPressed: () {
+            //
+            //   },
+            // ),
             // DecisionButton(
             //   text: "Sign in with Facebook",
             //   leadingWidget: const FaIcon(FontAwesomeIcons.facebook, size: 20),

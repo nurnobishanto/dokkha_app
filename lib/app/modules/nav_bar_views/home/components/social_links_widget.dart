@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class SocialLinksScreen extends StatelessWidget {
-  SocialLinksScreen({Key? key}) : super(key: key);
+  SocialLinksScreen({super.key});
 
   void _launchURL(String url) async {
     await launchUrlString(url, mode: LaunchMode.externalApplication);

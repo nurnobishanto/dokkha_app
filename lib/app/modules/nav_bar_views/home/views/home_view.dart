@@ -66,9 +66,12 @@ class HomeView extends StatelessWidget {
             8.h.height,
             RandomQuestionSelector(),
             8.h.height,
-            SectionTitleWithSeeAll(
+            // SectionTitleWithSeeAll(
+            //   title: "প্রিমিয়াম পরীক্ষা সমূহ",
+            //   onSeeAllPressed: () => Get.toNamed(Routes.SEE_ALL_ITEMS),
+            // ),
+            SectionTitleWithDivider(
               title: "প্রিমিয়াম পরীক্ষা সমূহ",
-              onSeeAllPressed: () => Get.toNamed(Routes.SEE_ALL_ITEMS),
             ),
             SizedBox(height: 8.h),
             _PremiumExamSection(examController: examController),

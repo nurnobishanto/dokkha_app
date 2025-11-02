@@ -1,13 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lokkha/app/models/start_exam_model.dart';
 import 'package:lokkha/app/modules/exam/models/exam_details_model.dart';
 import 'package:lokkha/app/modules/exam/models/start_exam_model.dart';
 
 import '../../../../utils/constants.dart';
 import '../../../data/local/my_shared_pref.dart';
-import '../../../helper/api_helper.dart';
 import '../../../services/api_call_status.dart';
 import '../../../services/base_client.dart';
 import '../../auth_views/auth_gateway/views/auth_gateway_view.dart';

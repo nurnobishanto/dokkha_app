@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lokkha/app/components/custom_decision_button.dart';
-import 'package:lokkha/app/modules/auth_views/auth_gateway/views/social_login.dart';
 import 'package:lokkha/app/views/widgets/base_webview.dart';
 import 'package:lokkha/app/helper/global.dart';
 import 'package:lokkha/config/constants/app_images.dart';

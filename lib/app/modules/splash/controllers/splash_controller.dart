@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:lokkha/app/bindings/initial_bindings.dart';
 import '../../../routes/app_pages.dart';
 import '../../../services/app_update_service.dart';
 

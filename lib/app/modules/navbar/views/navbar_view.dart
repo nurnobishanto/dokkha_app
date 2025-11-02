@@ -37,7 +37,6 @@ class NavbarView extends GetView<NavbarController> {
                 label: "Messenger",
                 backgroundColor: LightThemeColors.primaryColor,
               ),
-
               const BottomNavigationBarItem(
                 icon: FaIcon(FontAwesomeIcons.boxOpen, size: 18),
                 label: "প্রিমিয়াম",

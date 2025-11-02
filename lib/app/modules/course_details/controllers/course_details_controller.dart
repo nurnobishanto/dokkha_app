@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:flutter/foundation.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:lokkha/app/services/api_call_status.dart';
 import 'package:lokkha/app/services/base_client.dart';
 import 'package:lokkha/utils/constants.dart';

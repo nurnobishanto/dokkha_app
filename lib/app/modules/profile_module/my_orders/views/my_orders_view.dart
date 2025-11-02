@@ -36,7 +36,7 @@ class MyOrdersView extends GetView<MyOrdersController> {
                         orderId: "#${data.invoiceNo}",
                         date: data.createdAt!,
                         status: data.status ?? '',
-                        totalAmount: data.total ?? '',
+                        totalAmount: '${data.total}',
                         paymentMethod: data.paymentMethod ?? '',
                       ),
                     );

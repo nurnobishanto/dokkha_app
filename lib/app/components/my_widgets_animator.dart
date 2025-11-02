@@ -20,7 +20,7 @@ class MyWidgetsAnimator extends StatelessWidget {
   final bool hideSuccessWidgetWhileRefreshing;
 
   const MyWidgetsAnimator({
-    Key? key,
+    super.key,
     required this.apiCallStatus,
     required this.loadingWidget,
     required this.errorWidget,
@@ -31,7 +31,7 @@ class MyWidgetsAnimator extends StatelessWidget {
     this.animationDuration,
     this.transitionBuilder,
     this.hideSuccessWidgetWhileRefreshing = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:lokkha/app/models/course_category.dart';
 import 'package:lokkha/app/modules/exam_category/models/course_categories_model.dart';
 import 'package:lokkha/app/modules/exam_category/models/exam_categories_model.dart';
 import 'package:lokkha/app/services/api_call_status.dart';
 import '../../../services/base_client.dart';
 import '../../../../utils/constants.dart';
-import '../models/courses_model.dart';
 
 class ExamCategoryController extends GetxController {
   final model = ExamCategoriesModel().obs;

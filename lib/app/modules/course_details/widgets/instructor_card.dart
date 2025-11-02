@@ -29,7 +29,7 @@ class InstructorCard extends StatelessWidget {
             CircleAvatar(
               radius: 30,
               backgroundImage: NetworkImage(
-                (imageUrl.isNotEmpty || imageUrl == null)
+                (imageUrl.isNotEmpty)
                     ? imageUrl
                     : 'https://api.dicebear.com/6.x/initials/svg?seed=$name}',
               ),

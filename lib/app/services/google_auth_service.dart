@@ -1,6 +1,3 @@
-import 'package:flutter/foundation.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-
 class GoogleAuthService {
   // final GoogleSignIn _signIn = GoogleSignIn.instance;
   //
@@ -21,5 +18,4 @@ class GoogleAuthService {
   //
   //   _signIn.attemptLightweightAuthentication();
   // }
-
 }

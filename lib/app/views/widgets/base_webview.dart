@@ -6,10 +6,10 @@ class BaseWebView extends StatefulWidget {
   final String url;
 
   const BaseWebView({
-    Key? key,
+    super.key,
     required this.title,
     required this.url,
-  }) : super(key: key);
+  });
 
   @override
   _BaseWebViewState createState() => _BaseWebViewState();

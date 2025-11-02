@@ -102,7 +102,7 @@ class ExamCategoryDetailsView extends GetView<ExamCategoryDetailsController> {
 
               //bottom padding so last item isn’t under the bar
               const SliverToBoxAdapter(
-                child: SizedBox(height: kBottomNavigationBarHeight + 20),
+                child: SizedBox(height: kBottomNavigationBarHeight),
               ),
             ],
           );
@@ -110,82 +110,83 @@ class ExamCategoryDetailsView extends GetView<ExamCategoryDetailsController> {
       ),
       bottomNavigationBar: Obx(() {
         if (controller.totalPages.value <= 1) return const SizedBox.shrink();
+        return SafeArea(
+          child: Container(
+            color: Colors.white,
+            padding: const EdgeInsets.only(bottom: 20, left: 25),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  // First Page
+                  IconButton(
+                    icon: const Icon(Icons.first_page),
+                    onPressed: controller.currentPage.value > 1
+                        ? controller.firstPage
+                        : null,
+                  ),
 
-        return Container(
-          color: Colors.white,
-          padding: const EdgeInsets.only(bottom: 20, left: 25),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                // First Page
-                IconButton(
-                  icon: const Icon(Icons.first_page),
-                  onPressed: controller.currentPage.value > 1
-                      ? controller.firstPage
-                      : null,
-                ),
+                  // Previous
+                  IconButton(
+                    icon: const Icon(Icons.navigate_before),
+                    onPressed: controller.currentPage.value > 1
+                        ? controller.previousPage
+                        : null,
+                  ),
 
-                // Previous
-                IconButton(
-                  icon: const Icon(Icons.navigate_before),
-                  onPressed: controller.currentPage.value > 1
-                      ? controller.previousPage
-                      : null,
-                ),
-
-                // Page Numbers
-                ...List.generate(
-                        controller.totalPages.value, (index) => index + 1)
-                    .where((page) {
-                  int current = controller.currentPage.value;
-                  return (page >= current - 2 && page <= current + 2) ||
-                      page == 1 ||
-                      page == controller.totalPages.value;
-                }).map((page) {
-                  bool isActive = page == controller.currentPage.value;
-                  return InkWell(
-                    onTap: () => controller.goToPage(page),
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 4),
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 6, horizontal: 10),
-                      decoration: BoxDecoration(
-                        color: isActive
-                            ? LightThemeColors.primaryColor
-                            : Colors.grey.shade200,
-                        borderRadius: BorderRadius.circular(8),
-                        border:
-                            Border.all(color: LightThemeColors.primaryColor),
-                      ),
-                      child: Text(
-                        page.toString(),
-                        style: TextStyle(
-                          color: isActive ? Colors.white : Colors.black87,
+                  // Page Numbers
+                  ...List.generate(
+                          controller.totalPages.value, (index) => index + 1)
+                      .where((page) {
+                    int current = controller.currentPage.value;
+                    return (page >= current - 2 && page <= current + 2) ||
+                        page == 1 ||
+                        page == controller.totalPages.value;
+                  }).map((page) {
+                    bool isActive = page == controller.currentPage.value;
+                    return InkWell(
+                      onTap: () => controller.goToPage(page),
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 4),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 6, horizontal: 10),
+                        decoration: BoxDecoration(
+                          color: isActive
+                              ? LightThemeColors.primaryColor
+                              : Colors.grey.shade200,
+                          borderRadius: BorderRadius.circular(8),
+                          border:
+                              Border.all(color: LightThemeColors.primaryColor),
+                        ),
+                        child: Text(
+                          page.toString(),
+                          style: TextStyle(
+                            color: isActive ? Colors.white : Colors.black87,
+                          ),
                         ),
                       ),
-                    ),
-                  );
-                }),
+                    );
+                  }),
 
-                // Next
-                IconButton(
-                  icon: const Icon(Icons.navigate_next),
-                  onPressed:
-                      controller.currentPage.value < controller.totalPages.value
-                          ? controller.nextPage
-                          : null,
-                ),
+                  // Next
+                  IconButton(
+                    icon: const Icon(Icons.navigate_next),
+                    onPressed: controller.currentPage.value <
+                            controller.totalPages.value
+                        ? controller.nextPage
+                        : null,
+                  ),
 
-                // Last
-                IconButton(
-                  icon: const Icon(Icons.last_page),
-                  onPressed:
-                      controller.currentPage.value < controller.totalPages.value
-                          ? controller.lastPage
-                          : null,
-                ),
-              ],
+                  // Last
+                  IconButton(
+                    icon: const Icon(Icons.last_page),
+                    onPressed: controller.currentPage.value <
+                            controller.totalPages.value
+                        ? controller.lastPage
+                        : null,
+                  ),
+                ],
+              ),
             ),
           ),
         );

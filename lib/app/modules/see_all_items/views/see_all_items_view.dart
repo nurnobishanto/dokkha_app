@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/see_all_items_controller.dart';
 
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import '../controllers/see_all_items_controller.dart';
-
 class SeeAllItemsView extends GetView<SeeAllItemsController> {
   const SeeAllItemsView({super.key});
 
@@ -26,9 +22,10 @@ class SeeAllItemsView extends GetView<SeeAllItemsController> {
         return NotificationListener<ScrollNotification>(
           onNotification: (scrollInfo) {
             if (scrollInfo.metrics.pixels ==
-                scrollInfo.metrics.maxScrollExtent &&
+                    scrollInfo.metrics.maxScrollExtent &&
                 !controller.isLoading.value) {
-              controller.fetchAllCourses(page: controller.currentPage.value + 1);
+              controller.fetchAllCourses(
+                  page: controller.currentPage.value + 1);
             }
             return false;
           },
@@ -39,9 +36,9 @@ class SeeAllItemsView extends GetView<SeeAllItemsController> {
               if (index == items.length) {
                 return controller.isLoading.value
                     ? const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16),
-                  child: Center(child: CircularProgressIndicator()),
-                )
+                        padding: EdgeInsets.symmetric(vertical: 16),
+                        child: Center(child: CircularProgressIndicator()),
+                      )
                     : const SizedBox();
               }
 
@@ -54,7 +51,7 @@ class SeeAllItemsView extends GetView<SeeAllItemsController> {
                 ),
                 child: ListTile(
                   contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   leading: ClipRRect(
                     borderRadius: BorderRadius.circular(6),
                     child: Image.network(
@@ -63,7 +60,7 @@ class SeeAllItemsView extends GetView<SeeAllItemsController> {
                       height: 60,
                       fit: BoxFit.cover,
                       errorBuilder: (_, __, ___) =>
-                      const Icon(Icons.image_not_supported),
+                          const Icon(Icons.image_not_supported),
                     ),
                   ),
                   title: Text(

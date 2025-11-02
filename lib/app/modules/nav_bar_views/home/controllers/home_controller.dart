@@ -13,7 +13,6 @@ import '../models/slider_model.dart';
 import '../models/subject_sections_model.dart';
 import '../services/home_api_service.dart';
 
-
 class HomeController extends GetxController {
   int dotsCount = 0;
 

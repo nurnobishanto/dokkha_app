@@ -11,7 +11,6 @@ import '../widgets/course_button_bar.dart';
 import '../widgets/course_image_viewer.dart';
 import '../widgets/course_info_row.dart';
 import '../widgets/course_module_expansion.dart';
-import '../widgets/instructor_card.dart';
 
 class CourseDetailsView extends GetView<CourseDetailsController> {
   const CourseDetailsView({super.key});
@@ -173,13 +172,13 @@ class CourseDetailsView extends GetView<CourseDetailsController> {
                   ),
                   const SizedBox(height: 5),
                   GestureDetector(
-                    onTap: () => makePhoneCall('+8801332804280'),
+                    onTap: () => makePhoneCall('+8801332804290'),
                     child: Row(
                       children: [
                         Image.asset('assets/images/phone_call.png',
                             width: 17, height: 17),
                         const SizedBox(width: 10),
-                        const Text('+8801332804280',
+                        const Text('+8801332804290',
                             style: TextStyle(fontSize: 14.0)),
                       ],
                     ),

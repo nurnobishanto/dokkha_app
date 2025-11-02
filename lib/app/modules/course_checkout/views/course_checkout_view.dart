@@ -15,7 +15,6 @@ import '../../../components/custom_action_button.dart';
 import '../../../components/custom_text_field.dart';
 import '../../../helper/global.dart';
 import '../../../models/course.dart';
-import '../../../models/package.dart';
 import '../../../services/api_call_status.dart';
 
 class CourseCheckoutView extends GetView<PremiumPackageCheckoutController> {

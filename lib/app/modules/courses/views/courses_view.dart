@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:lokkha/config/extensions/common_extension.dart';
 import 'package:lokkha/utils/constants.dart';
 import '../../../routes/app_pages.dart';
 import '../../../services/api_call_status.dart';

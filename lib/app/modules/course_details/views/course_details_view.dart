@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
+import 'package:lokkha/app/views/views/pdf_viewer.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
 import 'package:lokkha/utils/constants.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import '../../../../utils/phone_utils.dart';
 import '../../../components/custom_action_button.dart';
 import '../../../routes/app_pages.dart';
@@ -11,6 +13,7 @@ import '../widgets/course_button_bar.dart';
 import '../widgets/course_image_viewer.dart';
 import '../widgets/course_info_row.dart';
 import '../widgets/course_module_expansion.dart';
+import '../widgets/routine_bottom_sheet.dart';
 
 class CourseDetailsView extends GetView<CourseDetailsController> {
   const CourseDetailsView({super.key});
@@ -64,12 +67,55 @@ class CourseDetailsView extends GetView<CourseDetailsController> {
                   /// Quick Info
                   CourseInfoRow(
                     title: "Quick Info",
-                    enrolledCount: 1,
-                    videoCount: course.itemsCount,
+                    enrolledCount: course.usersCount,
+                    examCount: course.itemsCount,
                     duration: course.duration,
                     lifetimeAccess: course.lifetimeAccess == 1,
                     iconColor: theme.primaryColor,
                   ),
+
+                  if ((course.routineFile ?? '').trim().isNotEmpty) ...[
+                    const SizedBox(height: 20),
+                    Text(
+                      "Routine",
+                      style: textTheme.titleMedium
+                          ?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 10),
+                    GestureDetector(
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.vertical(top: Radius.circular(16)),
+                          ),
+                          builder: (_) => RoutineBottomSheet(
+                            fileUrl: course.routineFile!,
+                          ),
+                        );
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 12, horizontal: 16),
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade200,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              _getRoutineIcon(course.routineFile!),
+                              color: Colors.red,
+                            ),
+                            const SizedBox(width: 10),
+                            Text("View Routine", style: textTheme.bodyMedium),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
 
                   // const SizedBox(height: 10),
                   // if (course.package != null && !havePackage.value) ...[
@@ -101,7 +147,7 @@ class CourseDetailsView extends GetView<CourseDetailsController> {
 
                   /// Description
                   if ((course.details ?? '').trim().isNotEmpty) ...[
-                    const SizedBox(height: 25),
+                    const SizedBox(height: 20),
                     Text(
                       "Course Details",
                       style: textTheme.titleMedium
@@ -223,4 +269,15 @@ class CourseDetailsView extends GetView<CourseDetailsController> {
       ),
     );
   }
+}
+
+IconData _getRoutineIcon(String filePath) {
+  final lower = filePath.toLowerCase();
+  if (lower.endsWith(".pdf")) return Icons.picture_as_pdf;
+  if (lower.endsWith(".png") ||
+      lower.endsWith(".jpg") ||
+      lower.endsWith(".jpeg")) {
+    return Icons.image;
+  }
+  return Icons.insert_drive_file; // fallback
 }

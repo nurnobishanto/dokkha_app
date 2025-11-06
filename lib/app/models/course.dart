@@ -24,6 +24,7 @@ class Course {
   final DateTime? publishDate;
   final int? status;
   final dynamic promotionVideo;
+  final String? routineFile;
   final int? isExamBatch;
   final int? lifetimeAccess;
   final int? featured;
@@ -62,6 +63,7 @@ class Course {
     this.publishDate,
     this.status,
     this.promotionVideo,
+    this.routineFile,
     this.isExamBatch,
     this.lifetimeAccess,
     this.featured,
@@ -103,6 +105,7 @@ class Course {
             : DateTime.parse(json["publish_date"]),
         status: json["status"],
         promotionVideo: json["promotion_video"],
+    routineFile: json["routine_file"],
         isExamBatch: json["is_exam_batch"],
         lifetimeAccess: json["lifetime_access"],
         featured: json["featured"],
@@ -158,6 +161,7 @@ class Course {
             "${publishDate!.year.toString().padLeft(4, '0')}-${publishDate!.month.toString().padLeft(2, '0')}-${publishDate!.day.toString().padLeft(2, '0')}",
         "status": status,
         "promotion_video": promotionVideo,
+        "routine_file": routineFile,
         "is_exam_batch": isExamBatch,
         "lifetime_access": lifetimeAccess,
         "featured": featured,

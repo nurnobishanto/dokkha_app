@@ -109,8 +109,10 @@ class CourseCheckoutView extends GetView<PremiumPackageCheckoutController> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                    "${course.title ?? ''}\n${course.duration ?? ""}"),
+                                Expanded(
+                                  child: Text(
+                                      "${course.title ?? ''}\n${course.duration ?? ""}"),
+                                ),
                                 Text(
                                   '৳${course.regularPrice.toString()}',
                                   style: const TextStyle(

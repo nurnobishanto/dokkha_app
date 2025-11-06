@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CourseInfoRow extends StatelessWidget {
   final String title;
   final int? enrolledCount;
-  final int? videoCount;
+  final int? examCount;
   final String? duration;
   final bool lifetimeAccess;
   final Color iconColor;
@@ -12,7 +12,7 @@ class CourseInfoRow extends StatelessWidget {
     super.key,
     required this.title,
     this.enrolledCount,
-    this.videoCount,
+    this.examCount,
     this.duration,
     required this.lifetimeAccess,
     required this.iconColor,
@@ -26,8 +26,8 @@ class CourseInfoRow extends StatelessWidget {
       items.add(_infoIconText(Icons.people, "$enrolledCount enrolled"));
     }
 
-    if ((videoCount ?? 0) > 0) {
-      items.add(_infoIconText(Icons.video_library, "$videoCount video"));
+    if ((examCount ?? 0) > 0) {
+      items.add(_infoIconText(Icons.school, "$examCount exams"));
     }
 
     if ((duration?.isNotEmpty ?? false) || lifetimeAccess) {

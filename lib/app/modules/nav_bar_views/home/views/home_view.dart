@@ -20,6 +20,7 @@ import '../../../../components/custom_transparent_divider.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../exam_category/controllers/exam_category_controller.dart';
 import '../../../exam_category/widgets/exam_category_card.dart';
+import '../../../see_all_items/views/all_exam_view.dart';
 import '../../../subject_sections/views/subject_sections_view.dart';
 import '../components/social_links_widget.dart';
 import '../controllers/home_controller.dart';
@@ -76,7 +77,10 @@ class HomeView extends StatelessWidget {
             SizedBox(height: 8.h),
             _PremiumExamSection(examController: examController),
             8.h.height,
-            SectionTitleWithDivider(title: "ফ্রি পরীক্ষা সমূহ"),
+            InkWell(
+              onTap: () => Get.to(AllExamView()),
+              child: SectionTitleWithDivider(title: "ফ্রি পরীক্ষা সমূহ"),
+            ),
             SizedBox(height: 8.h),
             _FreeExamSection(examController: examController),
             8.h.height,

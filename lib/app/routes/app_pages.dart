@@ -321,10 +321,10 @@ class AppPages {
     //   page: () => const CourseCheckoutView(course: null,),
     //   binding: CourseCheckoutBinding(),
     // ),
-    GetPage(
-      name: _Paths.SEE_ALL_ITEMS,
-      page: () => const SeeAllItemsView(),
-      binding: SeeAllItemsBinding(),
-    ),
+    // GetPage(
+    //   name: _Paths.SEE_ALL_ITEMS,
+    //   page: () => const SeeAllItemsView(),
+    //   binding: SeeAllItemsBinding(),
+    // ),
   ];
 }

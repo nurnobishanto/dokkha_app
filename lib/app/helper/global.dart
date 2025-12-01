@@ -15,33 +15,34 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 import '../models/user.dart';
 
-/// 🌍 GLOBAL CONFIG: shared across the entire app.
+///GLOBAL CONFIG: shared across the entire app.
 
-/// ✅ App Info
+/// App Info
 String appName = AppStrings.appName;
 RxString appVersion = ''.obs;
 RxString appVersionCode = ''.obs;
 RxString appPackage = ''.obs;
 String appAuthor = "Techyfo";
 
-/// ✅ Environment
+/// Environment
 bool isDebugMode = true;
 bool isProduction = false;
 bool enableLogging = true;
 
-/// ✅ API & Headers
+///  API & Headers
 Map<String, String> defaultHeaders = {
   "Content-Type": "application/json",
   "Accept": "application/json",
 };
 
-/// ✅ Authentication / User Info (Reactive)
+///  Authentication / User Info (Reactive)
 RxString? currentUserId = ''.obs;
 RxString? userName = ''.obs;
 RxString? userEmail = ''.obs;
 RxString? userPhone = ''.obs;
 RxString? userRole = ''.obs;
 RxBool isLoggedIn = false.obs;
+RxBool havePackage = false.obs;
 
 /// ✅ Device Info
 String? deviceId;
@@ -70,12 +71,12 @@ double defaultPaddingHorizontal = 8.0.w;
 double defaultRadius = 12.0;
 EdgeInsets defaultMargin = EdgeInsets.all(8.0.r);
 
-/// ✅ File & Media
+/// File & Media
 RxString? imageUploadPath = ''.obs;
 RxString? downloadedFilePath = ''.obs;
 List<String> supportedImageTypes = ["jpg", "png", "jpeg"];
 
-/// ✅ Helper Methods
+///  Helper Methods
 
 void printAppInfo() {
   if (!enableLogging) return;
@@ -131,7 +132,7 @@ void logError(String error) {
   }
 }
 
-/// ✅ Misc Utility
+///  Misc Utility
 bool isValidEmail(String email) {
   return RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email);
 }

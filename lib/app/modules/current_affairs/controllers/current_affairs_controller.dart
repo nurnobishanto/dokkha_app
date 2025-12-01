@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:lokkha/app/data/local/my_shared_pref.dart';
 import 'package:lokkha/app/modules/current_affairs/models/current_affairs_model.dart';
 import 'package:lokkha/app/services/base_client.dart';
 import 'package:lokkha/utils/constants.dart';
@@ -12,28 +13,18 @@ class CurrentAffairsController extends GetxController {
 
   Future<void> fetchCurrentAffairs(String search,
       {int page = 1, bool refresh = false, String? date}) async {
-    //
-    // if (refresh) {
-    //
-    //     MyGetStorage.removeCache(MyGetStorage.bdAffairs);
-    //
-    // }
-    //
-    //   if (!refresh && MyGetStorage.getStorage.hasData(MyGetStorage.bdAffairs)) {
-    //     var cacheData = MyGetStorage.readCache(MyGetStorage.bdAffairs);
-    //     if (cacheData != null) {
-    //       model.value = CurrentAffairsModel.fromJson(cacheData);
-    //       isLoading.value = false;
-    //     }
-    //   }
-
+    final token = MySharedPref.getUserToken();
     isLoading.value = true;
     String url =
         "${AppConstants.nationalCA}?search=$search&page=$page&date=$date";
-
+    Map<String, String> headers = {
+      'Authorization': 'Bearer $token',
+      'Content-Type': 'application/json'
+    };
     BaseClient.safeApiCall(
       url,
       RequestType.get,
+      headers: headers,
       onSuccess: (response) {
         if (response.data["status"]) {
           CurrentAffairsModel modelData =

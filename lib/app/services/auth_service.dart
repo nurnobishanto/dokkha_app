@@ -37,15 +37,21 @@ class AuthService {
         apiCallStatus = ApiCallStatus.success;
         if (response.data['status']) {
           isLoggedIn.value = true;
+          havePackage.value = false;
+          if (response.data["havePackage"]) {
+            havePackage.value = true;
+          }
           if (response.data["update_profile_required"]) {
             Get.toNamed(Routes.PROFILE_UPDATE_REQUIRED, arguments: {
               "phoneNumber": response.data["data"]["phone"] ?? "",
             });
             isLoggedIn.value = true;
+
             Get.find<NavbarController>().getMeProfileInfo();
           }
         } else {
           isLoggedIn.value = false;
+          havePackage.value = false;
           MySharedPref.removeUserToken();
           MyGetStorage.removeCache(MyGetStorage.meUser);
           myUser = User();

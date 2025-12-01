@@ -1,14 +1,18 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:lokkha/app/helper/global.dart';
 import 'package:lokkha/app/modules/current_affairs/controllers/international_current_affairs_controller.dart';
 import 'package:lokkha/config/extensions/common_extension.dart';
 import 'package:lokkha/styles/text_style.dart';
 
 import '../../../../config/theme/light_theme_colors.dart';
 import '../../../views/widgets/explanation_dialog.dart';
+import '../../../views/widgets/package_required_popup.dart';
 
 class InternationalCurrentAffairsContentView extends StatelessWidget {
   const InternationalCurrentAffairsContentView({super.key});
@@ -24,16 +28,20 @@ class InternationalCurrentAffairsContentView extends StatelessWidget {
         child: IconButton(
           icon: const Icon(FontAwesomeIcons.calendar, color: Colors.white),
           onPressed: () async {
-            DateTime? pickedDate = await showDatePicker(
-              context: Get.context!,
-              initialDate: null,
-              firstDate: DateTime(2000),
-              lastDate: DateTime(2100),
-            );
-            if (pickedDate != null) {
-              String formattedDate =
-                  "${pickedDate.year}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
-              controller.fetchCurrentAffairs("", date: formattedDate);
+            if (havePackage.value) {
+              DateTime? pickedDate = await showDatePicker(
+                context: Get.context!,
+                initialDate: null,
+                firstDate: DateTime(2000),
+                lastDate: DateTime(2100),
+              );
+              if (pickedDate != null) {
+                String formattedDate =
+                    "${pickedDate.year}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
+                controller.fetchCurrentAffairs("", date: formattedDate);
+              }
+            } else {
+              Get.dialog(PackageRequiredPopup());
             }
           },
         ),
@@ -49,145 +57,223 @@ class InternationalCurrentAffairsContentView extends StatelessWidget {
           return const Center(child: Text('No Data Found'));
         }
 
-        return ListView.builder(
-          itemCount: items.length +
-              1, // +1 because we want to show "Load More" button after last item
-          itemBuilder: (context, index) {
-            if (index == items.length) {
-              // Last index => Load More Button
-              if (controller.currentPage.value <
-                  (controller.model.value.currentAffairs?.lastPage ?? 0)) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Center(
-                    child: GestureDetector(
-                      onTap: () {
-                        controller.fetchCurrentAffairs("",
-                            page: controller.currentPage.value + 1);
-                      },
-                      child: Container(
-                        height: 40,
-                        width: Get.width / 2,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20.0),
-                          border: Border.all(
-                            color: LightThemeColors.primaryColor,
-                            width: 1,
-                          ),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            'আরও দেখুন',
-                            style: TextStyle(
+        return
+          ListView.builder(
+            itemCount: items.length + 1, // +1 for Load More
+            itemBuilder: (context, index) {
+              if (index == items.length) {
+                // Load More button
+                if (controller.currentPage.value <
+                    (controller.model.value.currentAffairs?.lastPage ?? 0)) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Center(
+                      child: GestureDetector(
+                        onTap: () {
+                          controller.fetchCurrentAffairs("",
+                              page: controller.currentPage.value + 1);
+                        },
+                        child: Container(
+                          height: 40,
+                          width: Get.width / 2,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20.0),
+                            border: Border.all(
                               color: LightThemeColors.primaryColor,
-                              fontWeight: FontWeight.bold,
+                              width: 1,
+                            ),
+                          ),
+                          child: const Center(
+                            child: Text(
+                              'আরও দেখুন',
+                              style: TextStyle(
+                                color: LightThemeColors.primaryColor,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                );
-              } else {
-                return const SizedBox.shrink();
+                  );
+                } else {
+                  return const SizedBox.shrink();
+                }
               }
-            }
 
-            // Normal Data Row
-            final data = items[index];
+              final data = items[index];
 
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      const Expanded(child: Divider()),
-                      10.0.w.width,
-                      Center(
-                        child: Text(
-                          data.date ?? "",
-                          style: AppTextStyles.heading4,
+              // Determine if this group's content should be blurred
+              final bool isLocked = !havePackage.value && index > 0;
+
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Date header stays visible
+                    Row(
+                      children: [
+                        const Expanded(child: Divider()),
+                        10.0.w.width,
+                        Center(
+                          child: Text(
+                            data.date ?? "",
+                            style: AppTextStyles.heading4,
+                          ),
                         ),
-                      ),
-                      10.0.w.width,
-                      const Expanded(child: Divider()),
-                    ],
-                  ),
-                  10.0.h.height,
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: data.questions?.length ?? 0,
-                    itemBuilder: (c, i) {
-                      var question = data.questions![i];
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        10.0.w.width,
+                        const Expanded(child: Divider()),
+                      ],
+                    ),
+                    10.0.h.height,
+
+                    // Content (questions) wrapped in blur if locked
+                    if (isLocked)
+                      Stack(
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Icon(
-                                FontAwesomeIcons.arrowRight,
-                                size: 15.0,
+                          Column(
+                            children: List.generate(
+                              data.questions?.length ?? 0,
+                                  (i) {
+                                var question = data.questions![i];
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        const Icon(
+                                          FontAwesomeIcons.arrowRight,
+                                          size: 15.0,
+                                        ),
+                                        const SizedBox(width: 5.0),
+                                        Expanded(
+                                          child: HtmlWidget(
+                                            question.title ?? "",
+                                            textStyle: AppTextStyles.heading5,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: question.options
+                                          ?.where((option) => option.isCorrect == true)
+                                          .map((option) {
+                                        return Padding(
+                                          padding: const EdgeInsets.only(bottom: 4.0),
+                                          child: HtmlWidget(
+                                            '<b>উত্তর:</b> ${option.value ?? ""}',
+                                            textStyle: AppTextStyles.body1,
+                                          ),
+                                        );
+                                      }).toList() ??
+                                          [],
+                                    ),
+                                  ],
+                                );
+                              },
+                            ),
+                          ),
+                          Positioned.fill(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: BackdropFilter(
+                                filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                                child: Container(color: Colors.black.withOpacity(0.15)),
                               ),
-                              const SizedBox(width: 5.00),
-                              Expanded(
-                                child: HtmlWidget(
-                                  question.title ?? "",
-                                  textStyle: AppTextStyles.heading5,
+                            ),
+                          ),
+                          Positioned.fill(
+                            child: Center(
+                              child: Text(
+                                "প্রিমিয়াম কনটেন্ট",
+                                style: AppTextStyles.heading4.copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
-                            ],
+                            ),
                           ),
-                          const SizedBox(height: 4),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: question.options
-                                    ?.where(
-                                        (option) => option.isCorrect == true)
-                                    .map((option) {
-                                  return Padding(
-                                    padding: const EdgeInsets.only(bottom: 4.0),
-                                    child: HtmlWidget(
-                                      '<b>উত্তর:</b> ${option.value ?? ""}',
-                                      textStyle: AppTextStyles.body1,
-                                    ),
-                                  );
-                                }).toList() ??
-                                [],
-                          ),
-                          (question.explanation != null)
-                              ? Align(
-                                  alignment: Alignment.topRight,
-                                  child: InkWell(
-                                    onTap: () {
-                                      ExplanationDialog.show(question);
-                                    },
-                                    child: Text(
-                                      "ব্যাখ্যা দেখুন →",
-                                      style: AppTextStyles.body1.copyWith(
-                                        color: LightThemeColors.primaryColor,
-                                      ),
-                                      textAlign: TextAlign.end,
-                                    ),
-                                  ),
-                                )
-                              : const SizedBox(height: 10.00),
                         ],
-                      );
-                    },
-                  ),
-                  // Title Row
-                ],
-              ),
-            );
-          },
-        );
+                      )
+                    else
+                    // No blur, show normal questions
+                      Column(
+                        children: List.generate(
+                          data.questions?.length ?? 0,
+                              (i) {
+                            var question = data.questions![i];
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Icon(
+                                      FontAwesomeIcons.arrowRight,
+                                      size: 15.0,
+                                    ),
+                                    const SizedBox(width: 5.0),
+                                    Expanded(
+                                      child: HtmlWidget(
+                                        question.title ?? "",
+                                        textStyle: AppTextStyles.heading5,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 4),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: question.options
+                                      ?.where((option) => option.isCorrect == true)
+                                      .map((option) {
+                                    return Padding(
+                                      padding: const EdgeInsets.only(bottom: 4.0),
+                                      child: HtmlWidget(
+                                        '<b>উত্তর:</b> ${option.value ?? ""}',
+                                        textStyle: AppTextStyles.body1,
+                                      ),
+                                    );
+                                  }).toList() ??
+                                      [],
+                                ),
+                                if (question.explanation != null)
+                                  Align(
+                                    alignment: Alignment.topRight,
+                                    child: InkWell(
+                                      onTap: () {
+                                        if (havePackage.value) {
+                                          ExplanationDialog.show(question);
+                                        } else {
+                                          Get.dialog(PackageRequiredPopup());
+                                        }
+                                      },
+                                      child: Text(
+                                        "ব্যাখ্যা দেখুন →",
+                                        style: AppTextStyles.body1.copyWith(
+                                          color: LightThemeColors.primaryColor,
+                                        ),
+                                        textAlign: TextAlign.end,
+                                      ),
+                                    ),
+                                  )
+                                else
+                                  const SizedBox(height: 10.0),
+                              ],
+                            );
+                          },
+                        ),
+                      ),
+                  ],
+                ),
+              );
+            },
+          );
+
       }),
     );
   }

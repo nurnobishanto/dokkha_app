@@ -34,7 +34,6 @@ class SignInController extends GetxController {
         if (response.data['status']) {
           MySharedPref.setUserToken(response.data["token"]);
           authService.authCheck();
-          //isLoggedIn.value = true;
           debugPrint("Saved token");
           CustomSnackBar.showCustomToast(
             message: response.data["message"],

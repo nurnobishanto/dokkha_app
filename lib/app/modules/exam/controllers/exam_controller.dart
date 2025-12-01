@@ -70,11 +70,12 @@ class ExamController extends GetxController {
         "Authorization": 'Bearer $token',
       }, onSuccess: (response) {
         if (response.data['status']) {
+          isExamLoading.value = false;
           errorMessage.value = "";
           ExamStartModel startExamModel =
               ExamStartModel.fromJson(response.data);
           apiExamCallStatus.value = ApiCallStatus.success;
-          isExamLoading.value = false;
+
           Get.back();
           Get.to(() => RunExamView(
                 examStartModel: startExamModel,
@@ -95,4 +96,7 @@ class ExamController extends GetxController {
       apiExamCallStatus.value = ApiCallStatus.error;
     }
   }
+
+
+
 }

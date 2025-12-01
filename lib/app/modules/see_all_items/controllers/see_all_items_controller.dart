@@ -1,119 +1,51 @@
-// import 'package:get/get.dart';
-// import 'package:lokkha/app/modules/see_all_items/models/all_exam_model.dart';
-// import '../../../../utils/constants.dart';
-// import '../../../services/base_client.dart';
-// import 'package:lokkha/app/services/api_call_status.dart';
-// import '../models/all_course_model.dart';
-//
-// class SeeAllItemsController extends GetxController {
-//   RxBool isLoading = true.obs;
-//   RxBool isLoadingQuestion = false.obs;
-//   RxInt currentPage = 1.obs;
-//   RxBool isFavourite = false.obs;
-//   RxString search = RxString("");
-//   RxObjectMixin<AllCourseModel> model = AllCourseModel().obs;
-//   RxObjectMixin<AllExamModel> allExamModel = AllExamModel().obs;
-//
-//   ApiCallStatus apiCallStatus = ApiCallStatus.holding;
-//   ApiCallStatus examApiCallStatus = ApiCallStatus.holding;
-//
-//   Future<void> fetchAllCourses(
-//       {int page = 1, String date = '', String search = ''}) async {
-//     apiCallStatus = ApiCallStatus.loading;
-//     isLoading.value = true;
-//     String url = AppConstants.courses;
-//
-//     BaseClient.safeApiCall(url, RequestType.get, onSuccess: (response) {
-//       if (response.data["status"]) {
-//         AllCourseModel modelData = AllCourseModel.fromJson(response.data);
-//         if (page > 1 && model.value.courses != null) {
-//           // Merge new data with existing data
-//           model.value.courses!.data!.addAll(modelData.courses!.data!);
-//           apiCallStatus = ApiCallStatus.success;
-//         } else {
-//           model.value = modelData;
-//         }
-//         currentPage.value = page;
-//         isLoading.value = false;
-//       } else {
-//         isLoading.value = false;
-//       }
-//     }, onError: (err) {
-//       apiCallStatus = ApiCallStatus.error;
-//     });
-//   }
-//
-//   Future<void> fetchAllExams(
-//       {int page = 1, String date = '', String search = ''}) async {
-//     examApiCallStatus = ApiCallStatus.loading;
-//     // isLoading.value = true;
-//     String url = AppConstants.examList;
-//
-//     BaseClient.safeApiCall(url, RequestType.get, onSuccess: (response) {
-//       if (response.data["status"]) {
-//         AllExamModel modelData = AllExamModel.fromJson(response.data);
-//         if (page > 1 && allExamModel.value.exams?.exam != null) {
-//           // Merge and refresh
-//           allExamModel.value.exams!.exam!.addAll(modelData.exams!.exam!);
-//           allExamModel.refresh();
-//           examApiCallStatus = ApiCallStatus.success;
-//         } else {
-//           allExamModel.value = modelData;
-//         }
-//         currentPage.value = page;
-//         //isLoading.value = false;
-//       } else {
-//         //isLoading.value = false;
-//       }
-//     }, onError: (err) {
-//       examApiCallStatus = ApiCallStatus.error;
-//     });
-//   }
-//
-//   @override
-//   void onInit() {
-//     fetchAllCourses();
-//     fetchAllExams();
-//     super.onInit();
-//   }
-// }
-
+import 'dart:developer';
 
 import 'package:get/get.dart';
+import 'package:lokkha/app/data/local/my_shared_pref.dart';
 import '../../../../utils/constants.dart';
 import '../../../services/api_call_status.dart';
 import '../../../services/base_client.dart';
 import '../models/all_exam_model.dart';
+import '../models/all_course_model.dart';
 
 class SeeAllItemsController extends GetxController {
+  final RxString? selectedFilter = "all".obs;
+
+  // Common States
   RxBool isLoading = true.obs;
-  RxInt currentPage = 1.obs;
-  RxInt totalPages = 1.obs;
-  RxObjectMixin<AllExamModel> allExamModel = AllExamModel().obs;
+  RxInt currentExamPage = 1.obs;
+  RxInt totalExamPages = 1.obs;
+  RxInt currentCoursePage = 1.obs;
+  RxInt totalCoursePages = 1.obs;
+
+  // Exams
+  Rx<AllExamModel> allExamModel = AllExamModel().obs;
   Rx<ApiCallStatus> examApiCallStatus = ApiCallStatus.holding.obs;
 
+  // Courses
+  Rx<AllCourseModel> allCourseModel = AllCourseModel().obs;
+  Rx<ApiCallStatus> courseApiCallStatus = ApiCallStatus.holding.obs;
+
+  // Fetch All Exams
   Future<void> fetchAllExams({int page = 1}) async {
+    final token = MySharedPref.getUserToken();
     examApiCallStatus.value = ApiCallStatus.loading;
 
     final url = AppConstants.examList;
-
     await BaseClient.safeApiCall(
       url,
       RequestType.get,
-      queryParameters: {'page': page},
+      headers: {'Authorization': 'Bearer $token'},
+      queryParameters: {
+        'page': page,
+        "type": selectedFilter!.value,
+      },
       onSuccess: (response) {
-
         if (response.data["status"] == true) {
           final modelData = AllExamModel.fromJson(response.data);
-          if (page > 1 && allExamModel.value.exams?.data != null) {
-            allExamModel.value.exams!.data!.addAll(modelData.exams!.data!);
-            allExamModel.refresh();
-          } else {
-            allExamModel.value = modelData;
-          }
-
-          currentPage.value = page;
-          totalPages.value = modelData.exams?.lastPage ?? 1;
+          allExamModel.value = modelData;
+          currentExamPage.value = page;
+          totalExamPages.value = modelData.exams?.lastPage ?? 1;
           examApiCallStatus.value = ApiCallStatus.success;
         } else {
           examApiCallStatus.value = ApiCallStatus.error;
@@ -125,15 +57,63 @@ class SeeAllItemsController extends GetxController {
     );
   }
 
-  void goToPage(int page) => fetchAllExams(page: page);
-  void nextPage() => fetchAllExams(page: currentPage.value + 1);
-  void previousPage() => fetchAllExams(page: currentPage.value - 1);
-  void firstPage() => fetchAllExams(page: 1);
-  void lastPage() => fetchAllExams(page: totalPages.value);
+  // Fetch All Courses
+  Future<void> fetchAllCourses({int page = 1}) async {
+    courseApiCallStatus.value = ApiCallStatus.loading;
+    isLoading.value = true;
+    final url = AppConstants.courses;
+
+    await BaseClient.safeApiCall(
+      url,
+      RequestType.get,
+      queryParameters: {'page': page},
+      onSuccess: (response) {
+        if (response.data["status"] == true) {
+          final modelData = AllCourseModel.fromJson(response.data);
+
+          if (page > 1 && allCourseModel.value.courses?.data != null) {
+            allCourseModel.value.courses!.data!
+                .addAll(modelData.courses!.data!);
+            allCourseModel.refresh();
+          } else {
+            allCourseModel.value = modelData;
+          }
+
+          currentCoursePage.value = page;
+          totalCoursePages.value = modelData.courses?.lastPage ?? 1;
+          courseApiCallStatus.value = ApiCallStatus.success;
+        } else {
+          courseApiCallStatus.value = ApiCallStatus.error;
+        }
+
+        isLoading.value = false;
+      },
+      onError: (err) {
+        courseApiCallStatus.value = ApiCallStatus.error;
+        isLoading.value = false;
+      },
+    );
+  }
+
+  // Exam Pagination Helpers
+  void goToExamPage(int page) => fetchAllExams(page: page);
+  void nextExamPage() => fetchAllExams(page: currentExamPage.value + 1);
+  void previousExamPage() => fetchAllExams(page: currentExamPage.value - 1);
+  void firstExamPage() => fetchAllExams(page: 1);
+  void lastExamPage() => fetchAllExams(page: totalExamPages.value);
+
+  // Course Pagination Helpers
+  void goToCoursePage(int page) => fetchAllCourses(page: page);
+  void nextCoursePage() => fetchAllCourses(page: currentCoursePage.value + 1);
+  void previousCoursePage() =>
+      fetchAllCourses(page: currentCoursePage.value - 1);
+  void firstCoursePage() => fetchAllCourses(page: 1);
+  void lastCoursePage() => fetchAllCourses(page: totalCoursePages.value);
 
   @override
   void onInit() {
     fetchAllExams();
+    fetchAllCourses();
     super.onInit();
   }
 }

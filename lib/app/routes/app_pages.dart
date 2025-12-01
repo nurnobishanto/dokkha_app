@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:lokkha/app/modules/see_all_items/views/all_exam_view.dart';
 
 import '../modules/auth_views/auth_gateway/bindings/auth_gateway_binding.dart';
 import '../modules/auth_views/auth_gateway/views/auth_gateway_view.dart';
@@ -74,7 +75,7 @@ import '../modules/profile_module/profile_update/views/profile_update_view.dart'
 import '../modules/profile_update_required/bindings/profile_update_required_binding.dart';
 import '../modules/profile_update_required/views/profile_update_required_view.dart';
 import '../modules/see_all_items/bindings/see_all_items_binding.dart';
-import '../modules/see_all_items/views/see_all_items_view.dart';
+import '../modules/see_all_items/views/all_course_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 import '../modules/sponsor_ads/bindings/sponsor_ads_binding.dart';
@@ -321,10 +322,15 @@ class AppPages {
     //   page: () => const CourseCheckoutView(course: null,),
     //   binding: CourseCheckoutBinding(),
     // ),
-    // GetPage(
-    //   name: _Paths.SEE_ALL_ITEMS,
-    //   page: () => const SeeAllItemsView(),
-    //   binding: SeeAllItemsBinding(),
-    // ),
+    GetPage(
+      name: _Paths.ALL_COURSES,
+      page: () => const AllCourseView(),
+      binding: SeeAllItemsBinding(),
+    ),
+    GetPage(
+      name: _Paths.ALL_EXAM,
+      page: () => const AllExamView(),
+      binding: SeeAllItemsBinding(),
+    ),
   ];
 }

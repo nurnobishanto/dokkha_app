@@ -19,6 +19,8 @@ class ExamDetailsDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final examController = Get.put(ExamController());
+    examController.isExamLoading.value = false;
+    examController.isReadLoading.value = false;
     return Dialog(
       backgroundColor: Colors.white,
       elevation: 10,

@@ -5,7 +5,7 @@ description: Lokkha project.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 #version: 1.2.2+14
-version: 1.2.4+16
+version: 1.2.5+17
 
 environment:
   sdk: '>=3.0.5 <4.0.0'
@@ -19,7 +19,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  get: ^4.7.2 # for state management and context less stuff
+  get: ^4.7.3 # for state management and context less stuff
 
   #logger: # log events in clear way instead of (print)
 

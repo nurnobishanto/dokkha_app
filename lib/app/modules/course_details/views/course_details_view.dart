@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
-import 'package:lokkha/app/views/views/pdf_viewer.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
 import 'package:lokkha/utils/constants.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import '../../../../utils/phone_utils.dart';
 import '../../../components/custom_action_button.dart';
 import '../../../routes/app_pages.dart';
@@ -34,7 +32,7 @@ class CourseDetailsView extends GetView<CourseDetailsController> {
               elevation: 0,
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back, color: Colors.white),
-                onPressed: () => Get.back(),
+                onPressed: () => Navigator.pop(context),
               ),
               title: Text(
                 controller.model.course?.title ?? '',

@@ -20,7 +20,6 @@ import '../../../../components/custom_transparent_divider.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../exam_category/controllers/exam_category_controller.dart';
 import '../../../exam_category/widgets/exam_category_card.dart';
-import '../../../see_all_items/views/all_exam_view.dart';
 import '../../../subject_sections/views/subject_sections_view.dart';
 import '../components/social_links_widget.dart';
 import '../controllers/home_controller.dart';
@@ -61,26 +60,41 @@ class HomeView extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 8.r, vertical: 2.h),
           children: [
             3.h.height,
-            _SliderSection(controller: controller),
+            _SliderSection(
+              controller: controller,
+              onTap: () {
+                print("asssss");
+              },
+            ),
             8.h.height,
             _ShortcutGrid(controller: controller),
             8.h.height,
             RandomQuestionSelector(),
             8.h.height,
-            // SectionTitleWithSeeAll(
-            //   title: "প্রিমিয়াম পরীক্ষা সমূহ",
-            //   onSeeAllPressed: () => Get.toNamed(Routes.SEE_ALL_ITEMS),
+            SectionTitleWithSeeAll(
+                title: "প্রিমিয়াম পরীক্ষা সমূহ",
+                onSeeAllPressed: () {
+                  Get.toNamed(Routes.ALL_COURSES);
+                }),
+            // InkWell(
+            //   onTap: () => Get.toNamed(Routes.ALL_COURSES),
+            //   child: SectionTitleWithDivider(
+            //     title: "প্রিমিয়াম পরীক্ষা সমূহ",
+            //   ),
             // ),
-            SectionTitleWithDivider(
-              title: "প্রিমিয়াম পরীক্ষা সমূহ",
-            ),
             SizedBox(height: 8.h),
             _PremiumExamSection(examController: examController),
             8.h.height,
-            InkWell(
-              onTap: () => Get.to(AllExamView()),
-              child: SectionTitleWithDivider(title: "ফ্রি পরীক্ষা সমূহ"),
-            ),
+            // InkWell(
+            //   onTap: () => Get.toNamed(Routes.ALL_EXAM),
+            //   child: SectionTitleWithDivider(title: "ফ্রি পরীক্ষা সমূহ"),
+            // ),
+            SectionTitleWithSeeAll(
+                title: "ফ্রি পরীক্ষা সমূহ",
+                onSeeAllPressed: () {
+                  Get.toNamed(Routes.ALL_EXAM);
+                }),
+
             SizedBox(height: 8.h),
             _FreeExamSection(examController: examController),
             8.h.height,
@@ -128,47 +142,50 @@ class SectionTitleWithSeeAll extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: padding,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Row(
-            children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: fontSize,
-                  fontWeight: FontWeight.bold,
-                  color: color,
-                  letterSpacing: 0.5,
-                ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: transparentDivider(
-                  beginTransparent: false,
-                  height: dividerHeight,
-                ),
-              ),
-              TextButton(
-                onPressed: onSeeAllPressed,
-                style: TextButton.styleFrom(
-                  padding: EdgeInsets.zero,
-                  minimumSize: const Size(50, 30),
-                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                ),
-                child: Text(
-                  'See All',
+    return InkWell(
+      onTap: onSeeAllPressed,
+      child: Padding(
+        padding: padding,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              children: [
+                Text(
+                  title,
                   style: TextStyle(
-                    fontSize: fontSize * 0.85,
+                    fontSize: fontSize,
+                    fontWeight: FontWeight.bold,
                     color: color,
+                    letterSpacing: 0.5,
                   ),
                 ),
-              ),
-            ],
-          ),
-        ],
+                const SizedBox(width: 10),
+                Expanded(
+                  child: transparentDivider(
+                    beginTransparent: false,
+                    height: dividerHeight,
+                  ),
+                ),
+                TextButton(
+                  onPressed: onSeeAllPressed,
+                  style: TextButton.styleFrom(
+                    padding: EdgeInsets.zero,
+                    minimumSize: const Size(50, 30),
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  ),
+                  child: Text(
+                    'See All',
+                    style: TextStyle(
+                      fontSize: fontSize * 0.85,
+                      color: color,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -223,7 +240,8 @@ class _SearchBar extends StatelessWidget {
 
 class _SliderSection extends StatelessWidget {
   final HomeController controller;
-  const _SliderSection({required this.controller});
+  final void Function()? onTap;
+  const _SliderSection({required this.controller, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -256,18 +274,21 @@ class _SliderSection extends StatelessWidget {
               if (kDebugMode) debugPrint('URL IMAGE : $imageUrl');
               return ClipRRect(
                 borderRadius: BorderRadius.circular(7.0),
-                child: Container(
-                  height: 120.h,
-                  decoration: BoxDecoration(color: Colors.grey.shade200),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
-                    child: CachedNetworkImage(
-                      imageUrl: imageUrl,
-                      fit: BoxFit.cover,
-                      placeholder: (c, u) =>
-                          const Center(child: CircularProgressIndicator()),
-                      errorWidget: (c, u, e) =>
-                          const Center(child: Icon(Icons.broken_image)),
+                child: InkWell(
+                  onTap: onTap,
+                  child: Container(
+                    height: 120.h,
+                    decoration: BoxDecoration(color: Colors.grey.shade200),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: CachedNetworkImage(
+                        imageUrl: imageUrl,
+                        fit: BoxFit.cover,
+                        placeholder: (c, u) =>
+                            const Center(child: CircularProgressIndicator()),
+                        errorWidget: (c, u, e) =>
+                            const Center(child: Icon(Icons.broken_image)),
+                      ),
                     ),
                   ),
                 ),

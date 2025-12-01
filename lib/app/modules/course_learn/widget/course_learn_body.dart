@@ -72,6 +72,7 @@ class CourseLearnBody extends StatelessWidget {
             SizedBox(
                 width: double.infinity,
                 child: ExamCard(
+                  showAttempt: false,
                   exam: currentItem.exam!,
                   onTap: () {
                     showDialog(

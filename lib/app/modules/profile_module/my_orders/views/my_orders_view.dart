@@ -24,24 +24,28 @@ class MyOrdersView extends GetView<MyOrdersController> {
                 const Center(child: CircularProgressIndicator()),
               ApiCallStatus.error =>
                 const Center(child: Text("অর্ডার লোড করতে সমস্যা হয়েছে")),
-              ApiCallStatus.success => ListView.builder(
-                  itemCount: controller.model.value.orders?.length ?? 0,
-                  itemBuilder: (context, index) {
-                    final data = controller.model.value.orders![index];
-                    return InkWell(
-                      onTap: () => Get.to(() => OrderDetailsScreen(
-                          url:
-                              "${AppConstants.myOrderDetails}/${data.id!.toInt()}")),
-                      child: OrderCard(
-                        orderId: "#${data.invoiceNo}",
-                        date: data.createdAt!,
-                        status: data.status ?? '',
-                        totalAmount: '${data.total}',
-                        paymentMethod: data.paymentMethod ?? '',
-                      ),
-                    );
-                  },
-                ),
+              ApiCallStatus.success => controller.model.value.orders!.isEmpty
+                  ? Center(
+                      child: Text("কোনো অর্ডার পাওয়া যায়নি"),
+                    )
+                  : ListView.builder(
+                      itemCount: controller.model.value.orders?.length ?? 0,
+                      itemBuilder: (context, index) {
+                        final data = controller.model.value.orders![index];
+                        return InkWell(
+                          onTap: () => Get.to(() => OrderDetailsScreen(
+                              url:
+                                  "${AppConstants.myOrderDetails}/${data.id!.toInt()}")),
+                          child: OrderCard(
+                            orderId: "#${data.invoiceNo}",
+                            date: data.createdAt!,
+                            status: data.status ?? '',
+                            totalAmount: '${data.total}',
+                            paymentMethod: data.paymentMethod ?? '',
+                          ),
+                        );
+                      },
+                    ),
               _ => const Center(child: Text("কোনো অর্ডার পাওয়া যায়নি")),
             },
           ),

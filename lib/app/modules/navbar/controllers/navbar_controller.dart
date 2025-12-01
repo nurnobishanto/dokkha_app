@@ -80,7 +80,7 @@ class NavbarController extends GetxController {
     profileDataModel.value = null;
     MyGetStorage.removeCache(MyGetStorage.meUser);
     myUser = User();
-    MySharedPref.removeUserToken(); // optional
+    MySharedPref.removeUserToken();
   }
 
   @override

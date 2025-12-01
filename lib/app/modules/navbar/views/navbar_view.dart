@@ -19,7 +19,10 @@ class NavbarView extends GetView<NavbarController> {
       bottomNavigationBar: GetBuilder<NavbarController>(
         builder: (controller) {
           return BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
             currentIndex: controller.currentIndex,
+            selectedItemColor: LightThemeColors.primaryColor,      // selected color
+            // unselectedItemColor: Colors.grey.shade400,             // unselected color
             onTap: controller.changeIndex,
             items: [
               const BottomNavigationBarItem(
@@ -43,9 +46,6 @@ class NavbarView extends GetView<NavbarController> {
                 backgroundColor: LightThemeColors.primaryColor,
               ),
               BottomNavigationBarItem(
-                // icon: !isLoggedIn.value
-                //     ? const FaIcon(FontAwesomeIcons.rightToBracket, size: 18)
-                //     : const FaIcon(FontAwesomeIcons.user, size: 18),
                 icon: const FaIcon(FontAwesomeIcons.user, size: 18),
                 label: !isLoggedIn.value ? "লগইন" : "প্রোফাইল",
                 backgroundColor: LightThemeColors.primaryColor,
@@ -57,20 +57,3 @@ class NavbarView extends GetView<NavbarController> {
     );
   }
 }
-
-// Future<void> handleInitialUri() async {
-//   try {
-//     final initialLink = await getInitialLink();
-//     if (initialLink != null) {
-//       final uri = Uri.parse(initialLink);
-//       final token = uri.queryParameters['token'];
-//       if (token != null) {
-//         print("🔑 Token received from link: $token");
-//         // You can now use this token to hit your backend and log in/register
-//         // Example: Navigate to Login or Home page
-//       }
-//     }
-//   } catch (e) {
-//     print("Error reading deep link: $e");
-//   }
-// }

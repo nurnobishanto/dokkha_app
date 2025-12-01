@@ -1,5 +1,7 @@
 import 'package:lokkha/app/models/question.dart';
 
+import 'exam_category.dart';
+
 class Exam {
   final int? id;
   final DateTime? publishedAt;
@@ -21,6 +23,7 @@ class Exam {
   final List<Question>? questions;
   final int? possibleMark;
   final int? examResultsCount;
+  final ExamCategory? examCategory;
 
   Exam({
     this.id,
@@ -43,6 +46,7 @@ class Exam {
     this.questions,
     this.possibleMark,
     this.examResultsCount,
+    this.examCategory,
   });
 
   factory Exam.fromJson(Map<String, dynamic> json) => Exam(
@@ -71,6 +75,9 @@ class Exam {
                 json["questions"]!.map((x) => Question.fromJson(x))),
         possibleMark: json["possible_mark"],
         examResultsCount: json["exam_results_count"],
+        examCategory: json["category"] == null
+            ? null
+            : ExamCategory.fromJson(json["category"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -96,5 +103,6 @@ class Exam {
             : List<dynamic>.from(questions!.map((x) => x.toJson())),
         "exam_results_count": examResultsCount,
         "possible_mark": possibleMark,
+        "category": examCategory,
       };
 }

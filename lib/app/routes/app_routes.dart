@@ -54,7 +54,8 @@ abstract class Routes {
   static const COURSE_DETAILS = _Paths.COURSE_DETAILS;
   static const COURSE_LEARN = _Paths.COURSE_LEARN;
   static const COURSE_CHECKOUT = _Paths.COURSE_CHECKOUT;
-  static const SEE_ALL_ITEMS = _Paths.SEE_ALL_ITEMS;
+  static const ALL_COURSES = _Paths.ALL_COURSES;
+  static const ALL_EXAM = _Paths.ALL_EXAM;
 }
 
 abstract class _Paths {
@@ -110,5 +111,6 @@ abstract class _Paths {
   static const COURSE_DETAILS = '/course-details';
   static const COURSE_LEARN = '/course-learn';
   static const COURSE_CHECKOUT = '/course-checkout';
-  static const SEE_ALL_ITEMS = '/see-all-items';
+  static const ALL_COURSES = '/all-courses';
+  static const ALL_EXAM = '/all-exam';
 }

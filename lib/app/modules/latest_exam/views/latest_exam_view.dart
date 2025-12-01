@@ -117,77 +117,159 @@ class LatestExamCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        height: Get.height / 10,
-        decoration: BoxDecoration(
-          color: LightThemeColors.white,
-          borderRadius: BorderRadius.circular(8.0),
-          border: Border.all(
-            color: Colors.grey.shade300,
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.00),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Flexible(
-                child: Text(
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return GestureDetector(
+          onTap: onTap,
+          child: Container(
+            width: constraints.maxWidth,
+            padding: EdgeInsets.all(12.w),
+            decoration: BoxDecoration(
+              color: LightThemeColors.white,
+              borderRadius: BorderRadius.circular(10.r),
+              border: Border.all(color: Colors.grey.shade300),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                /// ---- TITLE ----
+                Text(
                   title,
-                  style: AppTextStyles.heading5,
+                  style: AppTextStyles.heading5.copyWith(
+                    fontSize: 14.sp,
+                  ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
-              ),
-              const SizedBox(height: 4.00),
-              Row(
-                children: [
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade200,
-                      borderRadius:
-                          BorderRadius.circular(4.0.r), // rounded corners
-                    ),
-                    child: Text(
-                      DateFormatter.formatToDMY(date),
-                      style: AppTextStyles.body1.copyWith(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w400,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  8.0.width,
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade200,
-                      borderRadius:
-                          BorderRadius.circular(4.0.r), // rounded corners
-                    ),
-                    child: Text(
-                      'MCQ',
-                      style: AppTextStyles.body1.copyWith(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w400,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
-              ),
-            ],
+
+                SizedBox(height: 6.h),
+
+                /// ---- DATE + TYPE ROW ----
+                Row(
+                  children: [
+                    _buildTag(DateFormatter.formatToDMY(date)),
+                    SizedBox(width: 6.w),
+                    _buildTag("MCQ"),
+                  ],
+                ),
+              ],
+            ),
           ),
+        );
+      },
+    );
+  }
+
+  /// Small reusable chip widget
+  Widget _buildTag(String text) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade200,
+        borderRadius: BorderRadius.circular(6.r),
+      ),
+      child: Text(
+        text,
+        style: AppTextStyles.body1.copyWith(
+          fontSize: 12.sp,
+          fontWeight: FontWeight.w400,
+          color: Colors.black,
         ),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }
 }
+
+
+
+
+// class LatestExamCard extends StatelessWidget {
+//   final String title;
+//   final DateTime date;
+//   final void Function()? onTap;
+//
+//   const LatestExamCard({
+//     super.key,
+//     required this.title,
+//     required this.onTap,
+//     required this.date,
+//   });
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onTap: onTap,
+//       child: Container(
+//         height: Get.height / 17,
+//         decoration: BoxDecoration(
+//           color: LightThemeColors.white,
+//           borderRadius: BorderRadius.circular(8.0),
+//           border: Border.all(
+//             color: Colors.grey.shade300,
+//           ),
+//         ),
+//         child: Padding(
+//           padding: const EdgeInsets.all(8.00),
+//           child: Column(
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             mainAxisAlignment: MainAxisAlignment.center,
+//             children: [
+//               Flexible(
+//                 child: Text(
+//                   title,
+//                   style: AppTextStyles.heading5,
+//                   maxLines: 2,
+//                   overflow: TextOverflow.ellipsis,
+//                 ),
+//               ),
+//               const SizedBox(height: 4.00),
+//               Row(
+//                 children: [
+//                   Container(
+//                     padding:
+//                         const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+//                     decoration: BoxDecoration(
+//                       color: Colors.grey.shade200,
+//                       borderRadius:
+//                           BorderRadius.circular(4.0.r), // rounded corners
+//                     ),
+//                     child: Text(
+//                       DateFormatter.formatToDMY(date),
+//                       style: AppTextStyles.body1.copyWith(
+//                         color: Colors.black,
+//                         fontWeight: FontWeight.w400,
+//                       ),
+//                       maxLines: 1,
+//                       overflow: TextOverflow.ellipsis,
+//                     ),
+//                   ),
+//                   8.0.width,
+//                   Container(
+//                     padding:
+//                         const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+//                     decoration: BoxDecoration(
+//                       color: Colors.grey.shade200,
+//                       borderRadius:
+//                           BorderRadius.circular(4.0.r), // rounded corners
+//                     ),
+//                     child: Text(
+//                       'MCQ',
+//                       style: AppTextStyles.body1.copyWith(
+//                         color: Colors.black,
+//                         fontWeight: FontWeight.w400,
+//                       ),
+//                       maxLines: 1,
+//                       overflow: TextOverflow.ellipsis,
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }

@@ -27,7 +27,7 @@ class CustomerSupportView extends GetView {
               ),
               const SizedBox(height: 8),
               GestureDetector(
-                onTap: () => makePhoneCall('+8809647260543'),
+                onTap: () => makePhoneCall('+8801332804290'),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -42,7 +42,7 @@ class CustomerSupportView extends GetView {
                       },
                     ),
                     const SizedBox(width: 10),
-                    const Text('+8809647260543',
+                    const Text('+8801332804290',
                         style: TextStyle(fontSize: 16)),
                   ],
                 ),

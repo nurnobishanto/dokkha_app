@@ -8,6 +8,7 @@ import 'package:lokkha/config/extensions/common_extension.dart';
 import '../../../../config/theme/light_theme_colors.dart';
 import '../../../../styles/text_style.dart';
 import '../../../routes/app_pages.dart';
+import '../../nav_bar_views/home/views/home_view.dart';
 import '../controllers/exam_category_controller.dart';
 import '../widgets/exam_category_card.dart';
 
@@ -39,33 +40,16 @@ class ExamCategoryView extends GetView<ExamCategoryController> {
               children: [
                 /// Premium Courses/Exams
                 5.h.height,
-                Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Divider(
-                          color: LightThemeColors.primaryColor,
-                          thickness: 2,
-                          endIndent: 8,
-                        ),
-                      ),
-                      Text(
-                        "প্রিমিয়াম পরীক্ষার ক্যাটাগরি",
-                        textAlign: TextAlign.center,
-                        style: AppTextStyles.heading4,
-                      ),
-                      Expanded(
-                        child: Divider(
-                          color: LightThemeColors.primaryColor,
-                          thickness: 2,
-                          indent: 8,
-                        ),
-                      ),
-                    ],
-                  ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8.0.w),
+                  child: SectionTitleWithSeeAll(
+                      title: "প্রিমিয়াম পরীক্ষা সমূহ",
+                      onSeeAllPressed: () {
+                        Get.toNamed(Routes.ALL_COURSES);
+                      }),
                 ),
-                5.h.height,
+
+
                 Obx(() {
                   final courses =
                       controller.courseCategoriesModel.value.courseCategories ??
@@ -108,33 +92,15 @@ class ExamCategoryView extends GetView<ExamCategoryController> {
 
                 /// Free Courses/Exams
                 5.h.height,
-                Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Divider(
-                          color: LightThemeColors.primaryColor,
-                          thickness: 2,
-                          endIndent: 8,
-                        ),
-                      ),
-                      Text(
-                        "ফ্রি পরীক্ষার ক্যাটাগরি",
-                        textAlign: TextAlign.center,
-                        style: AppTextStyles.heading4,
-                      ),
-                      Expanded(
-                        child: Divider(
-                          color: LightThemeColors.primaryColor,
-                          thickness: 2,
-                          indent: 8,
-                        ),
-                      ),
-                    ],
-                  ),
+
+                Padding(
+                  padding:  EdgeInsets.symmetric(horizontal: 8.0.w),
+                  child: SectionTitleWithSeeAll(
+                      title: "ফ্রি পরীক্ষা সমূহ",
+                      onSeeAllPressed: () {
+                        Get.toNamed(Routes.ALL_EXAM);
+                      }),
                 ),
-                5.h.height,
                 Obx(() {
                   final exams = controller.model.value.examCategories ?? [];
                   if (controller.apiCallStatus.value == ApiCallStatus.loading) {

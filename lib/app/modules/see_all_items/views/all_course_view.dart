@@ -1,34 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:lokkha/app/modules/see_all_items/controllers/see_all_items_controller.dart';
 import 'package:lokkha/utils/constants.dart';
 import '../../../routes/app_pages.dart';
 import '../../../services/api_call_status.dart';
-import '../controllers/courses_controller.dart';
-import '../widgets/custom_course_card.dart';
+import '../../courses/widgets/custom_course_card.dart';
 
-class CoursesView extends GetView<CoursesController> {
-  const CoursesView({super.key});
+
+class AllCourseView extends GetView<SeeAllItemsController> {
+  const AllCourseView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final args = Get.arguments;
-    final categoryName = (args is Map && args["category_name"] is String)
-        ? args["category_name"]
-        : "";
 
-    final controller = Get.put(CoursesController());
+    final controller = Get.find<SeeAllItemsController>();
     return Scaffold(
       appBar: AppBar(
-        title: Text(categoryName.toString()),
+        title: Text("All Courses"),
         centerTitle: true,
       ),
       body: Obx(() {
-        if (controller.apiCallCoursesStatus.value == ApiCallStatus.loading) {
+        if (controller.courseApiCallStatus.value == ApiCallStatus.loading) {
           return const Center(child: CircularProgressIndicator());
         }
 
-        if ((controller.coursesModel.value.courses?.data ?? []).isEmpty) {
+        if ((controller.allCourseModel.value.courses?.data ?? []).isEmpty) {
           return const Center(child: Text("Course not found"));
         }
 
@@ -38,8 +35,8 @@ class CoursesView extends GetView<CoursesController> {
               children: [
                 Obx(() {
                   final courses =
-                      controller.coursesModel.value.courses?.data ?? [];
-                  if (controller.apiCallCoursesStatus.value ==
+                      controller.allCourseModel.value.courses?.data ?? [];
+                  if (controller.courseApiCallStatus.value ==
                       ApiCallStatus.loading) {
                     return const CircularProgressIndicator();
                   }
@@ -54,13 +51,13 @@ class CoursesView extends GetView<CoursesController> {
                       mainAxisSpacing: 8.w,
                       crossAxisSpacing: 8.w,
                       childAspectRatio:
-                          MediaQuery.sizeOf(context).width > 600 ? 1.5 : 1.0,
+                      MediaQuery.sizeOf(context).width > 600 ? 1.5 : 1.0,
                     ),
                     itemBuilder: (_, index) {
                       final course = courses[index];
                       return CustomCourseCard(
                         imageUrl:
-                            AppConstants.storageUrl + course.image.toString(),
+                        AppConstants.storageUrl + course.image.toString(),
                         title: course.title ?? "",
                         regularPrice: course.regularPrice.toString(),
                         salePrice: course.salePrice.toString(),

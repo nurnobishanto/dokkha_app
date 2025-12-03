@@ -11,7 +11,7 @@ import '../../../../../utils/date_formatter.dart';
 class JobDetailsScreen extends StatelessWidget {
   final int id;
   JobDetailsScreen({super.key, required this.id});
-  final JobsController controller = Get.put(JobsController());
+  final JobsController controller = Get.find<JobsController>();
 
   @override
   Widget build(BuildContext context) {

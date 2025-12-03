@@ -54,7 +54,8 @@ class AllExamView extends GetView<SeeAllItemsController> {
                             showLoginPopup(context);
                           }
                         },
-                        child: const Text("দেওয়া হয়েছে"),
+                        child: Expanded(
+                            child: const Text("পরীক্ষা দেওয়া হয়েছে")),
                       ),
                       RadioMenuButton<String>(
                         value: "not_attempted",
@@ -67,7 +68,8 @@ class AllExamView extends GetView<SeeAllItemsController> {
                             showLoginPopup(context);
                           }
                         },
-                        child: const Text("দেওয়া হয়নি"),
+                        child:
+                            Expanded(child: const Text("পরীক্ষা দেওয়া হয়নি")),
                       ),
                     ],
                   ),

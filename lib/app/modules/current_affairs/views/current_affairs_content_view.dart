@@ -70,8 +70,10 @@ class CurrentAffairsContentView extends StatelessWidget {
                   child: Center(
                     child: GestureDetector(
                       onTap: () {
-                        controller.fetchCurrentAffairs("",
-                            page: controller.currentPage.value + 1);
+                        controller.fetchCurrentAffairs(
+                          "",
+                          page: controller.currentPage.value + 1,
+                        );
                       },
                       child: Container(
                         height: 40,
@@ -104,110 +106,12 @@ class CurrentAffairsContentView extends StatelessWidget {
             final data = items[index];
             final bool isLocked = !havePackage.value && index > 0;
 
-            // Build all questions for this group
-            Widget questionsColumn = Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: List.generate(data.questions?.length ?? 0, (i) {
-                var question = data.questions![i];
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Icon(FontAwesomeIcons.arrowRight, size: 15.0),
-                          const SizedBox(width: 5.0),
-                          Expanded(
-                            child: HtmlWidget(
-                              question.title ?? "",
-                              textStyle: AppTextStyles.heading5,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 4),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: question.options
-                                ?.where((option) => option.isCorrect == true)
-                                .map((option) => Expanded(
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 4.0),
-                                        child: HtmlWidget(
-                                          '<b>উত্তর:</b> ${option.value ?? ""}',
-                                          textStyle: AppTextStyles.body1,
-                                        ),
-                                      ),
-                                    ))
-                                .toList() ??
-                            [],
-                      ),
-                      if (question.explanation != null)
-                        Align(
-                          alignment: Alignment.topRight,
-                          child: InkWell(
-                            onTap: () {
-                              if (havePackage.value) {
-                                ExplanationDialog.show(question);
-                              } else {
-                                Get.dialog(PackageRequiredPopup());
-                              }
-                            },
-                            child: Text(
-                              "ব্যাখ্যা দেখুন →",
-                              style: AppTextStyles.body1.copyWith(
-                                color: LightThemeColors.primaryColor,
-                              ),
-                              textAlign: TextAlign.end,
-                            ),
-                          ),
-                        )
-                      else
-                        const SizedBox(height: 10.0),
-                    ],
-                  ),
-                );
-              }),
-            );
-
-            // Wrap the group content with blur if locked
-            if (isLocked) {
-              questionsColumn = Stack(
-                children: [
-                  questionsColumn,
-                  Positioned.fill(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                        child: Container(color: Colors.black.withOpacity(0.15)),
-                      ),
-                    ),
-                  ),
-                  Positioned.fill(
-                    child: Center(
-                      child: Text(
-                        "প্রিমিয়াম কনটেন্ট",
-                        style: AppTextStyles.heading4.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              );
-            }
-
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Always show the date header
+                  // Date header
                   Row(
                     children: [
                       const Expanded(child: Divider()),
@@ -223,7 +127,131 @@ class CurrentAffairsContentView extends StatelessWidget {
                     ],
                   ),
                   10.0.h.height,
-                  questionsColumn, // Group content (blurred if locked)
+
+                  // Questions
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: List.generate(data.questions?.length ?? 0, (i) {
+                      var question = data.questions![i];
+
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Question title
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Icon(FontAwesomeIcons.arrowRight,
+                                    size: 15.0),
+                                const SizedBox(width: 5.0),
+                                Expanded(
+                                  child: HtmlWidget(
+                                    question.title ?? "",
+                                    textStyle: AppTextStyles.heading5,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 4),
+
+                            // Answers
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: question.options
+                                      ?.where(
+                                          (option) => option.isCorrect == true)
+                                      .map(
+                                        (option) => Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 4.0),
+                                            child: Row(
+                                              children: [
+                                                // Label always visible
+                                                const Text(
+                                                  'উত্তর: ',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+
+                                                // Answer value (blurred if locked)
+                                                Expanded(
+                                                  child: isLocked
+                                                      ? Stack(
+                                                          children: [
+                                                            Text(
+                                                              option.value ??
+                                                                  "",
+                                                              style:
+                                                                  AppTextStyles
+                                                                      .body1,
+                                                            ),
+                                                            Positioned.fill(
+                                                              child: ClipRRect(
+                                                                child:
+                                                                    BackdropFilter(
+                                                                  filter: ImageFilter
+                                                                      .blur(
+                                                                          sigmaX:
+                                                                              5,
+                                                                          sigmaY:
+                                                                              5),
+                                                                  child:
+                                                                      Container(
+                                                                    color: Colors
+                                                                        .transparent,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        )
+                                                      : Text(
+                                                          option.value ?? "",
+                                                          style: AppTextStyles
+                                                              .body1,
+                                                        ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                      .toList() ??
+                                  [],
+                            ),
+
+                            // Explanation
+                            if (question.explanation != null)
+                              Align(
+                                alignment: Alignment.topRight,
+                                child: InkWell(
+                                  onTap: () {
+                                    if (havePackage.value) {
+                                      ExplanationDialog.show(question);
+                                    } else {
+                                      Get.dialog(PackageRequiredPopup());
+                                    }
+                                  },
+                                  child: Text(
+                                    "ব্যাখ্যা দেখুন →",
+                                    style: AppTextStyles.body1.copyWith(
+                                      color: LightThemeColors.primaryColor,
+                                    ),
+                                    textAlign: TextAlign.end,
+                                  ),
+                                ),
+                              )
+                            else
+                              const SizedBox(height: 10.0),
+                          ],
+                        ),
+                      );
+                    }),
+                  ),
                 ],
               ),
             );

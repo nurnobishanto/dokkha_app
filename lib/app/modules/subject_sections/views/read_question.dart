@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/config/constants/app_strings.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
@@ -9,6 +9,7 @@ import '../../../helper/api_helper.dart';
 import '../../../models/question.dart';
 import '../../../views/views/pdf_viewer.dart';
 import '../../../views/widgets/exam_custom_button.dart';
+import '../../../views/widgets/html_math.dart';
 import '../controllers/read_question_controller.dart';
 
 class ReadQuestionView extends StatelessWidget {
@@ -74,8 +75,8 @@ class ReadQuestionView extends StatelessWidget {
 
                                     /// des
                                     if (question.description != null)
-                                      HtmlWidget(
-                                        question.description.toString(),
+                                      MixedMathHtml(
+                                        html: question.description.toString(),
                                       ),
                                     question.description != null
                                         ? const SizedBox(height: 10.00)
@@ -100,12 +101,13 @@ class ReadQuestionView extends StatelessWidget {
                                             child: Padding(
                                               padding:
                                                   const EdgeInsets.all(8.0),
-                                              child: HtmlWidget(
-                                                "${index + 1}. ${question.title}",
-                                                textStyle: AppTextStyles.body1
-                                                    .copyWith(
-                                                        color: Colors.white),
-                                              ),
+                                              child: MixedMathHtml(
+                                                  html:
+                                                      "${index + 1}. ${question.title}",
+                                                  textStyle: AppTextStyles.body1
+                                                      .copyWith(
+                                                          fontSize: 15.0,
+                                                          color: Colors.white)),
                                             ),
                                           ),
 
@@ -171,8 +173,8 @@ class ReadQuestionView extends StatelessWidget {
               value: option.key.toString(),
               groupValue: null,
               onChanged: null,
-              title: HtmlWidget(
-                option.value ?? '',
+              title: MixedMathHtml(
+                html: option.value ?? '',
                 textStyle: AppTextStyles.body1.copyWith(
                   color: Colors.black,
                 ),
@@ -188,11 +190,34 @@ class ReadQuestionView extends StatelessWidget {
               child: ExamCustomButton(
                 text: "উত্তর ও সমাধান",
                 onPressed: () {
+                  bool hasContent = false;
+
+                  // Answer check
+                  if (question.options != null &&
+                      question.options!.any((o) =>
+                          o.value != null && o.value!.trim().isNotEmpty)) {
+                    hasContent = true;
+                  }
+
+                  // Explanation check
+                  if (question.explanation != null &&
+                      question.explanation!.trim().isNotEmpty) {
+                    hasContent = true;
+                  }
+
+                  // Explanation image check
+                  if (question.explanationImage != null &&
+                      question.explanationImage!.trim().isNotEmpty) {
+                    hasContent = true;
+                  }
+
+                  if (!hasContent) return; // যদি কিছু না থাকে, ডায়ালগ বন্ধ রাখো
+
                   Get.defaultDialog(
                     title: "উত্তর ও সমাধান",
                     content: ConstrainedBox(
                       constraints: BoxConstraints(
-                        maxHeight: Get.height * 0.6, // Max 60% of screen height
+                        maxHeight: Get.height * 0.6,
                         maxWidth: Get.width * 0.9,
                       ),
                       child: SingleChildScrollView(
@@ -275,8 +300,8 @@ class AnswerAndSolutionWidgets extends StatelessWidget {
               return option.value != null && option.isCorrect == true
                   ? Padding(
                       padding: const EdgeInsets.only(bottom: 4.0),
-                      child: HtmlWidget(
-                        option.value!,
+                      child: MixedMathHtml(
+                        html: option.value!,
                         textStyle: AppTextStyles.body1,
                       ),
                     )
@@ -297,8 +322,8 @@ class AnswerAndSolutionWidgets extends StatelessWidget {
           style: AppTextStyles.heading5,
         ),
         const SizedBox(height: 8),
-        HtmlWidget(
-          question.explanation.toString(),
+        MixedMathHtml(
+          html: question.explanation.toString(),
           textStyle: AppTextStyles.body1,
         ),
       ],

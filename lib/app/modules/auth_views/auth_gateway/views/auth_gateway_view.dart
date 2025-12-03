@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lokkha/app/components/custom_decision_button.dart';
+import 'package:lokkha/app/modules/auth_views/sign_up/views/sign_up_view.dart';
+import 'package:lokkha/app/modules/auth_views/signin/views/signin_view.dart';
 import 'package:lokkha/app/views/widgets/base_webview.dart';
 import 'package:lokkha/app/helper/global.dart';
 import 'package:lokkha/config/constants/app_images.dart';
@@ -20,78 +22,73 @@ class AuthGatewayView extends GetView<AuthGatewayController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          spacing: 8.0.h,
-          children: [
-            150.h.height,
-            Image.asset(AssetImagePaths.appIcon, scale: 2.0),
-            Text(
-              "সঠিক পথে, স্বল্প সময়ে",
-              style: AppTextStyles.heading4,
-            ),
-            Text(
-              "কোনো রেজিস্ট্রেশন এর প্রয়োজন নেই সরাসরি লগইন করুন",
-              style: AppTextStyles.body1,
-            ),
-            50.h.height,
-            // DecisionButton(
-            //   text: "Sign in with google",
-            //   leadingWidget: const FaIcon(FontAwesomeIcons.google, size: 20),
-            //   onPressed: () {
-            //
-            //   },
-            // ),
-            // DecisionButton(
-            //   text: "Sign in with Facebook",
-            //   leadingWidget: const FaIcon(FontAwesomeIcons.facebook, size: 20),
-            //   onPressed: () {},
-            // ),
-            DecisionButton(
-              text: "Sign in with Phone",
-              leadingWidget: const FaIcon(FontAwesomeIcons.phone, size: 20),
-              onPressed: () {
-                Get.toNamed(Routes.SIGN_UP);
-                // if (controller.isRegister) {
-                //   debugPrint("isRegister");
-                //   Get.toNamed(Routes.SIGNIN);
-                // } else {
-                //   debugPrint("Not Register");
-                //   Get.toNamed(Routes.SIGN_UP);
-                // }
-              },
-            ),
-            const Spacer(),
-            RichText(
-              text: TextSpan(children: [
-                TextSpan(
-                  text:
-                      'লগ ইন করে, আপনি আমাদের সাথে সম্মত হন।', // by logging in you agree to our
-                  style: AppTextStyles.custom(fontSize: 11.0.sp),
-                ),
-                TextSpan(
-                  text: ' শর্তাবলী ও নীতিমালা',
-                  style: AppTextStyles.custom(
-                      fontSize: 12.0.sp,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.black),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () {
-                      Get.to(
-                        BaseWebView(
-                          title: "শর্তাবলী ও নীতিমালা",
-                          url: AppConstants.termsPolicy,
-                        ),
-                      );
-                    },
-                ),
-              ]),
-            ),
-            Text(
-              "Version $appVersion",
-              style: AppTextStyles.custom(fontSize: 11.0.sp),
-            ),
-          ],
-        ).paddingAll(8.00.r),
+        child: SingleChildScrollView(
+          child: Column(
+            spacing: 8.0.h,
+            children: [
+              150.h.height,
+              Image.asset(AssetImagePaths.appIcon, scale: 2.0),
+              Text(
+                "সঠিক পথে, স্বল্প সময়ে",
+                style: AppTextStyles.heading4,
+              ),
+              Text(
+                "কোনো রেজিস্ট্রেশন এর প্রয়োজন নেই সরাসরি লগইন করুন",
+                style: AppTextStyles.body1,
+              ),
+              50.h.height,
+              // DecisionButton(
+              //   text: "Sign in with google",
+              //   leadingWidget: const FaIcon(FontAwesomeIcons.google, size: 20),
+              //   onPressed: () {
+              //
+              //   },
+              // ),
+              // DecisionButton(
+              //   text: "Sign in with Facebook",
+              //   leadingWidget: const FaIcon(FontAwesomeIcons.facebook, size: 20),
+              //   onPressed: () {},
+              // ),
+              DecisionButton(
+                text: "Sign in with Phone",
+                leadingWidget: const FaIcon(FontAwesomeIcons.phone, size: 20),
+                onPressed: () {
+                  Get.toNamed(Routes.SIGN_UP);
+                },
+              ),
+              const Spacer(),
+              RichText(
+                text: TextSpan(children: [
+                  TextSpan(
+                    text:
+                        'লগ ইন করে, আপনি আমাদের সাথে সম্মত হন।', // by logging in you agree to our
+                    style: AppTextStyles.custom(fontSize: 11.0.sp),
+                  ),
+                  TextSpan(
+                    text: ' শর্তাবলী ও নীতিমালা',
+                    style: AppTextStyles.custom(
+                        fontSize: 12.0.sp,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        Get.to(
+                          BaseWebView(
+                            title: "শর্তাবলী ও নীতিমালা",
+                            url: AppConstants.termsPolicy,
+                          ),
+                        );
+                      },
+                  ),
+                ]),
+              ),
+              Text(
+                "Version $appVersion",
+                style: AppTextStyles.custom(fontSize: 11.0.sp),
+              ),
+            ],
+          ).paddingAll(8.00.r),
+        ),
       ),
     );
   }

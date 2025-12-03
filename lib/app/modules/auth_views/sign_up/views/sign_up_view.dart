@@ -20,8 +20,8 @@ class SignUpView extends GetView<SignUpController> {
       body: GetBuilder(
           init: SignUpController(),
           builder: (x) {
-            return SingleChildScrollView(
-              child: SafeArea(
+            return SafeArea(
+              child: SingleChildScrollView(
                 child: Column(
                   spacing: 5.00.h,
                   children: [

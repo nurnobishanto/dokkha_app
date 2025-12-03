@@ -13,6 +13,7 @@ class JobsController extends GetxController {
   RxString search = RxString("");
   RxObjectMixin<Job> detailsModel = Job().obs;
   RxObjectMixin<JobListModel> model = JobListModel().obs;
+  late final int id;
 
   Future<void> fetchJobs(String search,
       {int page = 1, bool refresh = false}) async {
@@ -79,69 +80,12 @@ class JobsController extends GetxController {
       },
     );
   }
-
-  // Add Favourite jobs list
-  Future<void> addFavJob(int govJobId) async {
-    // if (token == "") {
-    //   return;
-    // }
-    // // isLoading.value = true;
-    // Map<String, String> headers = {
-    //   'Content-Type': 'application/json',
-    //   'Authorization': 'Bearer $token',
-    // };
-    // NetworkApiServices networkApiServices = NetworkApiServices();
-    // String url = "${AppUrl.addFavJob}?locale=${Get.locale}";
-    // final Map<String, dynamic> data = {
-    //   "government_job_id": govJobId,
-    // };
-    // var response =
-    // await networkApiServices.postApi(data, url, headers: headers);
-    //
-    // if (response["success"]) {
-    //   isFavourite.value = true;
-    //   if (kDebugMode) {
-    //     print("added favorite ${response["message"]}");
-    //   }
-    //   Utils.toastMessage(response['message'].toString());
-    //   getSingleJob(govJobId);
-    // } else {
-    //   if (kDebugMode) {
-    //     print("ERROR :::::::  ");
-    //   }
-    // }
-  }
-
-  // Removed Favourite from jobs list
-  Future<void> removeFavJob(int govJobId) async {
-    // if (token == "") {
-    //   return;
-    // }
-    // Map<String, String> headers = {
-    //   'Content-Type': 'application/json',
-    //   'Authorization': 'Bearer $token',
-    // };
-    // NetworkApiServices networkApiServices = NetworkApiServices();
-    // String url = "${AppUrl.addFavJob}/$govJobId";
-    // var response = await networkApiServices.deleteApi(url, headers: headers);
-    // if (response["success"]) {
-    //   isFavourite.value = false;
-    //   if (kDebugMode) {
-    //     print("Removed favorite ${response["message"]}");
-    //   }
-    //   Utils.toastMessage(response['message'].toString());
-    //   getSingleJob(govJobId);
-    // } else {
-    //   if (kDebugMode) {
-    //     print("ERROR ::::::: ");
-    //     print("ERROR $response");
-    //   }
-    // }
-  }
-
+  
   @override
-  void onReady() {
-    super.onReady();
+  void onInit() {
+    super.onInit();
+    final args = Get.arguments as Map<String, dynamic>? ?? {};
+     id = args['id'] ?? 0;
     fetchJobs("");
   }
 }

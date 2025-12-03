@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
 import 'package:lokkha/styles/text_style.dart';
 import '../../../../../utils/date_formatter.dart';
+import '../../../../routes/app_pages.dart';
 import '../controllers/jobs_controller.dart';
 import 'job_details_view.dart';
 
@@ -116,10 +117,10 @@ class JobsView extends GetView<JobsController> {
                                             ? ""
                                             : data.companyName.toString(),
                                         onTap: () {
-                                          Get.to(
-                                            () => JobDetailsScreen(
-                                              id: data.id!.toInt(),
-                                            ),
+                                          print("1x. ${data.id}");
+                                          Get.toNamed(
+                                            Routes.JOB_DETAILS,
+                                            arguments: data.id,
                                           );
                                         },
                                         deadline: data.deadline,

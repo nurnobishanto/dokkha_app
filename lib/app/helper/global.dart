@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
@@ -9,11 +10,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:gif/gif.dart';
 import 'package:lokkha/app/data/local/my_get_storage.dart';
+import 'package:lokkha/app/views/widgets/base_webview.dart';
 import 'package:lokkha/config/constants/app_strings.dart';
 import 'package:lokkha/utils/constants.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../models/user.dart';
+import '../routes/app_pages.dart';
 
 ///GLOBAL CONFIG: shared across the entire app.
 
@@ -268,4 +272,30 @@ Widget buildAvatar(User user, {double radius = 26.0}) {
   } else {
     return NameAvatar(name: user.name.toString(), radius: radius);
   }
+}
+
+Future<void> openAppOrWebView(String url) async {
+  final Uri uri = Uri.parse(url);
+  if (await canLaunchUrl(uri)) {
+    await launchUrl(uri, mode: LaunchMode.externalApplication);
+  } else {
+    Get.to(BaseWebView(url: url, title: ''));
+  }
+}
+
+bool isAppRoute(String path) {
+  return [
+    Routes.COURSES,
+    Routes.COURSE_DETAILS,
+    Routes.COURSE_LEARN,
+    Routes.COURSE_CHECKOUT,
+    Routes.PREMIUM_PACKAGES,
+    Routes.MODEL_TEST_DETAILS,
+    Routes.EXAM_CATEGORY,
+    Routes.EXAM_CATEGORY_DETAILS,
+    Routes.ALL_EXAM,
+    Routes.LATEST_EXAM,
+    Routes.ALL_CONTEST,
+    // add any important routes here
+  ].contains(path);
 }

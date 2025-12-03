@@ -182,9 +182,6 @@ class LatestExamCard extends StatelessWidget {
   }
 }
 
-
-
-
 // class LatestExamCard extends StatelessWidget {
 //   final String title;
 //   final DateTime date;

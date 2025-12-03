@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/foundation.dart';
@@ -6,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/components/custom_drawer.dart';
 import 'package:lokkha/app/data/local/my_shared_pref.dart';
+import 'package:lokkha/app/helper/global.dart';
 import 'package:lokkha/app/modules/contest/widgets/last_contest_result_widget.dart';
 import 'package:lokkha/app/modules/contest/widgets/latest_contest_widget.dart';
 import 'package:lokkha/app/modules/random_question/views/random_question_view.dart';
@@ -275,7 +278,82 @@ class _SliderSection extends StatelessWidget {
               return ClipRRect(
                 borderRadius: BorderRadius.circular(7.0),
                 child: InkWell(
-                  onTap: onTap,
+                  //onTap: onTap,
+                  onTap: () {
+                    final page = sliderItem.page ?? "";
+                    final link = sliderItem.link ??
+                        "https://lokkha.com/job-details?id=45";
+                    final param = sliderItem.param ?? "";
+
+                    if (page.isNotEmpty) {
+                      // Navigate to internal page
+                      if (param.isNotEmpty) {
+                        try {
+                          // Decode JSON param and pass as direct GetX arguments
+                          final decoded = jsonDecode(param); // JSON -> Map
+                          Get.toNamed(page, arguments: decoded);
+                        } catch (e) {
+                          // If JSON fails → pass raw string fallback
+                          Get.toNamed(page, arguments: {"param": param});
+                        }
+                      } else {
+                        // Simple navigation without param
+                        Get.toNamed(page);
+                      }
+                    } else if (link.isNotEmpty) {
+                      // If page is empty → open external link or webview
+
+                      final uri = Uri.tryParse(link);
+                      debugPrint("1. $link");
+                      if (uri != null && uri.path.isNotEmpty) {
+                        final extractedPage = uri.path;
+                        debugPrint("2. $extractedPage");
+                        // Check if path matches any app route
+                        if (isAppRoute(extractedPage)) {
+                          // Extract query parameters
+                          final queryParams =
+                              uri.queryParameters; // Map<String, String>
+                          debugPrint("3. $queryParams");
+                          final Map<String, dynamic> parsedParams = {};
+
+                          queryParams.forEach((key, value) {
+                            final lowerKey = key.toLowerCase();
+
+                            // Rule 1: keys like id, user_id, course_id etc → ALWAYS INT
+                            final isIdField = lowerKey.endsWith("id") ||
+                                lowerKey.contains("_id");
+
+                            if (isIdField) {
+                              parsedParams[key] = int.tryParse(value) ?? 0;
+                            }
+                            // Rule 2: value is purely numeric → convert to int
+                            else if (int.tryParse(value) != null) {
+                              parsedParams[key] = int.parse(value);
+                            }
+                            // Rule 3: fallback → keep as string
+                            else {
+                              parsedParams[key] = value;
+                            }
+                          });
+
+                          if (parsedParams.isNotEmpty) {
+                            Get.toNamed(extractedPage, arguments: parsedParams);
+                          } else {
+                            Get.toNamed(extractedPage);
+                          }
+                        } else {
+                          debugPrint("4......");
+                          // No matching route → open external link
+                          openAppOrWebView(link);
+                        }
+                      } else {
+                        debugPrint("5......");
+                        // Invalid link fallback
+                        openAppOrWebView(link);
+                      }
+                    }
+                  },
+
                   child: Container(
                     height: 120.h,
                     decoration: BoxDecoration(color: Colors.grey.shade200),

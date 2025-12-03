@@ -50,12 +50,12 @@ abstract class Routes {
   static const EXAM_CATEGORY = _Paths.EXAM_CATEGORY;
   static const EXAM_CATEGORY_DETAILS = _Paths.EXAM_CATEGORY_DETAILS;
   static const COURSES = _Paths.COURSES;
-  static const EXAM = _Paths.EXAM;
   static const COURSE_DETAILS = _Paths.COURSE_DETAILS;
   static const COURSE_LEARN = _Paths.COURSE_LEARN;
   static const COURSE_CHECKOUT = _Paths.COURSE_CHECKOUT;
   static const ALL_COURSES = _Paths.ALL_COURSES;
   static const ALL_EXAM = _Paths.ALL_EXAM;
+  static const JOB_DETAILS = _Paths.JOB_DETAILS;
 }
 
 abstract class _Paths {
@@ -107,10 +107,10 @@ abstract class _Paths {
   static const EXAM_CATEGORY = '/exam-category';
   static const EXAM_CATEGORY_DETAILS = '/exam-category-details';
   static const COURSES = '/courses';
-  static const EXAM = '/exam';
   static const COURSE_DETAILS = '/course-details';
   static const COURSE_LEARN = '/course-learn';
   static const COURSE_CHECKOUT = '/course-checkout';
   static const ALL_COURSES = '/all-courses';
   static const ALL_EXAM = '/all-exam';
+  static const JOB_DETAILS = '/job-details';
 }

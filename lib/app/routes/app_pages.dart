@@ -21,8 +21,6 @@ import '../modules/courses/bindings/courses_binding.dart';
 import '../modules/courses/views/courses_view.dart';
 import '../modules/current_affairs/bindings/current_affairs_binding.dart';
 import '../modules/current_affairs/views/current_affairs_view.dart';
-import '../modules/exam/bindings/exam_binding.dart';
-import '../modules/exam/views/exam_view.dart';
 import '../modules/exam_category/bindings/exam_category_binding.dart';
 import '../modules/exam_category/views/exam_category_view.dart';
 import '../modules/exam_category_details/bindings/exam_category_details_binding.dart';
@@ -30,6 +28,7 @@ import '../modules/exam_category_details/views/exam_category_details_view.dart';
 import '../modules/fast_practice/bindings/fast_practice_binding.dart';
 import '../modules/fast_practice/views/fast_practice_view.dart';
 import '../modules/grid_views/jobs/bindings/jobs_binding.dart';
+import '../modules/grid_views/jobs/views/job_details_view.dart';
 import '../modules/grid_views/jobs/views/jobs_view.dart';
 import '../modules/grid_views/mock_test_tab/controllers/mock_test_tab_controller.dart';
 import '../modules/grid_views/mock_test_tab/mock_test/bindings/mock_test_binding.dart';
@@ -213,6 +212,11 @@ class AppPages {
       binding: JobsBinding(),
     ),
     GetPage(
+      name: _Paths.JOB_DETAILS,
+      page: () => JobDetailsScreen(id: Get.arguments as int),
+      binding: JobsBinding(),
+    ),
+    GetPage(
       name: _Paths.CURRENT_AFFAIRS,
       page: () => const CurrentAffairsView(),
       binding: CurrentAffairsBinding(),
@@ -301,11 +305,6 @@ class AppPages {
       name: _Paths.COURSES,
       page: () => CoursesView(),
       binding: CoursesBinding(),
-    ),
-    GetPage(
-      name: _Paths.EXAM,
-      page: () => const ExamView(),
-      binding: ExamBinding(),
     ),
     GetPage(
       name: _Paths.COURSE_DETAILS,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:lokkha/app/views/widgets/random.dart';
 import '../../app/bindings/initial_bindings.dart';
 import '../../app/data/local/my_shared_pref.dart';
 import '../../app/helper/global.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
           initialBinding: InitialBindings(),
           initialRoute: AppPages.INITIAL,
           getPages: AppPages.routes,
+          //home: RandomPage(),
           useInheritedMediaQuery: true,
           locale: MySharedPref.getCurrentLocal(),
           translations: LocalizationService.getInstance(),

@@ -203,6 +203,7 @@ class ExamDetailsDialog extends StatelessWidget {
                                         ),
                                       )
                                     : const Text('পরীক্ষা দিন'),
+                                //label: const Text('পরীক্ষা দিন'),
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: primaryColor,
                                   foregroundColor: Colors.white,
@@ -214,6 +215,7 @@ class ExamDetailsDialog extends StatelessWidget {
                                   elevation: 4,
                                 ),
                                 onPressed: () {
+                                  Navigator.pop(context);
                                   examController.startExam(exam.id!.toInt());
                                 },
                               ),

@@ -282,12 +282,13 @@ class _SliderSection extends StatelessWidget {
                   onTap: () {
                     final page = sliderItem.page ?? "";
                     final link = sliderItem.link ??
-                        "https://lokkha.com/job-details?id=45";
+                        "";
                     final param = sliderItem.param ?? "";
 
                     if (page.isNotEmpty) {
                       // Navigate to internal page
                       if (param.isNotEmpty) {
+
                         try {
                           // Decode JSON param and pass as direct GetX arguments
                           final decoded = jsonDecode(param); // JSON -> Map
@@ -300,7 +301,8 @@ class _SliderSection extends StatelessWidget {
                         // Simple navigation without param
                         Get.toNamed(page);
                       }
-                    } else if (link.isNotEmpty) {
+                    }
+                    else if (link.isNotEmpty) {
                       // If page is empty → open external link or webview
 
                       final uri = Uri.tryParse(link);
@@ -309,6 +311,25 @@ class _SliderSection extends StatelessWidget {
                         final extractedPage = uri.path;
                         debugPrint("2. $extractedPage");
                         // Check if path matches any app route
+                        final segments = uri.pathSegments;
+                        debugPrint("segment. $segments");
+                        if (segments.isNotEmpty) {
+                          final last = segments.last; // "5"
+
+                          // If last part of link is number → treat as ID
+                          if (int.tryParse(last) != null) {
+                            final id = int.parse(last);
+
+                            // Build route without ID
+                            final baseRoute = "/${segments.sublist(0, segments.length - 1).join("/")}";
+
+                            debugPrint("🔥 Dynamic Path Found → $baseRoute  ID=$id");
+
+                            // Navigate with ID
+                            Get.toNamed(baseRoute, arguments: id);
+                            return;
+                          }
+                        }
                         if (isAppRoute(extractedPage)) {
                           // Extract query parameters
                           final queryParams =

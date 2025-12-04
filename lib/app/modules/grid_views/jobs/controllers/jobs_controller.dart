@@ -4,6 +4,7 @@ import 'package:lokkha/app/services/base_client.dart';
 import 'package:lokkha/utils/constants.dart';
 
 import '../../../../data/local/my_get_storage.dart';
+import '../../../../routes/app_pages.dart';
 import '../models/job_list_model.dart';
 
 class JobsController extends GetxController {
@@ -13,7 +14,7 @@ class JobsController extends GetxController {
   RxString search = RxString("");
   RxObjectMixin<Job> detailsModel = Job().obs;
   RxObjectMixin<JobListModel> model = JobListModel().obs;
-  late final int id;
+    int? id;
 
   Future<void> fetchJobs(String search,
       {int page = 1, bool refresh = false}) async {
@@ -80,12 +81,15 @@ class JobsController extends GetxController {
       },
     );
   }
-  
+
   @override
   void onInit() {
     super.onInit();
-    final args = Get.arguments as Map<String, dynamic>? ?? {};
-     id = args['id'] ?? 0;
+    if (Get.currentRoute == Routes.JOB_DETAILS) {
+      print("Called... Get.currentRoute == Routes.JOB_DETAILS");
+      final args = Get.arguments as int;
+      id = args;
+   }
     fetchJobs("");
   }
 }

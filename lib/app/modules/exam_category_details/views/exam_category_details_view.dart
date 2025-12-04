@@ -16,9 +16,8 @@ class ExamCategoryDetailsView extends GetView<ExamCategoryDetailsController> {
     // read the argument once into a local variable
     final args = Get.arguments as Map<String, dynamic>? ?? {};
     final categoryName = args['category_name'] as String? ?? '';
-
     final controller = Get.put(ExamCategoryDetailsController());
-
+    print("addd:$categoryName");
     return Scaffold(
       appBar: AppBar(
         title: Text(

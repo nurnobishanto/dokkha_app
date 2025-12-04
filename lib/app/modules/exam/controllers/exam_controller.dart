@@ -83,7 +83,6 @@ class ExamController extends GetxController {
         } else {
           isExamLoading.value = false;
           errorMessage.value = response.data['message'];
-
           apiExamCallStatus.value = ApiCallStatus.error;
         }
       }, onError: (err) {
@@ -94,6 +93,8 @@ class ExamController extends GetxController {
     } catch (e) {
       isExamLoading.value = false;
       apiExamCallStatus.value = ApiCallStatus.error;
+    }finally{
+      isExamLoading.value = false;
     }
   }
 

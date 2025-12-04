@@ -213,7 +213,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.JOB_DETAILS,
-      page: () => JobDetailsScreen(id: Get.arguments as int),
+      page: () => JobDetailsScreen(id: Get.arguments),
       binding: JobsBinding(),
     ),
     GetPage(

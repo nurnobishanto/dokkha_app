@@ -281,14 +281,12 @@ class _SliderSection extends StatelessWidget {
                   //onTap: onTap,
                   onTap: () {
                     final page = sliderItem.page ?? "";
-                    final link = sliderItem.link ??
-                        "";
+                    final link = sliderItem.link ?? "";
                     final param = sliderItem.param ?? "";
 
                     if (page.isNotEmpty) {
                       // Navigate to internal page
                       if (param.isNotEmpty) {
-
                         try {
                           // Decode JSON param and pass as direct GetX arguments
                           final decoded = jsonDecode(param); // JSON -> Map
@@ -301,8 +299,7 @@ class _SliderSection extends StatelessWidget {
                         // Simple navigation without param
                         Get.toNamed(page);
                       }
-                    }
-                    else if (link.isNotEmpty) {
+                    } else if (link.isNotEmpty) {
                       // If page is empty → open external link or webview
 
                       final uri = Uri.tryParse(link);
@@ -321,9 +318,11 @@ class _SliderSection extends StatelessWidget {
                             final id = int.parse(last);
 
                             // Build route without ID
-                            final baseRoute = "/${segments.sublist(0, segments.length - 1).join("/")}";
+                            final baseRoute =
+                                "/${segments.sublist(0, segments.length - 1).join("/")}";
 
-                            debugPrint("🔥 Dynamic Path Found → $baseRoute  ID=$id");
+                            debugPrint(
+                                "🔥 Dynamic Path Found → $baseRoute  ID=$id");
 
                             // Navigate with ID
                             Get.toNamed(baseRoute, arguments: id);

@@ -19,7 +19,7 @@ class SetTimeView extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: true,
         title: Text(
-          'সময় নির্ধারণ',
+          'সময় xxনির্ধারণ',
           style: AppTextStyles.heading4.copyWith(color: LightThemeColors.white),
         ),
         iconTheme: const IconThemeData(color: Colors.white),

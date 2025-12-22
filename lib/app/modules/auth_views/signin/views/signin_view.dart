@@ -62,6 +62,7 @@ class SignInView extends GetView<SignInController> {
                       ),
                       1.0.h.height,
                       CustomTextFormField(
+                        autoFocus: true,
                         controller: controller.passwordController,
                         prefixIcon: const Icon(FontAwesomeIcons.lock),
                         hintText: "আপনার পাসওয়ার্ড লিখুন",

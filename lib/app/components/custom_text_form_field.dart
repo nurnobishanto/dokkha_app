@@ -9,6 +9,7 @@ class CustomTextFormField extends StatelessWidget {
   final TextEditingController? controller;
   final TextInputType keyboardType;
   final bool obscureText;
+  final bool autoFocus;
   final Widget? prefixIcon;
   final VoidCallback? onTap;
   final void Function(String)? onChanged;
@@ -23,6 +24,7 @@ class CustomTextFormField extends StatelessWidget {
     this.controller,
     this.keyboardType = TextInputType.text,
     this.obscureText = false,
+    this.autoFocus = false,
     this.prefixIcon,
     this.onTap,
     this.validator,
@@ -39,6 +41,7 @@ class CustomTextFormField extends StatelessWidget {
       valueListenable: isObscured,
       builder: (context, value, child) {
         return TextFormField(
+          autofocus: autoFocus,
           onChanged: onChanged,
           controller: controller,
           keyboardType: keyboardType,

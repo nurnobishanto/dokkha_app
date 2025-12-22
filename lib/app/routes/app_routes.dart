@@ -30,7 +30,6 @@ abstract class Routes {
   static const TOPIC_SELECTION = _Paths.TOPIC_SELECTION;
   static const JOBS = _Paths.JOBS;
   static const CURRENT_AFFAIRS = _Paths.CURRENT_AFFAIRS;
-  static const PACKAGES = _Paths.PACKAGES;
   static const PREMIUM_PACKAGES = _Paths.PREMIUM_PACKAGES;
   static const MY_APP = _Paths.MY_APP;
   static const SUBJECT_SECTION = _Paths.SUBJECT_SECTION;

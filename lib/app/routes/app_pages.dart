@@ -43,10 +43,6 @@ import '../modules/lecture_sheet/views/lecture_sheet_details_view.dart';
 import '../modules/lecture_sheet/views/lecture_sheet_list_view.dart';
 import '../modules/maintenance_mode/bindings/maintenance_mode_view_binding.dart';
 import '../modules/maintenance_mode/views/maintenance_mode_view_view.dart';
-import '../modules/model_test_module/model_test_categories/bindings/model_test_categories_binding.dart';
-import '../modules/model_test_module/model_test_categories/views/model_test_categories_view.dart';
-import '../modules/model_test_module/model_test_details/bindings/model_test_details_binding.dart';
-import '../modules/model_test_module/model_test_details/views/model_test_details_view.dart';
 import '../modules/nav_bar_views/blog/bindings/blog_binding.dart';
 import '../modules/nav_bar_views/blog/views/blog_view.dart';
 import '../modules/nav_bar_views/contest/all_contest/bindings/all_contest_binding.dart';
@@ -281,16 +277,7 @@ class AppPages {
       page: () => const LectureSheetDetailsView(),
       binding: SheetDetailsBinding(),
     ),
-    GetPage(
-      name: _Paths.MODEL_TEST_CATEGORIES,
-      page: () => const ModelTestCategoriesView(),
-      binding: ModelTestCategoriesBinding(),
-    ),
-    GetPage(
-      name: _Paths.MODEL_TEST_DETAILS,
-      page: () => const ModelTestDetailsView(),
-      binding: ModelTestDetailsBinding(),
-    ),
+
     GetPage(
       name: _Paths.EXAM_CATEGORY,
       page: () => const ExamCategoryView(),

@@ -25,7 +25,7 @@ class SignUpView extends GetView<SignUpController> {
                 child: Column(
                   spacing: 5.00.h,
                   children: [
-                    110.height,
+                    50.height,
                     Image.asset(AssetImagePaths.appIcon, scale: 2.0),
                     Text(
                       "এক টাকা দিয়ে লক্ষ্যে পৌঁছান",
@@ -44,8 +44,11 @@ class SignUpView extends GetView<SignUpController> {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
+
+
                     2.0.h.height,
                     CustomTextFormField(
+                      autoFocus: true,
                       controller: controller.phoneController,
                       prefixIcon: const Icon(FontAwesomeIcons.phone),
                       hintText: "আপনার ১১ সংখ্যার ফোন নম্বর লিখুন",

@@ -73,7 +73,7 @@ class _LatestExamStartDialogState extends State<LatestExamStartDialog> {
               children: [
                 _button('পরীক্ষা শুরু', Colors.redAccent, Colors.white, () {
                   Get.find<LatestExamController>().fetchTagQuestions(
-                    widget.latestExam.tag!.id,
+                    widget.latestExam.tag!,
                     true,
                     int.tryParse(examTimeController.text) ?? 60,
                     selectedNegativeMark,
@@ -83,7 +83,7 @@ class _LatestExamStartDialogState extends State<LatestExamStartDialog> {
                 const SizedBox(width: 8),
                 _button('পড়ুন', Colors.green, Colors.white, () {
                   Get.find<LatestExamController>().fetchTagQuestions(
-                    widget.latestExam.tag!.id,
+                    widget.latestExam.tag!,
                     false,
                     int.tryParse(examTimeController.text) ?? 60,
                     selectedNegativeMark,

@@ -312,7 +312,6 @@ bool isAppRoute(String path) {
     Routes.TOPIC_SELECTION,
     Routes.JOBS,
     Routes.CURRENT_AFFAIRS,
-    Routes.PACKAGES,
     Routes.PREMIUM_PACKAGES,
     Routes.MY_APP,
     Routes.SUBJECT_SECTION,

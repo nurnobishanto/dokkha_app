@@ -26,9 +26,8 @@ class VerifyOtpView extends GetView<VerifyOtpController> {
   Widget build(BuildContext context) {
     debugPrint('MY PHONE $phoneNumber>> ${phoneNumber.runtimeType}');
     debugPrint('OTP TYPE $type');
-    //controller.sendOtp(phoneNumber, type);
     return Scaffold(
-      body: GetBuilder(
+      body: GetBuilder<VerifyOtpController>(
           init: VerifyOtpController(),
           builder: (x) {
             return Container(
@@ -50,6 +49,7 @@ class VerifyOtpView extends GetView<VerifyOtpController> {
                   ),
                   10.h.height,
                   Pinput(
+                    autofocus: true,
                     length: 6,
                     defaultPinTheme: _myOTPTheme,
                     focusedPinTheme: _selectOTPTheme,

@@ -182,8 +182,7 @@ class ExamDetailsDialog extends StatelessWidget {
                                 ),
                                 onPressed: () {
                                   // Handle read question
-                                  examController
-                                      .fetchExamDetails(exam.id!.toInt());
+                                  examController.fetchExamDetails(exam);
                                 },
                               ),
                             ),
@@ -216,7 +215,7 @@ class ExamDetailsDialog extends StatelessWidget {
                                 ),
                                 onPressed: () {
                                   Navigator.pop(context);
-                                  examController.startExam(exam.id!.toInt());
+                                  examController.startExam(exam);
                                 },
                               ),
                             ),

@@ -1,11 +1,15 @@
+import 'dart:convert';
+import 'dart:developer';
+import 'dart:typed_data';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/modules/latest_exam/models/tag_questions_model.dart';
 import '../../../../utils/constants.dart';
 import '../../../models/start_exam_model.dart';
+import '../../../models/tag.dart';
 import '../../../services/base_client.dart';
-import '../../../views/views/exam_process_view.dart';
-import '../../subject_sections/views/read_question.dart';
+import '../../../views/widgets/web_exam_view.dart';
 import '../models/latest_exam_model.dart';
 import 'package:lokkha/app/services/api_call_status.dart';
 
@@ -46,41 +50,28 @@ class LatestExamController extends GetxController {
     });
   }
 
-  Future<void> fetchTagQuestions(int id, bool isStartExam, int duration,
+  Future<void> fetchTagQuestions(Tag tag, bool isStartExam, int duration,
       String selectedNegativeMark, BuildContext context) async {
-    apiCallStatus = ApiCallStatus.loading;
-    isLoadingQuestion.value = true;
-    String url = "${AppConstants.tag}/$id";
+    Map<String, dynamic> data = {
+      'exam_name': tag.name,
+      'negative_mark': 0,
+      'is_negative_mark': false,
+      'is_set_time': true,
+      'type': "random",
+      'duration': duration,
+      'previous_day_count': 10,
+      'tag_id': tag.id,
+      'is_exam': isStartExam
+    };
+    log('xaa: $data');
 
-    BaseClient.safeApiCall(url, RequestType.get, onSuccess: (response) {
-      if (response.data["status"]) {
-        TagQuestionsModel tagQuestionsModel =
-            TagQuestionsModel.fromJson(response.data);
-        isLoadingQuestion.value = false;
-        if (isStartExam) {
-          StartExamModel model = StartExamModel(
-            status: true,
-            examName: tagQuestionsModel.tag?.name,
-            type: 'random',
-            duration: duration,
-            startTime: DateTime.now(),
-            isNegativeMark: true,
-            negativeMark: double.tryParse(selectedNegativeMark),
-            isSetTime: true,
-            questionsCount: tagQuestionsModel.questions!.length,
-            questions: tagQuestionsModel.questions!.toList(),
-          );
-          Navigator.pop(context);
-          Get.to(ExamProcessView(examStartModel: model));
-        } else {
-          Navigator.pop(context);
-          Get.to(
-              ReadQuestionView(model: tagQuestionsModel.questions!.toList()));
-        }
-      }
-    }, onError: (err) {
-      apiCallStatus = ApiCallStatus.error;
-    });
+    final Uint8List bodyBytes =
+        Uint8List.fromList(utf8.encode(jsonEncode(data)));
+
+    Get.to(() => WebExamView(
+        title: tag.name.toString(),
+        url: AppConstants.webTestExamStart,
+        body: bodyBytes));
   }
 
   @override

@@ -24,8 +24,9 @@ class AppConstants {
 
   /// Subjects & Exams
   static final String subjects = '$appUrl/subjects';
-  static final String testExamStart = '$appUrl/test-exam/start';
-  static final String testExamSubmit = '$appUrl/test-exam/submit';
+  //static final String testExamStart = '$appUrl/test-exam/start';
+  static final String webTestExamStart = '$appUrl/web-test-exam/start';
+  //static final String testExamSubmit = '$appUrl/test-exam/submit';
   static final String randomQuestion = '$appUrl/random-question';
 
   /// Favorites
@@ -80,6 +81,8 @@ class AppConstants {
   static final String modelTest = '$appUrl/model-test';
   static final String modelTestCategories = '$appUrl/model-test-categories';
   static final String exam = '$appUrl/exam';
+  static final String webExamRead = '$appUrl/web-exam-read';
+  static final String webExamStart = '$appUrl/web-exam-start';
 
   /// Lecture Sheet
   static final String lectureSheetCategories =

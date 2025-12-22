@@ -1,15 +1,13 @@
-import 'dart:developer';
+import 'dart:convert';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/models/start_exam_model.dart';
 import 'package:lokkha/app/modules/subject_sections/models/sub_sec_select_model.dart';
-import 'package:lokkha/app/modules/subject_sections/views/read_question.dart';
 import '../../../../../utils/constants.dart';
-import '../../../components/custom_snackbar.dart';
 import '../../../data/local/my_shared_pref.dart';
 import '../../../services/api_call_status.dart';
-import '../../../services/base_client.dart';
-import '../../../views/views/exam_process_view.dart';
+import '../../../views/widgets/web_exam_view.dart';
 
 class SubSecSetTimeController extends GetxController {
   RxBool isNegativeMarkChecked = false.obs;
@@ -45,7 +43,7 @@ class SubSecSetTimeController extends GetxController {
   RxObjectMixin model = StartExamModel().obs;
 
   ///  method
-  Future<void> testExamStart(String type) async {
+  Future<void> testExamStart({bool isExam = true}) async {
     try {
       isLoading.value = true;
       String? token = MySharedPref.getUserToken();
@@ -60,7 +58,7 @@ class SubSecSetTimeController extends GetxController {
         'exam_name': 'Question Bank Exam',
         'is_negative_mark': isNegativeMarkChecked.value,
         'negative_mark': isNegativeMarkChecked.value ? 0.25 : 0,
-
+        "is_exam": isExam,
         'is_set_time': isSetTime.value,
         'duration': finalDuration,
         'type': selectedKey.value,
@@ -69,59 +67,11 @@ class SubSecSetTimeController extends GetxController {
             .map((subject) => subject.toMap())
             .toList(), // Convert each subject to map
       };
+      final Uint8List bodyBytes =
+          Uint8List.fromList(utf8.encode(jsonEncode(data)));
 
-      await BaseClient.safeApiCall(
-        AppConstants.testExamStart,
-        RequestType.post,
-        data: data,
-        headers: {
-          "Authorization": 'Bearer $token',
-        },
-        onSuccess: (response) {
-          apiCallStatus = ApiCallStatus.success;
-          if (response.data['status']) {
-            StartExamModel data = StartExamModel.fromJson(response.data);
-            model.value = data;
-            // isLoading.value = false;
-            // log("messages");
-            if (type == 'exam') {
-              Get.to(ExamProcessView(
-                examStartModel: model.value,
-              ));
-            } else {
-              Get.to(ReadQuestionView(
-                model: data.questions!.toList(),
-              ));
-            }
-
-            log("My EXam Data: ${data.startTime.toString()}");
-          } else if (response.data["status"] == false &&
-              response.data.containsKey('errors')) {
-            response.data['errors'].forEach((key, value) {
-              // isLoading.value = false;
-              if (value is List && value.isNotEmpty) {
-                CustomSnackBar.showCustomToast(
-                  message: value[0].toString(),
-                ); // first error message
-              }
-            });
-          }
-
-          // update();
-          // debugPrint(" successfully: ${response.data}");
-        },
-        onError: (error) {
-          apiCallStatus = ApiCallStatus.error;
-          update();
-          isLoading.value = false;
-          debugPrint("Error sub section controller: ${error.message}");
-        },
-        onLoading: () {
-          apiCallStatus = ApiCallStatus.loading;
-          update();
-          debugPrint("Logging...");
-        },
-      );
+      Get.to(() => WebExamView(
+          title: "Exam", url: AppConstants.webTestExamStart, body: bodyBytes));
     } catch (e) {
       print(e);
     } finally {

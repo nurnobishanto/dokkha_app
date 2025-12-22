@@ -44,7 +44,7 @@ class AuthGatewayView extends GetView<AuthGatewayController> {
           child: Column(
             spacing: 8.0.h,
             children: [
-              150.h.height,
+              100.h.height,
               Image.asset(AssetImagePaths.appIcon, scale: 2.0),
               Text(
                 "সঠিক পথে, স্বল্প সময়ে",
@@ -64,7 +64,6 @@ class AuthGatewayView extends GetView<AuthGatewayController> {
                 },
               ),
 
-              // ❌ Removed Spacer() — causes render error
 
               40.h.height, // Added instead of Spacer()
 

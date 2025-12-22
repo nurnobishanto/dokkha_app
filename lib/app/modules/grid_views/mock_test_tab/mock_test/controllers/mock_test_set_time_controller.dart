@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:developer';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,6 +12,7 @@ import '../../../../../data/local/my_shared_pref.dart';
 import '../../../../../services/api_call_status.dart';
 import '../../../../../services/base_client.dart';
 import '../../../../../models/mock_subject_select_model.dart';
+import '../../../../../views/widgets/web_exam_view.dart';
 
 class MockTestSetTimeController extends GetxController {
   RxBool isNegativeMarkChecked = false.obs;
@@ -70,47 +73,12 @@ class MockTestSetTimeController extends GetxController {
           .map((subject) => subject.toMap())
           .toList(), // Convert each subject to map
     };
-    await BaseClient.safeApiCall(
-      AppConstants.testExamStart,
-      RequestType.post,
-      data: data,
-      headers: {
-        "Authorization": 'Bearer $token',
-      },
-      onSuccess: (response) {
-        apiCallStatus = ApiCallStatus.success;
-        if (response.data['status']) {
-          log("Called Success EXAM");
-          isLoading.value = false;
-          StartExamModel data = StartExamModel.fromJson(response.data);
-          model.value = data;
-          Get.to(ExamProcessView(examStartModel: data));
-          log("My EXam Data: ${data.startTime.toString()}");
-        } else if (response.data["status"] == false &&
-            response.data.containsKey('errors')) {
-          response.data['errors'].forEach((key, value) {
-            if (value is List && value.isNotEmpty) {
-              CustomSnackBar.showCustomToast(
-                message: value[0].toString(),
-              ); // first error message
-            }
-          });
-        }
 
-        update();
-        debugPrint("data fetch successfully: ${response.data}");
-      },
-      onError: (error) {
-        apiCallStatus = ApiCallStatus.error;
-        update();
-        debugPrint("Error mock test set time controller: ${error.message}");
-      },
-      onLoading: () {
-        apiCallStatus = ApiCallStatus.loading;
-        update();
-        debugPrint("Logging...");
-      },
-    );
+    final Uint8List bodyBytes =
+        Uint8List.fromList(utf8.encode(jsonEncode(data)));
+
+    Get.to(() => WebExamView(
+        title: "Subject Wise Exam", url: AppConstants.webTestExamStart, body: bodyBytes));
   }
 
   @override

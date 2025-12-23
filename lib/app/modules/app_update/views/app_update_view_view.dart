@@ -47,7 +47,7 @@ class AppUpdateView extends GetView<AppUpdateController> {
                 ),
               ),
               const SizedBox(height: 20),
-              // Subtitle
+              // Subtitles
               if (Platform.isAndroid)
                 const Text(
                   "সম্মানিত ইউজার,অ্যাপ আপডেট করাকালীন কোন সমস্যা সৃষ্টি হলে ব্যবহৃত অ্যাপটি প্রথমে আন-ইন্সটল করুন এবং পুনরায় প্লে-ষ্টোর হতে ইন্সটল করুন। ধন্যবাদ",

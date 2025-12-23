@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
-import 'package:lokkha/app/components/custom_action_button.dart';
 import 'package:lokkha/app/modules/current_affairs/controllers/current_affairs_controller.dart';
 import 'package:lokkha/app/views/widgets/package_required_popup.dart';
 import 'package:lokkha/config/extensions/common_extension.dart';
@@ -13,7 +12,6 @@ import 'package:lokkha/styles/text_style.dart';
 
 import '../../../../config/theme/light_theme_colors.dart';
 import '../../../helper/global.dart';
-import '../../../routes/app_pages.dart';
 import '../../../views/widgets/explanation_dialog.dart';
 
 class CurrentAffairsContentView extends StatelessWidget {

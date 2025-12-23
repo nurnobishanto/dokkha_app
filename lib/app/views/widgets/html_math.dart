@@ -41,10 +41,10 @@ class _MixedMathHtmlState extends State<MixedMathHtml> {
                   width: 400,
                   child: ScrollbarTheme(
                     data: ScrollbarThemeData(
-                      thumbColor: MaterialStateProperty.all(Colors.grey),
+                      thumbColor: WidgetStateProperty.all(Colors.grey),
                       trackColor:
-                          MaterialStateProperty.all(Colors.grey.shade300),
-                      thickness: MaterialStateProperty.all(5),
+                          WidgetStateProperty.all(Colors.grey.shade300),
+                      thickness: WidgetStateProperty.all(5),
                       radius: const Radius.circular(30),
                     ),
                     child: Scrollbar(

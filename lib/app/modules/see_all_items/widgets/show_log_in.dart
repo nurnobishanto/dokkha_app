@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
@@ -93,7 +92,6 @@ void showLoginPopup(BuildContext context) {
                         Get.toNamed(Routes.AUTH_GATEWAY);
                       },
                       style: ElevatedButton.styleFrom(
-
                         padding: const EdgeInsets.symmetric(vertical: 14),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -101,7 +99,8 @@ void showLoginPopup(BuildContext context) {
                       ),
                       child: Text(
                         "Login",
-                        style: TextStyle(fontSize: 15,color: LightThemeColors.white),
+                        style: TextStyle(
+                            fontSize: 15, color: LightThemeColors.white),
                       ),
                     ),
                   ),

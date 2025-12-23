@@ -36,7 +36,6 @@ class CourseLearnController extends GetxController {
       });
       return;
     }
-
   }
 
   Future<void> fetchCourseItem(int courseId, {int? itemID}) async {

@@ -7,13 +7,11 @@ import '../../../routes/app_pages.dart';
 import '../../../services/api_call_status.dart';
 import '../../courses/widgets/custom_course_card.dart';
 
-
 class AllCourseView extends GetView<SeeAllItemsController> {
   const AllCourseView({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     final controller = Get.find<SeeAllItemsController>();
     return Scaffold(
       appBar: AppBar(
@@ -51,13 +49,13 @@ class AllCourseView extends GetView<SeeAllItemsController> {
                       mainAxisSpacing: 8.w,
                       crossAxisSpacing: 8.w,
                       childAspectRatio:
-                      MediaQuery.sizeOf(context).width > 600 ? 1.5 : 1.0,
+                          MediaQuery.sizeOf(context).width > 600 ? 1.5 : 1.0,
                     ),
                     itemBuilder: (_, index) {
                       final course = courses[index];
                       return CustomCourseCard(
                         imageUrl:
-                        AppConstants.storageUrl + course.image.toString(),
+                            AppConstants.storageUrl + course.image.toString(),
                         title: course.title ?? "",
                         regularPrice: course.regularPrice.toString(),
                         salePrice: course.salePrice.toString(),

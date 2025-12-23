@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lokkha/app/components/custom_decision_button.dart';
-import 'package:lokkha/app/modules/auth_views/sign_up/views/sign_up_view.dart';
-import 'package:lokkha/app/modules/auth_views/signin/views/signin_view.dart';
 import 'package:lokkha/app/views/widgets/base_webview.dart';
 import 'package:lokkha/app/helper/global.dart';
 import 'package:lokkha/config/constants/app_images.dart';
@@ -16,23 +14,7 @@ import 'package:lokkha/utils/constants.dart';
 import '../../../../routes/app_pages.dart';
 import '../controllers/auth_gateway_controller.dart';
 
-import 'package:flutter/material.dart';
-import 'package:lokkha/app/components/custom_decision_button.dart';
-import 'package:lokkha/app/modules/auth_views/sign_up/views/sign_up_view.dart';
-import 'package:lokkha/app/modules/auth_views/signin/views/signin_view.dart';
-import 'package:lokkha/app/views/widgets/base_webview.dart';
-import 'package:lokkha/app/helper/global.dart';
-import 'package:lokkha/config/constants/app_images.dart';
-import 'package:lokkha/config/extensions/common_extension.dart';
-import 'package:lokkha/styles/text_style.dart';
-import 'package:flutter/gestures.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
-import 'package:lokkha/utils/constants.dart';
 
-import '../../../../routes/app_pages.dart';
-import '../controllers/auth_gateway_controller.dart';
 
 class AuthGatewayView extends GetView<AuthGatewayController> {
   const AuthGatewayView({super.key});
@@ -64,14 +46,12 @@ class AuthGatewayView extends GetView<AuthGatewayController> {
                 },
               ),
 
-
               40.h.height, // Added instead of Spacer()
 
               RichText(
                 text: TextSpan(children: [
                   TextSpan(
-                    text:
-                    'লগ ইন করে, আপনি আমাদের সাথে সম্মত হন।',
+                    text: 'লগ ইন করে, আপনি আমাদের সাথে সম্মত হন।',
                     style: AppTextStyles.custom(fontSize: 11.0.sp),
                   ),
                   TextSpan(

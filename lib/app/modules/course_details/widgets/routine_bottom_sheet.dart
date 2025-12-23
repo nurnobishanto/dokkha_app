@@ -36,18 +36,18 @@ class RoutineBottomSheet extends StatelessWidget {
               child: isPdf
                   ? SfPdfViewer.network(fullUrl)
                   : InteractiveViewer(
-                child: Image.network(
-                  fullUrl,
-                  fit: BoxFit.contain,
-                  loadingBuilder: (context, child, progress) {
-                    if (progress == null) return child;
-                    return const Center(
-                        child: CircularProgressIndicator());
-                  },
-                  errorBuilder: (context, error, stackTrace) =>
-                  const Center(child: Text("Failed to load image")),
-                ),
-              ),
+                      child: Image.network(
+                        fullUrl,
+                        fit: BoxFit.contain,
+                        loadingBuilder: (context, child, progress) {
+                          if (progress == null) return child;
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        },
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Center(child: Text("Failed to load image")),
+                      ),
+                    ),
             ),
           ],
         ),

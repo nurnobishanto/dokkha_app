@@ -105,7 +105,7 @@ class Course {
             : DateTime.parse(json["publish_date"]),
         status: json["status"],
         promotionVideo: json["promotion_video"],
-    routineFile: json["routine_file"],
+        routineFile: json["routine_file"],
         isExamBatch: json["is_exam_batch"],
         lifetimeAccess: json["lifetime_access"],
         featured: json["featured"],

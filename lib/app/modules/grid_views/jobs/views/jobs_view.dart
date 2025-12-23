@@ -5,7 +5,6 @@ import 'package:lokkha/styles/text_style.dart';
 import '../../../../../utils/date_formatter.dart';
 import '../../../../routes/app_pages.dart';
 import '../controllers/jobs_controller.dart';
-import 'job_details_view.dart';
 
 class JobsView extends GetView<JobsController> {
   const JobsView({super.key});

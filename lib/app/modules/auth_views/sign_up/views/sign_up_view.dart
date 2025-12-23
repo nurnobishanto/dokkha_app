@@ -44,8 +44,6 @@ class SignUpView extends GetView<SignUpController> {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-
-
                     2.0.h.height,
                     CustomTextFormField(
                       autoFocus: true,

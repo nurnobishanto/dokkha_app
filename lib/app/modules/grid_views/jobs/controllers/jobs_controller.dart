@@ -14,7 +14,7 @@ class JobsController extends GetxController {
   RxString search = RxString("");
   RxObjectMixin<Job> detailsModel = Job().obs;
   RxObjectMixin<JobListModel> model = JobListModel().obs;
-    int? id;
+  int? id;
 
   Future<void> fetchJobs(String search,
       {int page = 1, bool refresh = false}) async {
@@ -89,7 +89,7 @@ class JobsController extends GetxController {
       print("Called... Get.currentRoute == Routes.JOB_DETAILS");
       final args = Get.arguments as int;
       id = args;
-   }
+    }
     fetchJobs("");
   }
 }

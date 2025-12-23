@@ -71,9 +71,9 @@ class SubSecSetTimeController extends GetxController {
           Uint8List.fromList(utf8.encode(jsonEncode(data)));
 
       Get.to(() => WebExamView(
-          title: "Exam", url: AppConstants.webTestExamStart, body: bodyBytes));
+          title: "Exam", url: AppConstants.webTestExamStart, body: data));
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     } finally {
       isLoading.value = false;
     }

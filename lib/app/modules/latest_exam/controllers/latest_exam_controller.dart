@@ -4,9 +4,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:lokkha/app/modules/latest_exam/models/tag_questions_model.dart';
 import '../../../../utils/constants.dart';
-import '../../../models/start_exam_model.dart';
 import '../../../models/tag.dart';
 import '../../../services/base_client.dart';
 import '../../../views/widgets/web_exam_view.dart';
@@ -71,7 +69,7 @@ class LatestExamController extends GetxController {
     Get.to(() => WebExamView(
         title: tag.name.toString(),
         url: AppConstants.webTestExamStart,
-        body: bodyBytes));
+        body: data));
   }
 
   @override

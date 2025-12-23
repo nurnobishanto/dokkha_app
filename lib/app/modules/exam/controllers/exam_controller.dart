@@ -1,4 +1,3 @@
-
 import 'package:get/get.dart';
 import '../../../../utils/constants.dart';
 import '../../../models/exam.dart';
@@ -24,8 +23,8 @@ class ExamController extends GetxController {
 
   Future<void> startExam(Exam exam) async {
     Get.to(() => WebExamView(
-      title: exam.name.toString(),
-      url: "${AppConstants.webExamStart}/${exam.id}",
-    ));
+          title: exam.name.toString(),
+          url: "${AppConstants.webExamStart}/${exam.id}",
+        ));
   }
 }

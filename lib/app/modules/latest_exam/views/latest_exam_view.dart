@@ -181,4 +181,3 @@ class LatestExamCard extends StatelessWidget {
     );
   }
 }
-

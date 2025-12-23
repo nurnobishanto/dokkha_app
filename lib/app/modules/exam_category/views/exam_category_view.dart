@@ -5,8 +5,6 @@ import 'package:get/get.dart';
 import 'package:lokkha/app/services/api_call_status.dart';
 import 'package:lokkha/config/extensions/common_extension.dart';
 
-import '../../../../config/theme/light_theme_colors.dart';
-import '../../../../styles/text_style.dart';
 import '../../../routes/app_pages.dart';
 import '../../nav_bar_views/home/views/home_view.dart';
 import '../controllers/exam_category_controller.dart';
@@ -48,7 +46,6 @@ class ExamCategoryView extends GetView<ExamCategoryController> {
                         Get.toNamed(Routes.ALL_COURSES);
                       }),
                 ),
-
 
                 Obx(() {
                   final courses =
@@ -94,7 +91,7 @@ class ExamCategoryView extends GetView<ExamCategoryController> {
                 5.h.height,
 
                 Padding(
-                  padding:  EdgeInsets.symmetric(horizontal: 8.0.w),
+                  padding: EdgeInsets.symmetric(horizontal: 8.0.w),
                   child: SectionTitleWithSeeAll(
                       title: "ফ্রি পরীক্ষা সমূহ",
                       onSeeAllPressed: () {

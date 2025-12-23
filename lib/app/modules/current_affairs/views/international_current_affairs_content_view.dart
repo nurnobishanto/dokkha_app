@@ -57,204 +57,211 @@ class InternationalCurrentAffairsContentView extends StatelessWidget {
           return const Center(child: Text('No Data Found'));
         }
 
-        return
-          ListView.builder(
-            itemCount: items.length + 1, // +1 for Load More
-            itemBuilder: (context, index) {
-              if (index == items.length) {
-                // Load More button
-                if (controller.currentPage.value <
-                    (controller.model.value.currentAffairs?.lastPage ?? 0)) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Center(
-                      child: GestureDetector(
-                        onTap: () {
-                          controller.fetchCurrentAffairs(
-                            "",
-                            page: controller.currentPage.value + 1,
-                          );
-                        },
-                        child: Container(
-                          height: 40,
-                          width: Get.width / 2,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.0),
-                            border: Border.all(
-                              color: LightThemeColors.primaryColor,
-                              width: 1,
-                            ),
+        return ListView.builder(
+          itemCount: items.length + 1, // +1 for Load More
+          itemBuilder: (context, index) {
+            if (index == items.length) {
+              // Load More button
+              if (controller.currentPage.value <
+                  (controller.model.value.currentAffairs?.lastPage ?? 0)) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Center(
+                    child: GestureDetector(
+                      onTap: () {
+                        controller.fetchCurrentAffairs(
+                          "",
+                          page: controller.currentPage.value + 1,
+                        );
+                      },
+                      child: Container(
+                        height: 40,
+                        width: Get.width / 2,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.0),
+                          border: Border.all(
+                            color: LightThemeColors.primaryColor,
+                            width: 1,
                           ),
-                          child: const Center(
-                            child: Text(
-                              'আরও দেখুন',
-                              style: TextStyle(
-                                color: LightThemeColors.primaryColor,
-                                fontWeight: FontWeight.bold,
-                              ),
+                        ),
+                        child: const Center(
+                          child: Text(
+                            'আরও দেখুন',
+                            style: TextStyle(
+                              color: LightThemeColors.primaryColor,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
                       ),
                     ),
-                  );
-                } else {
-                  return const SizedBox.shrink();
-                }
+                  ),
+                );
+              } else {
+                return const SizedBox.shrink();
               }
+            }
 
-              final data = items[index];
-              final bool isLocked = !havePackage.value && index > 0;
+            final data = items[index];
+            final bool isLocked = !havePackage.value && index > 0;
 
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Date header (always visible)
-                    Row(
-                      children: [
-                        const Expanded(child: Divider()),
-                        10.0.w.width,
-                        Center(
-                          child: Text(
-                            data.date ?? "",
-                            style: AppTextStyles.heading4,
-                          ),
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Date header (always visible)
+                  Row(
+                    children: [
+                      const Expanded(child: Divider()),
+                      10.0.w.width,
+                      Center(
+                        child: Text(
+                          data.date ?? "",
+                          style: AppTextStyles.heading4,
                         ),
-                        10.0.w.width,
-                        const Expanded(child: Divider()),
-                      ],
-                    ),
-                    10.0.h.height,
+                      ),
+                      10.0.w.width,
+                      const Expanded(child: Divider()),
+                    ],
+                  ),
+                  10.0.h.height,
 
-                    // Questions
-                    Column(
-                      children: List.generate(
-                        data.questions?.length ?? 0,
-                            (i) {
-                          var question = data.questions![i];
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // Question title
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Icon(
-                                    FontAwesomeIcons.arrowRight,
-                                    size: 15.0,
+                  // Questions
+                  Column(
+                    children: List.generate(
+                      data.questions?.length ?? 0,
+                      (i) {
+                        var question = data.questions![i];
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Question title
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Icon(
+                                  FontAwesomeIcons.arrowRight,
+                                  size: 15.0,
+                                ),
+                                const SizedBox(width: 5.0),
+                                Expanded(
+                                  child: HtmlWidget(
+                                    question.title ?? "",
+                                    textStyle: AppTextStyles.heading5,
                                   ),
-                                  const SizedBox(width: 5.0),
-                                  Expanded(
-                                    child: HtmlWidget(
-                                      question.title ?? "",
-                                      textStyle: AppTextStyles.heading5,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 4),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 4),
 
-                              // Correct answers (blur only the answer value)
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: question.options
-                                    ?.where((option) => option.isCorrect == true)
-                                    .map(
-                                      (option) => Expanded(
-                                    child: Padding(
-                                      padding:
-                                      const EdgeInsets.only(bottom: 4.0),
-                                      child: RichText(
-                                        text: TextSpan(
-                                          style: AppTextStyles.body1.copyWith(
-                                            color: Colors.black,
-                                          ),
-                                          children: [
-                                            // Label always visible
-                                            const TextSpan(
-                                              text: 'উত্তর: ',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-
-                                            // Answer text (blurred if locked)
-                                            WidgetSpan(
-                                              child: isLocked
-                                                  ? Stack(
+                            // Correct answers (blur only the answer value)
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: question.options
+                                      ?.where(
+                                          (option) => option.isCorrect == true)
+                                      .map(
+                                        (option) => Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 4.0),
+                                            child: RichText(
+                                              text: TextSpan(
+                                                style: AppTextStyles.body1
+                                                    .copyWith(
+                                                  color: Colors.black,
+                                                ),
                                                 children: [
-                                                  Text(
-                                                    option.value ?? "",
-                                                    style:
-                                                    AppTextStyles.body1,
+                                                  // Label always visible
+                                                  const TextSpan(
+                                                    text: 'উত্তর: ',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold),
                                                   ),
-                                                  Positioned.fill(
-                                                    child: ClipRRect(
-                                                      child: BackdropFilter(
-                                                        filter: ImageFilter
-                                                            .blur(
-                                                            sigmaX: 5,
-                                                            sigmaY: 5),
-                                                        child: Container(
-                                                          color: Colors
-                                                              .transparent,
-                                                        ),
-                                                      ),
-                                                    ),
+
+                                                  // Answer text (blurred if locked)
+                                                  WidgetSpan(
+                                                    child: isLocked
+                                                        ? Stack(
+                                                            children: [
+                                                              Text(
+                                                                option.value ??
+                                                                    "",
+                                                                style:
+                                                                    AppTextStyles
+                                                                        .body1,
+                                                              ),
+                                                              Positioned.fill(
+                                                                child:
+                                                                    ClipRRect(
+                                                                  child:
+                                                                      BackdropFilter(
+                                                                    filter: ImageFilter.blur(
+                                                                        sigmaX:
+                                                                            5,
+                                                                        sigmaY:
+                                                                            5),
+                                                                    child:
+                                                                        Container(
+                                                                      color: Colors
+                                                                          .transparent,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          )
+                                                        : Text(
+                                                            option.value ?? "",
+                                                            style: AppTextStyles
+                                                                .body1,
+                                                          ),
                                                   ),
                                                 ],
-                                              )
-                                                  : Text(
-                                                option.value ?? "",
-                                                style:
-                                                AppTextStyles.body1,
                                               ),
                                             ),
-                                          ],
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                                    .toList() ??
-                                    [],
-                              ),
+                                      )
+                                      .toList() ??
+                                  [],
+                            ),
 
-                              // Explanation link
-                              if (question.explanation != null)
-                                Align(
-                                  alignment: Alignment.topRight,
-                                  child: InkWell(
-                                    onTap: () {
-                                      if (havePackage.value) {
-                                        ExplanationDialog.show(question);
-                                      } else {
-                                        Get.dialog(PackageRequiredPopup());
-                                      }
-                                    },
-                                    child: Text(
-                                      "ব্যাখ্যা দেখুন →",
-                                      style: AppTextStyles.body1.copyWith(
-                                        color: LightThemeColors.primaryColor,
-                                      ),
-                                      textAlign: TextAlign.end,
+                            // Explanation link
+                            if (question.explanation != null)
+                              Align(
+                                alignment: Alignment.topRight,
+                                child: InkWell(
+                                  onTap: () {
+                                    if (havePackage.value) {
+                                      ExplanationDialog.show(question);
+                                    } else {
+                                      Get.dialog(PackageRequiredPopup());
+                                    }
+                                  },
+                                  child: Text(
+                                    "ব্যাখ্যা দেখুন →",
+                                    style: AppTextStyles.body1.copyWith(
+                                      color: LightThemeColors.primaryColor,
                                     ),
+                                    textAlign: TextAlign.end,
                                   ),
-                                )
-                              else
-                                const SizedBox(height: 10.0),
-                            ],
-                          );
-                        },
-                      ),
+                                ),
+                              )
+                            else
+                              const SizedBox(height: 10.0),
+                          ],
+                        );
+                      },
                     ),
-                  ],
-                ),
-              );
-            },
-          );
-
+                  ),
+                ],
+              ),
+            );
+          },
+        );
       }),
     );
   }

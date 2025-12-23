@@ -1,9 +1,9 @@
-
 import 'dart:convert';
 
 import '../../../models/exam.dart';
 
-AllExamModel allExamModelFromJson(String str) => AllExamModel.fromJson(json.decode(str));
+AllExamModel allExamModelFromJson(String str) =>
+    AllExamModel.fromJson(json.decode(str));
 
 String allExamModelToJson(AllExamModel data) => json.encode(data.toJson());
 
@@ -17,14 +17,14 @@ class AllExamModel {
   });
 
   factory AllExamModel.fromJson(Map<String, dynamic> json) => AllExamModel(
-    status: json["status"],
-    exams: json["exams"] == null ? null : Exams.fromJson(json["exams"]),
-  );
+        status: json["status"],
+        exams: json["exams"] == null ? null : Exams.fromJson(json["exams"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "status": status,
-    "exams": exams?.toJson(),
-  };
+        "status": status,
+        "exams": exams?.toJson(),
+      };
 }
 
 class Exams {
@@ -59,46 +59,49 @@ class Exams {
   });
 
   factory Exams.fromJson(Map<String, dynamic> json) => Exams(
-    currentPage: json["current_page"],
-    data: json["data"] == null ? [] : List<Exam>.from(json["data"]!.map((x) => Exam.fromJson(x))),
-    firstPageUrl: json["first_page_url"],
-    from: json["from"],
-    lastPage: json["last_page"],
-    lastPageUrl: json["last_page_url"],
-    links: json["links"] == null ? [] : List<Link>.from(json["links"]!.map((x) => Link.fromJson(x))),
-    nextPageUrl: json["next_page_url"],
-    path: json["path"],
-    perPage: json["per_page"],
-    prevPageUrl: json["prev_page_url"],
-    to: json["to"],
-    total: json["total"],
-  );
+        currentPage: json["current_page"],
+        data: json["data"] == null
+            ? []
+            : List<Exam>.from(json["data"]!.map((x) => Exam.fromJson(x))),
+        firstPageUrl: json["first_page_url"],
+        from: json["from"],
+        lastPage: json["last_page"],
+        lastPageUrl: json["last_page_url"],
+        links: json["links"] == null
+            ? []
+            : List<Link>.from(json["links"]!.map((x) => Link.fromJson(x))),
+        nextPageUrl: json["next_page_url"],
+        path: json["path"],
+        perPage: json["per_page"],
+        prevPageUrl: json["prev_page_url"],
+        to: json["to"],
+        total: json["total"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "current_page": currentPage,
-    "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x.toJson())),
-    "first_page_url": firstPageUrl,
-    "from": from,
-    "last_page": lastPage,
-    "last_page_url": lastPageUrl,
-    "links": links == null ? [] : List<dynamic>.from(links!.map((x) => x.toJson())),
-    "next_page_url": nextPageUrl,
-    "path": path,
-    "per_page": perPage,
-    "prev_page_url": prevPageUrl,
-    "to": to,
-    "total": total,
-  };
+        "current_page": currentPage,
+        "data": data == null
+            ? []
+            : List<dynamic>.from(data!.map((x) => x.toJson())),
+        "first_page_url": firstPageUrl,
+        "from": from,
+        "last_page": lastPage,
+        "last_page_url": lastPageUrl,
+        "links": links == null
+            ? []
+            : List<dynamic>.from(links!.map((x) => x.toJson())),
+        "next_page_url": nextPageUrl,
+        "path": path,
+        "per_page": perPage,
+        "prev_page_url": prevPageUrl,
+        "to": to,
+        "total": total,
+      };
 }
 
+enum Status { APPROVED }
 
-enum Status {
-  APPROVED
-}
-
-final statusValues = EnumValues({
-  "approved": Status.APPROVED
-});
+final statusValues = EnumValues({"approved": Status.APPROVED});
 
 class Link {
   final String? url;
@@ -112,16 +115,16 @@ class Link {
   });
 
   factory Link.fromJson(Map<String, dynamic> json) => Link(
-    url: json["url"],
-    label: json["label"],
-    active: json["active"],
-  );
+        url: json["url"],
+        label: json["label"],
+        active: json["active"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "url": url,
-    "label": label,
-    "active": active,
-  };
+        "url": url,
+        "label": label,
+        "active": active,
+      };
 }
 
 class EnumValues<T> {

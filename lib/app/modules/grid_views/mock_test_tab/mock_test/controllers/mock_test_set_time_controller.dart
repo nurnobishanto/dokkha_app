@@ -1,16 +1,12 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/models/start_exam_model.dart';
-import 'package:lokkha/app/views/views/exam_process_view.dart';
 import '../../../../../../utils/constants.dart';
-import '../../../../../components/custom_snackbar.dart';
 import '../../../../../data/local/my_shared_pref.dart';
 import '../../../../../services/api_call_status.dart';
-import '../../../../../services/base_client.dart';
 import '../../../../../models/mock_subject_select_model.dart';
 import '../../../../../views/widgets/web_exam_view.dart';
 
@@ -65,6 +61,7 @@ class MockTestSetTimeController extends GetxController {
       'is_set_time': isSetTime.value,
       'type': selectedKey.value,
       'duration': finalDuration,
+      'is_exam': true,
       'previous_day_count':
           (dayController.text == '' || dayController.text.isEmpty)
               ? 0
@@ -78,7 +75,9 @@ class MockTestSetTimeController extends GetxController {
         Uint8List.fromList(utf8.encode(jsonEncode(data)));
 
     Get.to(() => WebExamView(
-        title: "Subject Wise Exam", url: AppConstants.webTestExamStart, body: bodyBytes));
+        title: "Subject Wise Exam",
+        url: AppConstants.webTestExamStart,
+        body: data));
   }
 
   @override

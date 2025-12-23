@@ -1,10 +1,9 @@
+import 'dart:convert';
 import 'dart:developer';
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/components/custom_action_button.dart';
 import 'package:lokkha/app/data/local/my_shared_pref.dart';
-import 'package:lokkha/app/views/views/pdf_viewer.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -14,7 +13,7 @@ import '../../routes/app_pages.dart';
 class WebExamView extends StatefulWidget {
   final String title;
   final String url;
-  final Uint8List? body;
+  final Map<String, dynamic>? body;
 
   const WebExamView({
     super.key,
@@ -49,10 +48,11 @@ class _WebExamViewState extends State<WebExamView> {
     log("headers : $headers , widget.body ${widget.body} url: ${widget.url}");
 
     _controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setBackgroundColor(Colors.transparent)
       ..setNavigationDelegate(NavigationDelegate(
         onProgress: (int progress) {
-          print("PROGRESS $progress%");
+          debugPrint("PROGRESS $progress%");
         },
         onPageStarted: (String url) {
           setState(() {
@@ -63,6 +63,8 @@ class _WebExamViewState extends State<WebExamView> {
             Get.toNamed(Routes.PREMIUM_PACKAGES);
           } else if (url.contains('goback')) {
             Get.back();
+          } else if (url.contains('goback')) {
+            Get.toNamed(Routes.AUTH_GATEWAY);
           }
         },
         onPageFinished: (String url) {
@@ -74,8 +76,10 @@ class _WebExamViewState extends State<WebExamView> {
             _controller.goBack();
           } else if (url.contains('goback')) {
             _controller.goBack();
+          } else if (url.contains('login')) {
+            _controller.goBack();
           }
-          print("PROGRESS $url");
+          debugPrint("PROGRESS $url");
         },
         onWebResourceError: (error) {
           setState(() {
@@ -83,11 +87,32 @@ class _WebExamViewState extends State<WebExamView> {
           });
         },
       ));
+
+    /// 🔹 OLD POST LOG (for debugging)
+    log('================ OLD POST DEBUG ================');
+    log('POST URL      : ${widget.url}');
+    log('POST HEADERS  : $headers');
+    log('POST BODY    : ${widget.body}');
+    log('================================================');
+
+    /// 🔹 Build GET params (token + body)
+    // Add token to body map before encoding
+    final Map<String, dynamic> dataWithToken = {
+      'token': token, // 🔹 token added here
+      ...?widget.body, // spread the rest of the body if not null
+    };
+
+    final Map<String, String> queryParams = encodeQueryParams(dataWithToken);
+    final Uri finalUri =
+        Uri.parse(widget.url).replace(queryParameters: queryParams);
+
+    /// 🔹 PRINT FINAL GET URL
+    log('================ FINAL GET DEBUG ================');
+    log('FINAL GET URL : $finalUri');
+    log('GET PARAMS   : $queryParams');
+    log('================================================');
     _controller.loadRequest(
-      Uri.parse(widget.url),
-      method: LoadRequestMethod.post,
-      headers: headers,
-      body: widget.body,
+      finalUri,
     );
   }
 
@@ -107,9 +132,12 @@ class _WebExamViewState extends State<WebExamView> {
                 return; //  cancel
               }
             }
+            print("currentUrl check $currentUrl%");
             if (currentUrl.contains('submit')) {
               Get.back();
             } else if (currentUrl.contains('start')) {
+              Get.back();
+            } else if (currentUrl.contains('result')) {
               Get.back();
             } else {
               if (await _controller.canGoBack()) {
@@ -192,4 +220,21 @@ Future<bool?> _showCancelExamDialog() {
     ),
     barrierDismissible: false,
   );
+}
+
+Map<String, String> encodeQueryParams(Map<String, dynamic> data) {
+  final Map<String, String> result = {};
+
+  data.forEach((key, value) {
+    if (value == null) return;
+
+    if (value is String || value is num || value is bool) {
+      result[key] = value.toString();
+    } else {
+      // List / Map / Object
+      result[key] = jsonEncode(value);
+    }
+  });
+
+  return result;
 }

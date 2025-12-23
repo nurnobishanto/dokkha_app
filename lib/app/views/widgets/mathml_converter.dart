@@ -85,7 +85,7 @@ String _convertNode(XmlNode node) {
       if (baseText == 'lim') {
         return '\\lim_{${_convertNode(under)}}';
       }
-      return '\\underset{${_convertNode(under)}}{${baseText}}';
+      return '\\underset{${_convertNode(under)}}{$baseText}';
 
     case 'mover':
       final base = _getChild(node, 0);

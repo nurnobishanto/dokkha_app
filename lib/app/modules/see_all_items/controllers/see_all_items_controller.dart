@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:lokkha/app/data/local/my_shared_pref.dart';

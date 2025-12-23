@@ -1,16 +1,12 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/models/start_exam_model.dart';
 import '../../../../../utils/constants.dart';
-import '../../../../components/custom_snackbar.dart';
 import '../../../../data/local/my_shared_pref.dart';
 import '../../../../models/mock_subject_select_model.dart';
 import '../../../../services/api_call_status.dart';
-import '../../../../services/base_client.dart';
-import '../../../../views/views/exam_process_view.dart';
 import '../../../../views/widgets/web_exam_view.dart';
 
 class SetTimeController extends GetxController {
@@ -48,7 +44,6 @@ class SetTimeController extends GetxController {
 
   /// startExam method
   Future<void> startExam() async {
-
     Map<String, dynamic> data = {
       'negative_mark': 0.25,
       'exam_name': 'Mock Test',
@@ -61,13 +56,10 @@ class SetTimeController extends GetxController {
           .toList(), // Convert each subject to map
     };
     final Uint8List bodyBytes =
-    Uint8List.fromList(utf8.encode(jsonEncode(data)));
+        Uint8List.fromList(utf8.encode(jsonEncode(data)));
 
-    Get.to(()=>WebExamView(
-        title: "Exam", url: AppConstants.webTestExamStart, body: bodyBytes));
-
-
-
+    Get.to(() => WebExamView(
+        title: "Exam", url: AppConstants.webTestExamStart, body: data));
   }
 
   @override

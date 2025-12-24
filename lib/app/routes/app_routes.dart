@@ -86,8 +86,7 @@ abstract class _Paths {
   static const TOPIC_SELECTION = '/topic-selection';
   static const JOBS = '/jobs';
   static const CURRENT_AFFAIRS = '/current-affairs';
-  static const PACKAGES = '/packages';
-  static const PREMIUM_PACKAGES = '/premium-packages';
+  static const PREMIUM_PACKAGES = '/packages';
   static const MY_APP = '/my-app';
   static const SUBJECT_SECTION = '/subject-section';
   static const MY_PACKAGES = '/my-packages';

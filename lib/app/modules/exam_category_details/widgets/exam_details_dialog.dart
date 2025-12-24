@@ -5,10 +5,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/components/custom_action_button.dart';
-import 'package:lokkha/app/modules/exam/controllers/exam_controller.dart';
 import 'package:lokkha/config/extensions/common_extension.dart';
 import '../../../models/exam.dart';
 import '../../../routes/app_pages.dart';
+import '../../exam/controllers/exam_controller.dart';
 
 const Color primaryColor = Color(0xFF006A4E);
 

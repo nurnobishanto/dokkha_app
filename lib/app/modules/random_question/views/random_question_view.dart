@@ -42,14 +42,14 @@ class RandomQuestionSelector extends StatelessWidget {
               decoration: BoxDecoration(
                   // border: Border.all(color: Colors.amber, width: 3),
                   borderRadius: BorderRadius.all(Radius.circular(8)),
-                  color: LightThemeColors.primaryColor.withValues(alpha: .2)),
+                  color: LightThemeColors.softBg),
               child: Column(
                 children: [
                   HtmlWidget(
                     question.title ?? '',
                     textStyle: AppTextStyles.heading4.copyWith(
                       fontWeight: FontWeight.w500,
-                      fontSize: 15.sp,
+                      fontSize: 13.sp,
                     ),
                   ),
                   const SizedBox(height: 7),

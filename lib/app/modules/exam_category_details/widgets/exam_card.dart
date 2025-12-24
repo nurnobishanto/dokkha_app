@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lokkha/config/theme/light_theme_colors.dart';
 import 'package:lokkha/utils/date_formatter.dart';
 
 import '../../../models/exam.dart';
@@ -25,7 +26,7 @@ class ExamCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
       decoration: BoxDecoration(
-        color: primaryColor.withOpacity(.05),
+        color: LightThemeColors.softBg,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: Colors.grey,

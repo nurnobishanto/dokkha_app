@@ -19,13 +19,14 @@ class TopicSelectionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final id = subject.id!;
     final setNumberController = TextEditingController(text: "10");
     final controller = AddMoreTopicController();
+    controller.getSubjectTopics(parentID: id);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
         title: Text(
-          //"নির্বাচিত বিষয়গুলি",
           subject.name.toString(),
           style: AppTextStyles.heading4.copyWith(color: Colors.white),
         ),
@@ -33,113 +34,126 @@ class TopicSelectionView extends StatelessWidget {
         centerTitle: true,
         backgroundColor: LightThemeColors.primaryColor,
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Column(
-            children: [
-              Expanded(
-                child: SingleChildScrollView(
+      body: Obx(() {
+        return controller.isLoading.value
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Column(
                     children: [
-                      CustomExpandSubject(
-                        subject: subject,
-                        topic: subject,
-                        padding: 0,
-                        initialExpand: true,
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              CustomExpandSubject(
+                                subject: subject,
+                                topic: controller.topics.value.subjects!.first,
+                                padding: 0,
+                                initialExpand: true,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "প্রশ্ন সংখ্যা সেট করুন",
+                          ),
+                          CustomTextField(
+                            controller: setNumberController,
+                            hintText: "প্রশ্ন সংখ্যা",
+                            validator: (val) {
+                              if (val == null || val.isEmpty) {
+                                return "This field is required";
+                              }
+                              final parsedValue = int.tryParse(val);
+                              if (parsedValue == null) {
+                                return "please enter valid number";
+                              } else if (parsedValue < 5) {
+                                return "Must be at least 10";
+                              }
+                              return null;
+                            },
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: CustomActionButton(
+                                  text: "আরও বিষয় যোগ করুন",
+                                  onPressed: () async {
+                                    if (setNumberController.text.isNotEmpty) {
+                                      MockSubjectSelect newSubject =
+                                          MockSubjectSelect(
+                                        id: subject.id,
+                                        name: subject.name,
+                                        quantity: min(
+                                            int.tryParse(
+                                                    setNumberController.text)!
+                                                .toInt(),
+                                            subject.questionCount!.toInt()),
+                                      );
+                                      await MySharedPref
+                                          .addOrUpdateMockSubjectSelect(
+                                              newSubject);
+
+                                      controller.getSubjects();
+
+                                      Get.to(const AddMoreTopic());
+                                    } else {
+                                      CustomSnackBar.showCustomErrorToast(
+                                          message:
+                                              "please enter number of question!");
+                                    }
+                                  },
+                                ),
+                              ),
+                              const SizedBox(width: 8.00),
+                              Expanded(
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 8.0),
+                                  child: CustomActionButton(
+                                    text: "পরীক্ষা শুরু করুন",
+                                    onPressed: () async {
+                                      if (setNumberController.text.isNotEmpty) {
+                                        MockSubjectSelect newSubject =
+                                            MockSubjectSelect(
+                                          id: subject.id,
+                                          name: subject.name,
+                                          quantity: min(
+                                              int.tryParse(
+                                                      setNumberController.text)!
+                                                  .toInt(),
+                                              subject.questionCount!.toInt()),
+                                        );
+                                        await MySharedPref
+                                            .addOrUpdateMockSubjectSelect(
+                                                newSubject);
+                                        controller.getSubjects();
+                                        Get.to(const SetTimeView());
+                                      } else {
+                                        CustomSnackBar.showCustomErrorToast(
+                                            message:
+                                                "please enter number of question!");
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ],
                   ),
                 ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "প্রশ্ন সংখ্যা সেট করুন",
-                  ),
-                  CustomTextField(
-                    controller: setNumberController,
-                    hintText: "প্রশ্ন সংখ্যা",
-                    validator: (val) {
-                      if (val == null || val.isEmpty) {
-                        return "This field is required";
-                      }
-                      final parsedValue = int.tryParse(val);
-                      if (parsedValue == null) {
-                        return "please enter valid number";
-                      } else if (parsedValue < 5) {
-                        return "Must be at least 10";
-                      }
-                      return null;
-                    },
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: CustomActionButton(
-                          text: "আরও বিষয় যোগ করুন",
-                          onPressed: () async {
-                            if (setNumberController.text.isNotEmpty) {
-                              MockSubjectSelect newSubject = MockSubjectSelect(
-                                id: subject.id,
-                                name: subject.name,
-                                quantity: min(
-                                    int.tryParse(setNumberController.text)!
-                                        .toInt(),
-                                    subject.questionCount!.toInt()),
-                              );
-                              await MySharedPref.addOrUpdateMockSubjectSelect(
-                                  newSubject);
-
-                              controller.getSubjects();
-
-                              Get.to(const AddMoreTopic());
-                            } else {
-                              CustomSnackBar.showCustomErrorToast(
-                                  message: "please enter number of question!");
-                            }
-                          },
-                        ),
-                      ),
-                      const SizedBox(width: 8.00),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: CustomActionButton(
-                            text: "পরীক্ষা শুরু করুন",
-                            onPressed: () async {
-                              if (setNumberController.text.isNotEmpty) {
-                                MockSubjectSelect newSubject =
-                                    MockSubjectSelect(
-                                  id: subject.id,
-                                  name: subject.name,
-                                  quantity: min(
-                                      int.tryParse(setNumberController.text)!
-                                          .toInt(),
-                                      subject.questionCount!.toInt()),
-                                );
-                                await MySharedPref.addOrUpdateMockSubjectSelect(
-                                    newSubject);
-                                controller.getSubjects();
-                                Get.to(const SetTimeView());
-                              } else {
-                                CustomSnackBar.showCustomErrorToast(
-                                    message:
-                                        "please enter number of question!");
-                              }
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
+              );
+      }),
     );
   }
 }

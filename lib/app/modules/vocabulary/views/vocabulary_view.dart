@@ -6,7 +6,10 @@ import 'package:lokkha/app/modules/vocabulary/controllers/vocabulary_controller.
 import 'package:lokkha/config/extensions/common_extension.dart';
 import '../../../../config/theme/light_theme_colors.dart';
 import '../../../components/custom_search_bar.dart';
+import '../../../helper/global.dart';
 import '../../../models/category.dart';
+import '../../../views/widgets/explanation_dialog.dart';
+import '../../../views/widgets/package_required_popup.dart';
 
 class VocabularyView extends StatelessWidget {
   const VocabularyView({super.key});
@@ -103,57 +106,65 @@ class VocabularyView extends StatelessWidget {
                             final vocab = vocabList[index];
                             return GestureDetector(
                               onTap: () {
-                                showDialog(
-                                  context: Get.context!,
-                                  builder: (_) => AlertDialog(
-                                    title: Text(vocab.word ?? 'No Word'),
-                                    content: SingleChildScrollView(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          if (vocab.details != null &&
-                                              vocab.details!.isNotEmpty)
-                                            Text("Details: ${vocab.details}"),
-                                          const SizedBox(height: 10),
-                                          if (vocab.synonym != null &&
-                                              vocab.synonym!.isNotEmpty)
-                                            popupList("Synonyms", vocab.synonym,
-                                                LightThemeColors.primaryColor)
-                                          else
-                                            const Text("No synonyms found"),
-                                          if (vocab.antonym != null &&
-                                              vocab.antonym!.isNotEmpty)
-                                            popupList("Antonyms", vocab.antonym,
-                                                LightThemeColors.primaryColor)
-                                          else
-                                            const Text("No antonyms found"),
-                                          if (vocab.wrongSynonym != null &&
-                                              vocab.wrongSynonym!.isNotEmpty)
-                                            popupList("Wrong Synonyms",
-                                                vocab.wrongSynonym, Colors.red)
-                                          else
-                                            const Text(
-                                                "No wrong synonyms found"),
-                                          if (vocab.wrongAntonym != null &&
-                                              vocab.wrongAntonym!.isNotEmpty)
-                                            popupList("Wrong Antonyms",
-                                                vocab.wrongAntonym, Colors.red)
-                                          else
-                                            const Text(
-                                                "No wrong antonyms found"),
-                                        ],
+                                if (havePackage.value) {
+                                  showDialog(
+                                    context: Get.context!,
+                                    builder: (_) => AlertDialog(
+                                      title: Text(vocab.word ?? 'No Word'),
+                                      content: SingleChildScrollView(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                          children: [
+                                            if (vocab.details != null &&
+                                                vocab.details!.isNotEmpty)
+                                              Text("Details: ${vocab.details}"),
+                                            const SizedBox(height: 10),
+                                            if (vocab.synonym != null &&
+                                                vocab.synonym!.isNotEmpty)
+                                              popupList("Synonyms", vocab.synonym,
+                                                  LightThemeColors.primaryColor)
+                                            else
+                                              const Text("No synonyms found"),
+                                            if (vocab.antonym != null &&
+                                                vocab.antonym!.isNotEmpty)
+                                              popupList("Antonyms", vocab.antonym,
+                                                  LightThemeColors.primaryColor)
+                                            else
+                                              const Text("No antonyms found"),
+                                            if (vocab.wrongSynonym != null &&
+                                                vocab.wrongSynonym!.isNotEmpty)
+                                              popupList("Wrong Synonyms",
+                                                  vocab.wrongSynonym, Colors.red)
+                                            else
+                                              const Text(
+                                                  "No wrong synonyms found"),
+                                            if (vocab.wrongAntonym != null &&
+                                                vocab.wrongAntonym!.isNotEmpty)
+                                              popupList("Wrong Antonyms",
+                                                  vocab.wrongAntonym, Colors.red)
+                                            else
+                                              const Text(
+                                                  "No wrong antonyms found"),
+                                          ],
+                                        ),
                                       ),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () => Get.back(),
+                                          child: const Text("Close"),
+                                        )
+                                      ],
                                     ),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () => Get.back(),
-                                        child: const Text("Close"),
-                                      )
-                                    ],
-                                  ),
-                                );
+                                  );
+                                } else {
+                                  Get.dialog(PackageRequiredPopup());
+                                }
                               },
+
+
+
+
                               child: Container(
                                 width: double.infinity,
                                 margin: const EdgeInsets.symmetric(
@@ -184,76 +195,6 @@ class VocabularyView extends StatelessWidget {
           ),
         );
       }),
-      // bottomNavigationBar: Obx(() {
-      //   if (controller.totalPages.value <= 1) return const SizedBox.shrink();
-      //   return SafeArea(
-      //     child: SingleChildScrollView(
-      //       scrollDirection: Axis.horizontal,
-      //       child: Row(
-      //         children: [
-      //           IconButton(
-      //             icon: const Icon(Icons.first_page),
-      //             onPressed: controller.currentPage.value > 1
-      //                 ? controller.firstPage
-      //                 : null,
-      //           ),
-      //           IconButton(
-      //             icon: const Icon(Icons.navigate_before),
-      //             onPressed: controller.currentPage.value > 1
-      //                 ? controller.previousPage
-      //                 : null,
-      //           ),
-      //           ...List.generate(
-      //                   controller.totalPages.value, (index) => index + 1)
-      //               .where((page) {
-      //             int current = controller.currentPage.value;
-      //             return (page >= current - 2 && page <= current + 2) ||
-      //                 page == 1 ||
-      //                 page == controller.totalPages.value;
-      //           }).map((page) {
-      //             bool isActive = page == controller.currentPage.value;
-      //             return InkWell(
-      //               onTap: () => controller.goToPage(page),
-      //               child: Container(
-      //                 margin: const EdgeInsets.symmetric(horizontal: 4),
-      //                 padding: const EdgeInsets.symmetric(
-      //                     vertical: 6, horizontal: 10),
-      //                 decoration: BoxDecoration(
-      //                   color: isActive
-      //                       ? LightThemeColors.primaryColor
-      //                       : Colors.grey.shade200,
-      //                   borderRadius: BorderRadius.circular(8),
-      //                   border:
-      //                       Border.all(color: LightThemeColors.primaryColor),
-      //                 ),
-      //                 child: Text(
-      //                   page.toString(),
-      //                   style: TextStyle(
-      //                     color: isActive ? Colors.white : Colors.black87,
-      //                   ),
-      //                 ),
-      //               ),
-      //             );
-      //           }),
-      //           IconButton(
-      //             icon: const Icon(Icons.navigate_next),
-      //             onPressed:
-      //                 controller.currentPage.value < controller.totalPages.value
-      //                     ? controller.nextPage
-      //                     : null,
-      //           ),
-      //           IconButton(
-      //             icon: const Icon(Icons.last_page),
-      //             onPressed:
-      //                 controller.currentPage.value < controller.totalPages.value
-      //                     ? controller.lastPage
-      //                     : null,
-      //           ),
-      //         ],
-      //       ),
-      //     ),
-      //   );
-      // }),
 
       bottomNavigationBar: Obx(() {
         if (controller.totalPages.value <= 1) return SizedBox.shrink();

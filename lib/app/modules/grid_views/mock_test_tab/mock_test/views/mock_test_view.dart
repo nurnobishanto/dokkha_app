@@ -13,6 +13,7 @@ import '../controllers/mock_test_controller.dart';
 class MockTestView extends GetView<MockTestController> {
   const MockTestView({super.key});
 
+
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(MockTestController());
@@ -48,6 +49,7 @@ class MockTestView extends GetView<MockTestController> {
                               max: subject.questionCount!.toInt());
                           await MySharedPref.addOrUpdateMockSubjectSelect(
                               newSubject);
+
                           Get.to(TopicSelectionView(subject: subject));
                         },
                         child: Container(

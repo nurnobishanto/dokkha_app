@@ -160,38 +160,6 @@ class _ContestExamViewState extends State<ContestExamView> {
                                     ),
                                   ),
 
-                                  /// popup menu items area
-                                  Expanded(
-                                    child: Obx(() {
-                                      // Ensure that the controller has an observable value for the favorite status
-                                      bool isFavorite =
-                                          controller.checkQuestionExistInSaved(
-                                              question.id!.toInt());
-
-                                      return IconButton(
-                                        onPressed: () {
-                                          if (isFavorite) {
-                                            removeFavoriteQuestion(
-                                                question.id!.toInt());
-                                            isFavorite = false;
-                                          } else {
-                                            questionFavAdd(
-                                                question.id!.toInt());
-                                            isFavorite = true;
-                                          }
-
-                                          // This will trigger the UI update when the state changes
-                                          controller.update();
-                                        },
-                                        icon: Icon(
-                                          isFavorite
-                                              ? Icons.favorite
-                                              : Icons.favorite_border,
-                                          color: LightThemeColors.white,
-                                        ),
-                                      );
-                                    }),
-                                  ),
                                 ],
                               ),
                             ),

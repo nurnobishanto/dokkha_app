@@ -2,16 +2,18 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lokkha/app/data/local/my_shared_pref.dart';
 import 'package:lokkha/app/modules/auth_views/auth_gateway/views/auth_gateway_view.dart';
 import 'package:lokkha/app/routes/app_pages.dart';
+import 'package:lokkha/app/views/widgets/web_exam_view.dart';
+import 'package:lokkha/config/constants/app_strings.dart';
 import 'package:lokkha/config/extensions/common_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
 import '../../../../../styles/text_style.dart';
+import '../../../../../utils/constants.dart';
 import '../../../../helper/global.dart';
 import '../../../../services/api_call_status.dart';
 import '../../../drawer_pages/views/customer_support_view.dart';
-import '../../favorite_question/views/fav_question_view.dart';
 import '../controllers/profile_controller.dart';
 
 class ProfileView extends GetView<ProfileController> {
@@ -79,7 +81,8 @@ class ProfileView extends GetView<ProfileController> {
                     icon: FontAwesomeIcons.boxOpen,
                   ),
                   CustomProfileButton(
-                    onTap: () => Get.to(const FavQuestionListScreen()),
+                    //onTap: () => Get.to(const FavQuestionListScreen()),
+                    onTap: () => Get.to(WebExamView(title: "Favourite Question", url:  AppConstants.myQuestions)),
                     text: 'ফেভারিট প্রশ্ন',
                     icon: FontAwesomeIcons.solidHeart,
                   ),

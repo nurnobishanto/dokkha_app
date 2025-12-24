@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
 import 'package:lokkha/styles/text_style.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class PdfViewerScreen extends StatelessWidget {
   const PdfViewerScreen({super.key, required this.title, required this.file});
@@ -16,19 +17,6 @@ class PdfViewerScreen extends StatelessWidget {
           title.toString(),
           style: AppTextStyles.heading4.copyWith(color: LightThemeColors.white),
         ),
-        // actions: [
-        //   if (isLoggedIn.value) ...[
-        //     IconButton(
-        //       onPressed: () {
-        //         String actualUrl = getActualUrl(file.toString());
-        //         debugPrint("Actual URL: $actualUrl");
-        //         Share.share(actualUrl);
-        //       },
-        //       icon: const Icon(Icons.share),
-        //     ),
-        //     const SizedBox(width: 9),
-        //   ],
-        // ],
         backgroundColor: LightThemeColors.primaryColor,
         iconTheme: const IconThemeData(
           color: LightThemeColors.white, // Change the back icon color here
@@ -46,6 +34,24 @@ class PdfViewerScreen extends StatelessWidget {
           ],
         ),
       ),
+
+      floatingActionButton:
+      FloatingActionButton.extended(
+        onPressed: () {
+          launchUrlString(file);
+        },
+        icon: const Icon(
+          Icons.download,
+          color: Colors.white,
+          size: 20,
+        ),
+        label: const Text(
+          'ডাউনলোড',
+          style: TextStyle(color: Colors.white, fontSize: 15),
+        ),
+        backgroundColor: LightThemeColors.primaryColor,
+      ),
+
     );
   }
 }

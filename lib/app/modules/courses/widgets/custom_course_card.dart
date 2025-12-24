@@ -51,22 +51,23 @@ class CustomCourseCard extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.vertical(top: Radius.circular(8.r)),
               child: AspectRatio(
-                aspectRatio: 16 / 9,
+                aspectRatio: 17 / 9,
                 child: CustomNetworkImageCard(imageUrl: imageUrl),
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(5.w),
+              padding: EdgeInsets.only(bottom: 10.h, left: 5.w, right: 5.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
                     title,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      fontSize: 14.7.sp,
-                      fontWeight: FontWeight.w700,
+                      fontSize: 12.7.sp,
+                      fontWeight: FontWeight.w500,
                       height: 1.1,
                       color: Colors.black87,
                     ),
@@ -77,7 +78,7 @@ class CustomCourseCard extends StatelessWidget {
                       Text(
                         '৳${formatPrice(regularPrice)}',
                         style: TextStyle(
-                          fontSize: 12.sp,
+                          fontSize: 10.sp,
                           color: Colors.grey.shade500,
                           decoration: TextDecoration.lineThrough,
                         ),
@@ -86,19 +87,19 @@ class CustomCourseCard extends StatelessWidget {
                       Text(
                         '৳${formatPrice(salePrice)}',
                         style: TextStyle(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.bold,
+                          fontSize: 13.sp,
+                          fontWeight: FontWeight.w600,
                           color: Colors.black,
                         ),
                       ),
                       const Spacer(),
                       Icon(Icons.star_rounded,
-                          color: Colors.amber, size: 18.sp),
+                          color: Colors.amber, size: 13.sp),
                       SizedBox(width: 2.w),
                       Text(
                         rating.padRight(2),
                         style: TextStyle(
-                          fontSize: 13.sp,
+                          fontSize: 11.sp,
                           fontWeight: FontWeight.bold,
                           color: Colors.grey.shade700,
                         ),

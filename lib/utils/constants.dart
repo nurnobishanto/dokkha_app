@@ -23,16 +23,17 @@ class AppConstants {
   static final String logout = '$appUrl/logout';
 
   /// Subjects & Exams
-  static final String subjects = '$appUrl/subjects';
+  static final String getSubjects = '$appUrl/get-subjects';
   //static final String testExamStart = '$appUrl/test-exam/start';
   static final String webTestExamStart = '$appUrl/web-test-exam/start';
   //static final String testExamSubmit = '$appUrl/test-exam/submit';
   static final String randomQuestion = '$appUrl/random-question';
 
   /// Favorites
-  static final String questionFavAdd = '$appUrl/question/favorite/add';
-  static final String questionFavRemove = '$appUrl/question/favorite/remove';
-  static final String questionFavList = '$appUrl/question/favorite/list';
+  // static final String questionFavAdd = '$appUrl/question/favorite/add';
+  // static final String questionFavRemove = '$appUrl/question/favorite/remove';
+  // static final String questionFavList = '$appUrl/question/favorite/list';
+  static final String myQuestions = '$appUrl/my-questions';
 
   /// Jobs
   static final String jobsList = '$appUrl/jobs';
@@ -73,14 +74,14 @@ class AppConstants {
 
   /// Latest Exams
   static final String latestExam = '$appUrl/latest-exams';
-  static final String tag = '$appUrl/tag';
+ // static final String tag = '$appUrl/tag';
   static final String vocabularies = '$appUrl/vocabularies';
 
   /// Model test
-  static final String modelTests = '$appUrl/model-tests';
-  static final String modelTest = '$appUrl/model-test';
-  static final String modelTestCategories = '$appUrl/model-test-categories';
-  static final String exam = '$appUrl/exam';
+  // static final String modelTests = '$appUrl/model-tests';
+  // static final String modelTest = '$appUrl/model-test';
+  // static final String modelTestCategories = '$appUrl/model-test-categories';
+  // static final String exam = '$appUrl/exam';
   static final String webExamRead = '$appUrl/web-exam-read';
   static final String webExamStart = '$appUrl/web-exam-start';
 
@@ -92,8 +93,8 @@ class AppConstants {
   /// Exams Categories
   static final String examsCategories = '$appUrl/exam-categories';
   static final String examsCategory = '$appUrl/exam-category';
-  static final String startExam = '$appUrl/start-exam';
-  static final String submitExam = '$appUrl/submit-exam';
+  // static final String startExam = '$appUrl/start-exam';
+  // static final String submitExam = '$appUrl/submit-exam';
   static final String examList = '$appUrl/exam-list';
 
   /// Course Categories

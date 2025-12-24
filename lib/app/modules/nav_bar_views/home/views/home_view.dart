@@ -12,6 +12,7 @@ import 'package:lokkha/app/helper/global.dart';
 import 'package:lokkha/app/modules/contest/widgets/last_contest_result_widget.dart';
 import 'package:lokkha/app/modules/contest/widgets/latest_contest_widget.dart';
 import 'package:lokkha/app/modules/random_question/views/random_question_view.dart';
+import 'package:lokkha/app/modules/see_all_items/views/all_course_view.dart';
 import 'package:lokkha/app/services/api_call_status.dart';
 import 'package:lokkha/comming_soon_view.dart';
 import 'package:lokkha/config/extensions/common_extension.dart';
@@ -21,8 +22,10 @@ import 'package:lokkha/config/constants/app_images.dart';
 import 'package:lokkha/styles/text_style.dart';
 import '../../../../components/custom_transparent_divider.dart';
 import '../../../../routes/app_pages.dart';
+import '../../../courses/widgets/custom_course_card.dart';
 import '../../../exam_category/controllers/exam_category_controller.dart';
 import '../../../exam_category/widgets/exam_category_card.dart';
+import '../../../see_all_items/controllers/see_all_items_controller.dart';
 import '../../../subject_sections/views/subject_sections_view.dart';
 import '../components/social_links_widget.dart';
 import '../controllers/home_controller.dart';
@@ -35,7 +38,7 @@ class HomeView extends StatelessWidget {
     final HomeController controller = Get.find();
     final ExamCategoryController examController = Get.find();
     Future<void> onRefresh() => controller.refreshHomeViewData();
-
+    Get.put<SeeAllItemsController>(SeeAllItemsController());
     return Scaffold(
       drawer: const CustomDrawer(),
       appBar: AppBar(
@@ -66,7 +69,7 @@ class HomeView extends StatelessWidget {
             _SliderSection(
               controller: controller,
               onTap: () {
-                print("asssss");
+                debugPrint("asssss");
               },
             ),
             8.h.height,
@@ -79,25 +82,14 @@ class HomeView extends StatelessWidget {
                 onSeeAllPressed: () {
                   Get.toNamed(Routes.ALL_COURSES);
                 }),
-            // InkWell(
-            //   onTap: () => Get.toNamed(Routes.ALL_COURSES),
-            //   child: SectionTitleWithDivider(
-            //     title: "প্রিমিয়াম পরীক্ষা সমূহ",
-            //   ),
-            // ),
             SizedBox(height: 8.h),
-            _PremiumExamSection(examController: examController),
-            8.h.height,
-            // InkWell(
-            //   onTap: () => Get.toNamed(Routes.ALL_EXAM),
-            //   child: SectionTitleWithDivider(title: "ফ্রি পরীক্ষা সমূহ"),
-            // ),
+            _PremiumExamSection(),
+            10.h.height,
             SectionTitleWithSeeAll(
                 title: "ফ্রি পরীক্ষা সমূহ",
                 onSeeAllPressed: () {
                   Get.toNamed(Routes.ALL_EXAM);
                 }),
-
             SizedBox(height: 8.h),
             _FreeExamSection(examController: examController),
             8.h.height,
@@ -278,7 +270,6 @@ class _SliderSection extends StatelessWidget {
               return ClipRRect(
                 borderRadius: BorderRadius.circular(7.0),
                 child: InkWell(
-                  //onTap: onTap,
                   onTap: () {
                     final page = sliderItem.page ?? "";
                     final link = sliderItem.link ?? "";
@@ -300,20 +291,14 @@ class _SliderSection extends StatelessWidget {
                         Get.toNamed(page);
                       }
                     } else if (link.isNotEmpty) {
-                      // If page is empty → open external link or webview
-
                       final uri = Uri.tryParse(link);
-                      debugPrint("1. $link");
                       if (uri != null && uri.path.isNotEmpty) {
                         final extractedPage = uri.path;
-                        debugPrint("2. $extractedPage");
-                        // Check if path matches any app route
-                        final segments = uri.pathSegments;
-                        debugPrint("segment. $segments");
-                        if (segments.isNotEmpty) {
-                          final last = segments.last; // "5"
 
-                          // If last part of link is number → treat as ID
+                        final segments = uri.pathSegments;
+                        if (segments.isNotEmpty) {
+                          final last = segments.last;
+
                           if (int.tryParse(last) != null) {
                             final id = int.parse(last);
 
@@ -321,18 +306,13 @@ class _SliderSection extends StatelessWidget {
                             final baseRoute =
                                 "/${segments.sublist(0, segments.length - 1).join("/")}";
 
-                            debugPrint(
-                                "🔥 Dynamic Path Found → $baseRoute  ID=$id");
-
                             // Navigate with ID
                             Get.toNamed(baseRoute, arguments: id);
                             return;
                           }
                         }
                         if (isAppRoute(extractedPage)) {
-                          // Extract query parameters
-                          final queryParams =
-                              uri.queryParameters; // Map<String, String>
+                          final queryParams = uri.queryParameters;
                           debugPrint("3. $queryParams");
                           final Map<String, dynamic> parsedParams = {};
 
@@ -373,7 +353,6 @@ class _SliderSection extends StatelessWidget {
                       }
                     }
                   },
-
                   child: Container(
                     height: 120.h,
                     decoration: BoxDecoration(color: Colors.grey.shade200),
@@ -428,23 +407,38 @@ class _ShortcutGrid extends StatelessWidget {
         final route = controller.gridViewRoutePage[i];
         return GestureDetector(
           onTap: () => Get.to(route),
-          child: Container(
-            padding:
-                const EdgeInsets.symmetric(vertical: 8.00, horizontal: 4.00),
+          child:
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
             decoration: BoxDecoration(
-              color: LightThemeColors.white,
-              borderRadius: BorderRadius.circular(7.0),
-              border:
-                  Border.all(color: LightThemeColors.primaryColor, width: 1),
+                color: LightThemeColors.softBg, // soft premium look
+              borderRadius: BorderRadius.circular(10.0),
+              border: Border.all(
+                color: LightThemeColors.primaryColor.withOpacity(0.4),
+                width: 1.2,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.05),
+                  blurRadius: 6,
+                  offset: const Offset(0, 3),
+                ),
+              ],
             ),
-            child: Center(
+            child:    Center(
               child: Text(
                 title,
-                style: AppTextStyles.heading5,
+                style: AppTextStyles.heading5.copyWith(
+                  color: LightThemeColors.primaryColor,
+                  fontWeight: FontWeight.w500,
+                ),
                 textAlign: TextAlign.center,
               ),
             ),
-          ),
+          )
+
+
+
         );
       },
     );
@@ -452,34 +446,51 @@ class _ShortcutGrid extends StatelessWidget {
 }
 
 class _PremiumExamSection extends StatelessWidget {
-  final ExamCategoryController examController;
-  const _PremiumExamSection({required this.examController});
+  const _PremiumExamSection({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<SeeAllItemsController>();
+
     return Obx(() {
-      final categories =
-          examController.courseCategoriesModel.value.courseCategories ?? [];
-      if (categories.isEmpty) return const SizedBox.shrink();
+      if (controller.courseApiCallStatus.value == ApiCallStatus.loading) {
+        return SizedBox(
+          height: 200.h,
+          child: const Center(child: CircularProgressIndicator()),
+        );
+      }
+
+      final courses = controller.allCourseModel.value.courses?.data ?? [];
+
+      if (courses.isEmpty) {
+        return const SizedBox.shrink();
+      }
+
       return SizedBox(
-        height: Get.height / 15,
+        height: 140.h,
         child: ListView.separated(
           scrollDirection: Axis.horizontal,
           physics: const BouncingScrollPhysics(),
-          itemCount: categories.length,
-          separatorBuilder: (_, __) => SizedBox(width: 12.w),
-          itemBuilder: (_, x) {
-            final cat = categories[x];
-            return ExamCategoryCard(
-              title: cat.title ?? '',
-              onTap: () {
-                Get.toNamed(Routes.COURSES, arguments: {
-                  "course_category_id": cat.id,
-                  "category_name": cat.title,
-                });
-              },
-              borderColor: LightThemeColors.primaryColor.withOpacity(0.4),
-              iconColor: LightThemeColors.primaryColor,
+          itemCount: courses.length,
+          separatorBuilder: (_, __) => SizedBox(width: 7.w),
+          itemBuilder: (_, index) {
+            final course = courses[index];
+
+            return SizedBox(
+              width: 140.w,
+              child: CustomCourseCard(
+                imageUrl: AppConstants.storageUrl + course.image.toString(),
+                title: course.title ?? "",
+                regularPrice: course.regularPrice.toString(),
+                salePrice: course.salePrice.toString(),
+                rating: '5',
+                onPressed: () {
+                  Get.toNamed(
+                    Routes.COURSE_DETAILS,
+                    arguments: {'course_id': course.id},
+                  );
+                },
+              ),
             );
           },
         ),

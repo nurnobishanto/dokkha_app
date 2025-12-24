@@ -19,6 +19,7 @@ class NavbarView extends GetView<NavbarController> {
       bottomNavigationBar: GetBuilder<NavbarController>(
         builder: (controller) {
           return BottomNavigationBar(
+            backgroundColor: LightThemeColors.softBg,
             type: BottomNavigationBarType.fixed,
             currentIndex: controller.currentIndex,
             selectedItemColor: LightThemeColors.primaryColor, // selected color

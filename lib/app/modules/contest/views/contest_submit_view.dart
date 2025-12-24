@@ -128,37 +128,6 @@ class ContestSubmitView extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-
-                                  /// popup menu items area
-                                  Expanded(
-                                    child: Obx(() {
-                                      // Ensure that the controller has an observable value for the favorite status
-                                      bool isFavorite =
-                                          controller.checkQuestionExistInSaved(
-                                              question.question!.id!.toInt());
-
-                                      return IconButton(
-                                        onPressed: () {
-                                          if (isFavorite) {
-                                            removeFavoriteQuestion(
-                                                question.question!.id!.toInt());
-                                          } else {
-                                            questionFavAdd(
-                                                question.question!.id!.toInt());
-                                          }
-                                          // This will trigger the UI update when the state changes
-                                          controller.update();
-                                        },
-                                        icon: Icon(
-                                          isFavorite
-                                              ? Icons.favorite
-                                              : Icons.favorite_border,
-                                          color: LightThemeColors.white,
-                                        ),
-                                      );
-                                    }),
-                                  ),
-                                  const SizedBox(width: 5.00),
                                 ],
                               ),
                             ),

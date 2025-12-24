@@ -7,7 +7,6 @@ import 'package:lokkha/app/modules/contest/models/contest_start_model.dart';
 
 import '../../../../utils/constants.dart';
 import '../../../data/local/my_shared_pref.dart';
-import '../../../helper/api_helper.dart';
 import '../../../services/api_call_status.dart';
 import '../../../services/base_client.dart';
 import '../models/contest_submit_model.dart';
@@ -81,24 +80,12 @@ class ContestStartController extends GetxController {
             (exam!.contest!.duration != null ? exam.contest!.duration! : 0).obs,
         timerWork = true.obs;
 
-  // For handling answers
-  // void selectAnswer(int questionId, dynamic answer) {
-  //   selectedAnswers[questionId] = answer;
-  //   _initializeUserAnswers();
-  // }
-
   void selectAnswer(int questionId, dynamic answer) {
     // If the question doesn't have an answer already, allow the selection
     if (selectedAnswers[questionId] == null) {
       selectedAnswers[questionId] = answer;
     }
     _initializeUserAnswers();
-  }
-
-  bool checkQuestionExistInSaved(int id) {
-    return favoriteQuestionsListModel.value.favoriteQuestions
-            ?.any((q) => q.id == id) ??
-        false;
   }
 
   @override
@@ -166,7 +153,7 @@ class ContestStartController extends GetxController {
           ),
         ],
       ),
-      barrierDismissible: false, // Prevent closing by tapping outside
+      barrierDismissible: false,
     );
   }
 
@@ -190,7 +177,7 @@ class ContestStartController extends GetxController {
           ),
         ],
       ),
-      barrierDismissible: false, // Prevent closing by tapping outside
+      barrierDismissible: false,
     );
   }
 }

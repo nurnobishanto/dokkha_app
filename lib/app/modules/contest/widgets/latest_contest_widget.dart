@@ -12,61 +12,63 @@ class LatestContestWidget extends StatelessWidget {
     final controller = Get.put(LatestContestController());
 
     return Obx(() {
-      return controller.isLoading.value
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : InkWell(
-              onTap: () {
-                Get.to(const ContestTabView());
-              },
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(7.0),
-                child: Stack(
-                  children: [
-                    //isCheckedGifImage(controller.imageUrl.value),
-                    Image.network(
-                      controller.imageUrl.value,
-                      height: 110.0.h,
-                      width: double.infinity,
-                      fit: BoxFit.fitWidth,
-                    ),
-                    Positioned(
-                      top: 8.0,
-                      left: 8.0,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8.0, vertical: 4.0),
-                        decoration: BoxDecoration(
-                          color: Colors.black54,
-                          borderRadius: BorderRadius.circular(5.0),
+      return controller.contestModel.value.contest == null
+          ? const SizedBox.shrink()
+          : controller.isLoading.value
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : InkWell(
+                  onTap: () {
+                    Get.to(const ContestTabView());
+                  },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(7.0),
+                    child: Stack(
+                      children: [
+                        //isCheckedGifImage(controller.imageUrl.value),
+                        Image.network(
+                          controller.imageUrl.value,
+                          height: 110.0.h,
+                          width: double.infinity,
+                          fit: BoxFit.fitWidth,
                         ),
-                        child: controller.status.value == 'timer'
-                            ? Text(
-                                "${controller.hours.value.toString().padLeft(2, '0')}:"
-                                "${controller.minutes.value.toString().padLeft(2, '0')}:"
-                                "${controller.seconds.value.toString().padLeft(2, '0')}",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12.5.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              )
-                            : controller.status.value == 'ongoing'
-                                ? const Text(
-                                    "🟡 Ongoing",
-                                    style: TextStyle(color: Colors.white),
+                        Positioned(
+                          top: 8.0,
+                          left: 8.0,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8.0, vertical: 4.0),
+                            decoration: BoxDecoration(
+                              color: Colors.black54,
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
+                            child: controller.status.value == 'timer'
+                                ? Text(
+                                    "${controller.hours.value.toString().padLeft(2, '0')}:"
+                                    "${controller.minutes.value.toString().padLeft(2, '0')}:"
+                                    "${controller.seconds.value.toString().padLeft(2, '0')}",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 12.5.sp,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   )
-                                : const Text(
-                                    '🔴 Ended',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                      ),
+                                : controller.status.value == 'ongoing'
+                                    ? const Text(
+                                        "🟡 Ongoing",
+                                        style: TextStyle(color: Colors.white),
+                                      )
+                                    : const Text(
+                                        '🔴 Ended',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-            );
+                  ),
+                );
     });
   }
 }

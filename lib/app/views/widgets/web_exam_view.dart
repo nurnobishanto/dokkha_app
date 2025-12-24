@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/components/custom_action_button.dart';
 import 'package:lokkha/app/data/local/my_shared_pref.dart';
+import 'package:lokkha/app/views/views/pdf_viewer.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -52,7 +53,7 @@ class _WebExamViewState extends State<WebExamView> {
       ..setBackgroundColor(Colors.transparent)
       ..setNavigationDelegate(NavigationDelegate(
         onProgress: (int progress) {
-          debugPrint("PROGRESS $progress%");
+          log("PROGRESS $progress%");
         },
         onPageStarted: (String url) {
           setState(() {
@@ -77,6 +78,10 @@ class _WebExamViewState extends State<WebExamView> {
           } else if (url.contains('goback')) {
             _controller.goBack();
           } else if (url.contains('login')) {
+            _controller.goBack();
+          }
+          else if(url.contains('pdf')) {
+            Get.to(PdfViewerScreen(title: "Download", file: url));
             _controller.goBack();
           }
           debugPrint("PROGRESS $url");
@@ -139,7 +144,8 @@ class _WebExamViewState extends State<WebExamView> {
               Get.back();
             } else if (currentUrl.contains('result')) {
               Get.back();
-            } else {
+            }
+            else {
               if (await _controller.canGoBack()) {
                 _controller.goBack();
               } else {
@@ -164,7 +170,8 @@ class _WebExamViewState extends State<WebExamView> {
         ),
       ),
       floatingActionButton: currentUrl.contains('pdf')
-          ? FloatingActionButton.extended(
+          ?
+      FloatingActionButton.extended(
               onPressed: () {
                 launchUrlString(currentUrl);
               },

@@ -1,0 +1,4 @@
+<resources>
+    <!-- Define the green color -->
+    <color name="green">#4CAF50</color> <!-- You can replace this with your preferred shade of green -->
+</resources>

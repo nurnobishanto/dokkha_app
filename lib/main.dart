@@ -1,53 +1,40 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'app/data/local/my_shared_pref.dart';
-import 'app/routes/app_pages.dart';
-import 'config/theme/my_theme.dart';
-import 'config/translations/localization_service.dart';
-
+import 'app/helper/global.dart';
+import 'my_app/views/my_app_view.dart';
 
 Future<void> main() async {
-  // wait for bindings
   WidgetsFlutterBinding.ensureInitialized();
+  try {
+    await dotenv.load(fileName: ".env");
+  } catch (e) {
+    debugPrint(".env load failed: $e");
+  }
 
-  // init shared preference
-  await MySharedPref.init();
+  // Init SharedPreferences safely
+  try {
+    await MySharedPref.init();
+  } catch (e) {
+    debugPrint("SharedPreferences init failed: $e");
+  }
 
-  runApp(
-    ScreenUtilInit(
-      // Todo: Figma art board size
-      designSize: const Size(375, 812),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      useInheritedMediaQuery: true,
-      rebuildFactor: (old, data) => true,
-      builder: (context, widget) {
-        return GetMaterialApp(
-          // todo add your app name
-          title: "Dhakka",
-          useInheritedMediaQuery: true,
-          debugShowCheckedModeBanner: false,
-          builder: (context, widget) {
-            bool themeIsLight = MySharedPref.getThemeIsLight();
-            return Theme(
-              data: MyTheme.getThemeData(isLight: themeIsLight),
-              child: MediaQuery(
-                // prevent font from scaling (some people use big/small device fonts)
-                // but we want our app font to still the same and don't get affected
-                data: MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(1.0)),
-                child: widget!,
-              ),
-            );
-          },
-          initialRoute:
-          AppPages.INITIAL, // first screen to show when app is running
-          getPages: AppPages.routes, // app screens
-          locale: MySharedPref.getCurrentLocal(), // app language
-          translations: LocalizationService
-              .getInstance(), // localization services in app (controller app language)
-        );
-      },
-    ),
-  );
+  // Init OneSignal safely
+  final oneSignalAppId = dotenv.env['ONESIGNAL_APP_ID'];
+  if (oneSignalAppId != null && oneSignalAppId.isNotEmpty) {
+    try {
+      OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+      OneSignal.initialize(oneSignalAppId);
+      OneSignal.Notifications.requestPermission(true);
+    } catch (e) {
+      debugPrint("OneSignal init failed: $e");
+    }
+  } else {
+    debugPrint("ONESIGNAL_APP_ID not found in .env");
+  }
+
+  fetchAppVersion();
+  runApp(const MyApp());
 }

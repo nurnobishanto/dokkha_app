@@ -1,4 +1,102 @@
-class Constants {
-  static const baseUrl = 'https://jsonplaceholder.typicode.com';
-  static const todosApiUrl = baseUrl + '/todos';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+class AppConstants {
+  AppConstants._(); // Prevent instantiation
+
+  /// Base URLs
+  static final String baseUrl =
+      dotenv.env['API_BASE_URL'] ?? 'https://lokkha.com';
+  static final String appUrl = '$baseUrl/api';
+  static const String storageUrl = 'https://lokkha.com/uploads/';
+  static const String sponsorAds = 'https://bdtaxation.com/api/app-ads';
+
+  /// Auth Endpoints
+  static final String checkPhoneNumber = '$appUrl/check-phone-number';
+  static final String sendOtp = '$appUrl/send-otp';
+  static final String login = '$appUrl/login';
+  static final String register = '$appUrl/register';
+  static final String appVersionCheck = '$appUrl/app/update';
+  static final String updateProfileRequired = '$appUrl/update-profile-required';
+  static final String updateProfileInfo = '$appUrl/update-profile-info';
+  static final String me = '$appUrl/me';
+  static final String authCheck = '$appUrl/auth-check';
+  static final String logout = '$appUrl/logout';
+
+  /// Subjects & Exams
+  static final String subjects = '$appUrl/subjects';
+  static final String testExamStart = '$appUrl/test-exam/start';
+  static final String testExamSubmit = '$appUrl/test-exam/submit';
+  static final String randomQuestion = '$appUrl/random-question';
+
+  /// Favorites
+  static final String questionFavAdd = '$appUrl/question/favorite/add';
+  static final String questionFavRemove = '$appUrl/question/favorite/remove';
+  static final String questionFavList = '$appUrl/question/favorite/list';
+
+  /// Jobs
+  static final String jobsList = '$appUrl/jobs';
+  static final String job = '$appUrl/job';
+
+  // Current Affairs
+  static final String internationalCA = '$appUrl/current-affairs/international';
+  static final String nationalCA = '$appUrl/current-affairs/national';
+
+  /// Home
+  static final String sliders = '$appUrl/sliders';
+
+  /// Drawer Pages
+  static final String privacyPolicy = '$appUrl/page/privacy-policy';
+  static final String termsPolicy = '$appUrl/page/terms-and-conditions';
+  static final String refundPolicy = '$appUrl/page/refund-policy';
+  static final String contestPolicy = '$appUrl/page/contest-policy';
+  static final String about = '$appUrl/page/about';
+
+  /// Premium Packages
+  static final String premiumPackage = '$appUrl/packages';
+  static final String packageOrder = '$appUrl/package/order';
+  static final String couponApply = '$appUrl/coupon-apply';
+
+  /// Contests
+  static final String latestContest = '$appUrl/latest-contest';
+  static final String startContest = '$appUrl/contest/';
+  static final String latestContestResult = '$appUrl/latest-contest-result';
+  static final String allContestList = '$appUrl/contest-list';
+
+  /// Subject Sections
+  static final String subjectSections = '$appUrl/subject-sections';
+
+  /// User Orders & Packages
+  static final String myPackages = '$appUrl/my-packages';
+  static final String myOrders = '$appUrl/my-orders';
+  static final String myOrderDetails = '$appUrl/order-details';
+
+  /// Latest Exams
+  static final String latestExam = '$appUrl/latest-exams';
+  static final String tag = '$appUrl/tag';
+  static final String vocabularies = '$appUrl/vocabularies';
+
+  /// Model test
+  static final String modelTests = '$appUrl/model-tests';
+  static final String modelTest = '$appUrl/model-test';
+  static final String modelTestCategories = '$appUrl/model-test-categories';
+  static final String exam = '$appUrl/exam';
+
+  /// Lecture Sheet
+  static final String lectureSheetCategories =
+      '$appUrl/lecturesheet-categories';
+  static final String lectureSheet = '$appUrl/lecturesheets';
+
+  /// Exams Categories
+  static final String examsCategories = '$appUrl/exam-categories';
+  static final String examsCategory = '$appUrl/exam-category';
+  static final String startExam = '$appUrl/start-exam';
+  static final String submitExam = '$appUrl/submit-exam';
+  static final String examList = '$appUrl/exam-list';
+
+  /// Course Categories
+  static final String courseCategories = '$appUrl/course-categories';
+  static final String courses = '$appUrl/courses';
+  static final String courseDetails = '$appUrl/course';
+  static final String courseLearn = '$appUrl/course-learn';
+  static final String courseEnroll = '$appUrl/course-enroll';
 }

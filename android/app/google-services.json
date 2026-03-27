@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "734429811713",
+    "project_id": "lokkha-techyfo",
+    "storage_bucket": "lokkha-techyfo.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:734429811713:android:6cf70b29f217cb241a9c00",
+        "android_client_info": {
+          "package_name": "com.techyfo.lokkha"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClmA6Q050lc9HTlVo2nyApwLRnmt50wb8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

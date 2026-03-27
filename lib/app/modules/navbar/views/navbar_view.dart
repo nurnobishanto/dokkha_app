@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import '../../../../config/theme/light_theme_colors.dart';
+import '../../../helper/global.dart';
 import '../controllers/navbar_controller.dart';
 
 class NavbarView extends GetView<NavbarController> {
@@ -16,14 +19,37 @@ class NavbarView extends GetView<NavbarController> {
       bottomNavigationBar: GetBuilder<NavbarController>(
         builder: (controller) {
           return BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
             currentIndex: controller.currentIndex,
-            onTap: (index) => controller.changeIndex(index), // Call method to update index
-            items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-              BottomNavigationBarItem(icon: Icon(Icons.food_bank_outlined), label: "Q Bank"),
-              BottomNavigationBarItem(icon: Icon(Icons.access_time), label: "Contest"),
-              BottomNavigationBarItem(icon: Icon(Icons.map), label: "Blog"),
-              BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+            selectedItemColor: LightThemeColors.primaryColor,      // selected color
+            // unselectedItemColor: Colors.grey.shade400,             // unselected color
+            onTap: controller.changeIndex,
+            items: [
+              const BottomNavigationBarItem(
+                icon: FaIcon(FontAwesomeIcons.house, size: 18),
+                label: "হোম",
+                backgroundColor: LightThemeColors.primaryColor,
+              ),
+              const BottomNavigationBarItem(
+                icon: FaIcon(FontAwesomeIcons.penToSquare, size: 18),
+                label: "পরীক্ষা",
+                backgroundColor: LightThemeColors.primaryColor,
+              ),
+              const BottomNavigationBarItem(
+                icon: FaIcon(FontAwesomeIcons.commentDots, size: 20),
+                label: "Messenger",
+                backgroundColor: LightThemeColors.primaryColor,
+              ),
+              const BottomNavigationBarItem(
+                icon: FaIcon(FontAwesomeIcons.boxOpen, size: 18),
+                label: "প্রিমিয়াম",
+                backgroundColor: LightThemeColors.primaryColor,
+              ),
+              BottomNavigationBarItem(
+                icon: const FaIcon(FontAwesomeIcons.user, size: 18),
+                label: !isLoggedIn.value ? "লগইন" : "প্রোফাইল",
+                backgroundColor: LightThemeColors.primaryColor,
+              ),
             ],
           );
         },

@@ -1,22 +1,11 @@
-name: dokkha
-description: Dokkha project.
+name: lokkha
+description: Lokkha project.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-# The following defines the version and build number for your application.
-# A version number is three numbers separated by dots, like 1.2.43
-# followed by an optional build number separated by a +.
-# Both the version and the builder number may be overridden in flutter
-# build by specifying --build-name and --build-number, respectively.
-# In Android, build-name is used as versionName while build-number used as versionCode.
-# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
-# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
-# Read more about iOS versioning at
-# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-# In Windows, build-name is used as the major, minor, and patch parts
-# of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+1
+#version: 1.2.2+14
+version: 1.2.5+17
 
 environment:
   sdk: '>=3.0.5 <4.0.0'
@@ -30,9 +19,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  get: ^4.6.6 # for state management and context less stuff
+  get: ^4.7.3 # for state management and context less stuff
 
-  logger: # log events in clear way instead of (print)
+  #logger: # log events in clear way instead of (print)
 
   flutter_screenutil: # make app responsive
 
@@ -51,20 +40,52 @@ dependencies:
 
   rename_app: # rename app
 
-
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  cached_network_image: ^3.4.1
+  font_awesome_flutter: ^10.8.0
+  pinput: ^5.0.1
+  carousel_slider: ^5.0.0
+  dots_indicator: ^4.0.0
+  url_launcher: ^6.3.1
+  intl: ^0.20.2
+  flutter_widget_from_html_core: ^0.16.0
+  get_storage: ^2.1.1
+  syncfusion_flutter_pdfviewer: ^29.1.39
+  device_info_plus: ^11.4.0
+  webview_flutter: ^4.13.0
+  flutter_social_button: ^1.1.6+1
+  share_plus: ^11.0.0
+  package_info_plus: ^8.3.0
+  gif: ^2.3.0
+  image_picker: ^1.1.2
+  image_cropper: ^9.1.0
+  http_parser: ^4.1.2
+  onesignal_flutter: ^5.3.0
+  json_annotation: ^4.9.0
+  flutter_meta_sdk: ^1.0.5
+  flutter_dotenv: ^5.2.1
+  youtube_player_flutter: ^9.1.2
+  photo_view: ^0.15.0
+  google_sign_in: ^7.2.0
+  lottie: ^3.3.2
+  flutter_math_fork: ^0.7.4
+  flutter_widget_from_html: ^0.16.1
+  flutter_tex: ^5.1.10
+  xml: ^6.6.1
+
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   mockito:
-  build_runner:  # generate dart files
+  build_runner: ^2.4.15
+  json_serializable: ^6.9.5
   #hive_generator: # generate hive files
 
-  flutter_lints: ^2.0.0
+  flutter_lints: ^5.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -82,54 +103,23 @@ flutter:
     - assets/images/
     - assets/vectors/
     - assets/fonts/
+    - assets/lottie/
+    - .env
 
   # To add custom fonts to your application, add a fonts section here.
   fonts:
-    - family: Poppins
+    - family: BalooDa2
       fonts:
-        - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/BalooDa2-Regular.ttf
           weight: 400
-        - asset: assets/fonts/Poppins-Medium.ttf
+        - asset: assets/fonts/BalooDa2-Medium.ttf
           weight: 500
-        - asset: assets/fonts/Poppins-SemiBold.ttf
+        - asset: assets/fonts/BalooDa2-SemiBold.ttf
           weight: 600
-
-    - family: Cairo
-      fonts:
-        - asset: assets/fonts/Cairo-Regular.ttf
-          weight: 400
-        - asset: assets/fonts/Cairo-Medium.ttf
-          weight: 500
-        - asset: assets/fonts/Cairo-SemiBold.ttf
-          weight: 600
-
-    - family: LiAdorNoirrit
-      fonts:
-        - asset: assets/fonts/Li Ador Noirrit ExtraLight.ttf
-          weight: 200
-        - asset: assets/fonts/Li Ador Noirrit ExtraLight Italic.ttf
-          weight: 200
-          style: italic
-        - asset: assets/fonts/Li Ador Noirrit Light.ttf
-          weight: 300
-        - asset: assets/fonts/Li Ador Noirrit Light Italic.ttf
-          weight: 300
-          style: italic
-        - asset: assets/fonts/Li Ador Noirrit Regular.ttf
-          weight: 400
-        - asset: assets/fonts/Li Ador Noirrit SemiBold.ttf
-          weight: 600
-        - asset: assets/fonts/Li Ador Noirrit SemiBold Italic.ttf
-          weight: 600
-          style: italic
-        - asset: assets/fonts/Li Ador Noirrit Bold.ttf
+        - asset: assets/fonts/BalooDa2-Bold.ttf
           weight: 700
-        - asset: assets/fonts/Li Ador Noirrit Bold Italic.ttf
-          weight: 700
-          style: italic
-
-
-
+        - asset: assets/fonts/BalooDa2-ExtraBold.ttf
+          weight: 800
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

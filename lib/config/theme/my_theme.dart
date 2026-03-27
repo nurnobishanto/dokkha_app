@@ -7,10 +7,22 @@ import '../../app/data/local/my_shared_pref.dart';
 import 'dark_theme_colors.dart';
 import 'light_theme_colors.dart';
 import 'my_styles.dart';
+//
+// ├── theme/
+// │   ├── my_theme.dart              🔁 Main controller: switch + ThemeData
+// │   ├── light_theme_colors.dart    🎨 Light theme color palette
+// │   ├── dark_theme_colors.dart     🌙 Dark theme color palette
+// │   └── my_styles.dart             🖋️ Shared text/button/icon styles
+// ├── utils/
+// │   └── my_shared_pref.dart        💾 SharedPreferences helper (theme save/load)
+// ├── main.dart                      🚀 Entry point (Set theme here)
 
 class MyTheme {
-  static getThemeData({required bool isLight}) {
+  static ThemeData getThemeData({required bool isLight}) {
     return ThemeData(
+      // primarySwatch: Colors.green,
+
+      useMaterial3: true,
       // main color (app bar,tabs..etc)
       primaryColor: isLight
           ? LightThemeColors.primaryColor
@@ -70,8 +82,6 @@ class MyTheme {
       //   onBackground: isLight ? LightThemeColors.onBackgroundColor : DarkThemeColors.onBackgroundColor,
       //   onSurface: isLight ? LightThemeColors.onSurfaceColor : DarkThemeColors.onSurfaceColor,
       // ),
-
-
     );
   }
 

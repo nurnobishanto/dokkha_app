@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:lokkha/app/components/custom_action_button.dart';
 import 'package:lokkha/app/components/custom_drawer.dart';
 import 'package:lokkha/app/data/local/my_shared_pref.dart';
 import 'package:lokkha/app/helper/global.dart';
@@ -20,6 +21,7 @@ import 'package:lokkha/config/theme/light_theme_colors.dart';
 import 'package:lokkha/utils/constants.dart';
 import 'package:lokkha/config/constants/app_images.dart';
 import 'package:lokkha/styles/text_style.dart';
+import '../../../../../simple_subscription_page.dart';
 import '../../../../components/custom_transparent_divider.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../courses/widgets/custom_course_card.dart';
@@ -35,6 +37,8 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
     final HomeController controller = Get.find();
     final ExamCategoryController examController = Get.find();
     Future<void> onRefresh() => controller.refreshHomeViewData();
@@ -44,22 +48,75 @@ class HomeView extends StatelessWidget {
       appBar: AppBar(
         title: Row(
           children: [
-            Image.asset(AssetImagePaths.appIconHorizontal, scale: 5),
+            Image.asset(
+              AssetImagePaths.appIconHorizontal,
+              scale: 5,
+            ),
             SizedBox(width: 8.w),
             Text(
               "সঠিক পথে, স্বল্প সময়ে",
-              style: AppTextStyles.custom(fontSize: 16.00.sp)
+              style: AppTextStyles.custom(fontSize: 16.sp)
                   .copyWith(color: Get.theme.indicatorColor),
             ),
           ],
         ),
         centerTitle: false,
+
+        ///  Notification Icon with Badge
+        actions: [
+          Stack(
+            clipBehavior: Clip.none,
+            children: [
+              IconButton(
+                onPressed: () {
+                  Get.toNamed(Routes.NOTIFICATIONS);
+                },
+                icon: const Icon(Icons.notifications, size: 28),
+              ),
+
+              /// Red Badge
+              Positioned(
+                right: 6,
+                top: 6,
+                child: Obx(() {
+                  // if (unReadNotificationCount.value == 0) {
+                  //   return const SizedBox.shrink();
+                  // }
+                  return Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: const BoxDecoration(
+                      color: Colors.red,
+                      shape: BoxShape.circle,
+                    ),
+                    constraints: const BoxConstraints(
+                      minWidth: 18,
+                      minHeight: 18,
+                    ),
+                    child: Text(
+                      unReadNotificationCount.value.toString(),
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  );
+                }),
+              ),
+            ],
+          ),
+          const SizedBox(width: 6),
+        ],
+
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(Get.height / 20 + 5),
-          child: _SearchBar(onTap: () => Get.to(const ComingSoonPage()))
-              .paddingOnly(bottom: 5),
+          child: _SearchBar(
+            onTap: () => Get.to(const ComingSoonPage()),
+          ).paddingOnly(bottom: 5),
         ),
       ),
+
       body: RefreshIndicator(
         onRefresh: onRefresh,
         child: ListView(

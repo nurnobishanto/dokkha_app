@@ -46,6 +46,7 @@ class InternationalCurrentAffairsContentView extends StatelessWidget {
           },
         ),
       ),
+
       body: Obx(() {
         if (controller.isLoading.value) {
           return const Center(child: CircularProgressIndicator());
@@ -263,6 +264,52 @@ class InternationalCurrentAffairsContentView extends StatelessWidget {
           },
         );
       }),
+
+      // bottomNavigationBar: Obx(() {
+      //   final lastPage = controller.model.value.currentAffairs?.lastPage ?? 1;
+      //
+      //   if (lastPage <= 1) return const SizedBox.shrink();
+      //
+      //   return SafeArea(
+      //     child: Padding(
+      //       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+      //       child: SingleChildScrollView(
+      //         scrollDirection: Axis.horizontal,
+      //         child: Row(
+      //           mainAxisAlignment: MainAxisAlignment.center,
+      //           children: List.generate(lastPage, (index) {
+      //             final page = index + 1;
+      //             final isActive = controller.currentPage.value == page;
+      //
+      //             return InkWell(
+      //               onTap: () {
+      //                 controller.fetchCurrentAffairs("", page: page);
+      //               },
+      //               child: Container(
+      //                 margin: const EdgeInsets.symmetric(horizontal: 6),
+      //                 padding: const EdgeInsets.symmetric(
+      //                     horizontal: 12, vertical: 6),
+      //                 decoration: BoxDecoration(
+      //                   color: isActive
+      //                       ? LightThemeColors.primaryColor
+      //                       : Colors.grey.shade200,
+      //                   borderRadius: BorderRadius.circular(8),
+      //                 ),
+      //                 child: Text(
+      //                   page.toString(),
+      //                   style: TextStyle(
+      //                     color: isActive ? Colors.white : Colors.black,
+      //                     fontWeight: FontWeight.bold,
+      //                   ),
+      //                 ),
+      //               ),
+      //             );
+      //           }),
+      //         ),
+      //       ),
+      //     ),
+      //   );
+      // }),
     );
   }
 }

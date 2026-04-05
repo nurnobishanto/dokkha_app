@@ -112,11 +112,12 @@ class JobsView extends GetView<JobsController> {
                                       var data = controller
                                           .model.value.jobs!.data![index];
                                       return GovJobCard(
-                                        title: data.companyName!.isEmpty
-                                            ? ""
-                                            : data.companyName.toString(),
+                                        title:
+                                            data.companyName?.isNotEmpty == true
+                                                ? data.companyName!
+                                                : "",
                                         onTap: () {
-                                          print("1x. ${data.id}");
+                                          debugPrint("1x. ${data.id}");
                                           Get.toNamed(
                                             Routes.JOB_DETAILS,
                                             arguments: data.id,

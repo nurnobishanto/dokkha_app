@@ -55,6 +55,7 @@ abstract class Routes {
   static const ALL_COURSES = _Paths.ALL_COURSES;
   static const ALL_EXAM = _Paths.ALL_EXAM;
   static const JOB_DETAILS = _Paths.JOB_DETAILS;
+  static const NOTIFICATIONS = _Paths.NOTIFICATIONS;
 }
 
 abstract class _Paths {
@@ -111,4 +112,5 @@ abstract class _Paths {
   static const ALL_COURSES = '/all-courses';
   static const ALL_EXAM = '/all-exam';
   static const JOB_DETAILS = '/job-details';
+  static const NOTIFICATIONS = '/notifications';
 }

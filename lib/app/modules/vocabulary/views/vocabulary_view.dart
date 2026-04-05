@@ -17,16 +17,6 @@ class VocabularyView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(VocabularyController());
-    final scrollController = ScrollController();
-
-    // Infinite scroll
-    // scrollController.addListener(() {
-    //   if (scrollController.position.pixels >=
-    //       scrollController.position.maxScrollExtent - 200) {
-    //     controller.fetchVocabulary();
-    //   }
-    // });
-
     return Scaffold(
       appBar: const CustomAppBar(title: 'Vocabulary'),
       body: Obx(() {

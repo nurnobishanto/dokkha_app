@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:lokkha/app/modules/see_all_items/views/all_exam_view.dart';
 
 import '../modules/auth_views/auth_gateway/bindings/auth_gateway_binding.dart';
 import '../modules/auth_views/auth_gateway/views/auth_gateway_view.dart';
@@ -55,6 +54,8 @@ import '../modules/nav_bar_views/question_bank/bindings/question_bank_binding.da
 import '../modules/nav_bar_views/question_bank/views/question_bank_view.dart';
 import '../modules/navbar/bindings/navbar_binding.dart';
 import '../modules/navbar/views/navbar_view.dart';
+import '../modules/notifications/bindings/notifications_binding.dart';
+import '../modules/notifications/views/notifications_view.dart';
 import '../modules/premium_packages/bindings/premium_packages_binding.dart';
 import '../modules/premium_packages/views/premium_packages_view.dart';
 import '../modules/profile_module/my_orders/bindings/my_orders_binding.dart';
@@ -71,6 +72,7 @@ import '../modules/profile_update_required/bindings/profile_update_required_bind
 import '../modules/profile_update_required/views/profile_update_required_view.dart';
 import '../modules/see_all_items/bindings/see_all_items_binding.dart';
 import '../modules/see_all_items/views/all_course_view.dart';
+import '../modules/see_all_items/views/all_exam_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 import '../modules/sponsor_ads/bindings/sponsor_ads_binding.dart';
@@ -317,6 +319,11 @@ class AppPages {
       name: _Paths.ALL_EXAM,
       page: () => const AllExamView(),
       binding: SeeAllItemsBinding(),
+    ),
+    GetPage(
+      name: _Paths.NOTIFICATIONS,
+      page: () => const NotificationsView(),
+      binding: NotificationsBinding(),
     ),
   ];
 }

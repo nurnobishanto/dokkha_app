@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lokkha/app/modules/notifications/controllers/notifications_controller.dart';
 import '../../../../services/api_call_status.dart';
 import '../../../contest/controller/latest_contest_controller.dart';
 import '../../../current_affairs/views/current_affairs_view.dart';
@@ -56,6 +57,7 @@ class HomeController extends GetxController {
     // Controllers safely injected
     contestController = Get.put(LatestContestController(), permanent: true);
     examController = Get.put(ExamCategoryController(), permanent: true);
+    Get.put(NotificationsController());
 
     // Initial API fetch
     _fetchInitialData();

@@ -8,6 +8,7 @@ class CurrentAffairsController extends GetxController {
   RxBool isLoading = true.obs;
   RxInt currentPage = 1.obs;
   RxString search = RxString("");
+  RxInt totalPages = 1.obs;
 
   RxObjectMixin<CurrentAffairsModel> model = CurrentAffairsModel().obs;
 
@@ -27,24 +28,22 @@ class CurrentAffairsController extends GetxController {
       headers: headers,
       onSuccess: (response) {
         if (response.data["status"]) {
-          CurrentAffairsModel modelData =
-              CurrentAffairsModel.fromJson(response.data);
-          // MyGetStorage.writeCacheData(MyGetStorage.bdAffairs, response);
-
-          if (page > 1 && model.value.currentAffairs != null) {
-            // Merge new data with existing data
-            model.value.currentAffairs!.data!
-                .addAll(modelData.currentAffairs!.data!);
-          } else {
-            model.value = modelData;
-          }
+          model.value = CurrentAffairsModel.fromJson(response.data);
           currentPage.value = page;
-          isLoading.value = false;
-        } else {
-          isLoading.value = false;
+          totalPages.value = model.value.currentAffairs?.lastPage ?? 1;
         }
+        isLoading.value = false;
+      },
+      onError: (err) {
+        isLoading.value = false;
       },
     );
+  }
+
+  // ---------- Pagination Actions ----------
+  void goToPage(int page) {
+    if (page < 1 || page > totalPages.value) return;
+    fetchCurrentAffairs("", page: page);
   }
 
   @override

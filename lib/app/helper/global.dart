@@ -46,6 +46,8 @@ RxString? userPhone = ''.obs;
 RxString? userRole = ''.obs;
 RxBool isLoggedIn = false.obs;
 RxBool havePackage = false.obs;
+RxInt unReadNotificationCount = 0.obs;
+
 
 /// ✅ Device Info
 String? deviceId;

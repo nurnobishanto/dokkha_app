@@ -17,7 +17,7 @@ class SocialLinksScreen extends StatelessWidget {
       'title': 'Facebook Page',
     },
     {
-      'icon': FontAwesomeIcons.facebook,
+      'icon': FontAwesomeIcons.userGroup,
       'color': const Color(0xFF1877F2),
       'url': 'https://www.facebook.com/groups/lokkha',
       'title': 'Facebook Group',
@@ -25,13 +25,13 @@ class SocialLinksScreen extends StatelessWidget {
     {
       'icon': FontAwesomeIcons.youtube,
       'color': Colors.red,
-      'url': 'https://www.youtube.com/channel/lokkhabd',
+      'url': 'https://www.youtube.com/@lokkhabd',
       'title': 'YouTube Channel',
     },
     {
       'icon': FontAwesomeIcons.whatsapp,
       'color': const Color(0xFF25D366),
-      'url': 'https://wa.me/8801334260543',
+      'url': 'https://wa.me/8801332804290',
       'title': 'WhatsApp',
     },
     {
@@ -43,7 +43,7 @@ class SocialLinksScreen extends StatelessWidget {
     {
       'icon': FontAwesomeIcons.linkedin,
       'color': const Color(0xFF0A66C2),
-      'url': 'https://www.linkedin.com/in/lokkhabd',
+      'url': 'https://www.linkedin.com/in/lokkho-job-preparation-92b745362/',
       'title': 'LinkedIn',
     },
     {

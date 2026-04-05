@@ -70,7 +70,9 @@ class JobDetailsScreen extends StatelessWidget {
                                 Expanded(
                                   flex: 5,
                                   child: Text(
-                                    jobData.companyName.toString(),
+                                    jobData.companyName == null
+                                        ? ''
+                                        : jobData.companyName.toString(),
                                     style: AppTextStyles.heading5,
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
@@ -94,12 +96,11 @@ class JobDetailsScreen extends StatelessWidget {
                             ),
                             const SizedBox(height: 5.0),
                             Text(
-                              "সোর্স: ${jobData.source}",
+                              "সোর্স: ${jobData.source ?? ''}",
                               style: AppTextStyles.heading5,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                             ),
-
                             const SizedBox(height: 10.0),
 
                             // PDF or Image Viewer
@@ -108,9 +109,8 @@ class JobDetailsScreen extends StatelessWidget {
                                     height: MediaQuery.of(context).size.height *
                                         0.6,
                                     child: SfPdfViewer.network(
-                                      "${AppConstants.storageUrl}${jobData.sourceFile.toString()}",
-                                    ),
-                                  )
+                                      getFullUrl(jobData.sourceFile),
+                                    ))
                                 : SizedBox(
                                     width: double.infinity,
                                     child: InteractiveViewer(

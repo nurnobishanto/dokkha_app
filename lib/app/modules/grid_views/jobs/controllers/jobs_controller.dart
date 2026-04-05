@@ -93,3 +93,13 @@ class JobsController extends GetxController {
     fetchJobs("");
   }
 }
+
+String getFullUrl(String? path) {
+  if (path == null || path.isEmpty) return "";
+
+  if (path.startsWith("http")) {
+    return path;
+  }
+
+  return "${AppConstants.storageUrl}$path";
+}

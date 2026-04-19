@@ -6,16 +6,11 @@ import '../widget/course_learn_body.dart';
 import '../widget/course_learn_floating_bar.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-class CourseLearnView extends StatelessWidget {
+class CourseLearnView extends GetView<CourseLearnController> {
   const CourseLearnView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(CourseLearnController(
-      id: Get.arguments['id'],
-      itemID: Get.arguments['item_id'],
-    ));
-
     return Obx(() {
       if (controller.isLoading.value) {
         return const Scaffold(
@@ -24,26 +19,25 @@ class CourseLearnView extends StatelessWidget {
           ),
         );
       }
+      // final model = controller.model.value;
+      // final course = model.data?.course;
+      // final currentItem = model.data?.currentItem;
+      // final hasVideo = controller.youtubeController != null &&
+      //     controller.isControllerReady.value;
       final model = controller.model.value;
-      final course = model.data?.course;
-      final currentItem = model.data?.currentItem;
-      final hasVideo = controller.youtubeController != null &&
-          controller.isControllerReady.value;
+      final hasData =
+          model.data?.course != null && model.data?.currentItem != null;
 
-      if (course == null || currentItem == null) {
-        return Scaffold(
+      if (!hasData) {
+        return const Scaffold(
           body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(Icons.error_outline, size: 64, color: Colors.grey),
-                const SizedBox(height: 16),
-                Text("Course data not available"),
-              ],
-            ),
+            child: CircularProgressIndicator(),
           ),
         );
       }
+      final course = model.data!.course!;
+      final hasVideo = controller.youtubeController != null &&
+          controller.isControllerReady.value;
 
       if (!hasVideo) {
         return Scaffold(

@@ -17,10 +17,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     debugPrint("MyApp Started....");
 
-
-
-
-
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,
@@ -36,7 +32,6 @@ class MyApp extends StatelessWidget {
           initialBinding: InitialBindings(),
           initialRoute: AppPages.INITIAL,
           getPages: AppPages.routes,
-          //home: RandomPage(),
           useInheritedMediaQuery: true,
           locale: MySharedPref.getCurrentLocal(),
           translations: LocalizationService.getInstance(),

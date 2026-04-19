@@ -29,13 +29,21 @@ class CourseLearnController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fetchCourseItem(id, itemID: itemID);
+
     if (!isLoggedIn.value) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        Get.toNamed(Routes.AUTH_GATEWAY);
+        Get.offAllNamed(Routes.AUTH_GATEWAY);
       });
       return;
     }
+
+    fetchCourseItem(id, itemID: itemID);
+  }
+
+  void safeNavigate(VoidCallback action) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      action();
+    });
   }
 
   Future<void> fetchCourseItem(int courseId, {int? itemID}) async {

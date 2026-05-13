@@ -19,11 +19,7 @@ class CourseLearnView extends GetView<CourseLearnController> {
           ),
         );
       }
-      // final model = controller.model.value;
-      // final course = model.data?.course;
-      // final currentItem = model.data?.currentItem;
-      // final hasVideo = controller.youtubeController != null &&
-      //     controller.isControllerReady.value;
+
       final model = controller.model.value;
       final hasData =
           model.data?.course != null && model.data?.currentItem != null;

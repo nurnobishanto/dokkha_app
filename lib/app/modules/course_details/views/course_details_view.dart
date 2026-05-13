@@ -20,7 +20,6 @@ class CourseDetailsView extends GetView<CourseDetailsController> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
-    // debugPrint('CourseDetailsView Loaded with id: ${controller.courseId}');
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
@@ -251,7 +250,7 @@ class CourseDetailsView extends GetView<CourseDetailsController> {
                   text: "Start Learning",
                   onPressed: () {
                     Get.toNamed(Routes.COURSE_LEARN,
-                        arguments: {'id': controller.model.course!.id});
+                        arguments: {'id': controller.model.course!.id, 'item_id': controller.model.course?.modules?.first.items?.first.id});
                   },
                 ),
               );

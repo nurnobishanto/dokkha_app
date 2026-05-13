@@ -50,7 +50,7 @@ class MyPackagesView extends GetView<MyPackagesController> {
           );
         }
 
-        return const SizedBox.shrink(); // for ApiCallStatus.holding or default
+        return const SizedBox.shrink();
       }),
     );
   }

@@ -9,7 +9,7 @@ class CourseLearnBinding extends Bindings {
 
     Get.lazyPut(() => CourseLearnController(
           id: args?['id'] ?? 0,
-          itemID: args?['item_id'] ?? 0,
+          itemID: args?['item_id'],
         ));
   }
 }

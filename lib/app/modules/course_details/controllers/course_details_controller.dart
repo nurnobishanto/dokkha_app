@@ -28,7 +28,6 @@ class CourseDetailsController extends GetxController {
   Future<void> fetchCourseDetails(int id) async {
     apiCallStatus = ApiCallStatus.loading;
     String? token = MySharedPref.getUserToken();
-    print("Tokkk $token");
     isLoading = true;
     update(); // Notifies UI
     final headers = {

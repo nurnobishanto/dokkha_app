@@ -42,6 +42,8 @@ import '../modules/lecture_sheet/views/lecture_sheet_details_view.dart';
 import '../modules/lecture_sheet/views/lecture_sheet_list_view.dart';
 import '../modules/maintenance_mode/bindings/maintenance_mode_view_binding.dart';
 import '../modules/maintenance_mode/views/maintenance_mode_view_view.dart';
+import '../modules/my_courses/bindings/my_courses_binding.dart';
+import '../modules/my_courses/views/my_courses_view.dart';
 import '../modules/nav_bar_views/blog/bindings/blog_binding.dart';
 import '../modules/nav_bar_views/blog/views/blog_view.dart';
 import '../modules/nav_bar_views/contest/all_contest/bindings/all_contest_binding.dart';
@@ -324,6 +326,11 @@ class AppPages {
       name: _Paths.NOTIFICATIONS,
       page: () => const NotificationsView(),
       binding: NotificationsBinding(),
+    ),
+    GetPage(
+      name: _Paths.MY_COURSES,
+      page: () => const MyCoursesView(),
+      binding: MyCoursesBinding(),
     ),
   ];
 }

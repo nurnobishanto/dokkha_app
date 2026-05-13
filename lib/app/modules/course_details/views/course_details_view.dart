@@ -20,7 +20,7 @@ class CourseDetailsView extends GetView<CourseDetailsController> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
-    debugPrint('CourseDetailsView Loaded with id: ${controller.courseId}');
+    // debugPrint('CourseDetailsView Loaded with id: ${controller.courseId}');
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(

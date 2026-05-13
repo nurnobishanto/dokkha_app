@@ -55,31 +55,73 @@ class ProfileController extends GetxController {
       },
     );
   }
-
   Future<void> logout() async {
     final token = MySharedPref.getUserToken();
-    var url = AppConstants.logout;
+    final url = AppConstants.logout;
 
     await BaseClient.safeApiCall(
       url,
       RequestType.post,
-      headers: {'Authorization': 'Bearer $token'},
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
       onSuccess: (response) async {
-        await MySharedPref.removeUserToken();
-        isLoggedIn.value = false;
-
-        if (response.data['status']) {
-          CustomSnackBar.showCustomToast(message: response.data['message']);
+        if (response.data['status'] == true) {
+          CustomSnackBar.showCustomToast(
+            message: response.data['message'],
+          );
         } else {
           CustomSnackBar.showCustomErrorToast(
-              message: response.data['message']);
+            message: response.data['message'],
+          );
+        }
+        await MySharedPref.removeUserToken();
+        isLoggedIn.value = false;
+        havePackage.value = false;
+
+        if (Get.isRegistered<ProfileController>()) {
+          Get.delete<ProfileController>(force: true);
         }
 
         Get.offAllNamed(Routes.NAVBAR);
       },
-      onError: (error) {
+      onError: (error) async {
         debugPrint("Logout Error: $error");
+
+        await MySharedPref.removeUserToken();
+
+        isLoggedIn.value = false;
+        havePackage.value = false;
+
+        Get.offAllNamed(Routes.NAVBAR);
       },
     );
   }
+
+  // Future<void> logout() async {
+  //   final token = MySharedPref.getUserToken();
+  //   var url = AppConstants.logout;
+  //
+  //   await BaseClient.safeApiCall(
+  //     url,
+  //     RequestType.post,
+  //     headers: {'Authorization': 'Bearer $token'},
+  //     onSuccess: (response) async {
+  //       await MySharedPref.removeUserToken();
+  //       isLoggedIn.value = false;
+  //
+  //       if (response.data['status']) {
+  //         CustomSnackBar.showCustomToast(message: response.data['message']);
+  //       } else {
+  //         CustomSnackBar.showCustomErrorToast(
+  //             message: response.data['message']);
+  //       }
+  //
+  //       Get.offAllNamed(Routes.NAVBAR);
+  //     },
+  //     onError: (error) {
+  //       debugPrint("Logout Error: $error");
+  //     },
+  //   );
+  // }
 }

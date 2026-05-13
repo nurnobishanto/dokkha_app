@@ -5,7 +5,7 @@ description: Lokkha project.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 #version: 1.2.2+14
-version: 2.02.05+22
+version: 2.03.06+23
 
 environment:
   sdk: '>=3.0.5 <4.0.0'

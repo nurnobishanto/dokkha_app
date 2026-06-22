@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/modules/contest/models/contest_start_model.dart';
@@ -9,7 +8,6 @@ import '../../../../styles/text_style.dart';
 import '../../../../utils/constants.dart';
 import '../../../components/custom_action_button.dart';
 import '../../../enums/question_type.dart';
-import '../../../helper/api_helper.dart';
 import '../../../models/question.dart';
 import '../controller/contest_start_controller.dart';
 
@@ -83,7 +81,7 @@ class _ContestExamViewState extends State<ContestExamView> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const FaIcon(FontAwesomeIcons.clock,
+                          const Icon(Icons.access_time,
                               size: 18.0, color: Colors.white),
                           const SizedBox(width: 8.0),
                           Text(
@@ -247,78 +245,4 @@ class _ContestExamViewState extends State<ContestExamView> {
       }).toList(),
     );
   }
-
-// Widget _buildFillInTheBlank(
-//     ExamQuestionController controller, Question question) {
-//   int answerCount = question.answer!.length;
-//   return Column(
-//     crossAxisAlignment: CrossAxisAlignment.start,
-//     children: [
-//       ...List.generate(answerCount, (index) {
-//         String alphabetPrefix = String.fromCharCode(65 + index);
-//         return Column(
-//           children: [
-//             const SizedBox(height: 10.0),
-//             Row(
-//               children: [
-//                 Expanded(
-//                   child: Container(
-//                     width: 40.0,
-//                     height: 40.0,
-//                     decoration: const BoxDecoration(
-//                       color: LightThemeColors.black,
-//                       shape: BoxShape.circle,
-//                     ),
-//                     alignment: Alignment.center,
-//                     child: Text(
-//                       alphabetPrefix,
-//                       style: const TextStyle(
-//                         fontSize: 20.0,
-//                         fontWeight: FontWeight.bold,
-//                         color: Colors.white,
-//                       ),
-//                     ),
-//                   ),
-//                 ),
-//                 const SizedBox(width: 5.00),
-//                 Expanded(
-//                   flex: 10,
-//                   child: TextField(
-//                     decoration: InputDecoration(
-//                       labelText: "${AppConstant.option.tr} $alphabetPrefix",
-//                       labelStyle: const TextStyle(
-//                           color: LightThemeColors.black,
-//                           fontSize: AppSizes.fontSizeSm),
-//                       border: OutlineInputBorder(
-//                         borderRadius: BorderRadius.circular(7),
-//                       ),
-//                       focusedBorder: OutlineInputBorder(
-//                         borderRadius: BorderRadius.circular(7),
-//                         borderSide: const BorderSide(
-//                           color: LightThemeColors.black,
-//                           width: 1,
-//                         ),
-//                       ),
-//                       enabledBorder: OutlineInputBorder(
-//                         borderRadius: BorderRadius.circular(7),
-//                         borderSide: const BorderSide(
-//                           color: LightThemeColors.gridColor,
-//                           width: 1,
-//                         ),
-//                       ),
-//                       contentPadding: const EdgeInsets.symmetric(
-//                           vertical: 8.0, horizontal: 10.0),
-//                     ),
-//                     onChanged: (value) {
-//                       controller.selectAnswer(question.id!.toInt(), value);
-//                     },
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ],
-//         );
-//       }),
-//     ],
-//   );
 }

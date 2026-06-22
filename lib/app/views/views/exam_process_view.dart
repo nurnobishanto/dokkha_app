@@ -2,7 +2,6 @@
 // import 'package:flutter/material.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
-// import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 // import 'package:get/get.dart';
 // import 'package:lokkha/config/theme/light_theme_colors.dart';
 // import 'package:lokkha/utils/constants.dart';
@@ -88,7 +87,7 @@
 //                         child: Row(
 //                           mainAxisAlignment: MainAxisAlignment.center,
 //                           children: [
-//                             const FaIcon(FontAwesomeIcons.clock,
+//                             const Icon(Icons.access_time,
 //                                 size: 18.0, color: Colors.white),
 //                             const SizedBox(width: 8.0),
 //                             Text(

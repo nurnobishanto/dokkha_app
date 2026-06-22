@@ -1,4 +1,3 @@
-import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -21,29 +20,27 @@ class MyApp extends StatelessWidget {
       designSize: const Size(375, 812),
       minTextAdapt: true,
       splitScreenMode: true,
-      useInheritedMediaQuery: true,
       builder: (context, child) {
-        printAppInfo();
-        final isLight = MySharedPref.getThemeIsLight();
         return GetMaterialApp(
-          // showPerformanceOverlay: true,
           title: AppStrings.appName,
           debugShowCheckedModeBanner: false,
           initialBinding: InitialBindings(),
           initialRoute: AppPages.INITIAL,
           getPages: AppPages.routes,
-          useInheritedMediaQuery: true,
           locale: MySharedPref.getCurrentLocal(),
           translations: LocalizationService.getInstance(),
-          builder: (context, widget) => Theme(
-            data: MyTheme.getThemeData(isLight: isLight),
-            child: MediaQuery(
+          theme: MyTheme.getThemeData(isLight: true),
+          darkTheme: MyTheme.getThemeData(isLight: false),
+          themeMode: MySharedPref.getThemeIsLight() ? ThemeMode.light : ThemeMode.dark,
+          builder: (context, widget) {
+            printAppInfo();
+            return MediaQuery(
               data: MediaQuery.of(context).copyWith(
                 textScaler: const TextScaler.linear(1.0),
               ),
               child: widget!,
-            ),
-          ),
+            );
+          },
         );
       },
     );

@@ -1,59 +1,58 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class SocialLinksScreen extends StatelessWidget {
-  SocialLinksScreen({super.key});
+  const SocialLinksScreen({super.key});
 
   void _launchURL(String url) async {
     await launchUrlString(url, mode: LaunchMode.externalApplication);
   }
 
-  final List<Map<String, dynamic>> socialLinks = [
+  static const List<Map<String, dynamic>> socialLinks = [
     {
-      'icon': FontAwesomeIcons.facebook,
+      'icon': Icons.facebook,
       'color': const Color(0xFF1877F2),
       'url': 'https://www.facebook.com/lokkhabd',
       'title': 'Facebook Page',
     },
     {
-      'icon': FontAwesomeIcons.userGroup,
+      'icon': Icons.groups,
       'color': const Color(0xFF1877F2),
       'url': 'https://www.facebook.com/groups/lokkha',
       'title': 'Facebook Group',
     },
     {
-      'icon': FontAwesomeIcons.youtube,
+      'icon': Icons.play_circle_fill,
       'color': Colors.red,
       'url': 'https://www.youtube.com/@lokkhabd',
       'title': 'YouTube Channel',
     },
     {
-      'icon': FontAwesomeIcons.whatsapp,
+      'icon': Icons.chat,
       'color': const Color(0xFF25D366),
       'url': 'https://wa.me/8801332804290',
       'title': 'WhatsApp',
     },
     {
-      'icon': FontAwesomeIcons.xTwitter,
+      'icon': Icons.alternate_email,
       'color': Colors.black,
       'url': 'https://twitter.com/lokkhabd',
       'title': 'X (Twitter)',
     },
     {
-      'icon': FontAwesomeIcons.linkedin,
+      'icon': Icons.business,
       'color': const Color(0xFF0A66C2),
       'url': 'https://www.linkedin.com/in/lokkho-job-preparation-92b745362/',
       'title': 'LinkedIn',
     },
     {
-      'icon': FontAwesomeIcons.instagram,
+      'icon': Icons.camera_alt,
       'color': const Color(0xFFE1306C),
       'url': 'https://www.instagram.com/lokkhabd',
       'title': 'Instagram',
     },
     {
-      'icon': FontAwesomeIcons.envelope,
+      'icon': Icons.email,
       'color': Colors.grey,
       'url': 'mailto:info.lokkha@gmail.com',
       'title': 'Email',

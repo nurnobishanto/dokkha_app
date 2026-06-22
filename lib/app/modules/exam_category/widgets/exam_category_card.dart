@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lokkha/config/extensions/common_extension.dart';
 
@@ -58,8 +57,8 @@ class ExamCategoryCard extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(7.0)),
                     ),
                     child: Center(
-                      child: FaIcon(
-                        FontAwesomeIcons.graduationCap,
+                      child: Icon(
+                        Icons.school,
                         color: iconColor ?? LightThemeColors.primaryColor,
                         size: 25.sp,
                       ),

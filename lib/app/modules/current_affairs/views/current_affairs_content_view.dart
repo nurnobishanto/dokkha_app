@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/modules/current_affairs/controllers/current_affairs_controller.dart';
@@ -25,7 +24,7 @@ class CurrentAffairsContentView extends StatelessWidget {
         backgroundColor: LightThemeColors.primaryColor,
         radius: 28,
         child: IconButton(
-          icon: const Icon(FontAwesomeIcons.calendar, color: Colors.white),
+          icon: const Icon(Icons.calendar_month, color: Colors.white),
           onPressed: () async {
             if (havePackage.value) {
               DateTime? pickedDate = await showDatePicker(
@@ -140,7 +139,7 @@ class CurrentAffairsContentView extends StatelessWidget {
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Icon(FontAwesomeIcons.arrowRight,
+                                const Icon(Icons.arrow_right,
                                     size: 15.0),
                                 const SizedBox(width: 5.0),
                                 Expanded(
@@ -255,51 +254,6 @@ class CurrentAffairsContentView extends StatelessWidget {
           },
         );
       }),
-      // bottomNavigationBar: Obx(() {
-      //   final lastPage = controller.model.value.currentAffairs?.lastPage ?? 1;
-      //
-      //   if (lastPage <= 1) return const SizedBox.shrink();
-      //
-      //   return SafeArea(
-      //     child: Padding(
-      //       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-      //       child: SingleChildScrollView(
-      //         scrollDirection: Axis.horizontal,
-      //         child: Row(
-      //           mainAxisAlignment: MainAxisAlignment.center,
-      //           children: List.generate(lastPage, (index) {
-      //             final page = index + 1;
-      //             final isActive = controller.currentPage.value == page;
-      //
-      //             return InkWell(
-      //               onTap: () {
-      //                 controller.fetchCurrentAffairs("", page: page);
-      //               },
-      //               child: Container(
-      //                 margin: const EdgeInsets.symmetric(horizontal: 6),
-      //                 padding: const EdgeInsets.symmetric(
-      //                     horizontal: 12, vertical: 6),
-      //                 decoration: BoxDecoration(
-      //                   color: isActive
-      //                       ? LightThemeColors.primaryColor
-      //                       : Colors.grey.shade200,
-      //                   borderRadius: BorderRadius.circular(8),
-      //                 ),
-      //                 child: Text(
-      //                   page.toString(),
-      //                   style: TextStyle(
-      //                     color: isActive ? Colors.white : Colors.black,
-      //                     fontWeight: FontWeight.bold,
-      //                   ),
-      //                 ),
-      //               ),
-      //             );
-      //           }),
-      //         ),
-      //       ),
-      //     ),
-      //   );
-      // }),
     );
   }
 }

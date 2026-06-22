@@ -6,7 +6,6 @@ import 'package:lokkha/app/views/widgets/base_webview.dart';
 import 'package:lokkha/config/extensions/common_extension.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lokkha/styles/text_style.dart';
 import 'package:lokkha/utils/constants.dart';
 import 'package:share_plus/share_plus.dart';
@@ -35,7 +34,7 @@ class CustomDrawer extends StatelessWidget {
           /// Drawer Items (standard)
           ListTile(
             visualDensity: VisualDensity.standard,
-            leading: const FaIcon(FontAwesomeIcons.infoCircle,
+            leading: const Icon(Icons.info_outline,
                 color: LightThemeColors.primaryColor, size: 20),
             title:
                 const Text('আমাদের সম্পর্কে', style: TextStyle(fontSize: 14)),
@@ -45,32 +44,11 @@ class CustomDrawer extends StatelessWidget {
               );
             },
           ),
-          // const Divider(
-          //   height: 0.5,
-          //   color: LightThemeColors.primaryColor,
-          // ),
-          // ListTile(
-          //   visualDensity: VisualDensity.standard,
-          //   leading: const FaIcon(FontAwesomeIcons.facebook,
-          //       color: LightThemeColors.primaryColor, size: 20),
-          //   title: const Text('ফেইসবুক গ্রুপ', style: TextStyle(fontSize: 14)),
-          //   onTap: () {},
-          // ),
-          // const Divider(height: 0.5, color: LightThemeColors.primaryColor),
-          //
-          // ListTile(
-          //   visualDensity: VisualDensity.standard,
-          //   leading: const FaIcon(FontAwesomeIcons.facebookMessenger,
-          //       color: LightThemeColors.primaryColor, size: 20),
-          //   title:
-          //       const Text('মেসেঞ্জার চ্যাট', style: TextStyle(fontSize: 14)),
-          //   onTap: () {},
-          // ),
           const Divider(height: 0.5, color: LightThemeColors.primaryColor),
 
           ListTile(
             visualDensity: VisualDensity.standard,
-            leading: const FaIcon(FontAwesomeIcons.share,
+            leading: const Icon(Icons.share,
                 color: LightThemeColors.primaryColor, size: 20),
             title: const Text(
               'শেয়ার',
@@ -96,7 +74,7 @@ class CustomDrawer extends StatelessWidget {
 
           ListTile(
             visualDensity: VisualDensity.standard,
-            leading: const FaIcon(FontAwesomeIcons.headset,
+            leading: const Icon(Icons.headset_mic,
                 color: LightThemeColors.primaryColor, size: 20),
             title:
                 const Text('কাস্টমার সাপোর্ট', style: TextStyle(fontSize: 14)),
@@ -108,7 +86,7 @@ class CustomDrawer extends StatelessWidget {
           const Divider(height: 0.5, color: LightThemeColors.primaryColor),
           ListTile(
             visualDensity: VisualDensity.standard,
-            leading: const FaIcon(FontAwesomeIcons.userShield,
+            leading: const Icon(Icons.security,
                 color: LightThemeColors.primaryColor, size: 20),
             title:
                 const Text('প্রাইভেসি পলিসি', style: TextStyle(fontSize: 14)),
@@ -121,7 +99,7 @@ class CustomDrawer extends StatelessWidget {
 
           ListTile(
             visualDensity: VisualDensity.standard,
-            leading: const FaIcon(FontAwesomeIcons.moneyBillWave,
+            leading: const Icon(Icons.payments,
                 color: LightThemeColors.primaryColor, size: 20),
             title: const Text('রিফান্ড পলিসি', style: TextStyle(fontSize: 14)),
             onTap: () => Get.to(
@@ -132,7 +110,7 @@ class CustomDrawer extends StatelessWidget {
           const Divider(height: 0.5, color: LightThemeColors.primaryColor),
           ListTile(
             visualDensity: VisualDensity.standard,
-            leading: const FaIcon(FontAwesomeIcons.award,
+            leading: const Icon(Icons.emoji_events,
                 color: LightThemeColors.primaryColor, size: 20),
             title: const Text('কন্টেস্ট পলিসি', style: TextStyle(fontSize: 14)),
             onTap: () => Get.to(
@@ -143,7 +121,7 @@ class CustomDrawer extends StatelessWidget {
           const Divider(height: .7, color: LightThemeColors.primaryColor),
           ListTile(
             visualDensity: VisualDensity.standard,
-            leading: const FaIcon(FontAwesomeIcons.fileContract,
+            leading: const Icon(Icons.description,
                 color: LightThemeColors.primaryColor, size: 20),
             title: const Text('টার্মস এন্ড কন্ডিশন',
                 style: TextStyle(fontSize: 14)),

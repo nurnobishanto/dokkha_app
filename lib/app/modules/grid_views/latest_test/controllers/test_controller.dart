@@ -1,9 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/models/subject_model.dart';
 import 'package:lokkha/app/services/api_call_status.dart';
-import 'package:lokkha/app/services/base_client.dart';
-import 'package:lokkha/utils/constants.dart';
 
 class TestController extends GetxController {
   final Rx<ApiCallStatus> apiCallStatus = ApiCallStatus.holding.obs;

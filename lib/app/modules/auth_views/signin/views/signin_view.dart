@@ -6,7 +6,6 @@ import 'package:lokkha/config/theme/light_theme_colors.dart';
 import 'package:lokkha/styles/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import '../../../../routes/app_pages.dart';
 import '../controllers/signin_controller.dart';
@@ -56,7 +55,7 @@ class SignInView extends GetView<SignInController> {
                       2.0.h.height,
                       CustomTextFormField(
                         readOnly: true,
-                        prefixIcon: const Icon(FontAwesomeIcons.phone),
+                        prefixIcon: const Icon(Icons.phone),
                         hintText: phoneNumber,
                         hintStyle: AppTextStyles.heading6,
                       ),
@@ -64,7 +63,7 @@ class SignInView extends GetView<SignInController> {
                       CustomTextFormField(
                         autoFocus: true,
                         controller: controller.passwordController,
-                        prefixIcon: const Icon(FontAwesomeIcons.lock),
+                        prefixIcon: const Icon(Icons.lock),
                         hintText: "আপনার পাসওয়ার্ড লিখুন",
                         obscureText: true,
                         hintStyle: AppTextStyles.custom(

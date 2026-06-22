@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/components/custom_app_bar.dart';
 import 'package:lokkha/app/modules/lecture_sheet/controllers/lecture_sheet_list_details_controller.dart';
@@ -90,14 +89,14 @@ class LectureSheetListDetailsView extends StatelessWidget {
                             ),
                             child: Row(
                               children: [
-                                const FaIcon(FontAwesomeIcons.fileLines,
+                                const Icon(Icons.description,
                                     size: 21, color: Colors.blue),
                                 const SizedBox(width: 10.0),
                                 Expanded(
                                   child: Text(sheet.name ?? 'No title',
                                       style: AppTextStyles.heading5),
                                 ),
-                                const FaIcon(FontAwesomeIcons.chevronRight,
+                                const Icon(Icons.chevron_right,
                                     size: 14),
                               ],
                             ),

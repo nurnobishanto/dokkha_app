@@ -29,8 +29,8 @@ class LocalizationService extends Translations {
   // supported languages fonts family (must be in assets & pubspec yaml) or you can use google fonts
   static Map<String, TextStyle> supportedLanguagesFontsFamilies = {
     // todo add your English font families (add to assets/fonts, pubspec and name it here) default is poppins for english and cairo for arabic
-    'en': const TextStyle(fontFamily: 'LiAdorNoirrit'),
-    'bn': const TextStyle(fontFamily: 'LiAdorNoirrit'),
+    'en': const TextStyle(fontFamily: 'BalooDa2'),
+    'bn': const TextStyle(fontFamily: 'BalooDa2'),
   };
 
   @override

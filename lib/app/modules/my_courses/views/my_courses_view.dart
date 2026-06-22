@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/components/custom_app_bar.dart';
 import 'package:lokkha/app/services/api_call_status.dart';
@@ -106,10 +105,10 @@ class _CourseCard extends StatelessWidget {
     final course = package.course;
     if (course == null) return const SizedBox.shrink();
     debugPrint('CourseCard Loaded with id: ${course.id.runtimeType}');
-    final bool isLifetime = (package.lifetimeAccess ?? 0) == 1;
-    final DateTime? expiry = package.accessExpiry;
-    final bool isExpired =
-        !isLifetime && expiry != null && expiry.isBefore(DateTime.now());
+    // final bool isLifetime = (package.lifetimeAccess ?? 0) == 1;
+    // final DateTime? expiry = package.accessExpiry;
+    // final bool isExpired =
+    //     !isLifetime && expiry != null && expiry.isBefore(DateTime.now());
     return InkWell(
       onTap: () {
               Get.toNamed(
@@ -151,37 +150,6 @@ class _CourseCard extends StatelessWidget {
                               )
                             : _placeholderImage(),
                       ),
-                      // if (isExpired) ...[
-                      //   Container(color: Colors.black.withOpacity(0.4)),
-                      //   Positioned(
-                      //     top: 8.h,
-                      //     right: 8.w,
-                      //     child: Container(
-                      //       padding: EdgeInsets.symmetric(
-                      //           horizontal: 8.w, vertical: 4.h),
-                      //       decoration: BoxDecoration(
-                      //         color: Colors.red.withOpacity(0.9),
-                      //         borderRadius: BorderRadius.circular(4.r),
-                      //       ),
-                      //       child: Row(
-                      //         mainAxisSize: MainAxisSize.min,
-                      //         children: [
-                      //           Icon(Icons.lock_clock,
-                      //               color: Colors.white, size: 12.sp),
-                      //           SizedBox(width: 4.w),
-                      //           Text(
-                      //             "Expired",
-                      //             style: TextStyle(
-                      //               color: Colors.white,
-                      //               fontSize: 10.sp,
-                      //               fontWeight: FontWeight.bold,
-                      //             ),
-                      //           ),
-                      //         ],
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ],
                     ],
                   )),
 

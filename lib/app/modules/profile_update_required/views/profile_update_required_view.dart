@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/components/custom_action_button.dart';
 import 'package:lokkha/app/components/custom_text_form_field.dart';
@@ -96,7 +95,7 @@ class ProfileUpdateRequiredView
                     height: 45,
                     child: CustomTextFormField(
                       controller: controller.pwdController,
-                      prefixIcon: const Icon(FontAwesomeIcons.lock),
+                      prefixIcon: const Icon(Icons.lock),
                       hintText: "একটি পাসওয়ার্ড নির্ধারণ করুন",
                       obscureText: true,
                       hintStyle: AppTextStyles.custom(
@@ -112,7 +111,7 @@ class ProfileUpdateRequiredView
                     height: 45,
                     child: CustomTextFormField(
                       controller: controller.confirmPwdController,
-                      prefixIcon: const Icon(FontAwesomeIcons.lock),
+                      prefixIcon: const Icon(Icons.lock),
                       hintText: "পাসওয়ার্ডটি আবার লিখুন",
                       obscureText: true,
                       hintStyle: AppTextStyles.custom(

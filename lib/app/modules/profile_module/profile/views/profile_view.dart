@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/app/components/custom_app_bar.dart';
 import 'package:lokkha/config/theme/light_theme_colors.dart';
@@ -85,7 +84,7 @@ class ProfileView extends GetView<ProfileController> {
                               if (havePackage.value) ...[
                                 SizedBox(width: 6.w),
                                 Icon(
-                                  FontAwesomeIcons.solidCircleCheck,
+                                  Icons.check_circle,
                                   size: 13.sp,
                                   color: LightThemeColors.primaryColor,
                                 ),
@@ -107,7 +106,7 @@ class ProfileView extends GetView<ProfileController> {
                     ),
                     IconButton(
                       onPressed: () => Get.toNamed(Routes.PROFILE_UPDATE),
-                      icon: const Icon(FontAwesomeIcons.userPen,
+                      icon: const Icon(Icons.person_outline,
                           size: 18, color: LightThemeColors.primaryColor,),
                     )
                   ],
@@ -129,13 +128,13 @@ class ProfileView extends GetView<ProfileController> {
                   _buildGridItem(
                     onTap: () => Get.toNamed(Routes.MY_PACKAGES),
                     text: 'আমার প্যাকেজ',
-                    icon: FontAwesomeIcons.boxOpen,
+                    icon: Icons.inventory_2,
                     color: Colors.orange,
                   ),
                   _buildGridItem(
                     onTap: () => Get.toNamed(Routes.MY_COURSES),
                     text: 'আমার কোর্স',
-                    icon: FontAwesomeIcons.graduationCap,
+                    icon: Icons.school,
                     color: Colors.purple,
                   ),
                   _buildGridItem(
@@ -143,13 +142,13 @@ class ProfileView extends GetView<ProfileController> {
                         title: "Favourite Question",
                         url: AppConstants.myQuestions)),
                     text: 'ফেভারিট প্রশ্ন',
-                    icon: FontAwesomeIcons.solidHeart,
+                    icon: Icons.favorite,
                     color: Colors.redAccent,
                   ),
                   _buildGridItem(
                     onTap: () => Get.toNamed(Routes.MY_ORDERS),
                     text: 'আমার অর্ডারস',
-                    icon: FontAwesomeIcons.receipt,
+                    icon: Icons.receipt_long,
                     color: Colors.teal,
                   ),
                 ],
@@ -178,7 +177,7 @@ class ProfileView extends GetView<ProfileController> {
                         );
                       },
                       text: 'অ্যাকাউন্ট ডিলিট করুন',
-                      icon: FontAwesomeIcons.trashCan,
+                      icon: Icons.delete_forever,
                       color: Colors.red,
                     ),
                     const Divider(height: 0, indent: 50),
@@ -201,7 +200,7 @@ class ProfileView extends GetView<ProfileController> {
                         );
                       },
                       text: 'লগ আউট',
-                      icon: FontAwesomeIcons.arrowRightFromBracket,
+                      icon: Icons.logout,
                       color: Colors.blueGrey,
                     ),
                   ],
@@ -244,7 +243,7 @@ class ProfileView extends GetView<ProfileController> {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16.r),
-            border: Border.all(color: Colors.grey.withOpacity(0.1)),
+            border: Border.all(color: Colors.grey.withValues(alpha: 0.1)),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

@@ -494,14 +494,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.4"
-  flutter_meta_sdk:
-    dependency: "direct main"
-    description:
-      name: flutter_meta_sdk
-      sha256: fad1e29adf4fb13bdc0a1d7069d8bc89e240f8f3fd117f614d2653ad2d41d84b
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.5"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -518,14 +510,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.9.3"
-  flutter_social_button:
-    dependency: "direct main"
-    description:
-      name: flutter_social_button
-      sha256: "9feee9f6304727f6a8d024aa7135bb6e4c97f10829c0ed84d85a3f2c4aa64cf7"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.6+1"
   flutter_svg:
     dependency: transitive
     description:
@@ -568,14 +552,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.17.2"
-  font_awesome_flutter:
-    dependency: "direct main"
-    description:
-      name: font_awesome_flutter
-      sha256: d3a89184101baec7f4600d58840a764d2ef760fe1c5a20ef9e6b0e9b24a07a3a
-      url: "https://pub.dev"
-    source: hosted
-    version: "10.8.0"
   frontend_server_client:
     dependency: transitive
     description:
@@ -985,7 +961,7 @@ packages:
     source: hosted
     version: "5.1.1"
   logger:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: logger
       sha256: be4b23575aac7ebf01f225a241eb7f6b5641eeaf43c6a8613510fc2f8cf187d1
@@ -1036,10 +1012,10 @@ packages:
     dependency: transitive
     description:
       name: meta
-      sha256: "23f08335362185a5ea2ad3a4e597f1375e78bce8a040df5c600c8d3552ef2394"
+      sha256: "1741988757a65eb6b36abe716829688cf01910bbf91c34354ff7ec1c3de2b349"
       url: "https://pub.dev"
     source: hosted
-    version: "1.17.0"
+    version: "1.18.0"
   mime:
     dependency: transitive
     description:
@@ -1601,10 +1577,10 @@ packages:
     dependency: transitive
     description:
       name: test_api
-      sha256: "8161c84903fd860b26bfdefb7963b3f0b68fee7adea0f59ef805ecca346f0c7a"
+      sha256: "949a932224383300f01be9221c39180316445ecb8e7547f70a41a35bf421fb9e"
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.10"
+    version: "0.7.11"
   timing:
     dependency: transitive
     description:

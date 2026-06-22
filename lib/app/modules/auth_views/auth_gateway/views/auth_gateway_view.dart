@@ -7,7 +7,6 @@ import 'package:lokkha/config/extensions/common_extension.dart';
 import 'package:lokkha/styles/text_style.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:lokkha/utils/constants.dart';
 
@@ -40,7 +39,7 @@ class AuthGatewayView extends GetView<AuthGatewayController> {
 
               DecisionButton(
                 text: "Sign in with Phone",
-                leadingWidget: const FaIcon(FontAwesomeIcons.phone, size: 20),
+                leadingWidget: const Icon(Icons.phone, size: 20),
                 onPressed: () {
                   Get.toNamed(Routes.SIGN_UP);
                 },

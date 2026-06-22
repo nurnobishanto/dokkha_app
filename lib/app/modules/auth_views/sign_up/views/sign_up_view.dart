@@ -1,7 +1,6 @@
 import 'package:lokkha/config/extensions/common_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
 
@@ -48,7 +47,7 @@ class SignUpView extends GetView<SignUpController> {
                     CustomTextFormField(
                       autoFocus: true,
                       controller: controller.phoneController,
-                      prefixIcon: const Icon(FontAwesomeIcons.phone),
+                      prefixIcon: const Icon(Icons.phone),
                       hintText: "আপনার ১১ সংখ্যার ফোন নম্বর লিখুন",
                       hintStyle: AppTextStyles.body2,
                       keyboardType: TextInputType.number,

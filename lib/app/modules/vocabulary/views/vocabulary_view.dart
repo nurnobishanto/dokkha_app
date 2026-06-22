@@ -8,7 +8,6 @@ import '../../../../config/theme/light_theme_colors.dart';
 import '../../../components/custom_search_bar.dart';
 import '../../../helper/global.dart';
 import '../../../models/category.dart';
-import '../../../views/widgets/explanation_dialog.dart';
 import '../../../views/widgets/package_required_popup.dart';
 
 class VocabularyView extends StatelessWidget {

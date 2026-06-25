@@ -10,6 +10,8 @@ import '../../../helper/global.dart';
 import '../../../routes/app_pages.dart';
 import '../models/course_learning_model.dart';
 
+import 'package:lokkha/app/services/premium_entitlement_service.dart';
+
 class CourseLearnController extends GetxController {
   late final int id;
   late final int? itemID;
@@ -33,6 +35,14 @@ class CourseLearnController extends GetxController {
     if (!isLoggedIn.value) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Get.offAllNamed(Routes.AUTH_GATEWAY);
+      });
+      return;
+    }
+
+    if (!PremiumEntitlementService.to.isPremiumValid) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Get.back();
+        PremiumEntitlementService.to.assertPremiumAccess();
       });
       return;
     }

@@ -9,6 +9,7 @@ import '../../../../utils/constants.dart';
 import '../../../helper/global.dart';
 import '../../../models/user.dart';
 import '../../../services/api_call_status.dart';
+import '../../../services/auth_service.dart';
 import '../../../services/base_client.dart';
 import '../../exam_category/controllers/exam_category_controller.dart';
 import '../../messanger_redirect/messenger_redirect.dart';
@@ -60,6 +61,7 @@ class NavbarController extends GetxController {
               MyGetStorage.meUser, profileDataModel.value!.user);
           myUser = profileDataModel.value!.user!;
           isLoggedIn.value = true;
+          AuthService().authCheck();
           debugPrint("✅ Profile Data fetch Success");
           debugPrint(myUser.name);
         } else {
@@ -85,11 +87,9 @@ class NavbarController extends GetxController {
 
   @override
   void onInit() {
-    // Manually bind dependent controllers
-    Get.lazyPut(() => ProfileController());
-    Get.lazyPut(() => PremiumPackagesController());
-    Get.lazyPut(() => ExamCategoryController());
+    AuthService().authCheck();
     getMeProfileInfo();
+
     super.onInit();
   }
 }

@@ -34,12 +34,9 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
     final HomeController controller = Get.find();
     final ExamCategoryController examController = Get.find();
     Future<void> onRefresh() => controller.refreshHomeViewData();
-    Get.put<SeeAllItemsController>(SeeAllItemsController());
     return Scaffold(
       drawer: const CustomDrawer(),
       appBar: AppBar(
@@ -504,6 +501,7 @@ class _PremiumExamSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(SeeAllItemsController());
     final controller = Get.find<SeeAllItemsController>();
 
     return Obx(() {

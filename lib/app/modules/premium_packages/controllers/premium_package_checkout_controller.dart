@@ -14,22 +14,9 @@ class PremiumPackageCheckoutController extends GetxController {
   final TextEditingController couponController = TextEditingController();
   RxBool isCheckedCondition = false.obs;
   //************************** Text Field Area ******************************* */
-  final Rx<TextEditingController> nameController = TextEditingController(
-    text: Get.find<NavbarController>().profileDataModel.value!.user!.name ?? '',
-  ).obs;
-  final Rx<TextEditingController> phoneController = TextEditingController(
-          text: Get.find<NavbarController>()
-                  .profileDataModel
-                  .value!
-                  .user!
-                  .phone ??
-              '')
-      .obs;
-
-  final Rx<TextEditingController> mailController = TextEditingController(
-          text:
-              Get.find<NavbarController>().profileDataModel.value!.user!.email)
-      .obs;
+  final Rx<TextEditingController> nameController = TextEditingController().obs;
+  final Rx<TextEditingController> phoneController = TextEditingController().obs;
+  final Rx<TextEditingController> mailController = TextEditingController().obs;
   RxBool isLoading = false.obs;
 
   //final otp = MySharedPref.getOTPNumber();
@@ -169,6 +156,28 @@ class PremiumPackageCheckoutController extends GetxController {
 
   @override
   void onInit() {
+    final profile = Get.find<NavbarController>().profileDataModel.value;
+    final user = profile?.user;
+    nameController.value.text = user?.name ?? '';
+    phoneController.value.text = user?.phone ?? '';
+    mailController.value.text = user?.email ?? '';
+
+    // Listen reactively if profile data is loaded later
+    if (user == null) {
+      once(Get.find<NavbarController>().profileDataModel, (profileData) {
+        final u = profileData?.user;
+        if (nameController.value.text.isEmpty) {
+          nameController.value.text = u?.name ?? '';
+        }
+        if (phoneController.value.text.isEmpty) {
+          phoneController.value.text = u?.phone ?? '';
+        }
+        if (mailController.value.text.isEmpty) {
+          mailController.value.text = u?.email ?? '';
+        }
+      });
+    }
+
     Get.find<NavbarController>().getMeProfileInfo();
     super.onInit();
   }

@@ -129,6 +129,7 @@ class RandomQuestionSelector extends StatelessWidget {
                       )
                     else
                       const SizedBox.shrink(),
+                    10.horizontalSpace,
                     Expanded(
                       child: CustomActionButton(
                         text: "নতুন প্রশ্ন →",

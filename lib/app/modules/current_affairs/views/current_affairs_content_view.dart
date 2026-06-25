@@ -139,8 +139,7 @@ class CurrentAffairsContentView extends StatelessWidget {
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Icon(Icons.arrow_right,
-                                    size: 15.0),
+                                const Icon(Icons.arrow_right, size: 15.0),
                                 const SizedBox(width: 5.0),
                                 Expanded(
                                   child: HtmlWidget(
@@ -226,6 +225,7 @@ class CurrentAffairsContentView extends StatelessWidget {
                                 alignment: Alignment.topRight,
                                 child: InkWell(
                                   onTap: () {
+                                    print("PACKAGE XX: ${havePackage.value}");
                                     if (havePackage.value) {
                                       ExplanationDialog.show(question);
                                     } else {

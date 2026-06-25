@@ -11,12 +11,11 @@ class SplashView extends GetView<SplashController> {
   @override
   Widget build(BuildContext context) {
     debugPrint("Splash Called");
-    Get.put(SplashController());
     final size = MediaQuery.of(context).size;
-
+    Get.put(SplashController());
     return Scaffold(
+
       body: GetBuilder<SplashController>(
-        init: SplashController(),
         builder: (_) => Center(
           child: Container(
             height: Get.height,

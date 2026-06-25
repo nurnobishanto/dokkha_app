@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:lokkha/app/data/local/my_shared_pref.dart';
 import 'package:lokkha/app/modules/profile_module/my_packages/models/my_packages_model.dart';
 import 'package:lokkha/app/services/api_call_status.dart';
+import 'package:lokkha/app/services/auth_service.dart';
 import 'package:lokkha/app/services/base_client.dart';
 import 'package:lokkha/utils/constants.dart';
 
@@ -52,6 +53,7 @@ class MyPackagesController extends GetxController {
   @override
   void onInit() {
     fetchMyPackages();
+    AuthService().authCheck();
     super.onInit();
   }
 }

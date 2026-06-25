@@ -33,8 +33,8 @@ abstract class Routes {
   static const PREMIUM_PACKAGES = _Paths.PREMIUM_PACKAGES;
   static const MY_APP = _Paths.MY_APP;
   static const SUBJECT_SECTION = _Paths.SUBJECT_SECTION;
-  static const MY_PACKAGES = _Paths.MY_PACKAGES + _Paths.MY_PACKAGES;
-  static const MY_ORDERS = _Paths.MY_ORDERS + _Paths.MY_ORDERS;
+  static const MY_PACKAGES = _Paths.MY_PACKAGES;
+  static const MY_ORDERS = _Paths.MY_ORDERS;
   static const LATEST_EXAM = _Paths.LATEST_EXAM;
   static const MAINTENANCE_MODE_VIEW = _Paths.MAINTENANCE_MODE_VIEW;
   static const APP_UPDATE_VIEW = _Paths.APP_UPDATE_VIEW;

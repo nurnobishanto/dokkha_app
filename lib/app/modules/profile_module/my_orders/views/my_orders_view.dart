@@ -33,7 +33,7 @@ class MyOrdersView extends GetView<MyOrdersController> {
                       itemBuilder: (context, index) {
                         final data = controller.model.value.orders![index];
                         return InkWell(
-                          onTap: () => Get.to(() => OrderDetailsScreen(
+                          onTap: () => Get.off(() => OrderDetailsScreen(
                               url:
                                   "${AppConstants.myOrderDetails}/${data.id!.toInt()}")),
                           child: OrderCard(

@@ -94,28 +94,7 @@ extension WidgetExtension on Widget? {
     );
   }
 
-  /// set widget visibility
-  @Deprecated('')
-  Visibility withVisibility(
-    bool visible, {
-    Widget? replacement,
-    bool maintainAnimation = false,
-    bool maintainState = false,
-    bool maintainSize = false,
-    bool maintainSemantics = false,
-    bool maintainInteractivity = false,
-  }) {
-    return Visibility(
-      visible: visible,
-      maintainAnimation: maintainAnimation,
-      maintainInteractivity: maintainInteractivity,
-      maintainSemantics: maintainSemantics,
-      maintainSize: maintainSize,
-      maintainState: maintainState,
-      replacement: replacement ?? const SizedBox(),
-      child: this!,
-    );
-  }
+
 
   /// add opacity to parent widget
   Widget opacity({
@@ -183,61 +162,7 @@ extension WidgetExtension on Widget? {
     );
   }
 
-  @deprecated
-  Container withRoundedCorners({
-    Color backgroundColor = Colors.transparent,
-    BorderRadius borderRadius = const BorderRadius.all(Radius.circular(8.0)),
-    LinearGradient? gradient,
-    BoxBorder? border,
-    List<BoxShadow>? boxShadow,
-    DecorationImage? decorationImage,
-    BoxShape boxShape = BoxShape.rectangle,
-  }) {
-    return Container(
-      decoration: boxDecorationWithRoundedCorners(
-        backgroundColor: backgroundColor,
-        borderRadius: borderRadius,
-        gradient: gradient,
-        border: border,
-        boxShadow: boxShadow,
-        decorationImage: decorationImage,
-        boxShape: boxShape,
-      ),
-      child: this,
-    );
-  }
 
-  @deprecated
-  Container withShadow({
-    Color bgColor = Colors.transparent,
-    Color shadowColor = Colors.black12,
-    blurRadius = 10.0,
-    spreadRadius = 0.0,
-    Offset offset = const Offset(0.0, 0.0),
-    LinearGradient? gradient,
-    BoxBorder? border,
-    DecorationImage? decorationImage,
-    BoxShape boxShape = BoxShape.rectangle,
-  }) {
-    return Container(
-      decoration: boxDecorationWithShadow(
-        boxShadow: [
-          BoxShadow(
-            color: shadowColor,
-            blurRadius: blurRadius,
-            spreadRadius: spreadRadius,
-            offset: offset,
-          ),
-        ],
-        backgroundColor: bgColor,
-        gradient: gradient,
-        border: border,
-        decorationImage: decorationImage,
-        boxShape: boxShape,
-      ),
-      child: this,
-    );
-  }
 
   /// Wrap with ShaderMask widget
   Widget withShaderMask(
@@ -262,27 +187,7 @@ extension WidgetExtension on Widget? {
     );
   }
 
-  @deprecated
-  Widget withScroll({
-    ScrollPhysics? physics,
-    EdgeInsetsGeometry? padding,
-    Axis scrollDirection = Axis.vertical,
-    ScrollController? controller,
-    DragStartBehavior dragStartBehavior = DragStartBehavior.start,
-    bool? primary,
-    required bool reverse,
-  }) {
-    return SingleChildScrollView(
-      physics: physics,
-      padding: padding,
-      scrollDirection: scrollDirection,
-      controller: controller,
-      dragStartBehavior: dragStartBehavior,
-      primary: primary,
-      reverse: reverse,
-      child: this,
-    );
-  }
+
 
   /// add Expanded to parent widget
   Widget expand({flex = 1}) => Expanded(flex: flex, child: this!);
@@ -304,10 +209,7 @@ extension WidgetExtension on Widget? {
   /// Validate given widget is not null and returns given value if null.
   Widget validate({Widget value = const SizedBox()}) => this ?? value;
 
-  @Deprecated('Use withTooltip() instead')
-  Widget tooltip({required String msg}) {
-    return Tooltip(message: msg, child: this);
-  }
+
 
   /// Validate given widget is not null and returns given value if null.
   Widget withTooltip({required String msg}) {

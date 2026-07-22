@@ -45,8 +45,6 @@ dependencies:
   xml: ^6.6.1
   app_links: ^7.0.0
   permission_handler: ^12.0.1
-  in_app_purchase: ^3.2.3
-  in_app_purchase_storekit: ^0.4.7
   flutter_widget_from_html: ^0.17.2
   font_awesome_flutter: ^11.0.0
 

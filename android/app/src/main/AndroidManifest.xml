@@ -54,17 +54,17 @@
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
 
-                <!-- Host 1 -->
-                <data
-                    android:scheme="https"
-                    android:host="lokkha.com"
-                    android:pathPrefix="/login"/>
+<!--                &lt;!&ndash; Host 1 &ndash;&gt;-->
+<!--                <data-->
+<!--                    android:scheme="https"-->
+<!--                    android:host="lokkha.com"-->
+<!--                    android:pathPrefix="/login"/>-->
 
-                <!-- Host 2 -->
-                <data
-                    android:scheme="https"
-                    android:host="go.lokkha.com"
-                    android:pathPrefix="/login"/>
+<!--                &lt;!&ndash; Host 2 &ndash;&gt;-->
+<!--                <data-->
+<!--                    android:scheme="https"-->
+<!--                    android:host="go.lokkha.com"-->
+<!--                    android:pathPrefix="/login"/>-->
             </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.

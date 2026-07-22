@@ -1,7 +1,8 @@
 name: lokkha
 description: Lokkha project.
 publish_to: 'none'
-version: 2.03.08+25
+
+version: 2.03.09+26
 
 environment:
   sdk: '>=3.0.5 <4.0.0'
@@ -33,7 +34,7 @@ dependencies:
   image_picker: ^1.1.2
   image_cropper: ^9.1.0
   http_parser: ^4.1.2
-  onesignal_flutter: ^5.3.0
+  onesignal_flutter: ^5.6.5
   json_annotation: ^4.9.0
   flutter_dotenv: ^5.2.1
   youtube_player_flutter: ^9.1.2

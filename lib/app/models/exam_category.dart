@@ -26,7 +26,11 @@ class ExamCategory {
         parentId: json["parent_id"],
         image: json["image"],
         description: json["description"],
-        status: json["status"],
+        status: json["status"] == null
+            ? null
+            : (json["status"] is bool
+                ? json["status"]
+                : (json["status"] == 1 || json["status"] == "1" || json["status"] == "true")),
         freeExamsCount: json["free_exams_count"],
       );
 

@@ -38,7 +38,7 @@ class SubjectSection {
   final int? subjectId;
   final String? name;
   final int? sorting;
-  final int? status;
+  final bool? status;
   final dynamic deletedAt;
   final dynamic createdAt;
   final dynamic updatedAt;

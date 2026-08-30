@@ -17,8 +17,8 @@ class CourseItem {
   final dynamic btnName;
   final dynamic youtubePlaylist;
   final String? pdf;
-  final int? status;
-  final int? isFree;
+  final bool? status;
+  final bool? isFree;
   final List<Type>? type;
   final DateTime? publishedAt;
   final DateTime? createdAt;
@@ -68,8 +68,16 @@ class CourseItem {
         btnName: json["btn_name"],
         youtubePlaylist: json["youtube_playlist"],
         pdf: json["pdf"],
-        status: json["status"],
-        isFree: json["is_free"],
+        status: json["status"] == null
+            ? null
+            : (json["status"] is bool
+                ? json["status"]
+                : (json["status"] == 1 || json["status"] == "1" || json["status"] == "true")),
+        isFree: json["is_free"] == null
+            ? null
+            : (json["is_free"] is bool
+                ? json["is_free"]
+                : (json["is_free"] == 1 || json["is_free"] == "1" || json["is_free"] == "true")),
         type: json["type"] == null
             ? []
             : List<Type>.from(json["type"]!.map((x) => typeValues.map[x]!)),

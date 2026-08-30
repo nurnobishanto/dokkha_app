@@ -16,14 +16,20 @@ class ExamCategoriesModel {
     this.examCategories,
   });
 
-  factory ExamCategoriesModel.fromJson(Map<String, dynamic> json) =>
-      ExamCategoriesModel(
-        status: json["status"],
-        examCategories: json["exam_categories"] == null
-            ? []
-            : List<ExamCategory>.from(
-                json["exam_categories"]!.map((x) => ExamCategory.fromJson(x))),
-      );
+  factory ExamCategoriesModel.fromJson(Map<String, dynamic> json) {
+    final categoriesData = json["exam-categories"] ?? json["exam_categories"];
+    return ExamCategoriesModel(
+      status: json["status"] == null
+          ? null
+          : (json["status"] is bool
+              ? json["status"]
+              : (json["status"] == 1 || json["status"] == "1" || json["status"] == "true")),
+      examCategories: categoriesData == null
+          ? []
+          : List<ExamCategory>.from(
+              (categoriesData as List).map((x) => ExamCategory.fromJson(x))),
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "status": status,

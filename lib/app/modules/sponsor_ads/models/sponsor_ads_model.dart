@@ -40,7 +40,7 @@ class Ad {
   final String type;
   final String filePath;
   final String pageName;
-  final bool status;
+  final bool? status;
   final int order;
   final DateTime createdAt;
   final DateTime updatedAt;

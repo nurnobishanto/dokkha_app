@@ -47,7 +47,7 @@ class CourseModuleExpansion extends StatelessWidget {
           childrenPadding: const EdgeInsets.symmetric(horizontal: 6),
           initiallyExpanded: initiallyExpanded,
           children: items.map((item) {
-            final isFree = item.isFree == 1;
+            final isFree = item.isFree == true;
             final isAccessible = isFree || isEnrolled;
 
             // Determine icon and label

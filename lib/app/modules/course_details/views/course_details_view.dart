@@ -67,7 +67,7 @@ class CourseDetailsView extends GetView<CourseDetailsController> {
                     enrolledCount: course.usersCount,
                     examCount: course.itemsCount,
                     duration: course.duration,
-                    lifetimeAccess: course.lifetimeAccess == 1,
+                    lifetimeAccess: course.lifetimeAccess == true,
                     iconColor: theme.primaryColor,
                   ),
 

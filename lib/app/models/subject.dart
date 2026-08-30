@@ -11,7 +11,7 @@ class Subject {
   final int? questionCount;
   final List<Subject>? children;
   final String? image;
-  final int? showApp;
+  final bool? showApp;
   final SubjectPivot? pivot;
 
   Subject({
@@ -34,7 +34,11 @@ class Subject {
         name: json["name"],
         slug: json["slug"],
         description: json["description"],
-        status: json["status"],
+        status: json["status"] == null
+            ? null
+            : (json["status"] is bool
+                ? json["status"]
+                : (json["status"] == 1 || json["status"] == "1" || json["status"] == "true")),
         questions: json["questions"] == null
             ? []
             : List<Question>.from(
@@ -46,7 +50,11 @@ class Subject {
             : List<Subject>.from(
                 json["children"]!.map((x) => Subject.fromJson(x))),
         image: json["image"],
-        showApp: json["show_app"],
+        showApp: json["show_app"] == null
+            ? null
+            : (json["show_app"] is bool
+                ? json["show_app"]
+                : (json["show_app"] == 1 || json["show_app"] == "1" || json["show_app"] == "true")),
         pivot:
             json["pivot"] == null ? null : SubjectPivot.fromJson(json["pivot"]),
       );

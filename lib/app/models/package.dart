@@ -6,14 +6,14 @@ class Package {
   final int? duration;
   final String? discount;
   final String? discountedPrice;
-  final int? status;
-  final int? isMega;
-  final int? isFemale;
-  final int? isFeatured;
-  final String? features;
-  final int? isTrial;
+  final bool? status;
+  final bool? isMega;
+  final bool? isFemale;
+  final bool? isFeatured;
+  final dynamic features;
+  final bool? isTrial;
   final dynamic trialDuration;
-  final String? termsAndConditions;
+  final dynamic termsAndConditions;
   final dynamic metaTitle;
   final String? metaDescription;
   final dynamic metaKeywords;
@@ -65,12 +65,32 @@ class Package {
         duration: json["duration"],
         discount: json["discount"],
         discountedPrice: json["discounted_price"],
-        status: json["status"],
-        isMega: json["is_mega"],
-        isFemale: json["is_female"],
-        isFeatured: json["is_featured"],
+        status: json["status"] == null
+            ? null
+            : (json["status"] is bool
+                ? json["status"]
+                : (json["status"] == 1 || json["status"] == "1" || json["status"] == "true")),
+        isMega: json["is_mega"] == null
+            ? null
+            : (json["is_mega"] is bool
+                ? json["is_mega"]
+                : (json["is_mega"] == 1 || json["is_mega"] == "1" || json["is_mega"] == "true")),
+        isFemale: json["is_female"] == null
+            ? null
+            : (json["is_female"] is bool
+                ? json["is_female"]
+                : (json["is_female"] == 1 || json["is_female"] == "1" || json["is_female"] == "true")),
+        isFeatured: json["is_featured"] == null
+            ? null
+            : (json["is_featured"] is bool
+                ? json["is_featured"]
+                : (json["is_featured"] == 1 || json["is_featured"] == "1" || json["is_featured"] == "true")),
         features: json["features"],
-        isTrial: json["is_trial"],
+        isTrial: json["is_trial"] == null
+            ? null
+            : (json["is_trial"] is bool
+                ? json["is_trial"]
+                : (json["is_trial"] == 1 || json["is_trial"] == "1" || json["is_trial"] == "true")),
         trialDuration: json["trial_duration"],
         termsAndConditions: json["terms_and_conditions"],
         metaTitle: json["meta_title"],

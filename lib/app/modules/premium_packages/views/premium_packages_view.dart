@@ -60,10 +60,20 @@ class PremiumPackagesView extends GetView<PremiumPackagesController> {
                                 price: pkg.discountedPrice.toString(),
                                 oldPrice: pkg.regularPrice.toString(),
                                 discount: '- ${pkg.discount.toString()}%',
-                                features: (jsonDecode(pkg.features.toString())
-                                        as List<dynamic>)
-                                    .cast<String>(),
-                                isFemale: pkg.isFemale!.toInt(),
+                                features: pkg.features is List
+                                    ? (pkg.features as List)
+                                        .map((e) => e.toString())
+                                        .toList()
+                                    : (pkg.features != null &&
+                                            pkg.features
+                                                .toString()
+                                                .trim()
+                                                .startsWith('['))
+                                        ? (jsonDecode(pkg.features.toString())
+                                                as List<dynamic>)
+                                            .cast<String>()
+                                        : [],
+                                isFemale: (pkg.isFemale == true) ? 1 : 0,
                               ),
                               const Divider(height: 0),
                             ],

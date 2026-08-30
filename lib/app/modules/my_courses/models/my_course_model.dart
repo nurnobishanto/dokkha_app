@@ -27,7 +27,7 @@ class Package {
   final int? id;
   final int? courseId;
   final int? userId;
-  final int? lifetimeAccess;
+  final bool? lifetimeAccess;
   final DateTime? accessExpiry;
   final DateTime? createdAt;
   final DateTime? updatedAt;
@@ -50,7 +50,11 @@ class Package {
     id: json["id"],
     courseId: json["course_id"],
     userId: json["user_id"],
-    lifetimeAccess: json["lifetime_access"],
+    lifetimeAccess: json["lifetime_access"] == null
+        ? null
+        : (json["lifetime_access"] is bool
+            ? json["lifetime_access"]
+            : (json["lifetime_access"] == 1 || json["lifetime_access"] == "1" || json["lifetime_access"] == "true")),
     accessExpiry: json["access_expiry"] == null ? null : DateTime.parse(json["access_expiry"]),
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
@@ -90,12 +94,12 @@ class Course {
   final dynamic telegramGroup;
   final int? order;
   final DateTime? publishDate;
-  final int? status;
+  final bool? status;
   final dynamic promotionVideo;
   final String? routineFile;
-  final int? isExamBatch;
-  final int? lifetimeAccess;
-  final int? featured;
+  final bool? isExamBatch;
+  final bool? lifetimeAccess;
+  final bool? featured;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final dynamic deletedAt;
@@ -155,17 +159,37 @@ class Course {
     telegramGroup: json["telegram_group"],
     order: json["order"],
     publishDate: json["publish_date"] == null ? null : DateTime.parse(json["publish_date"]),
-    status: json["status"],
+    status: json["status"] == null
+        ? null
+        : (json["status"] is bool
+            ? json["status"]
+            : (json["status"] == 1 || json["status"] == "1" || json["status"] == "true")),
     promotionVideo: json["promotion_video"],
     routineFile: json["routine_file"],
-    isExamBatch: json["is_exam_batch"],
-    lifetimeAccess: json["lifetime_access"],
-    featured: json["featured"],
+    isExamBatch: json["is_exam_batch"] == null
+        ? null
+        : (json["is_exam_batch"] is bool
+            ? json["is_exam_batch"]
+            : (json["is_exam_batch"] == 1 || json["is_exam_batch"] == "1" || json["is_exam_batch"] == "true")),
+    lifetimeAccess: json["lifetime_access"] == null
+        ? null
+        : (json["lifetime_access"] is bool
+            ? json["lifetime_access"]
+            : (json["lifetime_access"] == 1 || json["lifetime_access"] == "1" || json["lifetime_access"] == "true")),
+    featured: json["featured"] == null
+        ? null
+        : (json["featured"] is bool
+            ? json["featured"]
+            : (json["featured"] == 1 || json["featured"] == "1" || json["featured"] == "true")),
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
     deletedAt: json["deleted_at"],
     suggestions: json["suggestions"] == null ? [] : List<dynamic>.from(json["suggestions"]!.map((x) => x)),
-    isEnrolled: json["is_enrolled"],
+    isEnrolled: json["is_enrolled"] == null
+        ? null
+        : (json["is_enrolled"] is bool
+            ? json["is_enrolled"]
+            : (json["is_enrolled"] == 1 || json["is_enrolled"] == "1" || json["is_enrolled"] == "true")),
     usersCount: json["users_count"],
   );
 

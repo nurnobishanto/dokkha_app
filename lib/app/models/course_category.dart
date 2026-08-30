@@ -4,7 +4,7 @@ class CourseCategory {
   final String? slug;
   final String? image;
   final dynamic description;
-  final int? status;
+  final bool? status;
   final int? coursesCount;
 
   CourseCategory({

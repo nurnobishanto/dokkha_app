@@ -8,7 +8,7 @@ class Review {
   final dynamic date;
   final int? rating;
   final DateTime? publishedAt;
-  final int? status;
+  final bool? status;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final dynamic deletedAt;

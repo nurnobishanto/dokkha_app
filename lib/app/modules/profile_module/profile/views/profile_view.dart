@@ -40,7 +40,7 @@ class ProfileView extends GetView<ProfileController> {
         }
 
 
-        if (status == ApiCallStatus.error || profileData == null) {
+        if (status == ApiCallStatus.error) {
           return const Center(child: Text("তথ্য লোড করা সম্ভব হয়নি"));
         }
 

@@ -72,9 +72,11 @@ class AuthGatewayView extends GetView<AuthGatewayController> {
                   ),
                 ]),
               ),
-              Text(
-                "Version $appVersion",
-                style: AppTextStyles.custom(fontSize: 11.0.sp),
+              Obx(
+                () => Text(
+                  "Version ${appVersion.value.isNotEmpty ? appVersion.value : ''}",
+                  style: AppTextStyles.custom(fontSize: 11.0.sp),
+                ),
               ),
             ],
           ).paddingAll(8.00.r),

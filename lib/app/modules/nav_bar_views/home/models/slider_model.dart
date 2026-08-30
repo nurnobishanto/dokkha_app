@@ -36,14 +36,10 @@ class SliderModel {
 
 class Slider {
   final int? id;
-  final String? title;
-  final String? heading;
   final String? image;
   final String? type;
   final int? sorting;
   final bool? status;
-  final dynamic buttonName;
-  final dynamic buttonUrl;
   final String? link;
   final String? page;
   final dynamic param;
@@ -53,14 +49,10 @@ class Slider {
 
   Slider({
     this.id,
-    this.title,
-    this.heading,
     this.image,
     this.type,
     this.sorting,
     this.status,
-    this.buttonName,
-    this.buttonUrl,
     this.link,
     this.page,
     this.param,
@@ -71,14 +63,10 @@ class Slider {
 
   factory Slider.fromJson(Map<String, dynamic> json) => Slider(
         id: json["id"],
-        title: json["title"],
-        heading: json["heading"],
         image: json["image"],
         type: json["type"],
         sorting: json["sorting"],
         status: json["status"],
-        buttonName: json["button_name"],
-        buttonUrl: json["button_url"],
         link: json["link"],
         page: json["page"],
         param: json["param"],
@@ -93,14 +81,10 @@ class Slider {
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "title": title,
-        "heading": heading,
         "image": image,
         "type": type,
         "sorting": sorting,
         "status": status,
-        "button_name": buttonName,
-        "button_url": buttonUrl,
         "link": link,
         "page": page,
         "param": param,

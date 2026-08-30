@@ -148,9 +148,11 @@ class CustomDrawer extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 1),
             child: Center(
-              child: Text(
-                'অ্যাপ ভার্শন: $appVersion',
-                style: AppTextStyles.body1.copyWith(fontSize: 11),
+              child: Obx(
+                () => Text(
+                  'অ্যাপ ভার্শন: ${appVersion.value.isNotEmpty ? appVersion.value : ''}',
+                  style: AppTextStyles.body1.copyWith(fontSize: 11),
+                ),
               ),
             ),
           ),

@@ -6,8 +6,10 @@ import 'package:get/get_utils/get_utils.dart';
 import 'package:get/state_manager.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import '../../config/translations/strings_enum.dart';
+import '../../utils/constants.dart';
 import '../components/custom_snackbar.dart';
 import 'api_exceptions.dart';
+import 'auth_service.dart';
 
 enum RequestType {
   get,
@@ -177,6 +179,30 @@ class BaseClient {
     final statusCode = error.response?.statusCode;
     final errorMessage = error.message?.toLowerCase() ?? '';
 
+    if (statusCode == 401) {
+      final isAuthEndpoint = url.contains(AppConstants.login) ||
+          url.contains(AppConstants.sendOtp) ||
+          url.contains(AppConstants.checkPhoneNumber);
+
+      if (!isAuthEndpoint) {
+        String? serverMsg;
+        if (error.response?.data is Map) {
+          serverMsg = error.response?.data['message']?.toString();
+        }
+        AuthService().handleSessionExpired(message: serverMsg);
+        final exception = ApiException(
+          message: serverMsg ?? 'আপনার সেশনের মেয়াদ শেষ হয়ে গেছে। অনুগ্রহ করে পুনরায় লগইন করুন।',
+          url: url,
+          statusCode: 401,
+          response: error.response,
+        );
+        if (onError != null) {
+          return onError(exception);
+        }
+        return;
+      }
+    }
+
     if (statusCode == 404) {
       final message = Strings.urlNotFound.tr;
       final exception =
@@ -221,7 +247,7 @@ class BaseClient {
     if (onError != null) {
       return onError(exception);
     } else {
-      return _handleError(exception.message ?? Strings.somethingWentWrong.tr);
+      return _handleError(exception.message);
     }
   }
 

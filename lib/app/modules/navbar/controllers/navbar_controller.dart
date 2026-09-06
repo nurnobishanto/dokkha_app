@@ -11,11 +11,8 @@ import '../../../models/user.dart';
 import '../../../services/api_call_status.dart';
 import '../../../services/auth_service.dart';
 import '../../../services/base_client.dart';
-import '../../exam_category/controllers/exam_category_controller.dart';
 import '../../messanger_redirect/messenger_redirect.dart';
 import '../../nav_bar_views/home/views/home_view.dart';
-import '../../premium_packages/controllers/premium_packages_controller.dart';
-import '../../profile_module/profile/controllers/profile_controller.dart';
 import '../model/profile_data_model.dart';
 
 class NavbarController extends GetxController {
@@ -66,7 +63,16 @@ class NavbarController extends GetxController {
           debugPrint(myUser.name);
         } else {
           debugPrint("⚠️ Profile fetch failed: API status false");
-          clearProfileState();
+          final msg = response.data['message']?.toString().toLowerCase() ?? '';
+          if (msg.contains('unauthenticated') ||
+              msg.contains('expired') ||
+              msg.contains('token')) {
+            AuthService().handleSessionExpired(
+              message: response.data['message']?.toString(),
+            );
+          } else {
+            clearProfileState();
+          }
         }
       },
       onError: (error) {

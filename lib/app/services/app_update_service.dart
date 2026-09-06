@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lokkha/app/components/custom_snackbar.dart';
 import 'package:lokkha/app/modules/navbar/views/navbar_view.dart';
 import 'package:lokkha/app/services/base_client.dart';
 import 'package:lokkha/config/constants/app_images.dart';
@@ -110,8 +109,7 @@ class AppUpdateService {
           );
         }
       } else {
-        CustomSnackBar.showCustomToast(
-            message: response.data['message'].toString());
+        log("App update check: ${response.data['message']}");
         if (Get.currentRoute == Routes.MAINTENANCE_MODE_VIEW ||
             Get.currentRoute == Routes.APP_UPDATE_VIEW) {
           Get.offAll(const NavbarView());

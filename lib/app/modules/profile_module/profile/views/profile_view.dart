@@ -57,7 +57,7 @@ class ProfileView extends GetView<ProfileController> {
                   borderRadius: BorderRadius.circular(16.r),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
+                      color: Colors.black.withValues(alpha: 0.05),
                       blurRadius: 10,
                       offset: const Offset(0, 4),
                     )
@@ -158,11 +158,10 @@ class ProfileView extends GetView<ProfileController> {
               _buildSectionLabel("অন্যান্য"),
 
               // --- LIST OPTIONS ---
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16.r),
-                ),
+              Material(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16.r),
+                clipBehavior: Clip.antiAlias,
                 child: Column(
                   children: [
                     _buildListItem(
@@ -271,15 +270,18 @@ class ProfileView extends GetView<ProfileController> {
     required IconData icon,
     required Color color,
   }) {
-    return ListTile(
-      onTap: onTap,
-      leading: Icon(icon, color: color, size: 18.sp),
-      title: Text(
-        text,
-        style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w500),
+    return Material(
+      color: Colors.transparent,
+      child: ListTile(
+        onTap: onTap,
+        leading: Icon(icon, color: color, size: 18.sp),
+        title: Text(
+          text,
+          style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w500),
+        ),
+        trailing: const Icon(Icons.chevron_right, size: 20),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
       ),
-      trailing: const Icon(Icons.chevron_right, size: 20),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
     );
   }
 }
